@@ -1,0 +1,635 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="GolangでInterface(インターフェース)について概念を確認して、使う方法について説明します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>[Golang] Interface | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/golang/interface/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/golang/interface/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/golang/interface/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/golang/interface/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/golang/interface/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="[Golang] Interface"><meta name="twitter:description" content="GolangでInterface(インターフェース)について概念を確認して、使う方法について説明します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/golang/background.jpg"><meta name="twitter:image:alt" content="[Golang] Interface"><!-- Open Graph --><meta property="og:title" content="[Golang] Interface"><meta property="og:description" content="GolangでInterface(インターフェース)について概念を確認して、使う方法について説明します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/golang/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="[Golang] Interface"><meta property="og:url" content="https://deku.posstree.com/golang/interface/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2021-08-16T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="Golang"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Golang] Interface","description":"GolangでInterface(インターフェース)について概念を確認して、使う方法について説明します。","datePublished":"2021-08-16T00:00:00.000Z","dateModified":"2021-08-16T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/golang/interface/"},"image":"https://deku.posstree.com/assets/images/category/golang/background.jpg","url":"https://deku.posstree.com/golang/interface/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/golang/gin/start/","name":"[Golang] Ginを始める"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/golang/context/","name":"[Golang] コンテキスト"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/golang/channel/","name":"[Golang] チャネル"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/golang/goroutine/","name":"[Golang] ゴルーチン"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/golang/error-handling/","name":"[Golang] エラーハンドリング"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/golang/map/","name":"[Golang] Map"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/golang/data-structure/","name":"[Golang] 資料構造"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/golang/function/deep-dive/","name":"[Golang] Function深化"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/golang/interface/","name":"[Golang] Interface"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/golang/method/","name":"[Golang] Method"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/golang/package/","name":"[Golang] Package"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/golang/slice/","name":"[Golang] Slice"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/golang/module/","name":"[Golang] Module"},{"@type":"ListItem","position":14,"url":"https://deku.posstree.com/golang/string/","name":"[Golang] String（文字列）"},{"@type":"ListItem","position":15,"url":"https://deku.posstree.com/golang/pointer/","name":"[Golang] Pointer"},{"@type":"ListItem","position":16,"url":"https://deku.posstree.com/golang/struct/","name":"[Golang] struct(構造体)"},{"@type":"ListItem","position":17,"url":"https://deku.posstree.com/golang/array/","name":"[Golang] 配列(Array)"},{"@type":"ListItem","position":18,"url":"https://deku.posstree.com/golang/for-statement/","name":"[Golang] for文"},{"@type":"ListItem","position":19,"url":"https://deku.posstree.com/golang/switch-statement/","name":"[Golang] switch文"},{"@type":"ListItem","position":20,"url":"https://deku.posstree.com/golang/if-statement/","name":"[Golang] if文"},{"@type":"ListItem","position":21,"url":"https://deku.posstree.com/golang/function/","name":"[Golang] 関数基礎"},{"@type":"ListItem","position":22,"url":"https://deku.posstree.com/golang/operator/","name":"[Golang] 演算子"},{"@type":"ListItem","position":23,"url":"https://deku.posstree.com/golang/fmt/","name":"[Golang] fmtパッケージを使った標準入出力"},{"@type":"ListItem","position":24,"url":"https://deku.posstree.com/golang/constants/","name":"[Golang] 定数"},{"@type":"ListItem","position":25,"url":"https://deku.posstree.com/golang/variables/","name":"[Golang] 変数"},{"@type":"ListItem","position":26,"url":"https://deku.posstree.com/golang/hello-world/","name":"[Golang] コーディングやビルド"},{"@type":"ListItem","position":27,"url":"https://deku.posstree.com/golang/installation/","name":"[Golang] インストールや実行"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/golang/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>[Golang] Interface</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2021-08-16 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fgolang%2Finterface%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">GolangでInterface(インターフェース)について概念を確認して、使う方法について説明します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/golang/" itemprop="item"> <span itemprop="name">Golang</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">[Golang] Interface</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9">インターフェース</a></li>
+<li><a href="#%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88">インターフェースのデフォルト</a></li>
+<li><a href="#%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%AB">インターフェースのルール</a></li>
+<li><a href="#%E4%BE%8B%E9%A1%8C">例題</a></li>
+<li><a href="#%E3%83%80%E3%83%83%E3%82%AF%E3%82%BF%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0">ダックタイピング</a></li>
+<li><a href="#embedded-interface">Embedded interface</a></li>
+<li><a href="#%E3%82%BF%E3%82%A4%E3%83%97%E5%A4%89%E6%8F%9B">タイプ変換</a></li>
+<li><a href="#%E4%BB%96%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%97%E3%81%AB%E5%A4%89%E6%8F%9B">他のインターフェースタイプに変換</a></li>
+<li><a href="#%E3%82%BF%E3%82%A4%E3%83%97%E5%A4%89%E6%8F%9B%E3%81%8C%E6%88%90%E5%8A%9F%E3%81%97%E3%81%9F%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B">タイプ変換が成功したかどうか</a></li>
+<li><a href="#%E7%A9%BA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9">空のインターフェース</a></li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>今回のブログポストではGolangの<code>Interface</code>(インターフェース)について詳しく調べて、使う方法について説明します。このブログポストで紹介するコードは次のリンクで確認できます。</p>
+<ul>
+<li>GitHub: <a href="https://github.com/dev-yakuza/study-golang/tree/main/interface" rel="nofollow noreferrer" target="_blank">https://github.com/dev-yakuza/study-golang/tree/main/interface</a></li>
+</ul>
+<h2 id="インターフェース">インターフェース</h2>
+<p>Golangでインターフェースは具体化されたオブジェクト(Concrete object)ではなく抽象化された相互作用で関係を表現するために使います。</p>
+<p>Golangでは次のようにインターフェースを宣言することが出来ます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> INTERFACE_NAME</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  METHOD_NAME</span><span style="color:#89DDFF">(</span><span style="color:#FFCB6B">PARAMETER_NAME</span><span style="color:#89DDFF">)</span><span style="color:#FFCB6B"> RETURN_TYPE</span></span>
+<span class="line"><span style="color:#89DDFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>Golangではタイプ宣言キーワード(type)を使ってインターフェースを宣言しますし、インターフェース名の後、インターフェース宣言キーワード(interface)を追加してインターフェースを定義します。</p>
+<p>インターフェース中には実装がないメソッド(メソッド名、パラメーター、リターンタイプだけ宣言)を宣言します。このように宣言されたメソッドたちを持ってるタイプを私たちが定義したインターフェースで認識しますことの意味です。</p>
+<p>Golangではインターフェースも1つのタイプで、インターフェースで変数を宣言することもできます。</p>
+<p>これを確認するため<code>main.go</code>ファイルを生成して次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> SampleInterface</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  SampleMethod</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">  var</span><span style="color:#EEFFFF"> s </span><span style="color:#FFCB6B">SampleInterface</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#EEFFFF">nil</span><span style="color:#89DDFF">></span></span></code></pre>
+<p>インターフェースは内部動作を隠して抽象化(Abstraction)をするため使えます。抽象化を使って依存性を抑えててカップリングに主に使います。</p>
+<h2 id="インターフェースのデフォルト">インターフェースのデフォルト</h2>
+<p>Golangでインターフェースのデフォルトは<code>nil</code>です。これを確認するため<code>main.go</code>ファイルを次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> SampleInterface</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  SampleMethod</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">  var</span><span style="color:#EEFFFF"> s </span><span style="color:#FFCB6B">SampleInterface</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  s</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">SampleMethod</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>このようにプログラムを作成したら、次のコマンドを実行してモジュールを生成して、プログラムをビルドしてみます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> mod</span><span style="color:#C3E88D"> init</span><span style="color:#C3E88D"> github.com/dev-yakuza/study-golang/interface/nil</span></span>
+<span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> mod</span><span style="color:#C3E88D"> tidy</span></span>
+<span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> build</span></span></code></pre>
+<p>このようにビルドすると、<code>main.go</code>ファイルがあるところに<code>nil</code>と言う名前のファイルが生成されることが確認できます。</p>
+<p>このファイルを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># ./nil</span></span>
+<span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#EEFFFF">nil</span><span style="color:#89DDFF">></span></span>
+<span class="line"><span style="color:#FFCB6B">panic:</span><span style="color:#C3E88D"> runtime</span><span style="color:#C3E88D"> error:</span><span style="color:#C3E88D"> invalid</span><span style="color:#C3E88D"> memory</span><span style="color:#C3E88D"> address</span><span style="color:#C3E88D"> or</span><span style="color:#C3E88D"> nil</span><span style="color:#C3E88D"> pointer</span><span style="color:#C3E88D"> dereference</span></span></code></pre>
+<p>上の例題は文法的には問題がないので、ビルドはできます。しかし、インターフェース変数に値を設定してないので、ランタイムエラー(nil pointer エラー)が発生することが確認できます。</p>
+<p>Golangでモジュールを使う方法について下記のブログポストを参考にしてください。</p>
+<ul>
+<li><a href="/golang/module/">[Golang] Module</a></li>
+</ul>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="インターフェースのルール">インターフェースのルール</h2>
+<p>Golangでインターフェースは次のようなルールを持っています。</p>
+<ol>
+<li>メソッドは必ずメソッド名が定義する必要があります。</li>
+<li>パラメーターとリターンが異なっても同じ名前のメソッドは使えません。</li>
+<li>インターフェースではメソッドの実装は含まれません。</li>
+</ol>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> SampleInterface</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  String</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> string</span></span>
+<span class="line"><span style="color:#82AAFF">  String</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">a</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> string</span><span style="color:#545454;font-style:italic"> // Error: duplicated method name</span></span>
+<span class="line"><span style="color:#82AAFF">  _</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">x</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> int</span><span style="color:#545454;font-style:italic">         // Error: no name method</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを確認するため<code>main.go</code>ファイルを次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> SampleInterface</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  String</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> string</span></span>
+<span class="line"><span style="color:#82AAFF">  String</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">a</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> string</span><span style="color:#545454;font-style:italic"> // Error: duplicated method name</span></span>
+<span class="line"><span style="color:#82AAFF">  _</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">x</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> int</span><span style="color:#545454;font-style:italic">         // Error: no name method</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">  var</span><span style="color:#EEFFFF"> s </span><span style="color:#FFCB6B">SampleInterface</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># command-line-arguments</span></span>
+<span class="line"><span style="color:#FFCB6B">./main.go:7:2:</span><span style="color:#C3E88D"> duplicate</span><span style="color:#C3E88D"> method</span><span style="color:#C3E88D"> String</span></span>
+<span class="line"><span style="color:#FFCB6B">./main.go:8:2:</span><span style="color:#C3E88D"> methods</span><span style="color:#C3E88D"> must</span><span style="color:#C3E88D"> have</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> unique</span><span style="color:#C3E88D"> non-blank</span><span style="color:#C3E88D"> name</span></span></code></pre>
+<h2 id="例題">例題</h2>
+<p>簡単な例題を作ってGolangでインターフェースを理解して見ましょう。<code>main.go</code>ファイルを生成して次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Human</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Walk</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> string</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  Name </span><span style="color:#C792EA">string</span></span>
+<span class="line"><span style="color:#EEFFFF">  Age  </span><span style="color:#C792EA">int</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">s </span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Walk</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> string</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  return</span><span style="color:#EEFFFF"> fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Sprintf</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#F07178">%s</span><span style="color:#C3E88D"> can walk</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">Name</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">s </span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> GetAge</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  return</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">Age</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  s </span><span style="color:#89DDFF">:=</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF">{</span><span style="color:#EEFFFF">Name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">John</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> Age</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 20</span><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#89DDFF">  var</span><span style="color:#EEFFFF"> h </span><span style="color:#FFCB6B">Human</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  h </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> s</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">h</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Walk</span><span style="color:#89DDFF">())</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">  // fmt.Println(h.GetAge()) // ERROR</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#FFCB6B">John</span><span style="color:#C3E88D"> can</span><span style="color:#C3E88D"> walk</span></span></code></pre>
+<p>ソースコードを詳しく見ると、<code>Human</code>と言うインターフェースは<code>Walk</code>と言う関数を持っています。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Human</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Walk</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> string</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>そして<code>Student</code>構造体タイプは<code>Name</code>と<code>Age</code>と言う変数を持っていますし、<code>Walk</code>と<code>GetAge</code>と言うメソッドを持っています。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  Name </span><span style="color:#C792EA">string</span></span>
+<span class="line"><span style="color:#EEFFFF">  Age  </span><span style="color:#C792EA">int</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">s </span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Walk</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> string</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  return</span><span style="color:#EEFFFF"> fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Sprintf</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#F07178">%s</span><span style="color:#C3E88D"> can walk</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">Name</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">s </span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> GetAge</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  return</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">Age</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>次は<code>Student</code>構造体を使って変数を生成して、当該変数を<code>Human</code>インターフェースに割り当てました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  s </span><span style="color:#89DDFF">:=</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF">{</span><span style="color:#EEFFFF">Name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">John</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> Age</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 20</span><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#89DDFF">  var</span><span style="color:#EEFFFF"> h </span><span style="color:#FFCB6B">Human</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  h </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> s</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">h</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Walk</span><span style="color:#89DDFF">())</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">  // fmt.Println(h.GetAge()) // ERROR</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>このように割り当てした<code>Human</code>変数は<code>Walk</code>と言う関数を持っていますので、<code>Human</code>変数の<code>Walk</code>関数をコールすることが出来ますが、<code>GetAge</code>関数をコールすることが出来ないことは分かります。</p>
+<h2 id="ダックタイピング">ダックタイピング</h2>
+<p>Golangのインターフェースはダックタイピング(Duck typing)を実装しています。ダックタイピングとはもし、何かの鳥を見て、その鳥がアヒルように歩いて、アヒルように飛んで、アヒルように鳴くと、その鳥をアヒルとよぶと言う意味を持っています。</p>
+<p>つまり、どんなオブジェクトがどんな変数を持っていて、どんな関数を持っていることとは関係なく、そのオブジェクトが使われてるところの方でこんな関数があったら、このタイプで見ることにしますと定義することが出来ます。</p>
+<p>例題を使ってこの内容を確認して見ましょう。まず、<code>user/main.go</code>ファイルを生成して次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> user</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> User</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  Name </span><span style="color:#C792EA">string</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">u </span><span style="color:#FFCB6B">User</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Walk</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Walking</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">u </span><span style="color:#FFCB6B">User</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Talk</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Talking</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>そして次のようにモジュールを生成します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd user</span></span>
+<span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> mod</span><span style="color:#C3E88D"> init</span><span style="color:#C3E88D"> github.com/dev-yakuza/study-golang/interface/user</span></span>
+<span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> mod</span><span style="color:#C3E88D"> tidy</span></span></code></pre>
+<p>このように生成した<code>user</code>パッケージは<code>User</code>タイプを持っていますし、そのUserタイプは<code>Walk</code>メソッドと<code>Talk</code>メソッドを持っています。次はこのように生成したuserパッケージをインターフェースを使ってダックタイピングをして見ましょう。</p>
+<p>ダックタイピングをするため<code>user</code>フォルダと同じ位置に<code>main/main.go</code>ファイルを生成して次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> (</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#FFCB6B">github.com/dev-yakuza/study-golang/interface/user</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Human</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Walk</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#82AAFF">  Talk</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  u </span><span style="color:#89DDFF">:=</span><span style="color:#FFCB6B"> user</span><span style="color:#89DDFF">.</span><span style="color:#FFCB6B">User</span><span style="color:#89DDFF">{</span><span style="color:#EEFFFF">Name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">John</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">u</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  h </span><span style="color:#89DDFF">:=</span><span style="color:#82AAFF"> Human</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">u</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">h</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>そして次のコマンドを実行してモジュールを生成して、ローカルモジュールと連動します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> mod</span><span style="color:#C3E88D"> init</span><span style="color:#C3E88D"> github.com/dev-yakuza/study-golang/interface/main</span></span>
+<span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> mod</span><span style="color:#C3E88D"> edit</span><span style="color:#C3E88D"> -replace</span><span style="color:#C3E88D"> github.com/dev-yakuza/study-golang/interface/user=../user</span></span>
+<span class="line"><span style="color:#FFCB6B">go</span><span style="color:#C3E88D"> mod</span><span style="color:#C3E88D"> tidy</span></span></code></pre>
+<p>このように生成したモジュールを実行すると、次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#EEFFFF">{John}</span></span>
+<span class="line"><span style="color:#EEFFFF">{John}</span></span></code></pre>
+<p><code>main/main.go</code>ファイルの内容を見ると<code>User</code>タイプがどのタイプであるかどのように実装されたかとは関係なくそのタイプが<code>Walk</code>と<code>Talk</code>を持っていると<code>main</code>パッケージではこれを<code>Human</code>として使いますと定義しました。</p>
+<p>このようにインターフェースは外部のパッケージを使う時、自分のコードに合わせてオブジェクトを変更して使います。外部のパッケージを実装する立場ではタイプとメソッドを実装するとき、インターフェースを考える必要がありません。そのため、インターフェースの関数がそのタイプに実装されてない場合が発生する時もあり、その場合はコンパイルエラーが発生します。</p>
+<p>ダックタイピングはコードを使うユーザ中心でコーディングができるようにしてくれます。外部のパッケージを提供する人は具体化されたオブジェクトを提供して、これを使うユーザは必要によってインターフェースを定義して自分のプログラムに合わせて変換して使えます。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="embedded-interface">Embedded interface</h2>
+<p>Golangでインターフェースは次のようにインターフェースを埋め込むことが出来ます。これをGolangでは<code>Embedded interface</code>と言います。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Reader</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Read</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">n</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF;font-style:italic"> err</span><span style="color:#C792EA"> error</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  Close</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> error</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Writer</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Write</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">n</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF;font-style:italic"> err</span><span style="color:#C792EA"> error</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  Close</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> error</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> ReadWriter</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#FFCB6B">  Reader</span></span>
+<span class="line"><span style="color:#FFCB6B">  Writer</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p><code>ReadWriter</code>インターフェースは<code>Reader</code>と<code>Writer</code>インターフェースを両方持っていて、<code>Read</code>, <code>Write</code>, <code>Close</code>関数を持つことになります。</p>
+<h2 id="タイプ変換">タイプ変換</h2>
+<p>Golangでは次のようにインターフェースをタイプ(ConcreteType)に変換することが出来ます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">var</span><span style="color:#EEFFFF"> a </span><span style="color:#FFCB6B">Interface</span></span>
+<span class="line"><span style="color:#EEFFFF">t </span><span style="color:#89DDFF">:=</span><span style="color:#EEFFFF"> a</span><span style="color:#89DDFF">.(</span><span style="color:#FFCB6B">ConcreteType</span><span style="color:#89DDFF">)</span></span></code></pre>
+<p>インターフェースからタイプに変換する時、<code>.(タイプ)</code>を使います。上のように使うと<code>ConcreteType</code>タイプの変数を生成して<code>t</code>に保存します。</p>
+<p>インターフェースをタイプで変換する時、同じインターフェースタイプの場合、タイプの変換が出来ますが、当該タイプが持ってない変数や関数を実行すると、ランタイムエラーが発生します。</p>
+<p>これを確認するため、<code>main.go</code>ファイルを次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Human</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Learn</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Teacher</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  Name </span><span style="color:#C792EA">string</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">m </span><span style="color:#89DDFF">*</span><span style="color:#FFCB6B">Teacher</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Learn</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Teacher can learn</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">m </span><span style="color:#89DDFF">*</span><span style="color:#FFCB6B">Teacher</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Teach</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Teacher can teach</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  Name </span><span style="color:#C792EA">string</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">m </span><span style="color:#89DDFF">*</span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Learn</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Student can learn</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> Study</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">h</span><span style="color:#FFCB6B"> Human</span><span style="color:#89DDFF">)</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#EEFFFF"> h </span><span style="color:#89DDFF">!=</span><span style="color:#89DDFF"> nil</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">    h</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Learn</span><span style="color:#89DDFF">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">    var</span><span style="color:#EEFFFF"> s </span><span style="color:#89DDFF">*</span><span style="color:#FFCB6B">Student</span></span>
+<span class="line"><span style="color:#EEFFFF">    s </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> h</span><span style="color:#89DDFF">.(*</span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Printf</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Name: </span><span style="color:#F07178">%v</span><span style="color:#EEFFFF">\n</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">Name</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">    // s.Teach() // ERROR</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Study</span><span style="color:#89DDFF">(&#x26;</span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">{</span><span style="color:#EEFFFF">Name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">John</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">})</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#FFCB6B">Student</span><span style="color:#C3E88D"> can</span><span style="color:#C3E88D"> learn</span></span>
+<span class="line"><span style="color:#FFCB6B">Name:</span><span style="color:#C3E88D"> John</span></span></code></pre>
+<p>インターフェースタイプ変換し、変換したいタイプが当該インターフェースではない場合コンパイルエラーが発生します。これを確認するため、<code>main.go</code>ファイルを次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Stringer</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  String</span><span style="color:#89DDFF">()</span><span style="color:#C792EA"> string</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">  var</span><span style="color:#EEFFFF"> stringer </span><span style="color:#FFCB6B">Stringer</span></span>
+<span class="line"><span style="color:#EEFFFF">  s </span><span style="color:#89DDFF">:=</span><span style="color:#EEFFFF"> stringer</span><span style="color:#89DDFF">.(*</span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># command-line-arguments</span></span>
+<span class="line"><span style="color:#FFCB6B">./main.go:14:15:</span><span style="color:#C3E88D"> impossible</span><span style="color:#C3E88D"> type</span><span style="color:#C3E88D"> assertion:</span></span>
+<span class="line"><span style="color:#FFCB6B">        *Student</span><span style="color:#C3E88D"> does</span><span style="color:#C3E88D"> not</span><span style="color:#C3E88D"> implement</span><span style="color:#C3E88D"> Stringer</span><span style="color:#EEFFFF"> (missing </span><span style="color:#C3E88D">String</span><span style="color:#C3E88D"> method</span><span style="color:#EEFFFF">)</span></span></code></pre>
+<h2 id="他のインターフェースタイプに変換">他のインターフェースタイプに変換</h2>
+<p>Golangではインターフェースを他のインターフェースでタイプ変換することが出来ます。文法的には全く問題がないですが、実際実行する時、変換されたインタフェースに当該関数がなくてランタイムエラーが発生する場合があります。</p>
+<p>これを確認するため<code>main.go</code>を次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Teacher</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Teach</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Learn</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Person</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">f </span><span style="color:#89DDFF">*</span><span style="color:#FFCB6B">Person</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Learn</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Person can learn</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> Teach</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">s</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF">)</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  t </span><span style="color:#89DDFF">:=</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.(</span><span style="color:#FFCB6B">Teacher</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  t</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Teach</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  p </span><span style="color:#89DDFF">:=</span><span style="color:#89DDFF"> &#x26;</span><span style="color:#FFCB6B">Person</span><span style="color:#89DDFF">{}</span></span>
+<span class="line"><span style="color:#82AAFF">  Teach</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">p</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#FFCB6B">panic:</span><span style="color:#C3E88D"> interface</span><span style="color:#C3E88D"> conversion:</span><span style="color:#EEFFFF"> *</span><span style="color:#C3E88D">main.Person</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> not</span><span style="color:#C3E88D"> main.Teacher:</span><span style="color:#C3E88D"> missing</span><span style="color:#C3E88D"> method</span><span style="color:#C3E88D"> Teach</span></span></code></pre>
+<p><code>Person</code>タイプの変数を<code>Student</code>インスタンスで受けて、このように割り当てた<code>Student</code>インターフェースを<code>Teacher</code>インターフェースで変換した後、<code>Teacher</code>インターフェースの<code>Teach</code>関数をコールしました。文法的には問題がないので、コンパイルエラーは発生しません。しかし、実際実行すると<code>Person</code>タイプでは<code>Teach</code>関数がないのでエラーが発生します。</p>
+<p>Golangではこのような問題を解決するためタイプ変換が成功したかどうかをチェックする機能を提供してます。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="タイプ変換が成功したかどうか">タイプ変換が成功したかどうか</h2>
+<p>インターフェースのタイプ変換は文法的には問題がないので、ビルドする時にはエラーが発生しません。しかし、ランタイムでエラーが出る可能性があります。これを防ぐために、Golangはタイプを変換する時タイプがうまく変換されたかどうかを分かる方法を提供してます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">var</span><span style="color:#EEFFFF"> a </span><span style="color:#FFCB6B">Interface</span></span>
+<span class="line"><span style="color:#EEFFFF">t</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> ok </span><span style="color:#89DDFF">:=</span><span style="color:#EEFFFF"> a</span><span style="color:#89DDFF">.(</span><span style="color:#FFCB6B">ConcreteType</span><span style="color:#89DDFF">)</span></span></code></pre>
+<ul>
+<li>t: タイプ変換結果</li>
+<li>ok: 変換が成功したかどうか</li>
+</ul>
+<p>これを確認するため<code>main.go</code>ファイルを次のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Teacher</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Teach</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF"> interface</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Learn</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Person</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">f </span><span style="color:#89DDFF">*</span><span style="color:#FFCB6B">Person</span><span style="color:#89DDFF">)</span><span style="color:#82AAFF"> Learn</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Person can learn</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  p </span><span style="color:#89DDFF">:=</span><span style="color:#89DDFF"> &#x26;</span><span style="color:#FFCB6B">Person</span><span style="color:#89DDFF">{}</span></span>
+<span class="line"><span style="color:#EEFFFF">  s </span><span style="color:#89DDFF">:=</span><span style="color:#82AAFF"> Student</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">p</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  s</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Learn</span><span style="color:#89DDFF">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  t</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> ok </span><span style="color:#89DDFF">:=</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.(</span><span style="color:#FFCB6B">Teacher</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">ok</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#EEFFFF"> ok </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">    t</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Teach</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#FFCB6B">Person</span><span style="color:#C3E88D"> can</span><span style="color:#C3E88D"> learn</span></span>
+<span class="line"><span style="color:#82AAFF">false</span></span></code></pre>
+<p><code>Person</code>タイプは<code>Student</code>インターフェースで割り当てることはできますが、<code>Student</code>インターフェースは<code>Teach</code>関数がないので、<code>Teacher</code>インターフェースで変換することはできません。</p>
+<p>したがって、インターフェースタイプ変換をする時、変換の結果が<code>false</code>であることが確認できます。</p>
+<p>このようにインターフェースのタイプ変換がうまくできたかを確認することができて、インターフェースタイプ変換をするときには主に次のように使います。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF;font-style:italic">if</span><span style="color:#EEFFFF"> t</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> ok </span><span style="color:#89DDFF">:=</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">.(</span><span style="color:#FFCB6B">Teacher</span><span style="color:#89DDFF">);</span><span style="color:#EEFFFF"> ok </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">  t</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Teach</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h2 id="空のインターフェース">空のインターフェース</h2>
+<p>Golangでは空のインターフェースを活用する場合があります。空のインターフェースはメソッドを持ってないので、全てのタイプを空のインターフェースで変換することが出来ます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">interface</span><span style="color:#89DDFF"> {}</span></span></code></pre>
+<p>このような空のインターフェースは次のように活用が出来ます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="go"><code><span class="line"><span style="color:#89DDFF">package</span><span style="color:#FFCB6B"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#89DDFF"> "</span><span style="color:#FFCB6B">fmt</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">type</span><span style="color:#FFCB6B"> Student</span><span style="color:#89DDFF"> struct</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">  Age </span><span style="color:#C792EA">int</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> Print</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">v</span><span style="color:#89DDFF"> interface{})</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  switch</span><span style="color:#EEFFFF"> v </span><span style="color:#89DDFF">:=</span><span style="color:#EEFFFF"> v</span><span style="color:#89DDFF">.(type)</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  case</span><span style="color:#C792EA"> int</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#EEFFFF">    fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">v is int</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> v</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  case</span><span style="color:#C792EA"> float64</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#EEFFFF">    fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">v is float64</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> v</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  case</span><span style="color:#C792EA"> string</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#EEFFFF">    fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Println</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">v is string</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> v</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  default</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#EEFFFF">    fmt</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">Printf</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Not supported </span><span style="color:#F07178">%T</span><span style="color:#C3E88D">:</span><span style="color:#F07178">%v</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> v</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> v</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">func</span><span style="color:#82AAFF"> main</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#82AAFF">  Print</span><span style="color:#89DDFF">(</span><span style="color:#F78C6C">10</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  Print</span><span style="color:#89DDFF">(</span><span style="color:#F78C6C">3.14</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  Print</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Hello word</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  Print</span><span style="color:#89DDFF">(</span><span style="color:#FFCB6B">Student</span><span style="color:#89DDFF">{</span><span style="color:#EEFFFF">Age</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 10</span><span style="color:#89DDFF">})</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>これを実行すると次のような結果が表示されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># go run main.go</span></span>
+<span class="line"><span style="color:#FFCB6B">v</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> int</span><span style="color:#F78C6C"> 10</span></span>
+<span class="line"><span style="color:#FFCB6B">v</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> float64</span><span style="color:#F78C6C"> 3.14</span></span>
+<span class="line"><span style="color:#FFCB6B">v</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> string</span><span style="color:#C3E88D"> Hello</span><span style="color:#C3E88D"> word</span></span>
+<span class="line"><span style="color:#FFCB6B">Not</span><span style="color:#C3E88D"> supported</span><span style="color:#C3E88D"> main.Student:{</span><span style="color:#F78C6C">10</span><span style="color:#C3E88D">}%</span></span></code></pre>
+<h2 id="完了">完了</h2>
+<p>これでGolangでインターフェースで何か、インターフェースを使う方法について見て見ました。また、インターフェースを使ってダックタイピングをとタイプ変換についても見て見ました。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"[Golang] Ginを始める\",\"description\":\"Golangのウェブフレームワークでもっとも有名なGinウェブフレームワークを使ってGolangでウェブサーバーを開発する方法について説明します。\",\"url\":\"/golang/gin/start/\",\"date\":\"2022-04-07\",\"category\":\"golang\"},{\"title\":\"[Golang] コンテキスト\",\"description\":\"Golangでコンテキスト(Context)とは何者か説明してコンテキストを定義して使う方法について説明します。\",\"url\":\"/golang/context/\",\"date\":\"2021-08-23\",\"category\":\"golang\"},{\"title\":\"[Golang] チャネル\",\"description\":\"Golangでチャネル(Channel)を使ってゴルーチン間メッセージをやり取りする方法に関して説明します。￥\",\"url\":\"/golang/channel/\",\"date\":\"2021-08-22\",\"category\":\"golang\"},{\"title\":\"[Golang] ゴルーチン\",\"description\":\"Golangでスレッドを使う方法であるゴルーチン(Goroutine)について説明します。\",\"url\":\"/golang/goroutine/\",\"date\":\"2021-08-21\",\"category\":\"golang\"},{\"title\":\"[Golang] エラーハンドリング\",\"description\":\"Golangでエラーを生成したらハンドリングする方法について説明します。\",\"url\":\"/golang/error-handling/\",\"date\":\"2021-08-20\",\"category\":\"golang\"},{\"title\":\"[Golang] Map\",\"description\":\"Golangで資料構造の1つであるマップ(Map)を定義して使う方法について説明します。\",\"url\":\"/golang/map/\",\"date\":\"2021-08-19\",\"category\":\"golang\"},{\"title\":\"[Golang] 資料構造\",\"description\":\"Golangで主に使えるリスト、キュー、スタック、リンクの資料構造を生成して使う方法について説明します。\",\"url\":\"/golang/data-structure/\",\"date\":\"2021-08-18\",\"category\":\"golang\"},{\"title\":\"[Golang] Function深化\",\"description\":\"GolangでFunction(関数)をもうちょっと詳しく調べて、関数を活用する色んな方法について説明します。\",\"url\":\"/golang/function/deep-dive/\",\"date\":\"2021-08-17\",\"category\":\"golang\"},{\"title\":\"[Golang] Interface\",\"description\":\"GolangでInterface(インターフェース)について概念を確認して、使う方法について説明します。\",\"url\":\"/golang/interface/\",\"date\":\"2021-08-16\",\"category\":\"golang\"},{\"title\":\"[Golang] Method\",\"description\":\"GolangでMethod(メソッド)を定義して使う方法について説明します。\",\"url\":\"/golang/method/\",\"date\":\"2021-08-15\",\"category\":\"golang\"},{\"title\":\"[Golang] Package\",\"description\":\"GolangでPackage(パッケージ)について詳しく説明して、使う方法についても説明します。\",\"url\":\"/golang/package/\",\"date\":\"2021-08-14\",\"category\":\"golang\"},{\"title\":\"[Golang] Slice\",\"description\":\"GolangでSlice(スライス)について説明して、使う方法に関しても説明します。\",\"url\":\"/golang/slice/\",\"date\":\"2021-08-14\",\"category\":\"golang\"},{\"title\":\"[Golang] Module\",\"description\":\"GolangでModule(モジュール)について説明して、どう使えるか紹介します。\",\"url\":\"/golang/module/\",\"date\":\"2021-08-13\",\"category\":\"golang\"},{\"title\":\"[Golang] String（文字列）\",\"description\":\"GolangでString（文字列）を宣言して使う方法に説明します。\",\"url\":\"/golang/string/\",\"date\":\"2021-08-12\",\"category\":\"golang\"},{\"title\":\"[Golang] Pointer\",\"description\":\"Golangでポインタ(Pointer)を使って変数のメモリアドレスを扱う方法について説明します。\",\"url\":\"/golang/pointer/\",\"date\":\"2021-08-11\",\"category\":\"golang\"},{\"title\":\"[Golang] struct(構造体)\",\"description\":\"Golangでstruct(構造体)を定義して使う方法について説明します。\",\"url\":\"/golang/struct/\",\"date\":\"2021-08-10\",\"category\":\"golang\"},{\"title\":\"[Golang] 配列(Array)\",\"description\":\"Golangで配列(Array)を定義して使う方法について説明します。\",\"url\":\"/golang/array/\",\"date\":\"2021-08-09\",\"category\":\"golang\"},{\"title\":\"[Golang] for文\",\"description\":\"Golangで唯一のループであるfor文を使う方法について説明します。\",\"url\":\"/golang/for-statement/\",\"date\":\"2021-08-08\",\"category\":\"golang\"},{\"title\":\"[Golang] switch文\",\"description\":\"Golangでswitch文を使う方法について説明します。\",\"url\":\"/golang/switch-statement/\",\"date\":\"2021-08-07\",\"category\":\"golang\"},{\"title\":\"[Golang] if文\",\"description\":\"Golangでif文を使う方法について説明します。\",\"url\":\"/golang/if-statement/\",\"date\":\"2021-08-06\",\"category\":\"golang\"},{\"title\":\"[Golang] 関数基礎\",\"description\":\"GolangでFunction(関数)を定義して使う方法について説明します。\",\"url\":\"/golang/function/\",\"date\":\"2021-08-05\",\"category\":\"golang\"},{\"title\":\"[Golang] 演算子\",\"description\":\"Golangで使える演算子について説明します。\",\"url\":\"/golang/operator/\",\"date\":\"2021-08-04\",\"category\":\"golang\"},{\"title\":\"[Golang] fmtパッケージを使った標準入出力\",\"description\":\"Golangで標準入出力に使えるfmtパッケージについて説明します。\",\"url\":\"/golang/fmt/\",\"date\":\"2021-08-03\",\"category\":\"golang\"},{\"title\":\"[Golang] 定数\",\"description\":\"Golangで定数を宣言して使う方法について説明します。\",\"url\":\"/golang/constants/\",\"date\":\"2021-08-02\",\"category\":\"golang\"},{\"title\":\"[Golang] 変数\",\"description\":\"Golangで変数の種類と変数の使い方について説明します。\",\"url\":\"/golang/variables/\",\"date\":\"2021-08-01\",\"category\":\"golang\"},{\"title\":\"[Golang] コーディングやビルド\",\"description\":\"GolangでHello worldを出力するプログラムを作成やビルドして見て、作成したプログラムを詳しく説明します。\",\"url\":\"/golang/hello-world/\",\"date\":\"2021-07-31\",\"category\":\"golang\"},{\"title\":\"[Golang] インストールや実行\",\"description\":\"GolangをインストールしてGolangで作成したコードを実行する方法について説明します。\",\"url\":\"/golang/installation/\",\"date\":\"2021-07-30\",\"category\":\"golang\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%5BGolang%5D%20Interface&url=https%3A%2F%2Fdeku.posstree.com%2Fgolang%2Finterface%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fgolang%2Finterface%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

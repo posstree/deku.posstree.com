@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>ウェブキャッシュ(Web cache)とAWS S3、CloudFront | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/environment/web/cache-and-aws-s3-cloudfront/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/environment/web/cache-and-aws-s3-cloudfront/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="ウェブキャッシュ(Web cache)とAWS S3、CloudFront"><meta name="twitter:description" content="ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/background.jpg"><meta name="twitter:image:alt" content="ウェブキャッシュ(Web cache)とAWS S3、CloudFront"><!-- Open Graph --><meta property="og:title" content="ウェブキャッシュ(Web cache)とAWS S3、CloudFront"><meta property="og:description" content="ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="ウェブキャッシュ(Web cache)とAWS S3、CloudFront"><meta property="og:url" content="https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2024-08-15T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="開発環境"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"ウェブキャッシュ(Web cache)とAWS S3、CloudFront","description":"ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。","datePublished":"2024-08-15T00:00:00.000Z","dateModified":"2024-08-15T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/"},"image":"https://deku.posstree.com/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/background.jpg","url":"https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/environment/vscode/eslint-configuration-for-monorepo/","name":"VSCodeでMonorepo用のESLint設定"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/environment/vscode/incoming-outgoing-changes-graph/","name":"VSCode Incoming/Outgoing changes graphを非表示にする"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/","name":"ウェブキャッシュ(Web cache)とAWS S3、CloudFront"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/environment/deployment-strategy/","name":"ソフトウェア開発のデプロイ戦略"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/environment/branch-strategy/","name":"ソフトウェア開発のためのブランチ戦略"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/environment/monorepo/pnpm/","name":"[Monorepo] pnpmを使ってモノレポを作る方法"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/environment/monorepo/yarn_workspaces/command/","name":"[Monorepo] Yarn Workspacesのコマンド"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/environment/monorepo/yarn_workspaces/hoisting/","name":"[Monorepo] Yarn Workspacesの依存性のHoisting"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/environment/monorepo/yarn_workspaces/","name":"[Monorepo] Yarn Workspaces"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/environment/monorepo/symlink/","name":"[Monorepo] Symlink"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/environment/monorepo/module-resolutions/","name":"[Monorepo] NodeJSのモジュールの読み込み"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/environment/monorepo/tools/","name":"[JavaScript] モノレポ(Monorepo)のためのツール"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/environment/repository_strategy/","name":"[プロジェクト管理] リポジトリ戦略"},{"@type":"ListItem","position":14,"url":"https://deku.posstree.com/environment/pyenv/","name":"pyenvを使ってPythonのバージョン管理をする"},{"@type":"ListItem","position":15,"url":"https://deku.posstree.com/environment/nvm/","name":"(macOS) NVMでNodeのバージョン管理"},{"@type":"ListItem","position":16,"url":"https://deku.posstree.com/environment/configure-development-environment-on-mac-with-homebrew-and-shell-script/","name":"HomebrewとShell Scriptを使ってマック(Mac)の開発環境構築を自動化する"},{"@type":"ListItem","position":17,"url":"https://deku.posstree.com/environment/mac-development-environment/","name":"マック(Mac)の開発環境の構築(3) - 開発環境"},{"@type":"ListItem","position":18,"url":"https://deku.posstree.com/environment/mac-development-tools/","name":"マック(Mac)の開発環境の構築(2) - tools"},{"@type":"ListItem","position":19,"url":"https://deku.posstree.com/environment/mac-iterm-zsh/","name":"マック(Mac)の開発環境の構築(1) - iTermとzsh"},{"@type":"ListItem","position":20,"url":"https://deku.posstree.com/environment/ngrok/","name":"ngrok"},{"@type":"ListItem","position":21,"url":"https://deku.posstree.com/environment/ansible-laravel/","name":"アンシブル&ララベル"},{"@type":"ListItem","position":22,"url":"https://deku.posstree.com/environment/ansible-laradock/","name":"アンシブル&Laradock"},{"@type":"ListItem","position":23,"url":"https://deku.posstree.com/environment/ansible-docker/","name":"アンシブル&ドッカー"},{"@type":"ListItem","position":24,"url":"https://deku.posstree.com/environment/ansible-playbook/","name":"アンシブルプレイブック"},{"@type":"ListItem","position":25,"url":"https://deku.posstree.com/environment/install-ansible/","name":"アンシブルインストール"},{"@type":"ListItem","position":26,"url":"https://deku.posstree.com/environment/vagrant-install-and-usage/","name":"vagrantインストールや使い方"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>ウェブキャッシュ(Web cache)とAWS S3、CloudFront</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2024-08-15 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fenvironment%2Fweb%2Fcache-and-aws-s3-cloudfront%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/environment/" itemprop="item"> <span itemprop="name">開発環境</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">ウェブキャッシュ(Web cache)とAWS S3、CloudFront</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E7%9B%AE%E6%AC%A1">目次</a></li>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#%E3%82%A6%E3%82%A7%E3%83%96%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E8%AA%95%E7%94%9F%E8%83%8C%E6%99%AF">ウェブキャッシュの誕生背景</a></li>
+<li><a href="#%E3%82%A6%E3%82%A7%E3%83%96%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5">ウェブキャッシュ</a>
+<ul>
+<li><a href="#cdncontents-delivery-network">CDNContents Delivery Network</a></li>
+<li><a href="#%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5browser-cache">ブラウザキャッシュBrowser cache</a></li>
+</ul>
+</li>
+<li><a href="#%E3%82%A6%E3%82%A7%E3%83%96%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E5%8B%95%E4%BD%9C%E6%96%B9%E6%B3%95">ウェブキャッシュの動作方法</a></li>
+<li><a href="#%E3%82%A6%E3%82%A7%E3%83%96%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E8%A8%AD%E5%AE%9A">ウェブキャッシュの設定</a></li>
+<li><a href="#aws-s3%E3%81%A8cloudfront">AWS S3とCloudFront</a></li>
+<li><a href="#aws-s3%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E8%A8%AD%E5%AE%9A">AWS S3キャッシュ設定</a></li>
+<li><a href="#github-actions">GitHub Actions</a></li>
+<li><a href="#stale-while-revalidate%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E7%84%A1%E4%B8%AD%E6%96%AD%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4">stale-while-revalidateを使った無中断デプロイ</a></li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>ウェブ開発においてキャッシュ(Cache)は重要な役割を果たします。キャッシュを通じてウェブサービスのパフォーマンスを向上させることができ、ユーザーエクスペリエンスを改善することができます。今回のブログポストでは、ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3に静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。</p>
+<h2 id="ウェブキャッシュの誕生背景">ウェブキャッシュの誕生背景</h2>
+<p>クライアント(PC、スマートフォン)からサーバーにある情報を取得するためにはインターネット(Internet)を使います。</p>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.avif" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.png" alt="Web cache and S3 - server and client with internet">
+</picture>
+<p>クライアントとサーバーを接続するインターネットは物理的に接続されており、世界中のインターネットは海底ケーブルで接続されています。</p>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.avif" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.jpg" alt="Web cache and S3 - internet submarine cable">
+</picture>
+<p>クライアントとサーバーはこのように物理的に接続されているため、もちろん距離が遠いほどデータの送受信に時間がかかることになります。</p>
+<h2 id="ウェブキャッシュ">ウェブキャッシュ</h2>
+<p>ウェブキャッシュは物理的に遠い場所にあるサーバーのコンテンツのうち、変更が少ないコンテンツ(静的コンテンツ: HTML、CSS、JS、画像、ビデオなど)を物理的に近い場所(サーバー)にコピーして配置することでデータの送受信の遅延を減らす技術です。</p>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" alt="Web cache and S3 - web cache">
+</picture>
+<p>ウェブでは大きく3つのキャッシュを使用します。</p>
+<ol>
+<li>CDN(Contents Delivery Network)</li>
+<li>ブラウザキャッシュ(Browser cache)</li>
+<li>データベースキャッシュ(Database cache)</li>
+</ol>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache with browser">
+</picture>
+<p>今回のブログポストではCDNとブラウザキャッシュについて説明します。</p>
+<h3 id="cdncontents-delivery-network">CDN(Contents Delivery Network)</h3>
+<p>CDNは変更が少ないコンテンツのコピーを世界中の複数の場所にあるサーバーに配置してコンテンツを提供するサービスです。</p>
+<p>これを通じてクライアントとサーバー間の距離を縮めてデータの送受信の遅延を減らすことができます。</p>
+<p>例えば、世界的に有名なCDNサービスである<code>Cloudflare</code>は次のように世界中にサーバーを置いています。</p>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.avif" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.png" alt="Web cache and S3 - cloudflare server list">
+</picture>
+<p><code>Cloudflare</code>を利用すると静的ファイルを<code>Cloudflare</code>が提供するサーバーにコピーしてクライアントと近いサーバーからコンテンツを提供することができます。</p>
+<h3 id="ブラウザキャッシュbrowser-cache">ブラウザキャッシュ(Browser cache)</h3>
+<p>クライアント側から見ると最も近いサーバーはクライアント自体です。ブラウザはクライアントが一度アクセスしたサイトから一部のコンテンツをクライアントストレージに保存して再度アクセスする際にこの保存されたコンテンツを使えるようにするブラウザキャッシュ機能を提供します。</p>
+<p>Chromeブラウザの場合次の場所にキャッシュをします。</p>
+<ul>
+<li>Windows: <code>C:\Users\&#x3C;User Name>\AppData\Local\Google\Chrome\User Data\Default\Cache</code></li>
+<li>macOS: <code>/Users/&#x3C;User Name>/Library/Caches/Google/Chrome/Default/Cache</code></li>
+</ul>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="ウェブキャッシュの動作方法">ウェブキャッシュの動作方法</h2>
+<p>ウェブキャッシュがどのように動作するかについて説明します。</p>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache process">
+</picture>
+<ol>
+<li>ユーザーがブラウザからサービスにアクセスします。</li>
+<li>ブラウザはブラウザにキャッシュされたものがあるか確認し、キャッシュがある場合はそれを使って画面を表示します。</li>
+<li>ブラウザにキャッシュがない場合はCDNにキャッシュがあるか確認します。CDNにキャッシュがある場合はそれを使います。</li>
+<li>CDNにキャッシュがない場合は実際のサーバーからコンテンツを取得します。</li>
+<li>このときCDNはキャッシュをする必要があるかどうかを確認し、キャッシュできる場合はキャッシュします。</li>
+<li>ブラウザも同様にキャッシュできる場合はキャッシュします。</li>
+<li>次からユーザーが同じコンテンツにアクセスする時、ブラウザとCDNでキャッシュされたコンテンツを使います。</li>
+</ol>
+<h2 id="ウェブキャッシュの設定">ウェブキャッシュの設定</h2>
+<p>ブラウザとCDNはどの基準でキャッシュを設定するでしょうか？ブラウザとCDNはHTTPレスポンスヘッダーにある<code>Expires</code>、<code>Cache-Control</code>、<code>Etag</code>、<code>Last-Modified</code>などを確認してキャッシュを設定します。</p>
+<p>HTTPレスポンスヘッダーにキャッシュを設定する方法は次のようになります。</p>
+<ul>
+<li>Nginxの設定</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>server {</span></span>
+<span class="line"><span>    listen 80;</span></span>
+<span class="line"><span>    server_name example.com;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    location / {</span></span>
+<span class="line"><span>        # Set Cache-Control</span></span>
+<span class="line"><span>        add_header Cache-Control "max-age=3600, public";</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        # Set Expires</span></span>
+<span class="line"><span>        expires 1h;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<ul>
+<li>ウェブサーバーの設定(NodeJSのExpress例)</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> express </span><span style="color:#89DDFF">=</span><span style="color:#82AAFF"> require</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">express</span><span style="color:#89DDFF">'</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> app </span><span style="color:#89DDFF">=</span><span style="color:#82AAFF"> express</span><span style="color:#EEFFFF">()</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">app</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">use</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">req</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF;font-style:italic"> res</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF;font-style:italic"> next</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">    // Set Cache-Control</span></span>
+<span class="line"><span style="color:#EEFFFF">    res</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">setHeader</span><span style="color:#F07178">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">Cache-Control</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">max-age=3600, public</span><span style="color:#89DDFF">'</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">    // Set Expires</span></span>
+<span class="line"><span style="color:#C792EA">    const</span><span style="color:#EEFFFF"> maxAgeInSeconds</span><span style="color:#89DDFF"> =</span><span style="color:#F78C6C"> 3600</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#C792EA">    const</span><span style="color:#EEFFFF"> date</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> new</span><span style="color:#82AAFF"> Date</span><span style="color:#F07178">()</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#EEFFFF">    date</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">setSeconds</span><span style="color:#F07178">(</span><span style="color:#EEFFFF">date</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">getSeconds</span><span style="color:#F07178">() </span><span style="color:#89DDFF">+</span><span style="color:#EEFFFF"> seconds</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#C792EA">    const</span><span style="color:#EEFFFF"> expiryDate</span><span style="color:#89DDFF"> =</span><span style="color:#EEFFFF"> date</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">toUTCString</span><span style="color:#F07178">()</span></span>
+<span class="line"><span style="color:#EEFFFF">    res</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">setHeader</span><span style="color:#F07178">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">Expires</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> expiryDate</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">    next</span><span style="color:#F07178">()</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">app</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">get</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">req</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF;font-style:italic"> res</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">    res</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">send</span><span style="color:#F07178">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">Hello World!</span><span style="color:#89DDFF">'</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">app</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">listen</span><span style="color:#EEFFFF">(</span><span style="color:#F78C6C">3000</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> ()</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">    console</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">log</span><span style="color:#F07178">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">Server is running on port 3000</span><span style="color:#89DDFF">'</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span></code></pre>
+<p>このように設定されたHTTPレスポンスヘッダーを確認してCDNとブラウザがキャッシュを設定します。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="aws-s3とcloudfront">AWS S3とCloudFront</h2>
+<p>AWSのS3とCloudFrontを使って静的ウェブサイトを提供することができます。</p>
+<ul>
+<li>S3(Simple Storage Service): 静的ファイルを保存するサービス</li>
+<li>CloudFront: CDNサービス</li>
+</ul>
+<p>S3はストレージサービスですが、静的ファイルでウェブサービスを提供するサーバー機能も提供しています。</p>
+<p>一般的にHTML、CSS、JavaScriptで開発された静的ウェブページやReact、Vue、Angularなどのフロントエンドフレームワークで開発されたウェブアプリケーションのビルド結果をS3にアップロードしてCloudFrontを通じてサービスします。</p>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.avif" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.png" alt="Web cache and S3 - AWS S3 and CloudFront cache">
+</picture>
+<p>この時、S3にアップロードしたファイル設定を通じてブラウザキャッシュとCDN(CloudFront)キャッシュを設定することができます。</p>
+<h2 id="aws-s3キャッシュ設定">AWS S3キャッシュ設定</h2>
+<p>キャッシュはHTTPのレスポンスヘッダーに<code>Expires</code>や<code>Cache-Control</code>を設定するため、基本的にフロントエンド側で設定することはできません。</p>
+<p><code>CloudFront + S3</code>はサーバーがないためHTTPヘッダーを設定するサーバーコードを追加することはできません。</p>
+<p>しかし、<code>S3</code>がサーバー機能を持っているため、S3の設定を通じてキャッシュを設定することができます。</p>
+<p>AWSが提供するCLIツールを使ってS3にファイルをアップロードする際、次のようなコマンドを使います。この時、<code>--cache-control</code>オプションを使うことでキャッシュを設定することができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">aws</span><span style="color:#C3E88D"> s3</span><span style="color:#C3E88D"> cp</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#C3E88D">Target</span><span style="color:#C3E88D"> director</span><span style="color:#EEFFFF">y</span><span style="color:#89DDFF">></span><span style="color:#C3E88D"> s3://</span><span style="color:#89DDFF">&#x3C;</span><span style="color:#C3E88D">S3</span><span style="color:#C3E88D"> Bucket</span><span style="color:#C3E88D"> nam</span><span style="color:#EEFFFF">e</span><span style="color:#89DDFF">></span><span style="color:#C3E88D"> --recursive</span><span style="color:#C3E88D"> --exclude</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">assets/*</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D"> --cache-control</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">public,max-age=60,stale-while-revalidate=2592000’</span></span></code></pre>
+<ul>
+<li><code>Target directory</code>: S3にアップロードするビルド結果があるローカルフォルダのパス</li>
+<li><code>S3 Bucket name</code>: ファイルをアップロードする対象となるS3のBucket名</li>
+<li><code>--recursive</code>オプション: <code>aws s3 cp</code>は基本ファイル1つをコピーするコマンドなので、指定されたディレクトリのすべてのファイルをアップロードするために<code>--recursive</code>オプションを使います</li>
+<li><code>--exclude "assets/*"</code>: アップロード除外対象の設定</li>
+<li><code>--cache-control 'public,max-age=60,stale-while-revalidate=2592000'</code>: キャッシュ設定
+<ul>
+<li><code>max-age=60</code>: 60秒間キャッシュ</li>
+<li><code>stale-while-revalidate</code>: <code>max-age</code>によってキャッシュが終了した場合、バックグラウンドでコンテンツを再確認してキャッシュする間、期限切れのキャッシュを最大30日間提供するように設定</li>
+</ul>
+</li>
+</ul>
+<h2 id="github-actions">GitHub Actions</h2>
+<p>次は<code>GitHub Actions</code>を使ってS3にファイルをアップロードするコードです。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Configure AWS credentials</span></span>
+<span class="line"><span style="color:#F07178">  uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> aws-actions/configure-aws-credentials@v4</span></span>
+<span class="line"><span style="color:#F07178">  with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    role-to-assume</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ${{ env.ASSUME_ROLE }}</span></span>
+<span class="line"><span style="color:#F07178">    aws-region</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ap-northeast-1</span></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Upload file to S3</span></span>
+<span class="line"><span style="color:#F07178">  run</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
+<span class="line"><span style="color:#C3E88D">    aws s3 rm s3://${{env.DEPLOY_S3_BUCKET}} --recursive</span></span>
+<span class="line"><span style="color:#C3E88D">    aws s3 cp apps/dist s3://${{env.DEPLOY_S3_BUCKET}} --recursive --exclude "assets/*" --cache-control 'public,max-age=60,stale-while-revalidate=2592000'</span></span>
+<span class="line"><span style="color:#C3E88D">    aws s3 sync apps/dist/assets s3://${{env.DEPLOY_S3_BUCKET}}/assets --cache-control 'public,max-age=60,immutable'</span></span></code></pre>
+<p><code>aws s3 rm</code>を使ってすべてのファイルを削除した後、<code>aws s3 cp</code>を使ってファイルをアップロードします。最後に<code>assets</code>フォルダを<code>aws s3 sync</code>を使ってアップロードします。</p>
+<h2 id="stale-while-revalidateを使った無中断デプロイ">stale-while-revalidateを使った無中断デプロイ</h2>
+<p>AWSのブログで紹介された使い方です。</p>
+<ul>
+<li><a href="https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/" rel="nofollow noreferrer" target="_blank">https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/</a></li>
+</ul>
+<p>stale-while-revalidateを使うと中断なしにサービスバージョンを更新することができます。</p>
+<picture>
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.avif" type="image/avif">
+  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.webp" type="image/webp">
+  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.png" alt="Web cache and S3 - stale-while-revalidate option for no downtime deployment">
+</picture>
+<ol>
+<li>ユーザーがブラウザでサービスを実行します。</li>
+<li>V1で既にサービスを利用しているユーザーは、ブラウザにstale-while-revalidateが設定されたV1のキャッシュがあるため、それを優先して使います。</li>
+<li>ブラウザはバックグラウンドでキャッシュが終了した(max-age)コンテンツをCloudFront(CDN)に要求します。</li>
+<li>CloudFrontはV2に更新されたキャッシュがあるため、それをブラウザに提供します。</li>
+<li>ブラウザはCloudFrontから受け取ったコンテンツをキャッシュして次からこれを使います。</li>
+<li>もし、CloudFrontのキャッシュも更新が必要な場合(max-age)、まずはstale-while-revalidateが設定されたV1のキャッシュをブラウザに提供した後、バックグラウンドで実際のサーバーからコンテンツを取得して自身のキャッシュを更新します。</li>
+</ol>
+<h2 id="完了">完了</h2>
+<p>これでウェブキャッシュ(Web cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明しました。</p>
+<p>このブログポストがウェブキャッシュの理解とAWSでウェブキャッシュを適用する際に役立つことを願います。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"VSCodeでMonorepo用のESLint設定\",\"description\":\"Monorepoプロジェクトを開発する際、VSCodeでESLintを設定する方法について説明します。\",\"url\":\"/environment/vscode/eslint-configuration-for-monorepo/\",\"date\":\"2024-08-22\",\"category\":\"environment\"},{\"title\":\"VSCode Incoming/Outgoing changes graphを非表示にする\",\"description\":\"VSCodeに2024年7月に新たに追加されたGitのIncoming/Outgoing changes graph機能を非表示にする方法について説明します。\",\"url\":\"/environment/vscode/incoming-outgoing-changes-graph/\",\"date\":\"2024-08-16\",\"category\":\"environment\"},{\"title\":\"ウェブキャッシュ(Web cache)とAWS S3、CloudFront\",\"description\":\"ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。\",\"url\":\"/environment/web/cache-and-aws-s3-cloudfront/\",\"date\":\"2024-08-15\",\"category\":\"environment\"},{\"title\":\"ソフトウェア開発のデプロイ戦略\",\"description\":\"ソフトウェア開発におけるサービスデプロイ戦略の種類と使い方について説明します。\",\"url\":\"/environment/deployment-strategy/\",\"date\":\"2024-08-07\",\"category\":\"environment\"},{\"title\":\"ソフトウェア開発のためのブランチ戦略\",\"description\":\"ソフトウェアを開発するためのブランチ戦略の種類と使い方について紹介します。\",\"url\":\"/environment/branch-strategy/\",\"date\":\"2024-08-04\",\"category\":\"environment\"},{\"title\":\"[Monorepo] pnpmを使ってモノレポを作る方法\",\"description\":\"NodeJSのパッケージマネージャの1つであるpnpmMを使ってモノレポを作る方法について説明します。\",\"url\":\"/environment/monorepo/pnpm/\",\"date\":\"2024-01-29\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Yarn Workspacesのコマンド\",\"description\":\"YarnのWorkspacesを使って構成されたモノレポで、各プロジェクトのscriptsに設定されたコマンドを実行する方法について説明します。\",\"url\":\"/environment/monorepo/yarn_workspaces/command/\",\"date\":\"2024-01-25\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Yarn Workspacesの依存性のHoisting\",\"description\":\"YarnのWorkspacesを使ってMonorepoを構成する際に、各プロジェクトに必要な依存性を追加する時、動作するHoistingについて説明します。\",\"url\":\"/environment/monorepo/yarn_workspaces/hoisting/\",\"date\":\"2024-01-24\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Yarn Workspaces\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使うための知識である Yarnの Workspaces について紹介します。\",\"url\":\"/environment/monorepo/yarn_workspaces/\",\"date\":\"2024-01-18\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Symlink\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使用するための知識であるSymlink(Symbolic Link)について説明します。\",\"url\":\"/environment/monorepo/symlink/\",\"date\":\"2024-01-17\",\"category\":\"environment\"},{\"title\":\"[Monorepo] NodeJSのモジュールの読み込み\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使用するための知識として、NodeJSがモジュールを読み込む方法について説明します。\",\"url\":\"/environment/monorepo/module-resolutions/\",\"date\":\"2024-01-16\",\"category\":\"environment\"},{\"title\":\"[JavaScript] モノレポ(Monorepo)のためのツール\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使用するために必要なツールを紹介します。\",\"url\":\"/environment/monorepo/tools/\",\"date\":\"2024-01-11\",\"category\":\"environment\"},{\"title\":\"[プロジェクト管理] リポジトリ戦略\",\"description\":\"プロジェクトを管理するためのリポジトリ戦略であるモノリス(Monolith)、マルチレポ(Multi Repo)、モノレポ(Monorepo)について説明します。\",\"url\":\"/environment/repository_strategy/\",\"date\":\"2024-01-04\",\"category\":\"environment\"},{\"title\":\"pyenvを使ってPythonのバージョン管理をする\",\"description\":\"同じマシンで色んなPythonのバージョンを使うためpyenvを使う方法について説明します。\",\"url\":\"/environment/pyenv/\",\"date\":\"2023-02-26\",\"category\":\"environment\"},{\"title\":\"(macOS) NVMでNodeのバージョン管理\",\"description\":\"macOSへNVM(Node Version Manager)をインストールしてNodeのバージョンを管理する方法について説明します。\",\"url\":\"/environment/nvm/\",\"date\":\"2020-12-16\",\"category\":\"environment\"},{\"title\":\"HomebrewとShell Scriptを使ってマック(Mac)の開発環境構築を自動化する\",\"description\":\"HomebrewとShell Scriptを使ってマック(Mac)の開発環境構築を自動化する方法を共有します。このように作ったBrewfileとShell Scriptを使って新しマック(Mac)に開発環境を設定してみます。\",\"url\":\"/environment/configure-development-environment-on-mac-with-homebrew-and-shell-script/\",\"date\":\"2019-10-10\",\"category\":\"environment\"},{\"title\":\"マック(Mac)の開発環境の構築(3) - 開発環境\",\"description\":\"新しいマック(Mac)に開発環境を構築しています。現在開発する時使ってる開発環境を設定する方法を説明します。\",\"url\":\"/environment/mac-development-environment/\",\"date\":\"2019-03-07\",\"category\":\"environment\"},{\"title\":\"マック(Mac)の開発環境の構築(2) - tools\",\"description\":\"新しマック(Mac)に開発環境を構築してみようかと思います。私がマック(Mac)で使ってる開発ツールを纏めてみました。\",\"url\":\"/environment/mac-development-tools/\",\"date\":\"2019-03-06\",\"category\":\"environment\"},{\"title\":\"マック(Mac)の開発環境の構築(1) - iTermとzsh\",\"description\":\"新しいマック(Mac)に開発環境を構築してみようかと思います。マック(Mac)にiTermとzshを設定して新しいターミナル環境を構築します。\",\"url\":\"/environment/mac-iterm-zsh/\",\"date\":\"2019-03-05\",\"category\":\"environment\"},{\"title\":\"ngrok\",\"description\":\"ngrokを使って外部環境から仮想環境(Guest System)に接続出来るように構成してみます。\",\"url\":\"/environment/ngrok/\",\"date\":\"2019-01-28\",\"category\":\"environment\"},{\"title\":\"アンシブル&ララベル\",\"description\":\"アンシブル(Ansible)とLaradockで作った開発環境にララベル(Laravel)をインストールして開発環境を構成してみます。\",\"url\":\"/environment/ansible-laravel/\",\"date\":\"2018-12-06\",\"category\":\"environment\"},{\"title\":\"アンシブル&Laradock\",\"description\":\"vagrantとアンシブル(Ansible)を使って作った仮想マシン(guest system)にLaradockを使ってララベル(Laravel)開発環境を作ってみます。\",\"url\":\"/environment/ansible-laradock/\",\"date\":\"2018-12-05\",\"category\":\"environment\"},{\"title\":\"アンシブル&ドッカー\",\"description\":\"アンシブルプレイブック(Ansible Playbook)を使ってvagrant仮想マシン(guest system)にドッカー(Docker)とドッカーコンポーズ(Docker Compose)をインストールしてみます。\",\"url\":\"/environment/ansible-docker/\",\"date\":\"2018-12-04\",\"category\":\"environment\"},{\"title\":\"アンシブルプレイブック\",\"description\":\"アンシブルプレイブック(Ansible Playbook)を使ってサーバー構築に必要なプログラムのインストールや基本設定をしてみます。\",\"url\":\"/environment/ansible-playbook/\",\"date\":\"2018-12-02\",\"category\":\"environment\"},{\"title\":\"アンシブルインストール\",\"description\":\"vagrantで生成した仮想マシン(guest system)へアンシブル(Ansible)をインストールしてアンシブル(Ansible)を使える環境を作ります。\",\"url\":\"/environment/install-ansible/\",\"date\":\"2018-11-26\",\"category\":\"environment\"},{\"title\":\"vagrantインストールや使い方\",\"description\":\"仮想マシンを使って開発環境を構築するためvirtualbox, vagrantをインストールする方法や仮想マシンを作るためvagrantを使う方法について紹介します。\",\"url\":\"/environment/vagrant-install-and-usage/\",\"date\":\"2018-11-25\",\"category\":\"environment\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%E3%82%A6%E3%82%A7%E3%83%96%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5(Web%20cache)%E3%81%A8AWS%20S3%E3%80%81CloudFront&url=https%3A%2F%2Fdeku.posstree.com%2Fenvironment%2Fweb%2Fcache-and-aws-s3-cloudfront%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fenvironment%2Fweb%2Fcache-and-aws-s3-cloudfront%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

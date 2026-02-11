@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="ジャンゴ(django)プロジェクトを実際サービスで使うためヘロク(Heroku)サービスへアップロードしてウェブサービスを提供する方法について説明します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/django/heroku/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/django/heroku/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/django/heroku/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/django/heroku/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/django/heroku/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする"><meta name="twitter:description" content="ジャンゴ(django)プロジェクトを実際サービスで使うためヘロク(Heroku)サービスへアップロードしてウェブサービスを提供する方法について説明します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/django/2019/heroku/background.jpg"><meta name="twitter:image:alt" content="ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする"><!-- Open Graph --><meta property="og:title" content="ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする"><meta property="og:description" content="ジャンゴ(django)プロジェクトを実際サービスで使うためヘロク(Heroku)サービスへアップロードしてウェブサービスを提供する方法について説明します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/django/2019/heroku/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする"><meta property="og:url" content="https://deku.posstree.com/django/heroku/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2019-06-01T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="ジャンゴ(django)"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする","description":"ジャンゴ(django)プロジェクトを実際サービスで使うためヘロク(Heroku)サービスへアップロードしてウェブサービスを提供する方法について説明します。","datePublished":"2019-06-01T00:00:00.000Z","dateModified":"2019-06-01T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/django/heroku/"},"image":"https://deku.posstree.com/assets/images/category/django/2019/heroku/background.jpg","url":"https://deku.posstree.com/django/heroku/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/django/test/models/","name":"[Django] Modelのテスト"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/django/pre-commit/","name":"[Django] pre-commitの使い方"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/django/flake8/","name":"[Django] flake8の使い方"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/django/gmail-smtp/","name":"Gmailのsmtpを使ってメールを送信する"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/django/custom-user-model/","name":"ジャンゴ(django)のカスタムユーザーモデル(Custom User Model)"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/django/jwt/","name":"ジャンゴ(django)でJWTを使う方法"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/django/response-model-to-json/","name":"ジャンゴ(django)のモデル(Models)をJSONタイプでレスポンス(Response)する"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/django/data-seed/","name":"ジャンゴ(django)のプロジェクトでマスターデーターを入れる方法"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/django/heroku/","name":"ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/django/form/","name":"ジャンゴ(django)のフォーム(Form)"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/django/view/","name":"ジャンゴ(django)のビュー(View)"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/django/orm/","name":"ジャンゴ(django)のORM"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/django/routing/","name":"ジャンゴ(django)のルーティング(Routing)"},{"@type":"ListItem","position":14,"url":"https://deku.posstree.com/django/admin/","name":"ジャンゴ(django)の管理者ページ"},{"@type":"ListItem","position":15,"url":"https://deku.posstree.com/django/models/","name":"ジャンゴ(django)のモデル(models)の使い方"},{"@type":"ListItem","position":16,"url":"https://deku.posstree.com/django/start/","name":"ジャンゴ(django)のプロジェクト開始"},{"@type":"ListItem","position":17,"url":"https://deku.posstree.com/django/installation/","name":"ジャンゴ(django)インストール"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/django/2019/heroku/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2019-06-01 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fdjango%2Fheroku%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">ジャンゴ(django)プロジェクトを実際サービスで使うためヘロク(Heroku)サービスへアップロードしてウェブサービスを提供する方法について説明します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/django/" itemprop="item"> <span itemprop="name">ジャンゴ(django)</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#%E3%83%98%E3%83%AD%E3%82%AFheroku%E4%BC%9A%E5%93%A1%E7%99%BB%E9%8C%B2">ヘロク(Heroku)会員登録</a></li>
+<li><a href="#%E3%83%98%E3%83%AD%E3%82%AFheroku%E3%82%A2%E3%83%97%E3%83%AA%E7%94%9F%E6%88%90">ヘロク(Heroku)アプリ生成</a></li>
+<li><a href="#%E3%83%98%E3%83%AD%E3%82%AFheroku-cli-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">ヘロク(Heroku) CLI インストール</a></li>
+<li><a href="#%E3%83%98%E3%83%AD%E3%82%AFheroku%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3">ヘロク(Heroku)ログイン</a></li>
+<li><a href="#%E3%82%B8%E3%83%A3%E3%83%B3%E3%82%B4django%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E4%BF%AE%E6%AD%A3">ジャンゴ(django)プロジェクト修正</a></li>
+<li><a href="#%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4deploy">デプロイ(Deploy)</a></li>
+<li><a href="#%E7%A2%BA%E8%AA%8D">確認</a></li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>ジャンゴ(django)で作ったプロジェクトをウェブサービスをするためヘロク(<a href="https://heroku.com/" rel="nofollow noreferrer" target="_blank">Heroku</a>)にジャンゴ(django)プロジェクトをアップロードしてウェブサービスを開始してみましょう。</p>
+<p>このブログはシリーズです。下記のリンクでシリーズの他の記事を見ることができます。</p>
+<ul>
+<li><a href="/django/installation/">ジャンゴ(django)インストール</a></li>
+<li><a href="/django/start/">ジャンゴ(django)のプロジェクト開始</a></li>
+<li><a href="/django/models/">ジャンゴ(django)のモデル(models)の使い方</a></li>
+<li><a href="/django/admin/">ジャンゴ(django)の管理者ページ</a></li>
+<li><a href="/django/routing/">ジャンゴ(django)のルーティング(Routing)</a></li>
+<li><a href="/django/orm/">ジャンゴ(django)のORM</a></li>
+<li><a href="/django/view/">ジャンゴ(django)のビュー(View)</a></li>
+<li><a href="/django/form/">ジャンゴ(django)のフォーム(Form)</a></li>
+<li>ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする</li>
+</ul>
+<p>また、このブログシリーズで説明したソースコードはgithubに公開されております。下記のリンクで確認できます。</p>
+<ul>
+<li>github: <a href="https://github.com/dev-yakuza/django_exercise" rel="nofollow noreferrer" target="_blank">https://github.com/dev-yakuza/django_exercise</a></li>
+</ul>
+<h2 id="ヘロクheroku会員登録">ヘロク(Heroku)会員登録</h2>
+<p>ヘロク(Heroku)サービスを使うためにはヘロク(Heroku)サービスに会員登録する必要があります。下記のリンクを押してヘロク(Heroku)サービスへ会員登録やログインをします。</p>
+<ul>
+<li>ヘロク(Heroku): <a href="https://heroku.com/" rel="nofollow noreferrer" target="_blank">https://heroku.com/</a></li>
+</ul>
+<p>会員登録やログインは一般サービスの会員登録やログインの手続きと一緒なので詳しく説明は省略します。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-signup.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-signup.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-signup.jpg" alt="ジャンゴ(django)プロジェクトヘロク(Heroku)アップロード - 会員登録">
+</picture>
+<h2 id="ヘロクherokuアプリ生成">ヘロク(Heroku)アプリ生成</h2>
+<p>ヘロク(Heroku)でウェブサービスを運営するためにはヘロク(Heroku)にアプリ(App)を作る必要があります。</p>
+<p>会員登録やログインした後、下記のようにダッシュボード(<a href="https://dashboard.heroku.com/apps" rel="nofollow noreferrer" target="_blank">Dashboard</a>)画面が見えます。<code>Create new app</code>を押して新しアプリを生成します。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-create-app.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-create-app.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-create-app.jpg" alt="ジャンゴ(django)プロジェクトヘロク(Heroku)アップロード - アプリ生成">
+</picture>
+<p>ヘロク(Heroku)アプリを生成するため、アプリ情報を入力します。無料なので地域はアメリカ(United State)とヨーロッパ(Europe)しか選択できません。アプリの情報を入力したら<code>Create app</code>を押してアプリを生成します。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-app-info.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-app-info.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-app-info.jpg" alt="ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロード - アプリ情報入力">
+</picture>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="ヘロクheroku-cli-インストール">ヘロク(Heroku) CLI インストール</h2>
+<p>私たちはヘロク(Heroku)のCLI(Command Line Interface)を使って私たちが作ったジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロード(Deploy)する予定です。下記のリンクを押して各OSに会うヘロク(Heroku) CLIをダウンロードしてください。このブログではmacOSを基準として説明します。를</p>
+<ul>
+<li>ヘロク(Heroku) CLI ダウンロード: <a href="https://devcenter.heroku.com/articles/heroku-cli" rel="nofollow noreferrer" target="_blank">https://devcenter.heroku.com/articles/heroku-cli</a></li>
+</ul>
+<p>macOSには下記のコマンドでヘロク(Heroku) CLIをインストールすることができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> tap</span><span style="color:#C3E88D"> heroku/brew</span><span style="color:#89DDFF"> &#x26;&#x26;</span><span style="color:#FFCB6B"> brew</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> heroku</span></span></code></pre>
+<h2 id="ヘロクherokuログイン">ヘロク(Heroku)ログイン</h2>
+<p>ヘロク(Heroku)へウェブサービスをデプロイ(Deploy)するためには、ヘロク(Heroku) CLIを使ってヘロク(Heroku)にログインする必要があります。下記のコマンドを使ってヘロク(Heroku)サービスにログインします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">heroku</span><span style="color:#C3E88D"> login</span></span></code></pre>
+<p>上のヘロク(Heroku)コマンドを実行すると、下記のようにログイン画面がウェブブラウザに表示されます。<code>Log in</code>ボタンを押してログインします。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-login.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-login.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-login.jpg" alt="ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロード - ヘロクログイン">
+</picture>
+<p>ログインが完了されたら下記のようにログイン成功画面が表示されます。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-login-success.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-login-success.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-login-success.jpg" alt="장고(django) 프로젝트 헤로쿠(Heroku) 업로드 - 헤로쿠 로그인 성공">
+</picture>
+<p>またはヘロク(Heroku)コマンドを使ったターミナルで下記のようにログイン成功メッセージを確認することができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">heroku:</span><span style="color:#C3E88D"> Press</span><span style="color:#C3E88D"> any</span><span style="color:#C3E88D"> key</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> open</span><span style="color:#C3E88D"> up</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> browser</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> login</span><span style="color:#C3E88D"> or</span><span style="color:#C3E88D"> q</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> exit:</span></span>
+<span class="line"><span style="color:#FFCB6B">Opening</span><span style="color:#C3E88D"> browser</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> https://cli-auth.heroku.com/auth/browser/f844937e-aaaf-4620-998f-1f938ed3dea7</span></span>
+<span class="line"><span style="color:#FFCB6B">Logging</span><span style="color:#C3E88D"> in...</span><span style="color:#C3E88D"> done</span></span>
+<span class="line"><span style="color:#FFCB6B">Logged</span><span style="color:#C3E88D"> in</span><span style="color:#C3E88D"> as</span><span style="color:#C3E88D"> dev.yakuza@gmail.com</span></span></code></pre>
+<h2 id="ジャンゴdjangoプロジェクト修正">ジャンゴ(django)プロジェクト修正</h2>
+<p>ヘロク(Heroku)サービスへデプロイ(Deploy)する準備が終わりました。私たちはジャンゴ(django)プロジェクトをヘロク(Heroku)サービスで起動するため修正する必要があります。<code>manage.py</code>があるフォルダで<code>Procfile</code>ファイルを生成して下記のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">web:</span><span style="color:#C3E88D"> gunicorn</span><span style="color:#C3E88D"> django_exercise.wsgi</span><span style="color:#C3E88D"> --log-file</span><span style="color:#C3E88D"> -</span></span></code></pre>
+<p>上の内容で<code>django_exercise.wsgi</code>の部分を自分のプロジェクト名前で更新してください。(<code>[project name].wsgi</code>)私たちは<code>gunicorn</code>と言うパイソンHTTPサーバー(<code>Python WSGI HTTP Server</code>)を使ってウェブサービスをすることをヘロク(Heroku)に知らせます。</p>
+<p>下記のコマンドでヘロク(Heroku)でジャンゴ(django)を使うため必要なモジュールをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># source venv/bin/activate</span></span>
+<span class="line"><span style="color:#FFCB6B">pip</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> gunicorn</span><span style="color:#C3E88D"> whitenoise</span><span style="color:#C3E88D"> django-heroku</span></span></code></pre>
+<ul>
+<li>gunicorn: 上で説明したパイソンHTTPサーバー(<code>Python WSGI HTTP Server</code>)です。</li>
+<li>whitenoise: ヘロク(Heroku)でStaticファイルを使うため必要なモジュールです。</li>
+<li>django-heroku: へろく(Heroku)へデプロイするdjangoプロジェクトの設定を簡単にしてくれるモジュールです。</li>
+</ul>
+<p>インストールが完了されたら下記のコマンドで<code>requirements.txt</code>を更新します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">pip</span><span style="color:#C3E88D"> freeze</span><span style="color:#89DDFF"> ></span><span style="color:#C3E88D"> requirements.txt</span></span></code></pre>
+<p>更新したら、<code>django_exercise/settings.py</code>を開いて下記のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">...</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> django_heroku</span></span>
+<span class="line"><span style="color:#EEFFFF">...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">DEBUG </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> False</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">ALLOWED_HOSTS </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">127.0.0.1</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">.herokuapp.com</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">]</span></span>
+<span class="line"><span style="color:#EEFFFF">...</span></span>
+<span class="line"><span style="color:#EEFFFF">MIDDLEWARE </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> [</span></span>
+<span class="line"><span style="color:#89DDFF">    '</span><span style="color:#C3E88D">whitenoise.middleware.WhiteNoiseMiddleware</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#EEFFFF">    ...</span></span>
+<span class="line"><span style="color:#89DDFF">]</span></span>
+<span class="line"><span style="color:#EEFFFF">...</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Activate Django-Heroku.</span></span>
+<span class="line"><span style="color:#EEFFFF">django_heroku</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">settings</span><span style="color:#89DDFF">(</span><span style="color:#82AAFF">locals</span><span style="color:#89DDFF">())</span></span></code></pre>
+<p>今まで作った内容を私たちが管理するgitに保存します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> add</span><span style="color:#C3E88D"> .</span></span>
+<span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> commit</span><span style="color:#C3E88D"> -m</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">prepare to deploy</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#C3E88D"> master</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="デプロイdeploy">デプロイ(Deploy)</h2>
+<p>全ての準備が終わりました。今からヘロク(Heroku)へ私たちのジャンゴ(django)プロジェクトをデプロイ(Deploy)してみましょう。下記のコマンドでgitのremoteへヘロク(Heroku)を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">heroku</span><span style="color:#C3E88D"> git:remote</span><span style="color:#C3E88D"> -a</span><span style="color:#C3E88D"> djangoexercise</span></span></code></pre>
+<p>下記のコマンドでうまく追加されたか確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> remote</span><span style="color:#C3E88D"> -v</span></span></code></pre>
+<p>そしたら下記のようにgitのremoteへヘロク(Heroku)が追加されたことが確認できます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">heroku</span><span style="color:#C3E88D">  https://git.heroku.com/djangoexercise.git</span><span style="color:#EEFFFF"> (fetch)</span></span>
+<span class="line"><span style="color:#FFCB6B">heroku</span><span style="color:#C3E88D">  https://git.heroku.com/djangoexercise.git</span><span style="color:#EEFFFF"> (push)</span></span>
+<span class="line"><span style="color:#FFCB6B">origin</span><span style="color:#C3E88D">  https://github.com/dev-yakuza/django_exercise.git</span><span style="color:#EEFFFF"> (fetch)</span></span>
+<span class="line"><span style="color:#FFCB6B">origin</span><span style="color:#C3E88D">  https://github.com/dev-yakuza/django_exercise.git</span><span style="color:#EEFFFF"> (push)</span></span></code></pre>
+<p>下記のコマンドでデプロイ(Deploy)します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> heroku</span><span style="color:#C3E88D"> master</span></span></code></pre>
+<p>ヘロク(Heroku)はgitを基盤にしてデプロイ(Deploy)します。上のコマンドですでに私たちのジャンゴ(django)のプロジェクトはヘロク(Heroku)へデプロイ(Deploy)されました。今からは私たちが作ったmigrationを使って新しくデーターベースを構築して、管理者を生成します。下記のコマンドでデーターベースを構築します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">heroku</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> migrate</span></span></code></pre>
+<p>下記のコマンドでジャンゴ(django)の管理者を生成します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">heroku</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> createsuperuser</span></span></code></pre>
+<h2 id="確認">確認</h2>
+<p>私たちがヘロク(Heroku)へデプロイしたジャンゴ(django)のプロジェクトを確認してみましょう。下記のコマンドで私たちが作ったサイトがウェブブラウザへ表示させます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">heroku</span><span style="color:#C3E88D"> open</span></span></code></pre>
+<p>下記のように私たちが作ったジャンゴ(django)プロジェクトがうまく表示されることが確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-django-deploy.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-django-deploy.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-django-deploy.jpg" alt="ジャンゴ(django)のプロジェクトを(Heroku)へアップロード - ヘロクデプロイ確認">
+</picture>
+<p>URLの後ろに<code>/admin</code>を入力して管理画面に移動してみます。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-django-admin.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-django-admin.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-django-admin.jpg" alt="ジャンゴ(django)のプロジェクトを(Heroku)へアップロード - ジャンゴ管理画面ログイン画面">
+</picture>
+<p>私たちがコマンドで生成した<code>superuser</code>でログインしてみます。</p>
+<picture>
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-admin.avif" type="image/avif">
+  <source srcset="/assets/images/category/django/2019/heroku/heroku-admin.webp" type="image/webp">
+  <img src="/assets/images/category/django/2019/heroku/heroku-admin.jpg" alt="ジャンゴ(django)のプロジェクトを(Heroku)へアップロード - ジャンゴ管理画面">
+</picture>
+<p>私たちが開発した<code>Post</code>モデル(Model)が表示することが確認できます。</p>
+<h2 id="完了">完了</h2>
+<p>これでジャンゴ(django)のプロジェクトをヘロク(Heroku)へデプロイ(Deploy)してみました。私たちはもうジャンゴ(django)で簡単なウェブサービスを提供する能力を持つようになりました。今後このブログではサービスを開発した時わかった内容まとめる要諦です。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"[Django] Modelのテスト\",\"description\":\"DjangoプロジェクトでModelのテストコードを作成する方法について調べてみましょう。\",\"url\":\"/django/test/models/\",\"date\":\"2021-03-19\",\"category\":\"django\"},{\"title\":\"[Django] pre-commitの使い方\",\"description\":\"Djangoプロジェクトでpre-commitを使ってGitにコミットする時、flake8を自動で実行するように設定してみましょう。\",\"url\":\"/django/pre-commit/\",\"date\":\"2021-03-13\",\"category\":\"django\"},{\"title\":\"[Django] flake8の使い方\",\"description\":\"DjangoのプロジェクトでPythonのコードスタイルを統一するため静的コード解析であるflake8を使う方法について説明します。\",\"url\":\"/django/flake8/\",\"date\":\"2021-03-03\",\"category\":\"django\"},{\"title\":\"Gmailのsmtpを使ってメールを送信する\",\"description\":\"djangoプロジェクトでGmailのsmtpを使ってメールを送信する方法と開発した時あた問題を共有します。\",\"url\":\"/django/gmail-smtp/\",\"date\":\"2020-03-02\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のカスタムユーザーモデル(Custom User Model)\",\"description\":\"ジャンゴ(django)のプロジェクトで使うユーザーモデル(User Model)を自社サービスに合うユーザーモデルに変更する(Customization)方法について説明します。\",\"url\":\"/django/custom-user-model/\",\"date\":\"2019-06-07\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)でJWTを使う方法\",\"description\":\"ジャンゴ(django)のプロジェクトでAPIを使う時、JWT(Json Web Token)認証を使う方法について説明します。\",\"url\":\"/django/jwt/\",\"date\":\"2019-06-06\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のモデル(Models)をJSONタイプでレスポンス(Response)する\",\"description\":\"ジャンゴ(django)のプロジェクトでAPIを使って情報をやりとりする時、モデル(Models)から貰った情報(QuerySet)をそのままJSONでレスポンス(Response)する方法について説明します。\",\"url\":\"/django/response-model-to-json/\",\"date\":\"2019-06-05\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のプロジェクトでマスターデーターを入れる方法\",\"description\":\"ジャンゴ(django)のプロジェクトで必要なマスターデータやテストデーターを入れる方法(data-seed)について説明します。\",\"url\":\"/django/data-seed/\",\"date\":\"2019-06-04\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)プロジェクトをヘロク(Heroku)へアップロードする\",\"description\":\"ジャンゴ(django)プロジェクトを実際サービスで使うためヘロク(Heroku)サービスへアップロードしてウェブサービスを提供する方法について説明します。\",\"url\":\"/django/heroku/\",\"date\":\"2019-06-01\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のフォーム(Form)\",\"description\":\"ジャンゴ(django)のフォーム(Form)を使ってデーターを追加したり修正したりする方法について説明します。\",\"url\":\"/django/form/\",\"date\":\"2019-05-24\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のビュー(View)\",\"description\":\"ウェブページのためジャンゴ(django)のビュー(View)を使う方法について説明します。\",\"url\":\"/django/view/\",\"date\":\"2019-05-23\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のORM\",\"description\":\"ジャンゴ(django)のORM(Object-Relational Mapping)を使ってデーターを生成して読んで更新して柵状する方法(CRUD - Create Read Update Delete)について説明します。\",\"url\":\"/django/orm/\",\"date\":\"2019-05-21\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のルーティング(Routing)\",\"description\":\"ジャンゴ(django)のURL管理機能を使ってウェブサービスのルーティング(Routing)を管理してみましょう。\",\"url\":\"/django/routing/\",\"date\":\"2019-05-20\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)の管理者ページ\",\"description\":\"ジャンゴ(django)が基本的提供してる管理者ページを使う方法について説明します。\",\"url\":\"/django/admin/\",\"date\":\"2019-05-17\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のモデル(models)の使い方\",\"description\":\"ジャンゴ(django)のプロジェクトにアプリケーションを生成して新しアプリケーションに必要なデーターを保存するモデル(models)を生成して使う方法について説明します。\",\"url\":\"/django/models/\",\"date\":\"2019-05-14\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)のプロジェクト開始\",\"description\":\"ジャンゴ(django)のコマンドでジャンゴ(django)のプロジェクトを生成して開始してみましょう。 また、設定、DB(mysql)連動をして実際ジャンゴ(django)でプロジェクトを開発できるようにしてみましょう\",\"url\":\"/django/start/\",\"date\":\"2019-04-24\",\"category\":\"django\"},{\"title\":\"ジャンゴ(django)インストール\",\"description\":\"ジャンゴ(django)で開発するためジャンゴ(django)をインストールして設定する方法について説明します。\",\"url\":\"/django/installation/\",\"date\":\"2019-04-23\",\"category\":\"django\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%E3%82%B8%E3%83%A3%E3%83%B3%E3%82%B4(django)%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E3%83%98%E3%83%AD%E3%82%AF(Heroku)%E3%81%B8%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89%E3%81%99%E3%82%8B&url=https%3A%2F%2Fdeku.posstree.com%2Fdjango%2Fheroku%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fdjango%2Fheroku%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

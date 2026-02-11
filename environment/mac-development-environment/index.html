@@ -1,0 +1,386 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="新しいマック(Mac)に開発環境を構築しています。現在開発する時使ってる開発環境を設定する方法を説明します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>マック(Mac)の開発環境の構築(3) - 開発環境 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/environment/mac-development-environment/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/environment/mac-development-environment/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/environment/mac-development-environment/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/environment/mac-development-environment/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/environment/mac-development-environment/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="マック(Mac)の開発環境の構築(3) - 開発環境"><meta name="twitter:description" content="新しいマック(Mac)に開発環境を構築しています。現在開発する時使ってる開発環境を設定する方法を説明します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/environment/2019/mac-development-environment/background.jpg"><meta name="twitter:image:alt" content="マック(Mac)の開発環境の構築(3) - 開発環境"><!-- Open Graph --><meta property="og:title" content="マック(Mac)の開発環境の構築(3) - 開発環境"><meta property="og:description" content="新しいマック(Mac)に開発環境を構築しています。現在開発する時使ってる開発環境を設定する方法を説明します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/environment/2019/mac-development-environment/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="マック(Mac)の開発環境の構築(3) - 開発環境"><meta property="og:url" content="https://deku.posstree.com/environment/mac-development-environment/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2019-03-07T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="開発環境"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"マック(Mac)の開発環境の構築(3) - 開発環境","description":"新しいマック(Mac)に開発環境を構築しています。現在開発する時使ってる開発環境を設定する方法を説明します。","datePublished":"2019-03-07T00:00:00.000Z","dateModified":"2019-03-07T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/environment/mac-development-environment/"},"image":"https://deku.posstree.com/assets/images/category/environment/2019/mac-development-environment/background.jpg","url":"https://deku.posstree.com/environment/mac-development-environment/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/environment/vscode/eslint-configuration-for-monorepo/","name":"VSCodeでMonorepo用のESLint設定"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/environment/vscode/incoming-outgoing-changes-graph/","name":"VSCode Incoming/Outgoing changes graphを非表示にする"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/environment/web/cache-and-aws-s3-cloudfront/","name":"ウェブキャッシュ(Web cache)とAWS S3、CloudFront"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/environment/deployment-strategy/","name":"ソフトウェア開発のデプロイ戦略"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/environment/branch-strategy/","name":"ソフトウェア開発のためのブランチ戦略"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/environment/monorepo/pnpm/","name":"[Monorepo] pnpmを使ってモノレポを作る方法"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/environment/monorepo/yarn_workspaces/command/","name":"[Monorepo] Yarn Workspacesのコマンド"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/environment/monorepo/yarn_workspaces/hoisting/","name":"[Monorepo] Yarn Workspacesの依存性のHoisting"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/environment/monorepo/yarn_workspaces/","name":"[Monorepo] Yarn Workspaces"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/environment/monorepo/symlink/","name":"[Monorepo] Symlink"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/environment/monorepo/module-resolutions/","name":"[Monorepo] NodeJSのモジュールの読み込み"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/environment/monorepo/tools/","name":"[JavaScript] モノレポ(Monorepo)のためのツール"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/environment/repository_strategy/","name":"[プロジェクト管理] リポジトリ戦略"},{"@type":"ListItem","position":14,"url":"https://deku.posstree.com/environment/pyenv/","name":"pyenvを使ってPythonのバージョン管理をする"},{"@type":"ListItem","position":15,"url":"https://deku.posstree.com/environment/nvm/","name":"(macOS) NVMでNodeのバージョン管理"},{"@type":"ListItem","position":16,"url":"https://deku.posstree.com/environment/configure-development-environment-on-mac-with-homebrew-and-shell-script/","name":"HomebrewとShell Scriptを使ってマック(Mac)の開発環境構築を自動化する"},{"@type":"ListItem","position":17,"url":"https://deku.posstree.com/environment/mac-development-environment/","name":"マック(Mac)の開発環境の構築(3) - 開発環境"},{"@type":"ListItem","position":18,"url":"https://deku.posstree.com/environment/mac-development-tools/","name":"マック(Mac)の開発環境の構築(2) - tools"},{"@type":"ListItem","position":19,"url":"https://deku.posstree.com/environment/mac-iterm-zsh/","name":"マック(Mac)の開発環境の構築(1) - iTermとzsh"},{"@type":"ListItem","position":20,"url":"https://deku.posstree.com/environment/ngrok/","name":"ngrok"},{"@type":"ListItem","position":21,"url":"https://deku.posstree.com/environment/ansible-laravel/","name":"アンシブル&ララベル"},{"@type":"ListItem","position":22,"url":"https://deku.posstree.com/environment/ansible-laradock/","name":"アンシブル&Laradock"},{"@type":"ListItem","position":23,"url":"https://deku.posstree.com/environment/ansible-docker/","name":"アンシブル&ドッカー"},{"@type":"ListItem","position":24,"url":"https://deku.posstree.com/environment/ansible-playbook/","name":"アンシブルプレイブック"},{"@type":"ListItem","position":25,"url":"https://deku.posstree.com/environment/install-ansible/","name":"アンシブルインストール"},{"@type":"ListItem","position":26,"url":"https://deku.posstree.com/environment/vagrant-install-and-usage/","name":"vagrantインストールや使い方"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/environment/2019/mac-development-environment/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>マック(Mac)の開発環境の構築(3) - 開発環境</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2019-03-07 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fenvironment%2Fmac-development-environment%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">新しいマック(Mac)に開発環境を構築しています。現在開発する時使ってる開発環境を設定する方法を説明します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/environment/" itemprop="item"> <span itemprop="name">開発環境</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">マック(Mac)の開発環境の構築(3) - 開発環境</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <h2 id="概要">概要</h2>
+<p>新しい(Mac)に開発環境を設定しています。このブログには開発環境を構築する方法を纏めてみます。</p>
+<p>このブログはシリーズです。開発環境の別の部分が木になる方は下記の内容を確認してください。</p>
+<ul>
+<li><a href="/environment/mac-iterm-zsh/">マック(Mac)の開発環境の構築(1) - iTermとzsh</a></li>
+<li><a href="/environment/mac-development-tools/">マック(Mac)の開発環境の構築(2) - tools</a></li>
+<li><a href="/environment/mac-development-environment/">マック(Mac)の開発環境の構築(3) - 開発環境</a></li>
+<li><a href="/environment/configure-development-environment-on-mac-with-homebrew-and-shell-script/">HomebrewとShell Scriptを使ってマック(Mac)の開発環境構築を自動化する</a></li>
+</ul>
+<h2 id="homebrew">homebrew</h2>
+<p>マック(Mac)で一番重要なパッケージ管理者のhomebrewを下記のコマンドでインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">/usr/bin/ruby</span><span style="color:#C3E88D"> -e</span><span style="color:#89DDFF"> "$(</span><span style="color:#FFCB6B">curl</span><span style="color:#C3E88D"> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install</span><span style="color:#89DDFF">)"</span></span></code></pre>
+<p>下記のコマンドでzsh設定ファイルを開きます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">code</span><span style="color:#C3E88D"> ~/.zshrc</span></span></code></pre>
+<p>設定ファイルの下に下記の内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">/usr/local/bin:/usr/local/sbin:$PATH</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="python3">python3</h2>
+<p>マック(Mac)には基本的python2がインストールされています。開発する時必要なpython3をインストールしてzshにpython3をデフォルトで設定します。</p>
+<p>zsh(iTerm)を再起動して下記のコマンドでpython3をインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> python3</span></span></code></pre>
+<p>zsh設定ファイルの下に下記の内容を追加してpython3をデフォルトで設定します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> python</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">python3</span></span></code></pre>
+<p>下記のコマンドで<code>pip</code>をインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">sudo</span><span style="color:#C3E88D"> easy_install</span><span style="color:#C3E88D"> pip</span></span></code></pre>
+<p>パイソン(python)の仮想環境(Virtual Environment)の管理をサーポートしてくれるモジュールである<code>virtualenv</code>を下のコマンドでインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">pip</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> virtualenv</span><span style="color:#C3E88D"> pylint</span><span style="color:#C3E88D"> autopep8</span></span></code></pre>
+<p>zsh設定ファイルに下記のように設定して仮想環境(Virtual Environment)に接続してるか確認できるように設定します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#82AAFF">...</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># python virtualenv</span></span>
+<span class="line"><span style="color:#EEFFFF">plugins</span><span style="color:#89DDFF">=(</span><span style="color:#C3E88D">virtualenv</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">...</span></span>
+<span class="line"><span style="color:#EEFFFF">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS</span><span style="color:#89DDFF">=(</span><span style="color:#C3E88D">virtualenv</span><span style="color:#C3E88D"> dir_writable</span><span style="color:#C3E88D"> dir</span><span style="color:#C3E88D"> vcs</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">...</span></span></code></pre>
+<h2 id="git-flow">git flow</h2>
+<p>下記のコマンドでgit flowをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> git-flow</span></span></code></pre>
+<h2 id="node--npm">node / npm</h2>
+<p>下のリンクを押してnodeをダウンロードやインストールします。</p>
+<ul>
+<li>node: <a href="https://nodejs.org/en/download/" rel="nofollow noreferrer" target="_blank">https://nodejs.org/en/download/</a></li>
+</ul>
+<h2 id="react-native">react native</h2>
+<p>RN(React Native)のインストール関しては別のブログを作成しました。下記のリンクを押してインストール方法を確認してください。</p>
+<ul>
+<li><a href="/react-native/installation/">RNインストール</a></li>
+</ul>
+<h2 id="laravel">Laravel</h2>
+<p>マック(Mac)には基本的phpがインストールされています。下記のコマンドで<code>composer</code>をインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">curl</span><span style="color:#C3E88D"> -sS</span><span style="color:#C3E88D"> https://getcomposer.org/installer</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> sudo</span><span style="color:#C3E88D"> php</span><span style="color:#C3E88D"> --</span><span style="color:#C3E88D"> --install-dir=/usr/local/bin/</span></span></code></pre>
+<p>zsh設定ファイルの下に下記の内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> composer</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">php /usr/local/bin/composer.phar</span><span style="color:#89DDFF">"</span></span></code></pre>
+<p>下記のコマンドで権限を変更します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">sudo</span><span style="color:#C3E88D"> chmod</span><span style="color:#F78C6C"> 755</span><span style="color:#C3E88D"> /Users/</span><span style="color:#EEFFFF">$USER</span><span style="color:#C3E88D">/.composer/</span></span></code></pre>
+<p>下記のコマンドでLaravelをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">composer</span><span style="color:#C3E88D"> global</span><span style="color:#C3E88D"> require</span><span style="color:#C3E88D"> laravel/installer</span></span></code></pre>
+<p>zsh設定ファイルを開いて下記の内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#EEFFFF">$HOME</span><span style="color:#C3E88D">/.composer/vendor/bin:</span><span style="color:#EEFFFF">$PATH</span><span style="color:#89DDFF">"</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="mysqlインストール">mysqlインストール</h2>
+<p>下記のコマンドでmysqlをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> mysql@5.7</span></span></code></pre>
+<p>zsh設定ファイルを開いて下記の内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/usr/local/opt/mysql@5.7/bin:</span><span style="color:#EEFFFF">$PATH</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> LDFLAGS</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">-L/usr/local/opt/mysql@5.7/lib</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> CPPFLAGS</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">-I/usr/local/opt/mysql@5.7/include</span><span style="color:#89DDFF">"</span></span></code></pre>
+<p>下記のコマンドでmysqlサーバーを実行します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">mysql.server</span><span style="color:#C3E88D"> start</span></span></code></pre>
+<p>下記のコマンドでmysqlの設定を進めます。（パスワード設定など）</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">mysql_secure_installation</span></span></code></pre>
+<h2 id="jekyll">jekyll</h2>
+<p>以前jekyllインストールに関してブログを作成したことがあります。下記のリンクを確認してインストールしてください。</p>
+<ul>
+<li><a href="/jekyll/installation/">jekyllインストール</a></li>
+</ul>
+<h2 id="zsh設定ファイル">zsh設定ファイル</h2>
+<p>下記はzsh設定ファイルの内容です。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># If you come from bash you might have to change your $PATH.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># export PATH=$HOME/bin:/usr/local/bin:$PATH</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Path to your oh-my-zsh installation.</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> ZSH</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/Users/dev-yakuza/.oh-my-zsh</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Set name of the theme to load --- if set to "random", it will</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># load a random theme each time oh-my-zsh is loaded, in which case,</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># to know which specific one was loaded, run: echo $RANDOM_THEME</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes</span></span>
+<span class="line"><span style="color:#EEFFFF">ZSH_THEME</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">powerlevel9k/powerlevel9k</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Set list of themes to pick from when loading at random</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Setting this variable when ZSH_THEME=random will cause zsh to load</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># a theme from this variable instead of looking in ~/.oh-my-zsh/themes/</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># If set to an empty array, this variable will have no effect.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to use case-sensitive completion.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># CASE_SENSITIVE="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to use hyphen-insensitive completion.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Case-sensitive completion must be off. _ and - will be interchangeable.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># HYPHEN_INSENSITIVE="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to disable bi-weekly auto-update checks.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># DISABLE_AUTO_UPDATE="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to change how often to auto-update (in days).</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># export UPDATE_ZSH_DAYS=13</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to disable colors in ls.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># DISABLE_LS_COLORS="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to disable auto-setting terminal title.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># DISABLE_AUTO_TITLE="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to enable command auto-correction.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># ENABLE_CORRECTION="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line to display red dots whilst waiting for completion.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># COMPLETION_WAITING_DOTS="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line if you want to disable marking untracked files</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># under VCS as dirty. This makes repository status check for large repositories</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># much, much faster.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># DISABLE_UNTRACKED_FILES_DIRTY="true"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Uncomment the following line if you want to change the command execution time</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># stamp shown in the history command output.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># You can set one of the optional three formats:</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># or set a custom format using the strftime function format specifications,</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># see 'man strftime' for details.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># HIST_STAMPS="mm/dd/yyyy"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Would you like to use another custom folder than $ZSH/custom?</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># ZSH_CUSTOM=/path/to/new-custom-folder</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Which plugins would you like to load?</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Standard plugins can be found in ~/.oh-my-zsh/plugins/*</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Example format: plugins=(rails git textmate ruby lighthouse)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Add wisely, as too many plugins slow down shell startup.</span></span>
+<span class="line"><span style="color:#EEFFFF">plugins</span><span style="color:#89DDFF">=(</span><span style="color:#C3E88D">git</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">source</span><span style="color:#EEFFFF"> $ZSH</span><span style="color:#C3E88D">/oh-my-zsh.sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># User configuration</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># export MANPATH="/usr/local/man:$MANPATH"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># You may need to manually set your language environment</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># export LANG=en_US.UTF-8</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Preferred editor for local and remote sessions</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># if [[ -n $SSH_CONNECTION ]]; then</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#   export EDITOR='vim'</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># else</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#   export EDITOR='mvim'</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># fi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Compilation flags</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># export ARCHFLAGS="-arch x86_64"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># ssh</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># export SSH_KEY_PATH="~/.ssh/rsa_id"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Set personal aliases, overriding those provided by oh-my-zsh libs,</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># plugins, and themes. Aliases can be placed here, though oh-my-zsh</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># users are encouraged to define aliases within the ZSH_CUSTOM folder.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># For a full list of active aliases, run `alias`.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Example aliases</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># alias zshconfig="mate ~/.zshrc"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># alias ohmyzsh="mate ~/.oh-my-zsh"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># remove user name in zsh</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># prompt_context(){}</span></span>
+<span class="line"><span style="color:#EEFFFF">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS</span><span style="color:#89DDFF">=(</span><span style="color:#C3E88D">dir_writable</span><span style="color:#C3E88D"> dir</span><span style="color:#C3E88D"> vcs</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS</span><span style="color:#89DDFF">=(</span><span style="color:#C3E88D">status</span><span style="color:#F78C6C"> time</span><span style="color:#C3E88D"> battery</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># vscode code command</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#EEFFFF">$PATH</span><span style="color:#C3E88D">:/Applications/Visual Studio Code.app/Contents/Resources/app/bin</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># brew path</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">/usr/local/bin:/usr/local/sbin:$PATH</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># python3 default</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> python</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">python3</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> pip</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">pip3</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># composer</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> composer</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">php /usr/local/bin/composer.phar</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Laravel</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#EEFFFF">$HOME</span><span style="color:#C3E88D">/.composer/vendor/bin:</span><span style="color:#EEFFFF">$PATH</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># mysql</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/usr/local/opt/mysql@5.7/bin:</span><span style="color:#EEFFFF">$PATH</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># jekyll</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> GEM_HOME</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$HOME/gems</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$HOME/gems/bin:$PATH</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Android path for React Native</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> ANDROID_HOME</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$HOME/Library/Android/sdk</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$PATH:$ANDROID_HOME/emulator</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$PATH:$ANDROID_HOME/tools</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$PATH:$ANDROID_HOME/tools/bin</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$PATH:$ANDROID_HOME/platform-tools</span></span></code></pre>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"VSCodeでMonorepo用のESLint設定\",\"description\":\"Monorepoプロジェクトを開発する際、VSCodeでESLintを設定する方法について説明します。\",\"url\":\"/environment/vscode/eslint-configuration-for-monorepo/\",\"date\":\"2024-08-22\",\"category\":\"environment\"},{\"title\":\"VSCode Incoming/Outgoing changes graphを非表示にする\",\"description\":\"VSCodeに2024年7月に新たに追加されたGitのIncoming/Outgoing changes graph機能を非表示にする方法について説明します。\",\"url\":\"/environment/vscode/incoming-outgoing-changes-graph/\",\"date\":\"2024-08-16\",\"category\":\"environment\"},{\"title\":\"ウェブキャッシュ(Web cache)とAWS S3、CloudFront\",\"description\":\"ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3とCloudFrontを使って静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。\",\"url\":\"/environment/web/cache-and-aws-s3-cloudfront/\",\"date\":\"2024-08-15\",\"category\":\"environment\"},{\"title\":\"ソフトウェア開発のデプロイ戦略\",\"description\":\"ソフトウェア開発におけるサービスデプロイ戦略の種類と使い方について説明します。\",\"url\":\"/environment/deployment-strategy/\",\"date\":\"2024-08-07\",\"category\":\"environment\"},{\"title\":\"ソフトウェア開発のためのブランチ戦略\",\"description\":\"ソフトウェアを開発するためのブランチ戦略の種類と使い方について紹介します。\",\"url\":\"/environment/branch-strategy/\",\"date\":\"2024-08-04\",\"category\":\"environment\"},{\"title\":\"[Monorepo] pnpmを使ってモノレポを作る方法\",\"description\":\"NodeJSのパッケージマネージャの1つであるpnpmMを使ってモノレポを作る方法について説明します。\",\"url\":\"/environment/monorepo/pnpm/\",\"date\":\"2024-01-29\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Yarn Workspacesのコマンド\",\"description\":\"YarnのWorkspacesを使って構成されたモノレポで、各プロジェクトのscriptsに設定されたコマンドを実行する方法について説明します。\",\"url\":\"/environment/monorepo/yarn_workspaces/command/\",\"date\":\"2024-01-25\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Yarn Workspacesの依存性のHoisting\",\"description\":\"YarnのWorkspacesを使ってMonorepoを構成する際に、各プロジェクトに必要な依存性を追加する時、動作するHoistingについて説明します。\",\"url\":\"/environment/monorepo/yarn_workspaces/hoisting/\",\"date\":\"2024-01-24\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Yarn Workspaces\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使うための知識である Yarnの Workspaces について紹介します。\",\"url\":\"/environment/monorepo/yarn_workspaces/\",\"date\":\"2024-01-18\",\"category\":\"environment\"},{\"title\":\"[Monorepo] Symlink\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使用するための知識であるSymlink(Symbolic Link)について説明します。\",\"url\":\"/environment/monorepo/symlink/\",\"date\":\"2024-01-17\",\"category\":\"environment\"},{\"title\":\"[Monorepo] NodeJSのモジュールの読み込み\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使用するための知識として、NodeJSがモジュールを読み込む方法について説明します。\",\"url\":\"/environment/monorepo/module-resolutions/\",\"date\":\"2024-01-16\",\"category\":\"environment\"},{\"title\":\"[JavaScript] モノレポ(Monorepo)のためのツール\",\"description\":\"JavaScriptで開発するプロジェクトでモノレポ(Monorepo)を使用するために必要なツールを紹介します。\",\"url\":\"/environment/monorepo/tools/\",\"date\":\"2024-01-11\",\"category\":\"environment\"},{\"title\":\"[プロジェクト管理] リポジトリ戦略\",\"description\":\"プロジェクトを管理するためのリポジトリ戦略であるモノリス(Monolith)、マルチレポ(Multi Repo)、モノレポ(Monorepo)について説明します。\",\"url\":\"/environment/repository_strategy/\",\"date\":\"2024-01-04\",\"category\":\"environment\"},{\"title\":\"pyenvを使ってPythonのバージョン管理をする\",\"description\":\"同じマシンで色んなPythonのバージョンを使うためpyenvを使う方法について説明します。\",\"url\":\"/environment/pyenv/\",\"date\":\"2023-02-26\",\"category\":\"environment\"},{\"title\":\"(macOS) NVMでNodeのバージョン管理\",\"description\":\"macOSへNVM(Node Version Manager)をインストールしてNodeのバージョンを管理する方法について説明します。\",\"url\":\"/environment/nvm/\",\"date\":\"2020-12-16\",\"category\":\"environment\"},{\"title\":\"HomebrewとShell Scriptを使ってマック(Mac)の開発環境構築を自動化する\",\"description\":\"HomebrewとShell Scriptを使ってマック(Mac)の開発環境構築を自動化する方法を共有します。このように作ったBrewfileとShell Scriptを使って新しマック(Mac)に開発環境を設定してみます。\",\"url\":\"/environment/configure-development-environment-on-mac-with-homebrew-and-shell-script/\",\"date\":\"2019-10-10\",\"category\":\"environment\"},{\"title\":\"マック(Mac)の開発環境の構築(3) - 開発環境\",\"description\":\"新しいマック(Mac)に開発環境を構築しています。現在開発する時使ってる開発環境を設定する方法を説明します。\",\"url\":\"/environment/mac-development-environment/\",\"date\":\"2019-03-07\",\"category\":\"environment\"},{\"title\":\"マック(Mac)の開発環境の構築(2) - tools\",\"description\":\"新しマック(Mac)に開発環境を構築してみようかと思います。私がマック(Mac)で使ってる開発ツールを纏めてみました。\",\"url\":\"/environment/mac-development-tools/\",\"date\":\"2019-03-06\",\"category\":\"environment\"},{\"title\":\"マック(Mac)の開発環境の構築(1) - iTermとzsh\",\"description\":\"新しいマック(Mac)に開発環境を構築してみようかと思います。マック(Mac)にiTermとzshを設定して新しいターミナル環境を構築します。\",\"url\":\"/environment/mac-iterm-zsh/\",\"date\":\"2019-03-05\",\"category\":\"environment\"},{\"title\":\"ngrok\",\"description\":\"ngrokを使って外部環境から仮想環境(Guest System)に接続出来るように構成してみます。\",\"url\":\"/environment/ngrok/\",\"date\":\"2019-01-28\",\"category\":\"environment\"},{\"title\":\"アンシブル&ララベル\",\"description\":\"アンシブル(Ansible)とLaradockで作った開発環境にララベル(Laravel)をインストールして開発環境を構成してみます。\",\"url\":\"/environment/ansible-laravel/\",\"date\":\"2018-12-06\",\"category\":\"environment\"},{\"title\":\"アンシブル&Laradock\",\"description\":\"vagrantとアンシブル(Ansible)を使って作った仮想マシン(guest system)にLaradockを使ってララベル(Laravel)開発環境を作ってみます。\",\"url\":\"/environment/ansible-laradock/\",\"date\":\"2018-12-05\",\"category\":\"environment\"},{\"title\":\"アンシブル&ドッカー\",\"description\":\"アンシブルプレイブック(Ansible Playbook)を使ってvagrant仮想マシン(guest system)にドッカー(Docker)とドッカーコンポーズ(Docker Compose)をインストールしてみます。\",\"url\":\"/environment/ansible-docker/\",\"date\":\"2018-12-04\",\"category\":\"environment\"},{\"title\":\"アンシブルプレイブック\",\"description\":\"アンシブルプレイブック(Ansible Playbook)を使ってサーバー構築に必要なプログラムのインストールや基本設定をしてみます。\",\"url\":\"/environment/ansible-playbook/\",\"date\":\"2018-12-02\",\"category\":\"environment\"},{\"title\":\"アンシブルインストール\",\"description\":\"vagrantで生成した仮想マシン(guest system)へアンシブル(Ansible)をインストールしてアンシブル(Ansible)を使える環境を作ります。\",\"url\":\"/environment/install-ansible/\",\"date\":\"2018-11-26\",\"category\":\"environment\"},{\"title\":\"vagrantインストールや使い方\",\"description\":\"仮想マシンを使って開発環境を構築するためvirtualbox, vagrantをインストールする方法や仮想マシンを作るためvagrantを使う方法について紹介します。\",\"url\":\"/environment/vagrant-install-and-usage/\",\"date\":\"2018-11-25\",\"category\":\"environment\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%E3%83%9E%E3%83%83%E3%82%AF(Mac)%E3%81%AE%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E6%A7%8B%E7%AF%89(3)%20-%20%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83&url=https%3A%2F%2Fdeku.posstree.com%2Fenvironment%2Fmac-development-environment%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fenvironment%2Fmac-development-environment%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="자신이 개발한 Javascript 라이브러리를 NPM에 배포하는 방법에 대해서 알아봅니다."><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>NPM에 자신의 라이브러리 배포하기 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/ko/share/deploy-npm-library/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/share/deploy-npm-library/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/share/deploy-npm-library/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/share/deploy-npm-library/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/share/deploy-npm-library/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="NPM에 자신의 라이브러리 배포하기"><meta name="twitter:description" content="자신이 개발한 Javascript 라이브러리를 NPM에 배포하는 방법에 대해서 알아봅니다."><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/share/2020/deploy-npm-library/background.jpg"><meta name="twitter:image:alt" content="NPM에 자신의 라이브러리 배포하기"><!-- Open Graph --><meta property="og:title" content="NPM에 자신의 라이브러리 배포하기"><meta property="og:description" content="자신이 개발한 Javascript 라이브러리를 NPM에 배포하는 방법에 대해서 알아봅니다."><meta property="og:image" content="https://deku.posstree.com/assets/images/category/share/2020/deploy-npm-library/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="NPM에 자신의 라이브러리 배포하기"><meta property="og:url" content="https://deku.posstree.com/ko/share/deploy-npm-library/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="ja_JP"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2020-04-26T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="공유"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/ko/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"NPM에 자신의 라이브러리 배포하기","description":"자신이 개발한 Javascript 라이브러리를 NPM에 배포하는 방법에 대해서 알아봅니다.","datePublished":"2020-04-26T00:00:00.000Z","dateModified":"2020-04-26T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/ko/share/deploy-npm-library/"},"image":"https://deku.posstree.com/assets/images/category/share/2020/deploy-npm-library/background.jpg","url":"https://deku.posstree.com/ko/share/deploy-npm-library/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/ko/share/github-actions/set-assignees/","name":"[GitHub Actions] Assignees 자동 설정"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/ko/share/github-actions/set-reviewers/","name":"[GitHub Actions] Reviewers 자동 설정"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/ko/share/macos/caffeinate/","name":"[macOS] 절전 모드 전환 방지 명령어"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/ko/share/github-actions/pr-labels-checker/","name":"[GitHub Actions] Pull request의 Label 검사"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/ko/share/github-actions/release-drafter/","name":"[GitHub Actions] Release notes 자동화"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/ko/share/github-actions/pr-title-checker/","name":"[GitHub Actions] Pull request 제목 검사"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/ko/share/mac-m2-silicon-install-deasync-error/","name":"[Mac M2 실리콘 칩] NPM 패키지 deasync 설치 에러"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/ko/share/github-actions/deploy-npm-library/","name":"[GitHub Actions] NPM 패키지 배포 자동화"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/ko/share/deploy-npm-library/","name":"NPM에 자신의 라이브러리 배포하기"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/ko/share/hit-counts/","name":"HITS로 방문자수 표시하기"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/ko/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/share/2020/deploy-npm-library/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>NPM에 자신의 라이브러리 배포하기</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2020-04-26 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fko%2Fshare%2Fdeploy-npm-library%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">자신이 개발한 Javascript 라이브러리를 NPM에 배포하는 방법에 대해서 알아봅니다.</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/share/" itemprop="item"> <span itemprop="name">공유</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">NPM에 자신의 라이브러리 배포하기</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="목차">목차</h2>
+<ul>
+<li><a href="#%EA%B0%9C%EC%9A%94">개요</a></li>
+<li><a href="#npm-%EA%B3%84%EC%A0%95-%EB%A7%8C%EB%93%A4%EA%B8%B0">NPM 계정 만들기</a></li>
+<li><a href="#npm-info">npm info</a></li>
+<li><a href="#npm-init">npm init</a></li>
+<li><a href="#npm-login">npm login</a></li>
+<li><a href="#npmignore">npmignore</a></li>
+<li><a href="#npm-publish">npm publish</a></li>
+<li><a href="#npm-version">npm version</a></li>
+<li><a href="#%EC%99%84%EB%A3%8C">완료</a></li>
+</ul>
+</div>
+<h2 id="개요">개요</h2>
+<p>지금까지 React Native로 개발하면서, 남들이 만들어 놓은 오픈 소스를 많이 사용하였습니다. 언제나 이렇게 오픈 소스만 사용하다가, 나도 한번 오픈 소스를 제작해봐야지 마음 먹고 <code>react-native-image-modal</code>이라는 간단한 오픈 소스를 제작해 보았습니다.</p>
+<ul>
+<li>NPM: <a href="https://www.npmjs.com/package/react-native-image-modal" rel="nofollow noreferrer" target="_blank">react-native-image-modal</a></li>
+</ul>
+<p>React Native의 오픈 소스 라이브러리를 제작하는 방법에 대해서 궁금하신 분들은 아래에 블로그를 참고하시기 바랍니다.</p>
+<ul>
+<li><a href="/react-native/make-opensource-library/">React Native용 오픈소스 만들기</a></li>
+</ul>
+<p>이번 블로그 포스트에서는 자신이 제작한 Javascript 라이브러리를 NPM(Node Package Manager)에 배포하는 방법에 대해서 알아봅니다.</p>
+<h2 id="npm-계정-만들기">NPM 계정 만들기</h2>
+<p>NPM에 자신이 만든 Javascript 라이브러리를 배포하기 위해서는 NPM 서비스의 계정이 필요합니다.</p>
+<p>NPM의 계정이 존재하지 않는 분들은, 아래에 링크를 클릭하여 NPM 서비스로 이동한 후, NPM 계정을 생성합니다.</p>
+<ul>
+<li>NPM 서비스 사이트: <a href="https://www.npmjs.com/" rel="nofollow noreferrer" target="_blank">https://www.npmjs.com/</a></li>
+</ul>
+<h2 id="npm-info">npm info</h2>
+<p>자신이 개발한 JavaScript 라이브러리를 배포하기전에, 배포가 가능한 패키지명인지 확인할 필요가 있습니다. 당연하지만, 현재 NPM에 배포된 라이브러리와 동일한 이름을 사용할 수 없습니다.</p>
+<p>아래에 명령어를 사용하여 자신의 Javascript 라이브러리명이 사용 가능한지 확인해 봅니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> info</span><span style="color:#EEFFFF"> [Javascript </span><span style="color:#C3E88D">Package</span><span style="color:#C3E88D"> Name]</span></span></code></pre>
+<p>만약, 중복된 이름이라면 아래와 같이, 이미 NPM에 배포된 라이브러리에 대한 정보를 확인할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npmdeploy@1.0.1</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> MIT</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> deps:</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> versions:</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#FFCB6B">deploy</span><span style="color:#C3E88D"> projects</span><span style="color:#C3E88D"> easily</span><span style="color:#C3E88D"> in</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> cloud.</span><span style="color:#C3E88D"> Optimized</span><span style="color:#C3E88D"> for</span><span style="color:#C3E88D"> GitLab</span><span style="color:#C3E88D"> CI</span></span>
+<span class="line"><span style="color:#FFCB6B">https://gitlab.com/pushrocks/npmdeploy#README</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">keywords:</span><span style="color:#C3E88D"> deploying,</span><span style="color:#C3E88D"> made,</span><span style="color:#C3E88D"> easy</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">dist</span></span>
+<span class="line"><span style="color:#FFCB6B">.tarball:</span><span style="color:#C3E88D"> https://registry.npmjs.org/npmdeploy/-/npmdeploy-1.0.1.tgz</span></span>
+<span class="line"><span style="color:#FFCB6B">.shasum:</span><span style="color:#C3E88D"> c298d768aac7ccb89a38c20a0c904341fc87c484</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">dependencies:</span></span>
+<span class="line"><span style="color:#FFCB6B">gitlab:</span><span style="color:#C3E88D"> ^1.6.0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">maintainers:</span></span>
+<span class="line"><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> lossless</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#C3E88D">npm@lossless.digita</span><span style="color:#EEFFFF">l</span><span style="color:#89DDFF">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">dist-tags:</span></span>
+<span class="line"><span style="color:#FFCB6B">latest:</span><span style="color:#F78C6C"> 1.0.1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">published</span><span style="color:#C3E88D"> over</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> year</span><span style="color:#C3E88D"> ago</span><span style="color:#C3E88D"> by</span><span style="color:#C3E88D"> lossless</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#C3E88D">npm@lossless.digita</span><span style="color:#EEFFFF">l</span><span style="color:#89DDFF">></span></span></code></pre>
+<p>만약 중복된 이름이 아니라면 아래와 같이 <code>404</code> 에러를 확인할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#C3E88D"> code</span><span style="color:#C3E88D"> E404</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">temp-npmdeploy</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> not</span><span style="color:#C3E88D"> in</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> npm</span><span style="color:#C3E88D"> registry.</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#C3E88D"> You</span><span style="color:#C3E88D"> should</span><span style="color:#C3E88D"> bug</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> author</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> publish</span><span style="color:#C3E88D"> it</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#EEFFFF"> (or </span><span style="color:#C3E88D">use</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> name</span><span style="color:#C3E88D"> yourself!</span><span style="color:#EEFFFF">)</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#C3E88D"> Note</span><span style="color:#C3E88D"> that</span><span style="color:#C3E88D"> you</span><span style="color:#C3E88D"> can</span><span style="color:#C3E88D"> also</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> from</span><span style="color:#C3E88D"> a</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#C3E88D"> tarball,</span><span style="color:#C3E88D"> folder,</span><span style="color:#C3E88D"> http</span><span style="color:#C3E88D"> url,</span><span style="color:#C3E88D"> or</span><span style="color:#C3E88D"> git</span><span style="color:#C3E88D"> url.</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#89DDFF">  '</span><span style="color:#C3E88D">temp-npmdeploy@latest</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> not</span><span style="color:#C3E88D"> in</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> npm</span><span style="color:#C3E88D"> registry.</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#C3E88D"> You</span><span style="color:#C3E88D"> should</span><span style="color:#C3E88D"> bug</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> author</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> publish</span><span style="color:#C3E88D"> it</span><span style="color:#EEFFFF"> (or </span><span style="color:#C3E88D">use</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> name</span><span style="color:#C3E88D"> yourself!</span><span style="color:#EEFFFF">)</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#C3E88D"> Note</span><span style="color:#C3E88D"> that</span><span style="color:#C3E88D"> you</span><span style="color:#C3E88D"> can</span><span style="color:#C3E88D"> also</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> from</span><span style="color:#C3E88D"> a</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> ERR!</span><span style="color:#F78C6C"> 404</span><span style="color:#C3E88D"> tarball,</span><span style="color:#C3E88D"> folder,</span><span style="color:#C3E88D"> http</span><span style="color:#C3E88D"> url,</span><span style="color:#C3E88D"> or</span><span style="color:#C3E88D"> git</span><span style="color:#C3E88D"> url.</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="npm-init">npm init</h2>
+<p>자신이 개발한 Javascript 라이브러리를 NPM에 배포하기 위해서 NPM에 필요한 정보를 설정할 필요가 있습니다.</p>
+<p>자신이 개발한 Javascript 라이브러리 폴더로 이동한 후, 아래에 명령어를 실행합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd ProjectName</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> init</span></span></code></pre>
+<p>위의 명령어를 실행하면, 다음과 같은 화면을 볼 수 있습니다. 아래에 설명하는 내용은 추후에도 변경할 수 있으니, 부담없이 진행하시기 바랍니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">This</span><span style="color:#C3E88D"> utility</span><span style="color:#C3E88D"> will</span><span style="color:#C3E88D"> walk</span><span style="color:#C3E88D"> you</span><span style="color:#C3E88D"> through</span><span style="color:#C3E88D"> creating</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> package.json</span><span style="color:#C3E88D"> file.</span></span>
+<span class="line"><span style="color:#FFCB6B">It</span><span style="color:#C3E88D"> only</span><span style="color:#C3E88D"> covers</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> most</span><span style="color:#C3E88D"> common</span><span style="color:#C3E88D"> items,</span><span style="color:#C3E88D"> and</span><span style="color:#C3E88D"> tries</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> guess</span><span style="color:#C3E88D"> sensible</span><span style="color:#C3E88D"> defaults.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">See</span><span style="color:#89DDFF"> `</span><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> help json</span><span style="color:#89DDFF">`</span><span style="color:#89DDFF;font-style:italic"> for</span><span style="color:#EEFFFF"> definitive documentation on these fields</span></span>
+<span class="line"><span style="color:#FFCB6B">and</span><span style="color:#C3E88D"> exactly</span><span style="color:#C3E88D"> what</span><span style="color:#C3E88D"> they</span><span style="color:#C3E88D"> do.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">Use</span><span style="color:#89DDFF"> `</span><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> install </span><span style="color:#89DDFF">&#x3C;</span><span style="color:#C3E88D">pkg</span><span style="color:#89DDFF">>`</span><span style="color:#FFCB6B"> afterwards</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> package</span><span style="color:#C3E88D"> and</span></span>
+<span class="line"><span style="color:#FFCB6B">save</span><span style="color:#C3E88D"> it</span><span style="color:#C3E88D"> as</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> dependency</span><span style="color:#C3E88D"> in</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> package.json</span><span style="color:#C3E88D"> file.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">Press</span><span style="color:#C3E88D"> ^C</span><span style="color:#C3E88D"> at</span><span style="color:#C3E88D"> any</span><span style="color:#C3E88D"> time</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> quit.</span></span>
+<span class="line"><span style="color:#FFCB6B">package</span><span style="color:#C3E88D"> name:</span><span style="color:#EEFFFF"> (npmdeploy)</span></span></code></pre>
+<p>폴더명을 기준으로 <code>package name</code>을 결정할지, 다른 이름으로 설정할지 물어봅니다. 우리는 위에서 <code>npm info</code>로 배포 가능한 이름을 찾았습니다. 해당 이름을 입력합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">version:</span><span style="color:#EEFFFF"> (1.0.0)</span></span></code></pre>
+<p>그 다음, 버전을 물어봅니다. 버전은 기본적으로 <code>major.minor.patch</code>를 사용합니다. 이미 개발이 완료되었고, 배포만을 남겨둔 상황이라면 <code>1.0.0</code>을 그대로 사용하면 됩니다. 아직 개발중이고, 완벽하지 않다면 <code>0.0.1</code>을 지정하여 안정적인 버전이 아님을 명시합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">description:</span></span></code></pre>
+<p>Javascript 라이브러리에 대한 설명을 작성하는 부분입니다. 자신의 라이브러리에 대한 설명을 작성합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">entry</span><span style="color:#C3E88D"> point:</span><span style="color:#EEFFFF"> (index.js)</span></span></code></pre>
+<p>개발한 Javascript 라이브러리의 Entry 파일(메인 파일)을 지정합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">test</span><span style="color:#C3E88D"> command:</span></span></code></pre>
+<p>자신이 개발한 Javascript 라이브러리를 테스트할 수 있는 테스트 명령어를 입력합니다. 테스트를 실행할 명령어가 없다면, Enter 키를 눌러 진행합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> repository:</span></span></code></pre>
+<p>배포하려는 Javascript의 소스코드를 확인할 수 있는 Git 저장소의 URL을 입력합니다. URL이 존재하지 않느다면 Enter 키를 눌러 진행합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">keywords:</span></span></code></pre>
+<p>배포하려는 Javascript를 쉽게 알 수 있는 키워드를 입력합니다. (ex> jQuery, react-native, ReactJS 등)</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">author:</span></span></code></pre>
+<p>배포하는 사람에 대한 정보를 입력합니다. 보통 <code>Name &#x3C;Email Address></code> 형식을 사용합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">license:</span><span style="color:#EEFFFF"> (ISC)</span></span></code></pre>
+<p>배포하려는 라이브러리의 라이센스에 관한 질문입니다. 자신의 라이브러리의 라이센스에 맞게 작성합니다. (ex> MIT, ISC 등)</p>
+<p>라이센스에 키워드에 관해서는 아래의 링크를 참고하시기 바랍니다.</p>
+<ul>
+<li><a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository#searching-github-by-license-type" rel="nofollow noreferrer" target="_blank">GitHub license type</a></li>
+</ul>
+<p>이렇게 모든 항목을 입력하면 자신의 프로젝트 폴더안에 <code>package.json</code> 파일이 생성된 것을 확인할 수 있습니다.</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="npm-login">npm login</h2>
+<p>NPM에 자신의 라이브러리를 배포하기 위해서는, 아래에 명령어를 사용하여 NPM 서비스에 로그인 할 필요가 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> login</span></span></code></pre>
+<p>위에 명령어를 실행하면 아래와 같이 로그인을 하기위한 절차가 실행됩니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Username:</span><span style="color:#C3E88D"> dev-yakuza</span></span>
+<span class="line"><span style="color:#FFCB6B">Password:</span></span>
+<span class="line"><span style="color:#FFCB6B">Email:</span><span style="color:#EEFFFF"> (this </span><span style="color:#C3E88D">IS</span><span style="color:#C3E88D"> public</span><span style="color:#EEFFFF">) dev.yakuza@gmail.com</span></span>
+<span class="line"><span style="color:#FFCB6B">Logged</span><span style="color:#C3E88D"> in</span><span style="color:#C3E88D"> as</span><span style="color:#C3E88D"> dev-yakuza</span><span style="color:#C3E88D"> on</span><span style="color:#C3E88D"> https://registry.npmjs.org/.</span></span></code></pre>
+<p>위에서 생성한 NPM 계정의 정보를 입력하여 로그인합니다. 로그인을 하였다면 아래에 명령어를 실행하여 제대로 로그인되었는지 확인합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> whoami</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># dev-yakuza</span></span></code></pre>
+<h2 id="npmignore">npmignore</h2>
+<p>실제 개발에는 필요하나, 개발이 완료된 라이브러리를 사용할 때는 필요없는 파일들이 있습니다. 예를 들어 테스트 코드, 예제 소스들이 이에 해당할 수 있습니다. 이렇게 개발에는 필요하나, 배포에는 불필요한 파일들을 <code>.npmignore</code> 파일을 통해 제외 시킬 수 있습니다.</p>
+<p>아래에 내용은 제가 개발한 <code>react-native-image-modal</code>에 대한 <code>.npmignore</code> 파일입니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>node_modules</span></span>
+<span class="line"><span>Develop</span></span>
+<span class="line"><span>DevelopWithExpo</span></span>
+<span class="line"><span>Example</span></span>
+<span class="line"><span>ExampleWithExpo</span></span>
+<span class="line"><span>.github</span></span>
+<span class="line"><span>demo</span></span></code></pre>
+<h2 id="npm-publish">npm publish</h2>
+<p>이제 NPM에 자신의 라이브러리를 배포할 준비가 되었습니다. 아래에 명령어를 통해 자신의 라이브러리를 NPM에 배포해 봅시다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> publish</span></span></code></pre>
+<p>라이브러리를 배포하기 전에 특정 명령어를 실행할 필요가 있다면 <code>package.json</code>을 아래와 같이 수정합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">"</span><span style="color:#C3E88D">scripts</span><span style="color:#89DDFF">"</span><span style="color:#EEFFFF">: </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">prepare</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">rm -rf dist &#x26;&#x26; tsc</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">,</span></span></code></pre>
+<p>저는 Typescript로 라이브러리를 개발했기 때문에, 배포전에 Typescript를 빌드할 필요가 있었습니다. 이렇게 <code>package.json</code>의 <code>scripts</code>에 <code>prepare</code> 명령어를 선언하면, <code>npm publish</code> 명령어를 실행할 때, 해당 명령어를 실행하게 됩니다.</p>
+<p>이것으로 여러분이 개발한 라이브러리를 NPM에 배포하였습니다. 배포된 라이브러리를 사용하기 위해서는 여러분이 NPM 라이브러리를 사용하는 것과 동일하게 사용이 가능합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> --save</span><span style="color:#EEFFFF"> [Your </span><span style="color:#C3E88D">Package</span><span style="color:#C3E88D"> Name]</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="npm-version">npm version</h2>
+<p>NPM에 배포한 라이브러리를 수정하고 다시 배포해야할 일이 발생할 수 있습니다. 이렇게 재배포를 할 경우, 버전을 올려줄 필요가 있습니다.</p>
+<p>버전을 올리기 위해서는 <code>package.json</code> 파일의 버전(<code>"version": "0.0.1"</code>)을 직접 수정하고 배포해도 되지만 아래에 명령어를 통해 버전을 업데이트할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> version</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> version</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> version</span><span style="color:#C3E88D"> major</span></span></code></pre>
+<p>위에 명령어를 필요한 상황에 맞게 사용하시면, 쉽게 버전을 올릴 수 있습니다.</p>
+<h2 id="완료">완료</h2>
+<p>이것으로 자신이 개발한 Javascript 라이브러리를 NPM에 배포하는 방법에 대해서 알아보았습니다. 처음으로 오픈소스를 제작하고 NPM에 배포하다보니 나도 뭔가 개발자 문화에 동참하는 기분이 들었습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/share/2020/deploy-npm-library/npm-react-native-image-modal.avif" type="image/avif">
+  <source srcset="/assets/images/category/share/2020/deploy-npm-library/npm-react-native-image-modal.webp" type="image/webp">
+  <img src="/assets/images/category/share/2020/deploy-npm-library/npm-react-native-image-modal.jpg" alt="NPM react-native-image-modal">
+</picture>
+<p>여러분도 여러분만의 오픈소스를 제작하고 배포하여, 아름다운 개발자 문화에 동참해 보시는건 어떨까요?</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 제 블로그가 도움이 되셨나요? 하단의 댓글을 달아주시면 저에게 큰 힘이 됩니다! </code> </p>  <h2>앱 홍보</h2> <div class="book-greeting"> 지금 보고 계신 블로그를 작성하는 <code class="highlighter-rouge">Deku</code>가 개발한 앱을 한번 사용해보세요.<br /><code class="highlighter-rouge">Deku</code>가 개발한 앱은 Flutter로 개발되었습니다.<br /><br />관심있으신 분들은 앱을 다운로드하여 사용해 주시면 정말 감사하겠습니다. <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/ko/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="어린이용 단어 공부 앱, 블라부"> <div> <div class="app_description">어린이용 단어 공부 앱</div> <div class="app_title">블라부</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/clog/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/clog.png" alt="세상의 모든 정보를 모아보다, 씨로그"> <div> <div class="app_description">세상의 모든 정보를 모아보다</div> <div class="app_title">씨로그</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/ildangongbu/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/ildangongbu.png" alt="JLPT 일본어 단어앱, 일단 공부"> <div> <div class="app_description">JLPT 일본어 단어앱</div> <div class="app_title">일단 공부</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwords.png" alt="토익 영어 단어앱, 토익 단어앱"> <div> <div class="app_description">토익 영어 단어앱</div> <div class="app_title">토익 단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/secondaryenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/secondaryenglish.png" alt="중고등 영어 단어앱, 중고등 영단어앱"> <div> <div class="app_description">중고등 영어 단어앱</div> <div class="app_title">중고등 영단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/hskwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/hskwords.png" alt="HSK 중국어 단어앱, 중국어 단어앱"> <div> <div class="app_description">HSK 중국어 단어앱</div> <div class="app_title">중국어 단어앱</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/germanwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/germanwords.png" alt="독일어 단어앱, 독일어 단어장"> <div> <div class="app_description">독일어 단어앱</div> <div class="app_title">독일어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/russianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/russianwords.png" alt="러시아어 단어앱, 러시아어 단어장"> <div> <div class="app_description">러시아어 단어앱</div> <div class="app_title">러시아어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/arabicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/arabicwords.png" alt="아랍어 단어앱, 아랍어 단어장"> <div> <div class="app_description">아랍어 단어앱</div> <div class="app_title">아랍어 단어장</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/indonesianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/indonesianwords.png" alt="인도네시아 단어앱, 인도네시아 단어장"> <div> <div class="app_description">인도네시아 단어앱</div> <div class="app_title">인도네시아 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/frenchwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/frenchwords.png" alt="프랑스어 단어앱, 프랑스어 단어장"> <div> <div class="app_description">프랑스어 단어앱</div> <div class="app_title">프랑스어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/spanishwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/spanishwords.png" alt="스페인어 단어앱, 스페인어 단어장"> <div> <div class="app_description">스페인어 단어앱</div> <div class="app_title">스페인어 단어장</div> </div> </a> </div> </div> </div> <h2>책 홍보</h2> <div class="book-greeting">
+블로그를 운영하면서 좋은 기회가 생겨 책을 출판하게 되었습니다.
+<br><br>
+아래 링크를 통해 제가 쓴 책을 구매하실 수 있습니다.<br>
+많은 분들에게 도움이 되면 좋겠네요.<br><br> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/bMMos6" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b95772cbabc4ca68f13398b6d001d523@2x.jpg" alt="스무디 한 잔 마시며 끝내는 React Native, 비제이퍼블릭" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/bMMos6" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/82895471" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001934238" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=216744127" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/b2q2jo" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b1adb4aa04d9020b64437a41d0eb5d56@2x.jpg" alt="스무디 한 잔 마시며 끝내는 리액트 + TDD, 비제이퍼블릭" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/b2qM3D" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/102280451" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001842185" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=273805547" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> </div> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://link.coupang.com/a/blh8s3" target="_blank" referrerpolicy="unsafe-url"> <img src="https://img1c.coupangcdn.com/image/affiliate/banner/7cba8cb0601eebaf88a17a0c3cf65a63@2x.jpg" alt="현장에서 바로 써먹는 리액트 with 타입스크립트, 심통" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://link.coupang.com/a/blh8s3" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/119695609" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000202707764" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=319109984" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"></div> </div> </div>    </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"[GitHub Actions] Assignees 자동 설정\",\"description\":\"GitHub Actions를 사용하여 Pull request의 Assignees에 Pull request를 생성한 사람을 자동으로 설정하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/share/github-actions/set-assignees/\",\"date\":\"2024-02-03\",\"category\":\"share\"},{\"title\":\"[GitHub Actions] Reviewers 자동 설정\",\"description\":\"GitHub Actions를 사용하여 Pull request의 Reviewers에 리뷰어를 자동으로 설정하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/share/github-actions/set-reviewers/\",\"date\":\"2024-02-03\",\"category\":\"share\"},{\"title\":\"[macOS] 절전 모드 전환 방지 명령어\",\"description\":\"macOS에서 자동으로 절전 모드로 전환되는 것을 방지하는 명령어인 Caffeinate에 대해서 알아보겠습니다.\",\"url\":\"/ko/share/macos/caffeinate/\",\"date\":\"2024-01-31\",\"category\":\"share\"},{\"title\":\"[GitHub Actions] Pull request의 Label 검사\",\"description\":\"GitHub Actions중 하나인 PR Labels Checker를 사용하여 GitHub의 Pull request의 Label을 검사하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/share/github-actions/pr-labels-checker/\",\"date\":\"2023-12-25\",\"category\":\"share\"},{\"title\":\"[GitHub Actions] Release notes 자동화\",\"description\":\"GitHub Actions중 하나인 Release Drafter를 사용하여 GitHub의 Release notes 작성을 자동화하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/share/github-actions/release-drafter/\",\"date\":\"2023-12-07\",\"category\":\"share\"},{\"title\":\"[GitHub Actions] Pull request 제목 검사\",\"description\":\"GitHub Actions를 사용하여 Pull request의 제목이 Conventional Commits을 지키는지 검사하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/share/github-actions/pr-title-checker/\",\"date\":\"2023-12-06\",\"category\":\"share\"},{\"title\":\"[Mac M2 실리콘 칩] NPM 패키지 deasync 설치 에러\",\"description\":\"Mac M2 실리콘 칩에서 NPM 패키지의 deasync을 설치할 때, node-gyp 에러를 해결하는 방법을 공유합니다.\",\"url\":\"/ko/share/mac-m2-silicon-install-deasync-error/\",\"date\":\"2023-11-20\",\"category\":\"share\"},{\"title\":\"[GitHub Actions] NPM 패키지 배포 자동화\",\"description\":\"GitHub Actions를 사용하여 NPM 패키지 배포를 자동화하는 방법에 대해서 알아봅시다.\",\"url\":\"/ko/share/github-actions/deploy-npm-library/\",\"date\":\"2023-10-23\",\"category\":\"share\"},{\"title\":\"NPM에 자신의 라이브러리 배포하기\",\"description\":\"자신이 개발한 Javascript 라이브러리를 NPM에 배포하는 방법에 대해서 알아봅니다.\",\"url\":\"/ko/share/deploy-npm-library/\",\"date\":\"2020-04-26\",\"category\":\"share\"},{\"title\":\"HITS로 방문자수 표시하기\",\"description\":\"HITS를 이용하여 정적 웹 사이트의 방문자 수를 표시해 봅시다.\",\"url\":\"/ko/share/hit-counts/\",\"date\":\"2020-04-23\",\"category\":\"share\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=NPM%EC%97%90%20%EC%9E%90%EC%8B%A0%EC%9D%98%20%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%20%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0&url=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fshare%2Fdeploy-npm-library%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fshare%2Fdeploy-npm-library%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/ko/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

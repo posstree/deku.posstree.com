@@ -1,0 +1,865 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Monorepo環境でDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>Dependabot PR処理のための自動化 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/github_actions/dependabot-sop-automation/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/github_actions/dependabot-sop-automation/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/github_actions/dependabot-sop-automation/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/github_actions/dependabot-sop-automation/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/github_actions/dependabot-sop-automation/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="Dependabot PR処理のための自動化"><meta name="twitter:description" content="Monorepo環境でDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/github_actions/background.jpg"><meta name="twitter:image:alt" content="Dependabot PR処理のための自動化"><!-- Open Graph --><meta property="og:title" content="Dependabot PR処理のための自動化"><meta property="og:description" content="Monorepo環境でDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/github_actions/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Dependabot PR処理のための自動化"><meta property="og:url" content="https://deku.posstree.com/github_actions/dependabot-sop-automation/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2025-02-04T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="GitHub Actions"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Dependabot PR処理のための自動化","description":"Monorepo環境でDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。","datePublished":"2025-02-04T00:00:00.000Z","dateModified":"2025-02-04T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/github_actions/dependabot-sop-automation/"},"image":"https://deku.posstree.com/assets/images/category/github_actions/background.jpg","url":"https://deku.posstree.com/github_actions/dependabot-sop-automation/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/github_actions/dependabot-sop-automation/","name":"Dependabot PR処理のための自動化"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/github_actions/dependabot-sop/","name":"Dependabot PR処理のためのSOP(Standard Operating Procedure)"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/github_actions/send_slack_message_for_reviewer/","name":"[GitHub Actions] Reviewerに通知するためのSlackメッセージを送信する"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/github_actions/improve-test-performance/","name":"[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/github_actions/composite-action/","name":"[GitHub Actions] Composite Actionを使ってGitHub Actionsの重複を減らす"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/github_actions/execute-github-actions-manually/","name":"[GitHub Actions] GitHub Actions を手動で実行する"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/github_actions/action-check-pr-title/","name":"[GitHub Actions] モノレポ環境でGitHub Actionsを使ってPRタイトルをチェックする方法"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/github_actions/check-branch-name/","name":"[GitHub Actions] GitHub Actionsでブランチ名をチェックする方法"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/github_actions/auto-assign-assigness/","name":"[GitHub Actions] PRに自動でAssigneesを追加する"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/github_actions/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>Dependabot PR処理のための自動化</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2025-02-04 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fgithub_actions%2Fdependabot-sop-automation%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">Monorepo環境でDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/github_actions/" itemprop="item"> <span itemprop="name">GitHub Actions</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">Dependabot PR処理のための自動化</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#dependabot%E8%A8%AD%E5%AE%9A">Dependabot設定</a>
+<ul>
+<li><a href="#%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%B8%BB%E8%A6%81%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88">設定の主要ポイント</a></li>
+</ul>
+</li>
+<li><a href="#github-actions%E3%81%AB%E3%82%88%E3%82%8B%E8%87%AA%E5%8B%95%E5%8C%96">GitHub Actionsによる自動化</a>
+<ul>
+<li><a href="#%E8%87%AA%E5%8B%95%E3%83%A9%E3%83%99%E3%83%AA%E3%83%B3%E3%82%B0">自動ラベリング</a></li>
+<li><a href="#%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88">チェックリストコメントテンプレート</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>前回の投稿では、Dependabot PRを効率的に処理するためのリスク分類基準について学びました。</p>
+<ul>
+<li><a href="/github_actions/dependabot-sop/">Dependabot PR処理のためのSOP（Standard Operating Procedure）</a></li>
+</ul>
+<p>この投稿では、前回のブログで定義した分類基準に基づいて、Dependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。</p>
+<h2 id="dependabot設定">Dependabot設定</h2>
+<p>Dependabotを使用して依存関係の更新PRを自動的に生成するには、<code>.github/dependabot.yml</code>ファイルを作成し、以下のように設定します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">version</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 2</span></span>
+<span class="line"><span style="color:#F07178">enable-beta-ecosystems</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F07178">updates</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">  # GitHub Actions</span></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> github-actions</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 5</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(common)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      github-actions</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        patterns</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">  # Root npm dependencies (common dependency management)</span></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 10</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(common)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">      # TypeScript types (low risk)</span></span>
+<span class="line"><span style="color:#F07178">      typescript-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        patterns</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@types/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">      # ESLint/Prettier related (low risk)</span></span>
+<span class="line"><span style="color:#F07178">      linting</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        patterns</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@eslint/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">prettier*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">stylelint*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">      # Testing tools (low risk)</span></span>
+<span class="line"><span style="color:#F07178">      testing</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        patterns</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@testing-library/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">vitest*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">jest*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">      # Patch updates batch processing</span></span>
+<span class="line"><span style="color:#F07178">      patch-updates</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"><span style="color:#F07178">        exclude-patterns</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">react*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">typescript</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">vite*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">  # Apps settings</span></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/apps/app1</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(app1)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    ignore</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@packages/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint-config-custom</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/apps/app2</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(app2)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    ignore</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@packages/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint-config-custom</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/apps/app3</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(app3)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    ignore</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@packages/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint-config-custom</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/apps/app4</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(app4)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    ignore</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@packages/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint-config-custom</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/apps/app5</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(app5)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    ignore</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@packages/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint-config-custom</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/apps/template</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(template)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    ignore</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@packages/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint-config-custom</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">  # Config packages</span></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/packages/config/eslint</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(common)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/packages/config/stylelint</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(common)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic">  # Shared packages</span></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/packages/lib/components</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(components)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    ignore</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@packages/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> dependency-name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">eslint-config-custom</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      storybook</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        patterns</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@storybook/*</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">storybook</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">  -</span><span style="color:#F07178"> package-ecosystem</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> npm</span></span>
+<span class="line"><span style="color:#F07178">    directory</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/packages/lib/CommonAPI</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    open-pull-requests-limit</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 3</span></span>
+<span class="line"><span style="color:#F07178">    schedule</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      interval</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> weekly</span></span>
+<span class="line"><span style="color:#F07178">      day</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> monday</span></span>
+<span class="line"><span style="color:#F07178">      time</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">09:00</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">      timezone</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Asia/Tokyo</span></span>
+<span class="line"><span style="color:#F07178">    commit-message</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      prefix</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">deps(common)</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">    groups</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      minor-and-patch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        update-types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> minor</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> patch</span></span></code></pre>
+<h3 id="設定の主要ポイント">設定の主要ポイント</h3>
+<p>このDependabot設定の主な特徴は以下の通りです。</p>
+<p><strong>スケジュール設定</strong></p>
+<ul>
+<li>毎週月曜日午前9時（東京時間）にPR生成</li>
+<li>週単位でアップデートを確認</li>
+</ul>
+<p><strong>PR数の制限</strong></p>
+<ul>
+<li>ルートディレクトリ：最大10個</li>
+<li>GitHub Actions：最大5個</li>
+<li>個別アプリ/パッケージ：最大3個</li>
+</ul>
+<p><strong>グループ化戦略</strong></p>
+<ul>
+<li><code>typescript-types</code>：<code>@types/*</code>パッケージをグループ化（Minor/Patchのみ）</li>
+<li><code>linting</code>：ESLint、Prettier、Stylelint関連パッケージをグループ化</li>
+<li><code>testing</code>：テストツールをグループ化</li>
+<li><code>patch-updates</code>：Patchアップデートを一括処理（高リスクパッケージを除く）</li>
+<li><code>storybook</code>：Storybook関連パッケージをグループ化</li>
+</ul>
+<p><strong>コミットメッセージプレフィックス</strong></p>
+<ul>
+<li><code>deps(common)</code>：共通依存関係</li>
+<li><code>deps(app1)</code>、<code>deps(app2)</code>など：アプリ別依存関係</li>
+<li><code>deps(components)</code>：コンポーネントパッケージ依存関係</li>
+</ul>
+<p><strong>除外設定</strong></p>
+<ul>
+<li>内部パッケージ（<code>@packages/*</code>）はDependabotの対象から除外</li>
+<li>共有ESLint設定（<code>eslint-config-custom</code>）も除外</li>
+</ul>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="github-actionsによる自動化">GitHub Actionsによる自動化</h2>
+<p>GitHub Actionsを使用して、Dependabot PRに自動的にラベルを追加し、チェックリストコメントを作成できます。</p>
+<p><code>.github/workflows/dependabot-labeler.yml</code>ファイルを作成し、以下のように記述します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Dependabot PR Labeler</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  pull_request</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    types</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#C3E88D"> opened</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#C3E88D"> synchronize</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  label-and-comment</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Add risk labels and checklist</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 5</span></span>
+<span class="line"><span style="color:#F07178">    if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> github.event.pull_request.user.login == 'dependabot[bot]'</span></span>
+<span class="line"><span style="color:#F07178">    permissions</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      pull-requests</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> write</span></span>
+<span class="line"><span style="color:#F07178">      contents</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> read</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout repository</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Analyze and label PR</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/github-script@v7</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          github-token</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ${{ secrets.GITHUB_TOKEN }}</span></span>
+<span class="line"><span style="color:#F07178">          script</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
+<span class="line"><span style="color:#C3E88D">            const fs = require('fs');</span></span>
+<span class="line"><span style="color:#C3E88D">            const path = require('path');</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            const { owner, repo } = context.repo;</span></span>
+<span class="line"><span style="color:#C3E88D">            const prNumber = context.payload.pull_request.number;</span></span>
+<span class="line"><span style="color:#C3E88D">            const prTitle = context.payload.pull_request.title;</span></span>
+<span class="line"><span style="color:#C3E88D">            const prBody = context.payload.pull_request.body || '';</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // High risk packages - runtime + affects all apps + hard to detect</span></span>
+<span class="line"><span style="color:#C3E88D">            const HIGH_RISK = [</span></span>
+<span class="line"><span style="color:#C3E88D">              'react',</span></span>
+<span class="line"><span style="color:#C3E88D">              'react-dom',</span></span>
+<span class="line"><span style="color:#C3E88D">              '@reduxjs/toolkit',</span></span>
+<span class="line"><span style="color:#C3E88D">              'react-redux',</span></span>
+<span class="line"><span style="color:#C3E88D">              'react-router-dom'</span></span>
+<span class="line"><span style="color:#C3E88D">            ];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Medium risk packages - categorized by risk behavior</span></span>
+<span class="line"><span style="color:#C3E88D">            // Category A: Major → medium, Minor/Patch → low (CI detectable)</span></span>
+<span class="line"><span style="color:#C3E88D">            const MEDIUM_RISK_CI_DETECTABLE = [</span></span>
+<span class="line"><span style="color:#C3E88D">              // Build tools</span></span>
+<span class="line"><span style="color:#C3E88D">              'vite',</span></span>
+<span class="line"><span style="color:#C3E88D">              'typescript',</span></span>
+<span class="line"><span style="color:#C3E88D">              '@vitejs/plugin-react',</span></span>
+<span class="line"><span style="color:#C3E88D">              'turbo',</span></span>
+<span class="line"><span style="color:#C3E88D">              // Test frameworks</span></span>
+<span class="line"><span style="color:#C3E88D">              'jest',</span></span>
+<span class="line"><span style="color:#C3E88D">              'vitest',</span></span>
+<span class="line"><span style="color:#C3E88D">              '@playwright/test',</span></span>
+<span class="line"><span style="color:#C3E88D">              // Linting &#x26; Code quality</span></span>
+<span class="line"><span style="color:#C3E88D">              'eslint',</span></span>
+<span class="line"><span style="color:#C3E88D">              '@typescript-eslint/',</span></span>
+<span class="line"><span style="color:#C3E88D">              // Storybook</span></span>
+<span class="line"><span style="color:#C3E88D">              'storybook',</span></span>
+<span class="line"><span style="color:#C3E88D">              '@storybook/'</span></span>
+<span class="line"><span style="color:#C3E88D">            ];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Category B: Major/Minor → medium, Patch → low (Runtime impact)</span></span>
+<span class="line"><span style="color:#C3E88D">            const MEDIUM_RISK_RUNTIME = [</span></span>
+<span class="line"><span style="color:#C3E88D">              // Runtime - all apps</span></span>
+<span class="line"><span style="color:#C3E88D">              'axios',</span></span>
+<span class="line"><span style="color:#C3E88D">              'i18next',</span></span>
+<span class="line"><span style="color:#C3E88D">              'react-i18next',</span></span>
+<span class="line"><span style="color:#C3E88D">              // App-specific runtime</span></span>
+<span class="line"><span style="color:#C3E88D">              'konva',</span></span>
+<span class="line"><span style="color:#C3E88D">              'react-konva',</span></span>
+<span class="line"><span style="color:#C3E88D">              'recharts'</span></span>
+<span class="line"><span style="color:#C3E88D">            ];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Low risk - Pure dev tools (always low risk, all update types)</span></span>
+<span class="line"><span style="color:#C3E88D">            const LOW_RISK_DEV_ONLY = [</span></span>
+<span class="line"><span style="color:#C3E88D">              '@types/',</span></span>
+<span class="line"><span style="color:#C3E88D">              'prettier',</span></span>
+<span class="line"><span style="color:#C3E88D">              'stylelint',</span></span>
+<span class="line"><span style="color:#C3E88D">              'eslint-config-',</span></span>
+<span class="line"><span style="color:#C3E88D">              'eslint-plugin-',</span></span>
+<span class="line"><span style="color:#C3E88D">              '@testing-library/',</span></span>
+<span class="line"><span style="color:#C3E88D">              'ts-jest',</span></span>
+<span class="line"><span style="color:#C3E88D">              '@vitest/ui',</span></span>
+<span class="line"><span style="color:#C3E88D">              'sass',</span></span>
+<span class="line"><span style="color:#C3E88D">              'husky',</span></span>
+<span class="line"><span style="color:#C3E88D">              'lint-staged',</span></span>
+<span class="line"><span style="color:#C3E88D">              'remark-',</span></span>
+<span class="line"><span style="color:#C3E88D">              'cspell',</span></span>
+<span class="line"><span style="color:#C3E88D">              'chromatic'</span></span>
+<span class="line"><span style="color:#C3E88D">            ];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Low risk - Runtime utilities (Major → medium, Minor/Patch → low)</span></span>
+<span class="line"><span style="color:#C3E88D">            const LOW_RISK_RUNTIME = [</span></span>
+<span class="line"><span style="color:#C3E88D">              'lodash',</span></span>
+<span class="line"><span style="color:#C3E88D">              'js-cookie',</span></span>
+<span class="line"><span style="color:#C3E88D">              'date-fns',</span></span>
+<span class="line"><span style="color:#C3E88D">              'clsx',</span></span>
+<span class="line"><span style="color:#C3E88D">              'react-ga4',</span></span>
+<span class="line"><span style="color:#C3E88D">              'qrcode.react',</span></span>
+<span class="line"><span style="color:#C3E88D">              'react-hotkeys-hook',</span></span>
+<span class="line"><span style="color:#C3E88D">              'papaparse'</span></span>
+<span class="line"><span style="color:#C3E88D">            ];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Extract package name from PR title</span></span>
+<span class="line"><span style="color:#C3E88D">            // Format: "deps(scope): bump &#x3C;package> from x.x.x to y.y.y"</span></span>
+<span class="line"><span style="color:#C3E88D">            const packageMatch = prTitle.match(/bump\s+(@?[\w\-\/]+)\s+from/i);</span></span>
+<span class="line"><span style="color:#C3E88D">            const packageName = packageMatch ? packageMatch[1] : 'unknown';</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Determine update type from PR body or title</span></span>
+<span class="line"><span style="color:#C3E88D">            let updateType = 'patch';</span></span>
+<span class="line"><span style="color:#C3E88D">            const versionMatch = prBody.match(/from\s+(\d+)\.(\d+)\.(\d+)\s+to\s+(\d+)\.(\d+)\.(\d+)/);</span></span>
+<span class="line"><span style="color:#C3E88D">            if (versionMatch) {</span></span>
+<span class="line"><span style="color:#C3E88D">              const [, fromMajor, fromMinor, , toMajor, toMinor] = versionMatch;</span></span>
+<span class="line"><span style="color:#C3E88D">              if (fromMajor !== toMajor) {</span></span>
+<span class="line"><span style="color:#C3E88D">                updateType = 'major';</span></span>
+<span class="line"><span style="color:#C3E88D">              } else if (fromMinor !== toMinor) {</span></span>
+<span class="line"><span style="color:#C3E88D">                updateType = 'minor';</span></span>
+<span class="line"><span style="color:#C3E88D">              }</span></span>
+<span class="line"><span style="color:#C3E88D">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Determine base risk level (from package category)</span></span>
+<span class="line"><span style="color:#C3E88D">            const isHighRiskPackage = HIGH_RISK.some(pkg => packageName === pkg || packageName.startsWith(pkg));</span></span>
+<span class="line"><span style="color:#C3E88D">            const isMediumRiskCIDetectable = MEDIUM_RISK_CI_DETECTABLE.some(pkg => packageName === pkg || packageName.startsWith(pkg));</span></span>
+<span class="line"><span style="color:#C3E88D">            const isMediumRiskRuntime = MEDIUM_RISK_RUNTIME.some(pkg => packageName === pkg || packageName.startsWith(pkg));</span></span>
+<span class="line"><span style="color:#C3E88D">            const isLowRiskDevOnly = LOW_RISK_DEV_ONLY.some(pkg => packageName === pkg || packageName.startsWith(pkg));</span></span>
+<span class="line"><span style="color:#C3E88D">            const isLowRiskRuntime = LOW_RISK_RUNTIME.some(pkg => packageName === pkg || packageName.startsWith(pkg));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Determine final risk level based on package category and update type</span></span>
+<span class="line"><span style="color:#C3E88D">            let riskLevel = 'low';</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            if (isHighRiskPackage) {</span></span>
+<span class="line"><span style="color:#C3E88D">              // High risk packages: only major updates remain high risk</span></span>
+<span class="line"><span style="color:#C3E88D">              riskLevel = updateType === 'major' ? 'high' : 'medium';</span></span>
+<span class="line"><span style="color:#C3E88D">            } else if (isMediumRiskCIDetectable) {</span></span>
+<span class="line"><span style="color:#C3E88D">              // CI detectable (build tools, test, lint, storybook): Major → medium, Minor/Patch → low</span></span>
+<span class="line"><span style="color:#C3E88D">              riskLevel = updateType === 'major' ? 'medium' : 'low';</span></span>
+<span class="line"><span style="color:#C3E88D">            } else if (isMediumRiskRuntime) {</span></span>
+<span class="line"><span style="color:#C3E88D">              // Runtime impact (axios, i18n, app-specific): Major/Minor → medium, Patch → low</span></span>
+<span class="line"><span style="color:#C3E88D">              riskLevel = updateType === 'patch' ? 'low' : 'medium';</span></span>
+<span class="line"><span style="color:#C3E88D">            } else if (isLowRiskDevOnly) {</span></span>
+<span class="line"><span style="color:#C3E88D">              // Pure dev tools: always low risk</span></span>
+<span class="line"><span style="color:#C3E88D">              riskLevel = 'low';</span></span>
+<span class="line"><span style="color:#C3E88D">            } else if (isLowRiskRuntime) {</span></span>
+<span class="line"><span style="color:#C3E88D">              // Low risk runtime utilities: Major → medium, Minor/Patch → low</span></span>
+<span class="line"><span style="color:#C3E88D">              riskLevel = updateType === 'major' ? 'medium' : 'low';</span></span>
+<span class="line"><span style="color:#C3E88D">            } else {</span></span>
+<span class="line"><span style="color:#C3E88D">              // Unknown packages: major updates become medium risk</span></span>
+<span class="line"><span style="color:#C3E88D">              riskLevel = updateType === 'major' ? 'medium' : 'low';</span></span>
+<span class="line"><span style="color:#C3E88D">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Define labels</span></span>
+<span class="line"><span style="color:#C3E88D">            const riskLabels = {</span></span>
+<span class="line"><span style="color:#C3E88D">              high: { name: 'risk: high', color: 'B60205', description: 'High risk dependency update' },</span></span>
+<span class="line"><span style="color:#C3E88D">              medium: { name: 'risk: medium', color: 'FBCA04', description: 'Medium risk dependency update' },</span></span>
+<span class="line"><span style="color:#C3E88D">              low: { name: 'risk: low', color: '0E8A16', description: 'Low risk dependency update' }</span></span>
+<span class="line"><span style="color:#C3E88D">            };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            const updateLabels = {</span></span>
+<span class="line"><span style="color:#C3E88D">              major: { name: 'update: major', color: 'B60205', description: 'Major version update' },</span></span>
+<span class="line"><span style="color:#C3E88D">              minor: { name: 'update: minor', color: 'FBCA04', description: 'Minor version update' },</span></span>
+<span class="line"><span style="color:#C3E88D">              patch: { name: 'update: patch', color: '0E8A16', description: 'Patch version update' }</span></span>
+<span class="line"><span style="color:#C3E88D">            };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Create labels if they don't exist</span></span>
+<span class="line"><span style="color:#C3E88D">            const labelsToCreate = [riskLabels[riskLevel], updateLabels[updateType]];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            for (const label of labelsToCreate) {</span></span>
+<span class="line"><span style="color:#C3E88D">              try {</span></span>
+<span class="line"><span style="color:#C3E88D">                await github.rest.issues.getLabel({</span></span>
+<span class="line"><span style="color:#C3E88D">                  owner,</span></span>
+<span class="line"><span style="color:#C3E88D">                  repo,</span></span>
+<span class="line"><span style="color:#C3E88D">                  name: label.name</span></span>
+<span class="line"><span style="color:#C3E88D">                });</span></span>
+<span class="line"><span style="color:#C3E88D">              } catch (error) {</span></span>
+<span class="line"><span style="color:#C3E88D">                if (error.status === 404) {</span></span>
+<span class="line"><span style="color:#C3E88D">                  await github.rest.issues.createLabel({</span></span>
+<span class="line"><span style="color:#C3E88D">                    owner,</span></span>
+<span class="line"><span style="color:#C3E88D">                    repo,</span></span>
+<span class="line"><span style="color:#C3E88D">                    name: label.name,</span></span>
+<span class="line"><span style="color:#C3E88D">                    color: label.color,</span></span>
+<span class="line"><span style="color:#C3E88D">                    description: label.description</span></span>
+<span class="line"><span style="color:#C3E88D">                  });</span></span>
+<span class="line"><span style="color:#C3E88D">                }</span></span>
+<span class="line"><span style="color:#C3E88D">              }</span></span>
+<span class="line"><span style="color:#C3E88D">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Add labels to PR</span></span>
+<span class="line"><span style="color:#C3E88D">            await github.rest.issues.addLabels({</span></span>
+<span class="line"><span style="color:#C3E88D">              owner,</span></span>
+<span class="line"><span style="color:#C3E88D">              repo,</span></span>
+<span class="line"><span style="color:#C3E88D">              issue_number: prNumber,</span></span>
+<span class="line"><span style="color:#C3E88D">              labels: [riskLabels[riskLevel].name, updateLabels[updateType].name]</span></span>
+<span class="line"><span style="color:#C3E88D">            });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Read checklist template from docs/dependencies</span></span>
+<span class="line"><span style="color:#C3E88D">            const templatePath = path.join(process.env.GITHUB_WORKSPACE, 'docs', 'dependencies', `${riskLevel}-risk.md`);</span></span>
+<span class="line"><span style="color:#C3E88D">            let commentBody = '';</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            try {</span></span>
+<span class="line"><span style="color:#C3E88D">              commentBody = fs.readFileSync(templatePath, 'utf8');</span></span>
+<span class="line"><span style="color:#C3E88D">              // Replace placeholders</span></span>
+<span class="line"><span style="color:#C3E88D">              commentBody = commentBody.replace(/\{\{packageName\}\}/g, packageName);</span></span>
+<span class="line"><span style="color:#C3E88D">            } catch (error) {</span></span>
+<span class="line"><span style="color:#C3E88D">              console.log(`Template file not found: ${templatePath}`);</span></span>
+<span class="line"><span style="color:#C3E88D">              commentBody = `## ${riskLevel.charAt(0).toUpperCase() + riskLevel.slice(1)} Risk Dependency Update\n\nThis PR updates \`${packageName}\`.`;</span></span>
+<span class="line"><span style="color:#C3E88D">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            // Check if bot already commented</span></span>
+<span class="line"><span style="color:#C3E88D">            const comments = await github.rest.issues.listComments({</span></span>
+<span class="line"><span style="color:#C3E88D">              owner,</span></span>
+<span class="line"><span style="color:#C3E88D">              repo,</span></span>
+<span class="line"><span style="color:#C3E88D">              issue_number: prNumber</span></span>
+<span class="line"><span style="color:#C3E88D">            });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            const botComment = comments.data.find(</span></span>
+<span class="line"><span style="color:#C3E88D">              comment => comment.user.login === 'github-actions[bot]' &#x26;&#x26;</span></span>
+<span class="line"><span style="color:#C3E88D">                         comment.body.includes('Risk Dependency Update')</span></span>
+<span class="line"><span style="color:#C3E88D">            );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            if (botComment) {</span></span>
+<span class="line"><span style="color:#C3E88D">              // Update existing comment</span></span>
+<span class="line"><span style="color:#C3E88D">              await github.rest.issues.updateComment({</span></span>
+<span class="line"><span style="color:#C3E88D">                owner,</span></span>
+<span class="line"><span style="color:#C3E88D">                repo,</span></span>
+<span class="line"><span style="color:#C3E88D">                comment_id: botComment.id,</span></span>
+<span class="line"><span style="color:#C3E88D">                body: commentBody</span></span>
+<span class="line"><span style="color:#C3E88D">              });</span></span>
+<span class="line"><span style="color:#C3E88D">            } else {</span></span>
+<span class="line"><span style="color:#C3E88D">              // Create new comment</span></span>
+<span class="line"><span style="color:#C3E88D">              await github.rest.issues.createComment({</span></span>
+<span class="line"><span style="color:#C3E88D">                owner,</span></span>
+<span class="line"><span style="color:#C3E88D">                repo,</span></span>
+<span class="line"><span style="color:#C3E88D">                issue_number: prNumber,</span></span>
+<span class="line"><span style="color:#C3E88D">                body: commentBody</span></span>
+<span class="line"><span style="color:#C3E88D">              });</span></span>
+<span class="line"><span style="color:#C3E88D">            }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">            console.log(`PR #${prNumber}: ${packageName} - Risk: ${riskLevel}, Update: ${updateType}`);</span></span></code></pre>
+<p>このGitHub Actionsワークフローは以下の機能を実行します。</p>
+<ol>
+<li><strong>Dependabot PR検出</strong>：<code>dependabot[bot]</code>が作成したPRのみを処理</li>
+<li><strong>パッケージ分類</strong>：PRタイトルからパッケージ名を抽出し、リスクカテゴリを判定</li>
+<li><strong>バージョン分析</strong>：PR本文からバージョン変更タイプ（Major/Minor/Patch）を検出</li>
+<li><strong>ラベル追加</strong>：リスクレベルとアップデートタイプに応じたラベルを自動追加</li>
+<li><strong>チェックリストコメント</strong>：<code>docs/dependencies/</code>フォルダのテンプレートを使用してチェックリストコメントを作成</li>
+</ol>
+<h3 id="自動ラベリング">自動ラベリング</h3>
+<p>Dependabot PRが作成されると、自動的にリスクラベルとアップデートタイプラベルが追加されます。</p>
+<p><strong>リスクラベル</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ラベル</th><th>色</th><th>条件</th></tr></thead><tbody><tr><td><code>risk: high</code></td><td>赤</td><td>高リスクライブラリのMajorアップデート</td></tr><tr><td><code>risk: medium</code></td><td>黄</td><td>高リスクライブラリのMinor/Patch、中リスクライブラリのMajor（CI検出可能）、中リスクライブラリのMajor/Minor（ランタイム）、低リスクランタイムのMajor</td></tr><tr><td><code>risk: low</code></td><td>緑</td><td>中リスクライブラリのMinor/Patch（CI検出可能）、中リスクライブラリのPatch（ランタイム）、低リスク開発ツール（全バージョン）、低リスクランタイムのMinor/Patch</td></tr></tbody></table>
+<p><strong>アップデートラベル</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ラベル</th><th>色</th><th>条件</th></tr></thead><tbody><tr><td><code>update: major</code></td><td>赤</td><td>Majorバージョンアップデート</td></tr><tr><td><code>update: minor</code></td><td>黄</td><td>Minorバージョンアップデート</td></tr><tr><td><code>update: patch</code></td><td>緑</td><td>Patchバージョンアップデート</td></tr></tbody></table>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="チェックリストコメントテンプレート">チェックリストコメントテンプレート</h3>
+<p><code>docs/dependencies/</code>フォルダを作成し、GitHub Actionsワークフローで使用するチェックリストテンプレートファイルを以下のように作成します。</p>
+<p><strong>docs/dependencies/high-risk.md</strong></p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#89DDFF">## </span><span style="color:#FFCB6B">高リスク依存関係の更新</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">このPRは</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#F07178;font-weight:bold">高リスク</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#EEFFFF">の依存関係（</span><span style="color:#89DDFF">`</span><span style="color:#C3E88D">{{packageName}}</span><span style="color:#89DDFF">`</span><span style="color:#EEFFFF">）を更新します。慎重にレビューしてください。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">### </span><span style="color:#FFCB6B">必須チェックリスト</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] CI通過確認</span></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] CHANGELOG、Breaking changes確認</span></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] マイグレーションガイドを確認（該当する場合）</span></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] 全てのアプリテストとチームメンバーレビュー</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC;font-style:italic">></span><span style="color:#89DDFF;font-weight:bold"> **</span><span style="color:#F07178;font-weight:bold">警告</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#89DDFF;font-style:italic">: このパッケージのメジャーアップデートは、大規模なテストとコード変更が必要になる場合があります。</span></span></code></pre>
+<p><strong>docs/dependencies/medium-risk.md</strong></p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#89DDFF">## </span><span style="color:#FFCB6B">中リスク依存関係の更新</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">このPRは</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#F07178;font-weight:bold">中リスク</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#EEFFFF">の依存関係（</span><span style="color:#89DDFF">`</span><span style="color:#C3E88D">{{packageName}}</span><span style="color:#89DDFF">`</span><span style="color:#EEFFFF">）を更新します。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">### </span><span style="color:#FFCB6B">必須チェックリスト</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] CI通過確認</span></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] CHANGELOG確認（Breaking changesがないこと確認）</span></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] 影響を受けるアプリテストとチームメンバーレビュー（</span><span style="color:#89DDFF">`</span><span style="color:#C3E88D">yarn why {{packageName}}</span><span style="color:#89DDFF">`</span><span style="color:#EEFFFF">）</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">### </span><span style="color:#FFCB6B">影響を受けるアプリ</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">`</span><span style="color:#C3E88D">yarn why {{packageName}}</span><span style="color:#89DDFF">`</span><span style="color:#EEFFFF">コマンドを実行して影響を受けるアプリを確認してください。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC;font-style:italic">></span><span style="color:#89DDFF;font-weight:bold"> **</span><span style="color:#F07178;font-weight:bold">注意</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#89DDFF;font-style:italic">: マージ前にCHANGELOGを確認してください。</span></span></code></pre>
+<p><strong>docs/dependencies/low-risk.md</strong></p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#89DDFF">## </span><span style="color:#FFCB6B">低リスク依存関係の更新</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">このPRは</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#F07178;font-weight:bold">低リスク</span><span style="color:#89DDFF;font-weight:bold">**</span><span style="color:#EEFFFF">の依存関係（</span><span style="color:#89DDFF">`</span><span style="color:#C3E88D">{{packageName}}</span><span style="color:#89DDFF">`</span><span style="color:#EEFFFF">）を更新します。</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">### </span><span style="color:#FFCB6B">必須チェックリスト</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] CI通過確認</span></span>
+<span class="line"><span style="color:#89DDFF">-</span><span style="color:#EEFFFF"> [ ] 自動アサインされたメンバーがレビュー</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC;font-style:italic">></span><span style="color:#89DDFF;font-style:italic"> この更新は安全と見なされます。CI通過後にマージしてください。</span></span></code></pre>
+<p>これらのテンプレートファイルはPRが作成されるとGitHub Actionsによって自動的にコメントに追加されます。<code>{{packageName}}</code>は実際のパッケージ名に自動的に置換されます。</p>
+<h2 id="完了">完了</h2>
+<p>これでDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びました。</p>
+<p>この自動化を適用すると、以下のメリットが得られます。</p>
+<ul>
+<li>ライブラリアップデートのリスクを自動分類</li>
+<li>PRに自動的にラベルとチェックリストを追加</li>
+<li>一貫したレビュープロセスを維持</li>
+<li>チームメンバーのレビュー負担を軽減</li>
+</ul>
+<p>プロジェクトの特性に合わせてこれらの設定をカスタマイズしてご利用ください。</p>
+<p>前回の投稿でリスク分類基準を確認できますので、再度参考にしてください。</p>
+<ul>
+<li><a href="/github_actions/dependabot-sop/">Dependabot PR処理のためのSOP（Standard Operating Procedure）</a></li>
+</ul>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"Dependabot PR処理のための自動化\",\"description\":\"Monorepo環境でDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。\",\"url\":\"/github_actions/dependabot-sop-automation/\",\"date\":\"2025-02-04\",\"category\":\"github_actions\"},{\"title\":\"Dependabot PR処理のためのSOP(Standard Operating Procedure)\",\"description\":\"Monorepo環境でDependabotが生成したPRを効率的に処理するためのリスク分類基準と処理方法について紹介します。\",\"url\":\"/github_actions/dependabot-sop/\",\"date\":\"2025-02-03\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Reviewerに通知するためのSlackメッセージを送信する\",\"description\":\"GitHub Actionsを使ってReviewerに指定された場合、Slackメッセージを送信する方法と、毎朝ReviewerにPRリストをSlackメッセージで送信する方法について説明します。\",\"url\":\"/github_actions/send_slack_message_for_reviewer/\",\"date\":\"2024-11-13\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する\",\"description\":\"GitHub ActionsでJestを実行するActionのパフォーマンスを改善する方法について紹介します。\",\"url\":\"/github_actions/improve-test-performance/\",\"date\":\"2024-10-23\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Composite Actionを使ってGitHub Actionsの重複を減らす\",\"description\":\"GitHub Actionsで重複で使われるActionをComposite Actionで作ってActionの再利用性を高める方法について紹介します。\",\"url\":\"/github_actions/composite-action/\",\"date\":\"2024-10-22\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] GitHub Actions を手動で実行する\",\"description\":\"GitHub Actions を手動で実行する方法について説明します。\",\"url\":\"/github_actions/execute-github-actions-manually/\",\"date\":\"2024-09-13\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] モノレポ環境でGitHub Actionsを使ってPRタイトルをチェックする方法\",\"description\":\"モノレポ環境でGitHub Actionsを使ってPR(Pull Request)を作成した際、PRのタイトルをチェックする方法について説明します。\",\"url\":\"/github_actions/action-check-pr-title/\",\"date\":\"2024-09-10\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] GitHub Actionsでブランチ名をチェックする方法\",\"description\":\"GitHub Actionsを使ってPRを作った時、ブランチ名をチェックする方法について説明します。\",\"url\":\"/github_actions/check-branch-name/\",\"date\":\"2024-09-02\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] PRに自動でAssigneesを追加する\",\"description\":\"GitHub Actionsを使ってPRに自動でAssigneesを追加する方法について説明します。\",\"url\":\"/github_actions/auto-assign-assigness/\",\"date\":\"2024-08-28\",\"category\":\"github_actions\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=Dependabot%20PR%E5%87%A6%E7%90%86%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96&url=https%3A%2F%2Fdeku.posstree.com%2Fgithub_actions%2Fdependabot-sop-automation%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fgithub_actions%2Fdependabot-sop-automation%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

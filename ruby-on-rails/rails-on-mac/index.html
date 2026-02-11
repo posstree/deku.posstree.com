@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="MacにRuby on Railsをインストールして、新いプロジェクトを始める方法について説明します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>MacでRuby on Railsを始める | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/ruby-on-rails/rails-on-mac/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/ruby-on-rails/rails-on-mac/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/ruby-on-rails/rails-on-mac/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/ruby-on-rails/rails-on-mac/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/ruby-on-rails/rails-on-mac/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="MacでRuby on Railsを始める"><meta name="twitter:description" content="MacにRuby on Railsをインストールして、新いプロジェクトを始める方法について説明します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/ruby-on-rails/background.jpg"><meta name="twitter:image:alt" content="MacでRuby on Railsを始める"><!-- Open Graph --><meta property="og:title" content="MacでRuby on Railsを始める"><meta property="og:description" content="MacにRuby on Railsをインストールして、新いプロジェクトを始める方法について説明します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/ruby-on-rails/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="MacでRuby on Railsを始める"><meta property="og:url" content="https://deku.posstree.com/ruby-on-rails/rails-on-mac/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2020-02-14T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="Ruby on Rails"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MacでRuby on Railsを始める","description":"MacにRuby on Railsをインストールして、新いプロジェクトを始める方法について説明します。","datePublished":"2020-02-14T00:00:00.000Z","dateModified":"2020-02-14T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/ruby-on-rails/rails-on-mac/"},"image":"https://deku.posstree.com/assets/images/category/ruby-on-rails/background.jpg","url":"https://deku.posstree.com/ruby-on-rails/rails-on-mac/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/ruby-on-rails/database/","name":"RailsでDBを使う方法"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/ruby-on-rails/data-in-controller-view-route/","name":"ControllerとView、Routeとのデータ交換"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/ruby-on-rails/create-page/","name":"Ruby on Railsを使って新しウェブページを作る"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/ruby-on-rails/folder-structure/","name":"Railsで作ったプロジェクトのフォルダ構造"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/ruby-on-rails/rails-on-mac/","name":"MacでRuby on Railsを始める"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/ruby-on-rails/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>MacでRuby on Railsを始める</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-14 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fruby-on-rails%2Frails-on-mac%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">MacにRuby on Railsをインストールして、新いプロジェクトを始める方法について説明します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ruby-on-rails/" itemprop="item"> <span itemprop="name">Ruby on Rails</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">MacでRuby on Railsを始める</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#homebrew%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">Homebrewインストール</a></li>
+<li><a href="#rbenv%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">rbenvインストール</a></li>
+<li><a href="#rbenv%E5%88%9D%E6%9C%9F%E5%8C%96">rbenv初期化</a></li>
+<li><a href="#%E4%BB%96%E3%81%AE%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AEruby%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">他のバージョンのRubyをインストール</a>
+<ul>
+<li><a href="#%E3%82%A8%E3%83%A9%E3%83%BC%E5%AF%BE%E5%BF%9C">エラー対応</a></li>
+</ul>
+</li>
+<li><a href="#%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E5%A4%89%E6%9B%B4">バージョン変更</a></li>
+<li><a href="#bundler%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">Bundlerインストール</a></li>
+<li><a href="#rails%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">Railsインストール</a></li>
+<li><a href="#yarn%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">yarnインストール</a></li>
+<li><a href="#rails%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%94%9F%E6%88%90%E3%82%84%E7%A2%BA%E8%AA%8D">Railsプロジェクトの生成や確認</a></li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>最近Ruby on Railsを使ってプロジェクトを進めることになりました。このブログポストでは<code>Ruby on Rails</code>をMacにインストールする方法とインストールしたRailsを使ってプロジェクトを始める方法について説明します。</p>
+<ul>
+<li>Rails公式サイト: <a href="https://rubyonrails.org/" rel="nofollow noreferrer" target="_blank">https://rubyonrails.org/</a></li>
+</ul>
+<p>このブログポストはシリーズで作成されてます。詳しく内容は下記のリンクを参考してください。</p>
+<ul>
+<li>MacでRuby on Railsを始める</li>
+<li><a href="/ruby-on-rails/folder-structure/">Railsで作ったプロジェクトのフォルダ構造</a></li>
+<li><a href="/ruby-on-rails/create-page/">Ruby on Railsを使って新しウェブページを作る</a></li>
+<li><a href="/ruby-on-rails/data-in-controller-view-route/">ControllerとView、Routeとのデータ交換</a></li>
+<li><a href="/ruby-on-rails/database/">RailsでDBを使う方法</a></li>
+</ul>
+<p>ここで使ったソースコードはGithubで確認できます。</p>
+<ul>
+<li><a href="https://github.com/dev-yakuza/study-rails" rel="nofollow noreferrer" target="_blank">Github ソースコード</a></li>
+</ul>
+<h2 id="homebrewインストール">Homebrewインストール</h2>
+<p>RailsをMacにインストールするためにはMacのパッケージ管理者である<code>Homebrew</code>を使え予定です。まず、下記のコマンドで、MacにHomebrewがインストールされたか確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> --version</span></span></code></pre>
+<p>既にHomebrewがMacにインストールされたら下記のような画面をみることができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Homebrew</span><span style="color:#F78C6C"> 2.2.6</span></span>
+<span class="line"><span style="color:#FFCB6B">Homebrew/homebrew-core</span><span style="color:#EEFFFF"> (git </span><span style="color:#C3E88D">revision</span><span style="color:#C3E88D"> 93ac3</span><span style="color:#89DDFF">;</span><span style="color:#FFCB6B"> last</span><span style="color:#C3E88D"> commit</span><span style="color:#C3E88D"> 2020-02-18</span><span style="color:#EEFFFF">)</span></span>
+<span class="line"><span style="color:#FFCB6B">Homebrew/homebrew-cask</span><span style="color:#EEFFFF"> (git </span><span style="color:#C3E88D">revision</span><span style="color:#C3E88D"> 373c1</span><span style="color:#89DDFF">;</span><span style="color:#FFCB6B"> last</span><span style="color:#C3E88D"> commit</span><span style="color:#C3E88D"> 2020-02-18</span><span style="color:#EEFFFF">)</span></span></code></pre>
+<p>上のような画面がかでる方は、次のステップに進んでください。上のような画面が出ない方は、下記のコマンドでHomebrewをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">/usr/bin/ruby</span><span style="color:#C3E88D"> -e</span><span style="color:#89DDFF"> "$(</span><span style="color:#FFCB6B">curl</span><span style="color:#C3E88D"> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install</span><span style="color:#89DDFF">)"</span></span></code></pre>
+<p>インストールが終わったら、下記のコマンドを実行してインストールがされたか確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> --version</span></span></code></pre>
+<p>インストールされたら、下記のような画面が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Homebrew</span><span style="color:#F78C6C"> 2.2.6</span></span>
+<span class="line"><span style="color:#FFCB6B">Homebrew/homebrew-core</span><span style="color:#EEFFFF"> (git </span><span style="color:#C3E88D">revision</span><span style="color:#C3E88D"> 93ac3</span><span style="color:#89DDFF">;</span><span style="color:#FFCB6B"> last</span><span style="color:#C3E88D"> commit</span><span style="color:#C3E88D"> 2020-02-18</span><span style="color:#EEFFFF">)</span></span>
+<span class="line"><span style="color:#FFCB6B">Homebrew/homebrew-cask</span><span style="color:#EEFFFF"> (git </span><span style="color:#C3E88D">revision</span><span style="color:#C3E88D"> 373c1</span><span style="color:#89DDFF">;</span><span style="color:#FFCB6B"> last</span><span style="color:#C3E88D"> commit</span><span style="color:#C3E88D"> 2020-02-18</span><span style="color:#EEFFFF">)</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="rbenvインストール">rbenvインストール</h2>
+<p>Macには基本的<code>Ruby</code>がインストールされております。だから、すぐRailsをインストールしてもいいですが、色んなRubyのバージョンを使うため、ルビバージョン管理者である<code>rbenv</code>をインストールします。</p>
+<p>下記のコマンドを実行してrbenvをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> rbenv</span><span style="color:#C3E88D"> ruby-build</span></span></code></pre>
+<p>インストールが終わったら下記のような画面が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#C3E88D">==</span><span style="color:#EEFFFF">> </span><span style="color:#C3E88D">Pouring</span><span style="color:#C3E88D"> rbenv-1.1.2.catalina.bottle.tar.gz</span></span>
+<span class="line"><span style="color:#FFCB6B">🍺</span><span style="color:#C3E88D">  /usr/local/Cellar/rbenv/1.1.2:</span><span style="color:#F78C6C"> 36</span><span style="color:#C3E88D"> files,</span><span style="color:#C3E88D"> 69KB</span></span>
+<span class="line"><span style="color:#C3E88D">==</span><span style="color:#EEFFFF">> </span><span style="color:#C3E88D">Caveats</span></span>
+<span class="line"><span style="color:#C3E88D">==</span><span style="color:#EEFFFF">> </span><span style="color:#C3E88D">ruby-build</span></span>
+<span class="line"><span style="color:#FFCB6B">ruby-build</span><span style="color:#C3E88D"> installs</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> non-Homebrew</span><span style="color:#C3E88D"> OpenSSL</span><span style="color:#C3E88D"> for</span><span style="color:#C3E88D"> each</span><span style="color:#C3E88D"> Ruby</span><span style="color:#C3E88D"> version</span><span style="color:#C3E88D"> installed</span><span style="color:#C3E88D"> and</span><span style="color:#C3E88D"> these</span><span style="color:#C3E88D"> are</span><span style="color:#C3E88D"> never</span><span style="color:#C3E88D"> upgraded.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">To</span><span style="color:#C3E88D"> link</span><span style="color:#C3E88D"> Rubies</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> Homebrew</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">s OpenSSL 1.1 (which is upgraded) add the following</span></span>
+<span class="line"><span style="color:#C3E88D">to your ~/.zshrc:</span></span>
+<span class="line"><span style="color:#C3E88D">  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">Note: this may interfere with building old versions of Ruby (e.g &#x3C;2.4) that use</span></span>
+<span class="line"><span style="color:#C3E88D">OpenSSL &#x3C;1.1.</span></span></code></pre>
+<p>そして、上で出たように<code>.zshrc</code>を開いて下記の内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> RUBY_CONFIGURE_OPTS</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">--with-openssl-dir=</span><span style="color:#89DDFF">$(</span><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> --prefix openssl@1.1</span><span style="color:#89DDFF">)"</span></span></code></pre>
+<h2 id="rbenv初期化">rbenv初期化</h2>
+<p>rbenvのインストールが終わったら、下記のコマンドを実行してrbenvを初期化します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> init</span></span></code></pre>
+<p>上のコマンドを実行したら下記のような画面が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># Load rbenv automatically by appending</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># the following to ~/.zshrc:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">eval</span><span style="color:#89DDFF"> "$(</span><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> init -</span><span style="color:#89DDFF">)"</span></span></code></pre>
+<p>上の説明通り、<code>.zshrc</code>ファイルを開いて下記の内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#82AAFF">eval</span><span style="color:#89DDFF"> "$(</span><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> init -</span><span style="color:#89DDFF">)"</span></span></code></pre>
+<p>全ての設定がうまくできたか確認するため下記のコマンドを実行します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">curl</span><span style="color:#C3E88D"> -fsSL</span><span style="color:#C3E88D"> https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> bash</span></span></code></pre>
+<p>実行が終わったら、下記のような画面が確認できます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Checking</span><span style="color:#C3E88D"> for</span><span style="color:#89DDFF"> `</span><span style="color:#FFCB6B">rbenv' in PATH: /usr/local/bin/rbenv</span></span>
+<span class="line"><span style="color:#FFCB6B">Checking for rbenv shims in PATH: OK</span></span>
+<span class="line"><span style="color:#FFCB6B">Checking `rbenv install'</span><span style="color:#C3E88D"> support: /usr/local/bin/rbenv-install (ruby-build </span><span style="color:#F78C6C">20200115</span><span style="color:#C3E88D">)</span></span>
+<span class="line"><span style="color:#FFCB6B">Counting</span><span style="color:#C3E88D"> installed Ruby versions: none</span></span>
+<span class="line"><span style="color:#FFCB6B">  There</span><span style="color:#C3E88D"> aren</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">t any Ruby versions installed under `/Users/dev-yakuza/.rbenv/versions</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">.</span></span>
+<span class="line"><span style="color:#FFCB6B">  You</span><span style="color:#C3E88D"> can install Ruby versions like so: rbenv install </span><span style="color:#F78C6C">2.2.4</span></span>
+<span class="line"><span style="color:#FFCB6B">Checking</span><span style="color:#C3E88D"> RubyGems settings: OK</span></span>
+<span class="line"><span style="color:#FFCB6B">Auditing</span><span style="color:#C3E88D"> installed plugins: OK</span></span></code></pre>
+<h2 id="他のバージョンのrubyをインストール">他のバージョンのRubyをインストール</h2>
+<p>Macに他のバージョンのRubyをインストールする方法について見てみましょう。まず、下記のコマンドを実行して現在のRubyのバージョンを確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">ruby</span><span style="color:#C3E88D"> -v</span></span></code></pre>
+<p>上のコマンドを実行したら下記のような画面が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">ruby</span><span style="color:#C3E88D"> 2.6.3p62</span><span style="color:#EEFFFF"> (2019-04-16 </span><span style="color:#C3E88D">revision</span><span style="color:#F78C6C"> 67580</span><span style="color:#EEFFFF">) </span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">universal.x86_64-darwin19</span><span style="color:#89DDFF">]</span></span></code></pre>
+<p>下記のコマンドを使ってrbenvを使ってインストールできるRubyのバージョンを確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> -l</span></span></code></pre>
+<p>上のコマンドを実行したら、下記のようなRubyのバージョンリストが確認できます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">...</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-1.0.0-rc3</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-1.0.0-rc5</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-1.0.0-rc6</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-1.0.0-rc7</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-1.0.0-rc8</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-1.0.0-rc9</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-19.0.0</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-19.1.0</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-19.2.0</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-19.2.0.1</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-19.3.0</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-19.3.0.2</span></span>
+<span class="line"><span style="color:#FFCB6B">truffleruby-19.3.1</span></span></code></pre>
+<p>Rubyのバージョンリストが多いなので、下記のコマンドを実行して一番最新の安定(Stable)されたRubyのバージョンを検索します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> -l</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> sed</span><span style="color:#C3E88D"> -n</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/^[[:space:]]*[0-9]\{1,\}\.[0-9]\{1,\}\.[0-9]\{1,\}[[:space:]]*$/ h;${g;p;}</span><span style="color:#89DDFF">'</span></span></code></pre>
+<p>そしたら、下記のような結果が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">2.7.0</span></span></code></pre>
+<p>下記のコマンドで一番最新のRubyをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> install</span><span style="color:#F78C6C"> 2.7.0</span></span></code></pre>
+<p>または、下記のコマンドでいつも、最新のRubyをインストールすることができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> install</span><span style="color:#89DDFF"> $(</span><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> -l</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> sed</span><span style="color:#C3E88D"> -n</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/^[[:space:]]*[0-9]\{1,\}\.[0-9]\{1,\}\.[0-9]\{1,\}[[:space:]]*$/ h;${g;p;}</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span></code></pre>
+<p>もちろん、古いバージョンもインストールできます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> install</span><span style="color:#F78C6C"> 2.3.1</span></span></code></pre>
+<p>インストールが終わったら、下記のコマンドを実行して新い環境を再設定します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> rehash</span></span></code></pre>
+<h3 id="エラー対応">エラー対応</h3>
+<p>私はインストール中、下記のエラーが出ました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Last</span><span style="color:#F78C6C"> 10</span><span style="color:#C3E88D"> log</span><span style="color:#C3E88D"> lines:</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> for</span><span style="color:#C3E88D"> inttypes.h...</span><span style="color:#C3E88D"> yes</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> for</span><span style="color:#C3E88D"> stdint.h...</span><span style="color:#C3E88D"> yes</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> for</span><span style="color:#C3E88D"> unistd.h...</span><span style="color:#C3E88D"> yes</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> minix/config.h</span><span style="color:#C3E88D"> usability...</span><span style="color:#C3E88D"> no</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> minix/config.h</span><span style="color:#C3E88D"> presence...</span><span style="color:#C3E88D"> no</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> for</span><span style="color:#C3E88D"> minix/config.h...</span><span style="color:#C3E88D"> no</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> whether</span><span style="color:#C3E88D"> it</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> safe</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> define</span><span style="color:#C3E88D"> __EXTENSIONS__...</span><span style="color:#C3E88D"> yes</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> for</span><span style="color:#C3E88D"> cd</span><span style="color:#C3E88D"> using</span><span style="color:#C3E88D"> physical</span><span style="color:#C3E88D"> directory...</span><span style="color:#C3E88D"> cd</span><span style="color:#C3E88D"> -P</span></span>
+<span class="line"><span style="color:#FFCB6B">checking</span><span style="color:#C3E88D"> whether</span><span style="color:#C3E88D"> CFLAGS</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> valid...</span><span style="color:#C3E88D"> no</span></span>
+<span class="line"><span style="color:#FFCB6B">configure:</span><span style="color:#C3E88D"> error:</span><span style="color:#C3E88D"> something</span><span style="color:#C3E88D"> wrong</span><span style="color:#C3E88D"> with</span><span style="color:#C3E88D"> CFLAGS=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">-I/usr/local/include -L/usr/local/lib  </span><span style="color:#89DDFF">"</span></span></code></pre>
+<p>下記のように<code>./zshrc</code>を修正して解決しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> CFLAGS</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">""</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="バージョン変更">バージョン変更</h2>
+<p>下記のコマンドを実行して現在インストールされたRubyのバージョンを確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> versions</span></span></code></pre>
+<p>上のコマンドを実行したら下記のような結果が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#89DDFF">*</span><span style="color:#EEFFFF"> system (</span><span style="color:#82AAFF">set</span><span style="color:#C3E88D"> by</span><span style="color:#C3E88D"> /Users/dev-yakuza/.rbenv/version</span><span style="color:#EEFFFF">)</span></span>
+<span class="line"><span style="color:#FFCB6B">  2.7.0</span></span></code></pre>
+<p>前に<code>*</code>マークがついてるバージョンが現在選択されたバージョンになります。</p>
+<p>下記のコマンドを実行してRubyのバージョンをもう一度確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">ruby</span><span style="color:#C3E88D"> -v</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># ruby 2.6.3p62 (2019-04-16 revision 67580) [universal.x86_64-darwin19]</span></span></code></pre>
+<p>それで、下記のコマンドを実行してRubyのバージョンを変更します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> global</span><span style="color:#F78C6C"> 2.7.0</span></span>
+<span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> rehash</span></span></code></pre>
+<p>そして下記のコマンドを実行してバージョンを確認してみると、Rubyのバージョンが変わったことが確認できます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">ruby</span><span style="color:#C3E88D"> -v</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># ruby 2.7.0p0 (2019-12-25 revision 647ee6f091) [x86_64-darwin19]</span></span>
+<span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> versions</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#   system (set by /Users/dev-yakuza/.rbenv/version)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># * 2.7.0</span></span></code></pre>
+<h2 id="bundlerインストール">Bundlerインストール</h2>
+<p>Rubyの<code>Gem</code>を管理する<code>Bundler</code>をインストールします。GemはRubyのライブラリ、パッケージと考えるといいと思います。Bundlerはこのようなライブラリ、パッケージを簡単にインストールや管理することができるようにしてくれます。</p>
+<p>下記のコマンドでBundlerをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">gem</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> bundler</span></span></code></pre>
+<p>インストールが終わったら、下記のコマンドを実行してBundlerがうまくインストールされたか確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundler</span><span style="color:#C3E88D"> -v</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Bundler version 2.1.4</span></span></code></pre>
+<h2 id="railsインストール">Railsインストール</h2>
+<p>今度は<code>Rails</code>をインストールしてみます。下記のコマンドを使ってRailsをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">gem</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> rails</span></span>
+<span class="line"><span style="color:#FFCB6B">rbenv</span><span style="color:#C3E88D"> rehash</span></span></code></pre>
+<p>インストールが終わったら、下記のコマンドを使ってRailsがうまくインストールされたか確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rails</span><span style="color:#C3E88D"> -v</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Rails 6.0.2.1</span></span></code></pre>
+<h2 id="yarnインストール">yarnインストール</h2>
+<p>Railsプロジェクトを生成、実行するためには<code>yarn</code>のインストールが必要です。yarnはjavascriptのライブラリをインストールや管理する時使うものになります。</p>
+<p>下記のコマンドを使ってyarnをインストールします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> yarn</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="railsプロジェクトの生成や確認">Railsプロジェクトの生成や確認</h2>
+<p>インストールしたRailsを使ってRailsプロジェクトを生成してみましょう。下記のコマンドを使って新いRailsプロジェクトを生成します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">rails</span><span style="color:#C3E88D"> new</span><span style="color:#C3E88D"> StudyRails</span></span></code></pre>
+<p>プロジェクトを生成中に下記のようなメッセージが見える方は、</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">The</span><span style="color:#C3E88D"> dependency</span><span style="color:#C3E88D"> tzinfo-data</span><span style="color:#EEFFFF"> (>= </span><span style="color:#F78C6C">0</span><span style="color:#EEFFFF">) will be unused by any of the platforms Bundler is installing </span><span style="color:#89DDFF;font-style:italic">for</span><span style="color:#EEFFFF">. Bundler is installing for ruby but the dependency is only for x86-mingw32, x86-mswin32, x64-mingw32, java. To add those platforms to the bundle, run </span><span style="color:#89DDFF">`</span><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java</span><span style="color:#89DDFF">`</span><span style="color:#82AAFF">.</span></span></code></pre>
+<p>プロジェクトの生成が終わった後、下記のコマンドを実行します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">cd</span><span style="color:#C3E88D"> StudyRails</span></span>
+<span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> lock</span><span style="color:#C3E88D"> --add-platform</span><span style="color:#C3E88D"> x86-mingw32</span><span style="color:#C3E88D"> x86-mswin32</span><span style="color:#C3E88D"> x64-mingw32</span><span style="color:#C3E88D"> java</span></span>
+<span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> install</span></span></code></pre>
+<p>もし、下記のようなエラーメッセージが表示されると、</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Your</span><span style="color:#C3E88D"> Ruby</span><span style="color:#C3E88D"> version</span><span style="color:#C3E88D"> is</span><span style="color:#C3E88D"> 2.6.3,</span><span style="color:#C3E88D"> but</span><span style="color:#C3E88D"> your</span><span style="color:#C3E88D"> Gemfile</span><span style="color:#C3E88D"> specified</span><span style="color:#F78C6C"> 2.7.0</span></span></code></pre>
+<p>bundleのPathがうまく認識されないので、問題が発生します。私はこの問題を解決するため、<code>.zshrc</code>ファイルに下記の内容を追加しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># code ~/.zshrc</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> bundler</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">/Users/$USER/.rbenv/shims/bundler</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> ruby</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">/Users/$USER/.rbenv/shims/ruby</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> bundle</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">/Users/$USER/.rbenv/shims/bundle</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> gem</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">/Users/$USER/.rbenv/shims/gem</span></span>
+<span class="line"><span style="color:#C792EA">alias</span><span style="color:#EEFFFF"> rails</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">/Users/$USER/.rbenv/shims/rails</span></span></code></pre>
+<p>生成が終わったら、下記のコマンドでRailsプロジェクトを実行します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd StudyRails</span></span>
+<span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> server</span></span></code></pre>
+<p>もし下記のようなワーニングがでったら、</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Warning:</span><span style="color:#C3E88D"> the</span><span style="color:#C3E88D"> running</span><span style="color:#C3E88D"> version</span><span style="color:#C3E88D"> of</span><span style="color:#C3E88D"> Bundler</span><span style="color:#EEFFFF"> (2.1.2) is older than the version that created the lockfile (</span><span style="color:#FFCB6B">2.1.4</span><span style="color:#EEFFFF">). We suggest you to upgrade to the version that created the lockfile by running </span><span style="color:#89DDFF">`</span><span style="color:#FFCB6B">gem</span><span style="color:#C3E88D"> install bundler:2.1.4</span><span style="color:#89DDFF">`</span><span style="color:#82AAFF">.</span></span></code></pre>
+<p>下記のコマンドで実行してみてください。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> server</span></span></code></pre>
+<p>実行が終わったら、ブラウザを使って<code>http://127.0.0.1:3000/</code>に移動してみます。</p>
+<picture>
+  <source srcset="/assets/images/category/ruby-on-rails/2020/rails-on-mac/rails-server.avif" type="image/avif">
+  <source srcset="/assets/images/category/ruby-on-rails/2020/rails-on-mac/rails-server.webp" type="image/webp">
+  <img src="/assets/images/category/ruby-on-rails/2020/rails-on-mac/rails-server.jpg" alt="Ruby on Rails サーバー実行結果">
+</picture>
+<p>問題なく進めたら、上のようにRailsの初期画面を確認することができます。</p>
+<h2 id="完了">完了</h2>
+<p>これでRailsプロジェクトを始めるため、Rubyのバージョンを変えってRailsをインストールする方法についてみてみました。私は簡単に設定できると思いましたが、以前jekyllのブログのため、<code>.zshrc</code>に設定したPathの問題で結構黒しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> GEM_HOME</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$HOME/gems</span></span>
+<span class="line"><span style="color:#C792EA">export</span><span style="color:#EEFFFF"> PATH</span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF">$HOME/gems/bin:$PATH</span></span></code></pre>
+<p>皆さんももし、変な問題が発生したら、zshrcに変なPathが設定されたか確認してみてください。これでRailsを進めてみましょう！</p>
+<h2 id="参考">参考</h2>
+<p>このブログポストはシリーズで作成されてます。詳しく内容は下記のリンクを参考してください。</p>
+<ul>
+<li>MacでRuby on Railsを始める</li>
+<li><a href="/ruby-on-rails/folder-structure/">Railsで作ったプロジェクトのフォルダ構造</a></li>
+<li><a href="/ruby-on-rails/create-page/">Ruby on Railsを使って新しウェブページを作る</a></li>
+<li><a href="/ruby-on-rails/data-in-controller-view-route/">ControllerとView、Routeとのデータ交換</a></li>
+<li><a href="/ruby-on-rails/database/">RailsでDBを使う方法</a></li>
+</ul>
+<p>ここで使ったソースコードはGithubで確認できます。</p>
+<ul>
+<li><a href="https://github.com/dev-yakuza/study-rails" rel="nofollow noreferrer" target="_blank">Github ソースコード</a></li>
+</ul>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"RailsでDBを使う方法\",\"description\":\"Ruby on Railsを使ってDBへデータをCRUD(Create Read Update Delete)する方法について共有します。\",\"url\":\"/ruby-on-rails/database/\",\"date\":\"2020-03-10\",\"category\":\"ruby-on-rails\"},{\"title\":\"ControllerとView、Routeとのデータ交換\",\"description\":\"Ruby on RailsでControllerとView、そしてRouteを通じてデータを送る方法について調べてみましょう。\",\"url\":\"/ruby-on-rails/data-in-controller-view-route/\",\"date\":\"2020-03-09\",\"category\":\"ruby-on-rails\"},{\"title\":\"Ruby on Railsを使って新しウェブページを作る\",\"description\":\"Ruby on Railsを使って新しウェブページを作る方法について説明します。\",\"url\":\"/ruby-on-rails/create-page/\",\"date\":\"2020-02-26\",\"category\":\"ruby-on-rails\"},{\"title\":\"Railsで作ったプロジェクトのフォルダ構造\",\"description\":\"Ruby on Railsで生成したプロジェクトのフォルダの構造を確認してみましょう。\",\"url\":\"/ruby-on-rails/folder-structure/\",\"date\":\"2020-02-25\",\"category\":\"ruby-on-rails\"},{\"title\":\"MacでRuby on Railsを始める\",\"description\":\"MacにRuby on Railsをインストールして、新いプロジェクトを始める方法について説明します。\",\"url\":\"/ruby-on-rails/rails-on-mac/\",\"date\":\"2020-02-14\",\"category\":\"ruby-on-rails\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=Mac%E3%81%A7Ruby%20on%20Rails%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B&url=https%3A%2F%2Fdeku.posstree.com%2Fruby-on-rails%2Frails-on-mac%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fruby-on-rails%2Frails-on-mac%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

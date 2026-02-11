@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="GitHub ActionsでJestを実行するActionのパフォーマンスを改善する方法について紹介します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/github_actions/improve-test-performance/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/github_actions/improve-test-performance/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/github_actions/improve-test-performance/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/github_actions/improve-test-performance/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/github_actions/improve-test-performance/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する"><meta name="twitter:description" content="GitHub ActionsでJestを実行するActionのパフォーマンスを改善する方法について紹介します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/github_actions/background.jpg"><meta name="twitter:image:alt" content="[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する"><!-- Open Graph --><meta property="og:title" content="[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する"><meta property="og:description" content="GitHub ActionsでJestを実行するActionのパフォーマンスを改善する方法について紹介します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/github_actions/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する"><meta property="og:url" content="https://deku.posstree.com/github_actions/improve-test-performance/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2024-10-23T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="GitHub Actions"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する","description":"GitHub ActionsでJestを実行するActionのパフォーマンスを改善する方法について紹介します。","datePublished":"2024-10-23T00:00:00.000Z","dateModified":"2024-10-23T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/github_actions/improve-test-performance/"},"image":"https://deku.posstree.com/assets/images/category/github_actions/background.jpg","url":"https://deku.posstree.com/github_actions/improve-test-performance/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/github_actions/dependabot-sop-automation/","name":"Dependabot PR処理のための自動化"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/github_actions/dependabot-sop/","name":"Dependabot PR処理のためのSOP(Standard Operating Procedure)"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/github_actions/send_slack_message_for_reviewer/","name":"[GitHub Actions] Reviewerに通知するためのSlackメッセージを送信する"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/github_actions/improve-test-performance/","name":"[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/github_actions/composite-action/","name":"[GitHub Actions] Composite Actionを使ってGitHub Actionsの重複を減らす"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/github_actions/execute-github-actions-manually/","name":"[GitHub Actions] GitHub Actions を手動で実行する"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/github_actions/action-check-pr-title/","name":"[GitHub Actions] モノレポ環境でGitHub Actionsを使ってPRタイトルをチェックする方法"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/github_actions/check-branch-name/","name":"[GitHub Actions] GitHub Actionsでブランチ名をチェックする方法"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/github_actions/auto-assign-assigness/","name":"[GitHub Actions] PRに自動でAssigneesを追加する"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/github_actions/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2024-10-23 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fgithub_actions%2Fimprove-test-performance%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">GitHub ActionsでJestを実行するActionのパフォーマンスを改善する方法について紹介します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/github_actions/" itemprop="item"> <span itemprop="name">GitHub Actions</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E7%9B%AE%E6%AC%A1">目次</a></li>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#%E5%95%8F%E9%A1%8C%E7%82%B9">問題点</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E6%94%B9%E5%96%84">性能改善</a>
+<ul>
+<li><a href="#dependencies-cache">Dependencies Cache</a></li>
+<li><a href="#actions%E5%88%86%E9%9B%A2">Actions分離</a></li>
+<li><a href="#jest%E3%81%AEbail">Jestのbail</a></li>
+<li><a href="#jest%E3%81%AEshard%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3">Jestのshardオプション</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>最近、会社でテストコードが増えてきたため、<code>GitHub Actions</code>でコードをチェックするActionに時間がかかるようになりました。この問題を解決するために、<code>Jest</code>を実行するActionのパフォーマンスを改善した内容を共有したいと思います。</p>
+<h2 id="問題点">問題点</h2>
+<p>現在、次のようなActionを使用してPRをチェックしています。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  check-code</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Check Code</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Prettier</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn format</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> CSpell</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn cspell</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ESLint</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn lint</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Stylelint</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn stylelint</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Test</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
+<span class="line"><span style="color:#C3E88D">          yarn test:ci</span></span>
+<span class="line"><span style="color:#C3E88D">          yarn test:storybook</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Build</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
+<span class="line"><span style="color:#C3E88D">          yarn build</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Build SCSS</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
+<span class="line"><span style="color:#C3E88D">          yarn typegen:scss</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C3E88D">          # Get the changed files</span></span>
+<span class="line"><span style="color:#C3E88D">          CHANGED_FILES=$(git diff --name-only HEAD)</span></span>
+<span class="line"><span style="color:#C3E88D">          # Check if there are changes in the generated files</span></span>
+<span class="line"><span style="color:#C3E88D">          if [ -n "$CHANGED_FILES" ]; then</span></span>
+<span class="line"><span style="color:#C3E88D">            echo "Error: There are changes in the following files: $CHANGED_FILES"</span></span>
+<span class="line"><span style="color:#C3E88D">            exit 1</span></span>
+<span class="line"><span style="color:#C3E88D">          fi</span></span></code></pre>
+<p><code>PR</code>が作成されるたびに<code>Prettier</code>、<code>CSpell</code>、<code>ESLint</code>、<code>Stylelint</code>、<code>Test</code>、<code>Build</code>、<code>Build SCSS</code>が実行されています。このActionは約25分かかります。</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Improve Jest test performance">
+</picture>
+<h2 id="性能改善">性能改善</h2>
+<p>PRを生成するたびに25分かかるのは非常に非効率的です。このブログポストでは、<code>Jest</code>を実行するActionのパフォーマンスを改善する方法について説明します。</p>
+<h3 id="dependencies-cache">Dependencies Cache</h3>
+<p>一番最初に行ったのは、<code>yarn install</code>でインストールされる<code>Dependencies</code>をキャッシュすることです。これにより、<code>Dependencies</code>を再インストールする時間を短縮できます。</p>
+<p>この部分は他の<code>Actions</code>でも使用できるため、<code>Composite Action</code>として作成しました。<code>Composite Action</code>については、次のリンクを参照してください。</p>
+<ul>
+<li><a href="/github_actions/composite-action/">[GitHub Actions] Composite Actionを使ってGitHub Actionsの重複を減らす</a></li>
+</ul>
+<p>キャッシュは<code>actions/cache</code>を使って行いました。</p>
+<ul>
+<li><code>actions/cache</code>の公式ドキュメント: <a href="https://github.com/actions/cache" rel="nofollow noreferrer" target="_blank">https://github.com/actions/cache</a></li>
+</ul>
+<p><code>actions/cache</code>を使って<code>Dependencies</code>をキャッシュする<code>Composite Action</code>は次のようになります。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Install Dependencies</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Install Dependencies</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">runs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  using</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">composite</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">  steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">    -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Setup node</span></span>
+<span class="line"><span style="color:#F07178">      uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/setup-node@v4</span></span>
+<span class="line"><span style="color:#F07178">      with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        node-version</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 20.3.0</span></span>
+<span class="line"><span style="color:#89DDFF">    -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">    -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Enable Yarn 3.7.0</span></span>
+<span class="line"><span style="color:#F07178">      shell</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> bash</span></span>
+<span class="line"><span style="color:#F07178">      run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> corepack enable</span></span>
+<span class="line"><span style="color:#89DDFF">    -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Get yarn cache directory path</span></span>
+<span class="line"><span style="color:#F07178">      shell</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> bash</span></span>
+<span class="line"><span style="color:#F07178">      id</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn-cache-dir-path</span></span>
+<span class="line"><span style="color:#F07178">      run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT</span></span>
+<span class="line"><span style="color:#89DDFF">    -</span><span style="color:#F07178"> uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/cache@v4</span></span>
+<span class="line"><span style="color:#F07178">      id</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn-cache</span></span>
+<span class="line"><span style="color:#F07178">      with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        path</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
+<span class="line"><span style="color:#C3E88D">          node_modules</span></span>
+<span class="line"><span style="color:#C3E88D">          **/node_modules</span></span>
+<span class="line"><span style="color:#C3E88D">          ${{ steps.yarn-cache-dir-path.outputs.dir }}</span></span>
+<span class="line"><span style="color:#F07178">        key</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}</span></span>
+<span class="line"><span style="color:#F07178">        restore-keys</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
+<span class="line"><span style="color:#C3E88D">          ${{ runner.os }}-yarn-</span></span>
+<span class="line"><span style="color:#89DDFF">    -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">      if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> steps.yarn-cache.outputs.cache-hit != 'true'</span></span>
+<span class="line"><span style="color:#F07178">      shell</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> bash</span></span>
+<span class="line"><span style="color:#F07178">      run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn install --frozen-lockfile</span></span></code></pre>
+<p>私たちのチームは<code>Yarn</code>の<code>3.7.0</code>バージョンを使っています。そのため、<code>corepack enable</code>を追加し、<code>Yarn 3.7.0</code>のキャッシュフォルダを取得して<code>node_modules</code>と一緒にキャッシュしました。</p>
+<p>また、プロジェクトがモノレポであるため、<code>**/node_modules</code>を使ってサブプロジェクトの<code>node_modules</code>もキャッシュしました。</p>
+<p>もし、皆さんのプロジェクトがモノレポではなく、<code>Yarn 3.7.0</code>も使っていない場合は、公式ドキュメントを参照して適切な設定を行ってください。</p>
+<ul>
+<li>公式ドキュメント: <a href="https://github.com/actions/cache?tab=readme-ov-file#implementation-examples" rel="nofollow noreferrer" target="_blank">https://github.com/actions/cache?tab=readme-ov-file#implementation-examples</a></li>
+</ul>
+<p>この変更により、パフォーマンスが少し向上しました。</p>
+<ul>
+<li>Before: 1m 25s</li>
+</ul>
+<picture>
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.png" alt="GitHub Actions - Before using actions/cache for dependencies">
+</picture>
+<ul>
+<li>After: 9s</li>
+</ul>
+<picture>
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.png" alt="GitHub Actions - After using actions/cache for dependencies">
+</picture>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="actions分離">Actions分離</h3>
+<p><code>Prettier</code>、<code>CSpell</code>、<code>ESLint</code>、<code>Stylelint</code>、<code>Test</code>、<code>Build</code>、<code>Build SCSS</code>をすべて1つの<code>Action</code>で実行していました。その中で最も時間がかかったのが<code>Test</code>の実行でした。</p>
+<p>なので、<code>Test</code>が実行される間に他の<code>Actions</code>を実行できるように<code>Actions</code>を分離しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  cspell</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> CSpell</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> CSpell</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn cspell</span></span>
+<span class="line"><span style="color:#F07178">  remark</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> contains(github.head_ref, 'service_1') || contains(github.head_ref, 'npm_and_yarn') || contains(github.head_ref, 'github_actions') || contains(github.head_ref, 'components') || contains(github.head_ref, 'config') || contains(github.head_ref, 'common')</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Remark-lint</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Remark-lint</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn remark:service_1</span></span>
+<span class="line"><span style="color:#F07178">  eslint</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> contains(github.head_ref, 'service_1') || contains(github.head_ref, 'npm_and_yarn') || contains(github.head_ref, 'github_actions') || contains(github.head_ref, 'components') || contains(github.head_ref, 'config') || contains(github.head_ref, 'common')</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ESLint</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ESLint</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn lint:service_1</span></span>
+<span class="line"><span style="color:#F07178">  stylelint</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> contains(github.head_ref, 'service_1') || contains(github.head_ref, 'npm_and_yarn') || contains(github.head_ref, 'github_actions') || contains(github.head_ref, 'components') || contains(github.head_ref, 'config') || contains(github.head_ref, 'common')</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Stylelint</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Stylelint</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn stylelint:service_1</span></span>
+<span class="line"><span style="color:#F07178">  build</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> contains(github.head_ref, 'service_1') || contains(github.head_ref, 'npm_and_yarn') || contains(github.head_ref, 'github_actions') || contains(github.head_ref, 'components') || contains(github.head_ref, 'config') || contains(github.head_ref, 'common')</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Build</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Build</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn build:service_1</span></span>
+<span class="line"><span style="color:#F07178">  test-service_1</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> contains(github.head_ref, 'service_1') || contains(github.head_ref, 'npm_and_yarn') || contains(github.head_ref, 'github_actions') || contains(github.head_ref, 'components') || contains(github.head_ref, 'config') || contains(github.head_ref, 'common')</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Test service_1</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Test</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn test:ci:service_1</span></span></code></pre>
+<p>モノレポを使っているため、このような<code>GitHub Actions</code>はサービスごとに存在し、<code>if</code>文を使ってそのサービスだけが実行されるようにしています。</p>
+<p>分離する前には、この<code>Action</code>は約25分かかりました。</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Before separating actions">
+</picture>
+<p>分離した後、この<code>Action</code>は約13分程度で性能が改善されました。</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/webp">
+  <img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating actions">
+</picture>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="jestのbail">Jestのbail</h3>
+<p><code>Jest</code>の<code>bail</code>オプションを使うと、テスト中に1つでもテストが失敗した場合にテストを中止するように設定できます。</p>
+<p>このオプションを追加することで、テストが失敗した場合にすぐにすべてのテストを実行せずに中止することができ、時間を短縮できます。</p>
+<p><code>Jest</code>の<code>bail</code>オプションを設定するために、<code>jest</code>を実行するコマンドが含まれる<code>package.json</code>ファイルを開いて、次のように変更します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#EEFFFF">    ...</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">test:ci</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">jest --ci --bail</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">  },</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h3 id="jestのshardオプション">Jestのshardオプション</h3>
+<p><code>Jest</code>の<code>shard</code>オプションを使うと、テストを並列で実行できます。<code>shard</code>を使ってテストを並列で実行するために、<code>Jest</code>を実行する<code>Action</code>を開いて次のように変更します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F78C6C">  ...</span></span>
+<span class="line"><span style="color:#F07178">  test-service_1</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    if</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> contains(github.head_ref, 'service_1') || contains(github.head_ref, 'npm_and_yarn') || contains(github.head_ref, 'github_actions') || contains(github.head_ref, 'components') || contains(github.head_ref, 'config') || contains(github.head_ref, 'common')</span></span>
+<span class="line"><span style="color:#F07178">    name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Test service_1</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    strategy</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      matrix</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        shard</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#F78C6C">1</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 2</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 3</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 4</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 5</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 6</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 7</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 8</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 9</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 10</span><span style="color:#89DDFF">]</span></span>
+<span class="line"><span style="color:#F07178">    timeout-minutes</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 30</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Checkout code</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v4</span></span>
+<span class="line"><span style="color:#F07178">        with</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">          fetch-depth</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Install dependencies</span></span>
+<span class="line"><span style="color:#F07178">        uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ./.github/actions/install_dependencies</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Test</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn test:ci:service_1 -- --shard=${{ matrix.shard }}/10</span></span></code></pre>
+<p>このプロジェクトでは、モノレポを管理するために<code>Turborepo</code>を使っています。</p>
+<ul>
+<li><code>Turborepo</code>公式ドキュメント: <a href="https://turborepo.com/" rel="nofollow noreferrer" target="_blank">https://turborepo.com/</a></li>
+</ul>
+<p>この<code>Action</code>で実行する<code>yarn test:ci:service_1</code>は<code>turbo test:ci --parallel --filter=service_1</code>コマンドを実行します。そのため、<code>Jest</code>の<code>--shard</code>オプションを渡すために<code>--</code>を使ってオプションを渡しました。</p>
+<p><code>shard</code>オプションを追加する前のテストは約13分かかりました。</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/webp">
+  <img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating action">
+</picture>
+<p><code>shard</code>オプションを追加した後、テストは約2~3分かかりました。</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.png" alt="GitHub Actions - Use Jest shard option">
+</picture>
+<h2 id="完了">完了</h2>
+<p>このブログポストでは、<code>Jest</code>を実行する<code>Action</code>のパフォーマンスを改善する方法について説明しました。パフォーマンス改善前には約25分かかりましたが、パフォーマンス改善後には約2~3分かかるようになりました。</p>
+<p>皆さんも<code>Cache</code>、<code>Actions分離</code>、<code>shard</code>オプションを使って<code>Jest</code>を実行する<code>Action</code>のパフォーマンスを改善してみてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"Dependabot PR処理のための自動化\",\"description\":\"Monorepo環境でDependabot設定とGitHub Actionsを使用してPR処理を自動化する方法について学びます。\",\"url\":\"/github_actions/dependabot-sop-automation/\",\"date\":\"2025-02-04\",\"category\":\"github_actions\"},{\"title\":\"Dependabot PR処理のためのSOP(Standard Operating Procedure)\",\"description\":\"Monorepo環境でDependabotが生成したPRを効率的に処理するためのリスク分類基準と処理方法について紹介します。\",\"url\":\"/github_actions/dependabot-sop/\",\"date\":\"2025-02-03\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Reviewerに通知するためのSlackメッセージを送信する\",\"description\":\"GitHub Actionsを使ってReviewerに指定された場合、Slackメッセージを送信する方法と、毎朝ReviewerにPRリストをSlackメッセージで送信する方法について説明します。\",\"url\":\"/github_actions/send_slack_message_for_reviewer/\",\"date\":\"2024-11-13\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Jestの実行Actionsのパフォーマンスを改善する\",\"description\":\"GitHub ActionsでJestを実行するActionのパフォーマンスを改善する方法について紹介します。\",\"url\":\"/github_actions/improve-test-performance/\",\"date\":\"2024-10-23\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Composite Actionを使ってGitHub Actionsの重複を減らす\",\"description\":\"GitHub Actionsで重複で使われるActionをComposite Actionで作ってActionの再利用性を高める方法について紹介します。\",\"url\":\"/github_actions/composite-action/\",\"date\":\"2024-10-22\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] GitHub Actions を手動で実行する\",\"description\":\"GitHub Actions を手動で実行する方法について説明します。\",\"url\":\"/github_actions/execute-github-actions-manually/\",\"date\":\"2024-09-13\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] モノレポ環境でGitHub Actionsを使ってPRタイトルをチェックする方法\",\"description\":\"モノレポ環境でGitHub Actionsを使ってPR(Pull Request)を作成した際、PRのタイトルをチェックする方法について説明します。\",\"url\":\"/github_actions/action-check-pr-title/\",\"date\":\"2024-09-10\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] GitHub Actionsでブランチ名をチェックする方法\",\"description\":\"GitHub Actionsを使ってPRを作った時、ブランチ名をチェックする方法について説明します。\",\"url\":\"/github_actions/check-branch-name/\",\"date\":\"2024-09-02\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] PRに自動でAssigneesを追加する\",\"description\":\"GitHub Actionsを使ってPRに自動でAssigneesを追加する方法について説明します。\",\"url\":\"/github_actions/auto-assign-assigness/\",\"date\":\"2024-08-28\",\"category\":\"github_actions\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%5BGitHub%20Actions%5D%20Jest%E3%81%AE%E5%AE%9F%E8%A1%8CActions%E3%81%AE%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E3%82%92%E6%94%B9%E5%96%84%E3%81%99%E3%82%8B&url=https%3A%2F%2Fdeku.posstree.com%2Fgithub_actions%2Fimprove-test-performance%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fgithub_actions%2Fimprove-test-performance%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

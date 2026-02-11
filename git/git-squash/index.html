@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Git squashを使って複数のコミットを1つのコミットでまとめる方法について説明します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>Git squashで複数のコミットを1つでまとめる | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/git/git-squash/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/git/git-squash/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/git/git-squash/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/git/git-squash/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/git/git-squash/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="Git squashで複数のコミットを1つでまとめる"><meta name="twitter:description" content="Git squashを使って複数のコミットを1つのコミットでまとめる方法について説明します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/git/2020/git-squash/background.jpg"><meta name="twitter:image:alt" content="Git squashで複数のコミットを1つでまとめる"><!-- Open Graph --><meta property="og:title" content="Git squashで複数のコミットを1つでまとめる"><meta property="og:description" content="Git squashを使って複数のコミットを1つのコミットでまとめる方法について説明します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/git/2020/git-squash/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Git squashで複数のコミットを1つでまとめる"><meta property="og:url" content="https://deku.posstree.com/git/git-squash/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2020-04-20T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="git"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Git squashで複数のコミットを1つでまとめる","description":"Git squashを使って複数のコミットを1つのコミットでまとめる方法について説明します。","datePublished":"2020-04-20T00:00:00.000Z","dateModified":"2020-04-20T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/git/git-squash/"},"image":"https://deku.posstree.com/assets/images/category/git/2020/git-squash/background.jpg","url":"https://deku.posstree.com/git/git-squash/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/git/user-multiple-github-users/","name":"[GitHub] 複数のGitHubアカウントを1つのマシンで使う方法"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/git/delete-all-branches/","name":"[Git] main以外全てのブランチ削除"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/git/amend/","name":"[Git] 最後コミットメッセージ修正"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/git/stash/","name":"git stash"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/git/branch-merge/","name":"git branchとgit merge"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/git/default-branch/","name":"[Git] デフォルトブランチをmasterからmainに設定する方法"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/git/git-ftp/","name":"Git FTPを使ってファイルアップロード"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/git/git-squash/","name":"Git squashで複数のコミットを1つでまとめる"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/git/sync-fork-repository/","name":"Forkリポジトリを同期する"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/git/create-stage/","name":"バージョン生成"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/git/create-repository/","name":"リポジトリ生成"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/git/installation/","name":"gitインストール"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/git/2020/git-squash/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>Git squashで複数のコミットを1つでまとめる</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2020-04-20 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fgit%2Fgit-squash%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">Git squashを使って複数のコミットを1つのコミットでまとめる方法について説明します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/git/" itemprop="item"> <span itemprop="name">git</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">Git squashで複数のコミットを1つでまとめる</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#git-squash">Git Squash</a>
+<ul>
+<li><a href="#git-log">Git Log</a></li>
+<li><a href="#git-rebase">Git Rebase</a></li>
+<li><a href="#git-push">Git Push</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>オープンソースへコミット(Commit)する時や会社のソースコードを修正する時、普通、1つの課題(Issue)を作って、その課題を基準にしてブランチを作ります。そして、このように作ったブランチへ修正内容をコミット(Commit)します。しかし、普通はコミット1つで全ての修正を反映することができないです。フロントサイドの修正コミット、サーバーサイドの修正コミット、テストコードのコミット、コードレビュー対応コミットなど、1つの課題を修正するため、様々なコミットが発生します。</p>
+<p>このように生成された様々なコミットをマージ(Merge)してもいいですが、オープンソースや色んな人が一緒に作業する会社のソースコードの場合、コミット履歴が多くって、複雑になって、コミットの履歴を追跡することが難しくなります。</p>
+<p>これを避けるため、このブログポストではGitの<code>Squash</code>機能について説明します。</p>
+<h2 id="git-squash">Git Squash</h2>
+<p>Git Squashは複数のコミット履歴を1つのコミット履歴でまとめる時使います。</p>
+<h3 id="git-log">Git Log</h3>
+<p>まず、下記のコマンドを実行してコミットした履歴を確認します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> log</span><span style="color:#C3E88D"> --pretty=oneline</span></span></code></pre>
+<p>そしたら、下記のような結果が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">1f199b7353e40e3134572c9986837b1b4bfebd13</span><span style="color:#EEFFFF"> (HEAD -</span><span style="color:#89DDFF">></span><span style="color:#C3E88D"> squash-test</span><span style="color:#EEFFFF">) third commit</span></span>
+<span class="line"><span style="color:#FFCB6B">0118d468a770c2340bf6d4d47f10984c58ea382b</span><span style="color:#C3E88D"> second</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">b91e257ce42d5f501c7bc8242a0580b3c05ef462</span><span style="color:#C3E88D"> first</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">db078dae819cfed46bc6e6ef8c962648f97c22da</span><span style="color:#EEFFFF"> (origin/master, </span><span style="color:#C3E88D">origin/develop,</span><span style="color:#C3E88D"> master,</span><span style="color:#C3E88D"> develop</span><span style="color:#EEFFFF">) Merge pull request </span><span style="color:#545454;font-style:italic">#1 from dev-yakuza/rebase-and-squash</span></span>
+<span class="line"><span style="color:#FFCB6B">c6bd068ec0ea39ef98e135218dc19375e5d63a68</span><span style="color:#EEFFFF"> (origin/rebase-and-squash, </span><span style="color:#C3E88D">rebase-and-squash</span><span style="color:#EEFFFF">) add rebase-and-squash</span></span>
+<span class="line"><span style="color:#FFCB6B">2d33cf05e6352b2fa7e8574d170032b34e3a8959</span><span style="color:#C3E88D"> change</span><span style="color:#C3E88D"> master</span></span>
+<span class="line"><span style="color:#FFCB6B">405d0d71ed50429a169ece18cf984dfd64c088a9</span><span style="color:#C3E88D"> add</span><span style="color:#C3E88D"> project</span></span></code></pre>
+<p>私は現在Masterブランチから<code>squash-test</code>ブランチを作って<code>first commit</code>, <code>second commit</code>, <code>third commit</code>のコミットをした状態です。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">1f199b7353e40e3134572c9986837b1b4bfebd13</span><span style="color:#EEFFFF"> (HEAD -</span><span style="color:#89DDFF">></span><span style="color:#C3E88D"> squash-test</span><span style="color:#EEFFFF">) third commit</span></span>
+<span class="line"><span style="color:#FFCB6B">0118d468a770c2340bf6d4d47f10984c58ea382b</span><span style="color:#C3E88D"> second</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">b91e257ce42d5f501c7bc8242a0580b3c05ef462</span><span style="color:#C3E88D"> first</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">db078dae819cfed46bc6e6ef8c962648f97c22da</span><span style="color:#EEFFFF"> (origin/master, </span><span style="color:#C3E88D">origin/develop,</span><span style="color:#C3E88D"> master,</span><span style="color:#C3E88D"> develop</span><span style="color:#EEFFFF">) Merge pull request </span><span style="color:#545454;font-style:italic">#1 from dev-yakuza/rebase-and-squash</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="git-rebase">Git Rebase</h3>
+<p>次は、GitのSquash機能で<code>first commit</code>, <code>second commit</code>, <code>third commit</code>のコミットを1つのコミットに作ってみます。Squash機能を使うためにはGitの<code>Rebase</code>を使う必要があります。</p>
+<p>まず、Gitのログをもう一回確認して、</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">1f199b7353e40e3134572c9986837b1b4bfebd13</span><span style="color:#EEFFFF"> (HEAD -</span><span style="color:#89DDFF">></span><span style="color:#C3E88D"> squash-test</span><span style="color:#EEFFFF">) third commit</span></span>
+<span class="line"><span style="color:#FFCB6B">0118d468a770c2340bf6d4d47f10984c58ea382b</span><span style="color:#C3E88D"> second</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">b91e257ce42d5f501c7bc8242a0580b3c05ef462</span><span style="color:#C3E88D"> first</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># We will rebase on here!!!!!!!!</span></span>
+<span class="line"><span style="color:#FFCB6B">db078dae819cfed46bc6e6ef8c962648f97c22da</span><span style="color:#EEFFFF"> (origin/master, </span><span style="color:#C3E88D">origin/develop,</span><span style="color:#C3E88D"> master,</span><span style="color:#C3E88D"> develop</span><span style="color:#EEFFFF">) Merge pull request </span><span style="color:#545454;font-style:italic">#1 from dev-yakuza/rebase-and-squash</span></span></code></pre>
+<p>3つのコミットを1つのコミットで作る予定なので、3つのコミットをする以前である<code>db078dae819cfed46bc6e6ef8c962648f97c22da</code>へRebaseをします。</p>
+<p>Squashを使うため、下記のGitのRebaseコマンドを使ってRebaseをします。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> rebase</span><span style="color:#C3E88D"> -i</span><span style="color:#C3E88D"> db078dae819cfed46bc6e6ef8c962648f97c22da</span></span></code></pre>
+<p>ここで<code>-i</code>をオプションを使ってことを注目してください。<code>-i</code>オプションを使ってので、普通のRebaseとは違って、下記のような結果が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">pick</span><span style="color:#C3E88D"> b91e257</span><span style="color:#C3E88D"> first</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">pick</span><span style="color:#C3E88D"> 0118d46</span><span style="color:#C3E88D"> second</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">pick</span><span style="color:#C3E88D"> 1f199b7</span><span style="color:#C3E88D"> third</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Rebase db078da..1f199b7 onto db078da (3 commands)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Commands:</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># p, pick &#x3C;commit> = use commit</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># r, reword &#x3C;commit> = use commit, but edit the commit message</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># e, edit &#x3C;commit> = use commit, but stop for amending</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># s, squash &#x3C;commit> = use commit, but meld into previous commit</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># f, fixup &#x3C;commit> = like "squash", but discard this commit's log message</span></span></code></pre>
+<p>この画面はRebaseを使ってコミット以前の状態に戻るようにしてるが、現在と過去の間に残ってるコミットをどう処理するかをGitが親切に質問してくれる画面です。下に使えるCommandのリストもあります。私たちはここで、<code>s, squash</code>を使う予定です。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># s, squash &#x3C;commit> = use commit, but meld into previous commit</span></span></code></pre>
+<p>このコミットには<code>first commit</code>を残して<code>second commit</code>と<code>third commit</code>をSquashしてみます。キーボードの<code>i</code>ボタンを押して、修正できる状態に変更した後、下記のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">pick</span><span style="color:#C3E88D"> b91e257</span><span style="color:#C3E88D"> first</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">s</span><span style="color:#C3E88D"> 0118d46</span><span style="color:#C3E88D"> second</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"><span style="color:#FFCB6B">s</span><span style="color:#C3E88D"> 1f199b7</span><span style="color:#C3E88D"> third</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Rebase db078da..1f199b7 onto db078da (3 commands)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Commands:</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># p, pick &#x3C;commit> = use commit</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># r, reword &#x3C;commit> = use commit, but edit the commit message</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># e, edit &#x3C;commit> = use commit, but stop for amending</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># s, squash &#x3C;commit> = use commit, but meld into previous commit</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># f, fixup &#x3C;commit> = like "squash", but discard this commit's log message</span></span></code></pre>
+<p>そしてキーボードの<code>ESC</code>ボタンを押して<code>:wq</code>を入力した後、<code>Enter</code>キーを押して変更した内容を保存します。変更が完了されたら下記のような画面が見えます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># This is a combination of 3 commits.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># This is the 1st commit message:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">first</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># This is the commit message #2:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">second</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># This is the commit message #3:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">third</span><span style="color:#C3E88D"> commit</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Please enter the commit message for your changes. Lines starting</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># with '#' will be ignored, and an empty message aborts the commit.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Date:      Mon Apr 20 14:42:26 2020 +0900</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># interactive rebase in progress; onto db078da</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Last commands done (3 commands done):</span></span>
+<span class="line"><span style="color:#545454;font-style:italic">#    squash 0118d46 second commit</span></span></code></pre>
+<p>この画面はGitがRebaseを使ってSquashをする予定だけど、以前作成したコミットメッセージをどうするか聞いてくれる画面です。Gitが全てのメッセージを1つの画面で見せています。キーボードの<code>i</code>ボタンを押して、下記のように修正します。（メッセージは皆さんの環境に合わせて変更してください。）</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># This is a combination of 3 commits.</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># This is the 1st commit message:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">Fix</span><span style="color:#C3E88D"> Squash</span><span style="color:#C3E88D"> Task</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Please enter the commit message for your changes. Lines starting</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># with '#' will be ignored, and an empty message aborts the commit.</span></span></code></pre>
+<p>メッセージの作成が完了されたら、キーボードの<code>ESC</code>ボタンを押して<code>:wq</code>を入力して保存します。</p>
+<p>また、<code>git log --pretty=oneline</code>でコミット履歴を確認すると、</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">099e6f606b3a46b98f0233d558eb07c143a3ec01</span><span style="color:#EEFFFF"> (HEAD -</span><span style="color:#89DDFF">></span><span style="color:#C3E88D"> squash-test</span><span style="color:#EEFFFF">) Fix Squash Task</span></span>
+<span class="line"><span style="color:#FFCB6B">db078dae819cfed46bc6e6ef8c962648f97c22da</span><span style="color:#EEFFFF"> (origin/master, </span><span style="color:#C3E88D">origin/develop,</span><span style="color:#C3E88D"> master,</span><span style="color:#C3E88D"> develop</span><span style="color:#EEFFFF">) Merge pull request </span><span style="color:#545454;font-style:italic">#1 from dev-yakuza/rebase-and-squash</span></span></code></pre>
+<p>Rebase以前とは違って、コミットが1つしか表示されないことが確認できます。また、メッセージの内容も私たちがSquashする時、作成した内容が表示されることが確認できます。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="git-push">Git Push</h3>
+<p>次は、このように1つにしたコミットをリモートリポジトリ(Remote Repository)へ<code>Push</code>します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#C3E88D"> squash-test</span></span></code></pre>
+<p>すでにコミットした内容をリモートリポジトリへPushしたことがある場合、下記のように<code>-f</code>オプションを使って強制的変更します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#C3E88D"> squash-test</span><span style="color:#C3E88D"> -f</span></span></code></pre>
+<h2 id="完了">完了</h2>
+<p>これでGitのSquashを使ってたくさんのコミット履歴を1つのコミットに変更する方法について見てみました。明確にはGitのRebaseを使ってSquashを実行したと言いますね。今回のブログポストで使ってコマンドをまとめてみました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> log</span><span style="color:#C3E88D"> --pretty=oneline</span></span>
+<span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> rebase</span><span style="color:#C3E88D"> -i</span><span style="color:#EEFFFF"> [Commit </span><span style="color:#C3E88D">Number]</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Select to pick and squash</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Change commit log</span></span>
+<span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#EEFFFF"> [Branch] -f</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># git push origin [Branch]</span></span></code></pre>
+<p>皆さんもSquashを使って綺麗なコミット履歴を残してみてください！
+여러분도 Squash를 통해 예쁜 커밋 이력을 남겨보세요!</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"[GitHub] 複数のGitHubアカウントを1つのマシンで使う方法\",\"description\":\"1つのマシン(PC)で複数のGitHubアカウントを設定して使う方法について説明します。\",\"url\":\"/git/user-multiple-github-users/\",\"date\":\"2024-09-25\",\"category\":\"git\"},{\"title\":\"[Git] main以外全てのブランチ削除\",\"description\":\"ローカルでmainブランチ以外の全てのブランチを削除する方法について説明します。\",\"url\":\"/git/delete-all-branches/\",\"date\":\"2024-04-23\",\"category\":\"git\"},{\"title\":\"[Git] 最後コミットメッセージ修正\",\"description\":\"Gitでamendオプションを使って最後のコミットメッセージを修正する方法について説明します。\",\"url\":\"/git/amend/\",\"date\":\"2022-10-25\",\"category\":\"git\"},{\"title\":\"git stash\",\"description\":\"Gitでgit stashを使うため、現在作業中の内容を臨時的に保存する方法について説明します。\",\"url\":\"/git/stash/\",\"date\":\"2021-07-17\",\"category\":\"git\"},{\"title\":\"git branchとgit merge\",\"description\":\"Gitを使ってバージョンを管理する時、ブランチを作ってマージ(Merge)する方法について説明します。\",\"url\":\"/git/branch-merge/\",\"date\":\"2021-07-16\",\"category\":\"git\"},{\"title\":\"[Git] デフォルトブランチをmasterからmainに設定する方法\",\"description\":\"Gitを使う時、基本ブランチをmasterからmainに変更する方法について説明します。\",\"url\":\"/git/default-branch/\",\"date\":\"2021-06-17\",\"category\":\"git\"},{\"title\":\"Git FTPを使ってファイルアップロード\",\"description\":\"FTPを使ってファイルをアップロードするため、Git FTPを使う方法について説明します。\",\"url\":\"/git/git-ftp/\",\"date\":\"2020-06-24\",\"category\":\"git\"},{\"title\":\"Git squashで複数のコミットを1つでまとめる\",\"description\":\"Git squashを使って複数のコミットを1つのコミットでまとめる方法について説明します。\",\"url\":\"/git/git-squash/\",\"date\":\"2020-04-20\",\"category\":\"git\"},{\"title\":\"Forkリポジトリを同期する\",\"description\":\"Forkしたリポジトリ(Repository)と原本リポジトリ(Repository)を同期(Sync)する方法について説明します。\",\"url\":\"/git/sync-fork-repository/\",\"date\":\"2020-04-15\",\"category\":\"git\"},{\"title\":\"バージョン生成\",\"description\":\"gitのリポジトリ(Repository)でバージョン管理するためにバージョン(変更履歴)を生成してみましょう。\",\"url\":\"/git/create-stage/\",\"date\":\"2018-10-31\",\"category\":\"git\"},{\"title\":\"リポジトリ生成\",\"description\":\"gitを使うためにgitのリポジトリ(Repository)を生成します。gitのリポジトリ(Repository)はソースコードのバージョンを管理するためソースコードの編集履歴を情報を保存する場所です。\",\"url\":\"/git/create-repository/\",\"date\":\"2018-10-29\",\"category\":\"git\"},{\"title\":\"gitインストール\",\"description\":\"ソースコードのバージョン管理のためgitを使ってみましょう。gitを使うためgitをインストールします。\",\"url\":\"/git/installation/\",\"date\":\"2018-10-25\",\"category\":\"git\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=Git%20squash%E3%81%A7%E8%A4%87%E6%95%B0%E3%81%AE%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%82%921%E3%81%A4%E3%81%A7%E3%81%BE%E3%81%A8%E3%82%81%E3%82%8B&url=https%3A%2F%2Fdeku.posstree.com%2Fgit%2Fgit-squash%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fgit%2Fgit-squash%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

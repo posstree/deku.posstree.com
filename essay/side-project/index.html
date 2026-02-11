@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="開発者にとってサイドプロジェクトとは何か、なぜサイドプロジェクトをすべきなのか、私の個人的な観点を共有します。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>開発者にとってサイドプロジェクトとは | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/essay/side-project/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/essay/side-project/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/essay/side-project/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/essay/side-project/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/essay/side-project/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="開発者にとってサイドプロジェクトとは"><meta name="twitter:description" content="開発者にとってサイドプロジェクトとは何か、なぜサイドプロジェクトをすべきなのか、私の個人的な観点を共有します。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/essay/2025/side-project/background.jpg"><meta name="twitter:image:alt" content="開発者にとってサイドプロジェクトとは"><!-- Open Graph --><meta property="og:title" content="開発者にとってサイドプロジェクトとは"><meta property="og:description" content="開発者にとってサイドプロジェクトとは何か、なぜサイドプロジェクトをすべきなのか、私の個人的な観点を共有します。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/essay/2025/side-project/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="開発者にとってサイドプロジェクトとは"><meta property="og:url" content="https://deku.posstree.com/essay/side-project/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2025-02-24T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="エッセイ"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"開発者にとってサイドプロジェクトとは","description":"開発者にとってサイドプロジェクトとは何か、なぜサイドプロジェクトをすべきなのか、私の個人的な観点を共有します。","datePublished":"2025-02-24T00:00:00.000Z","dateModified":"2025-02-24T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/essay/side-project/"},"image":"https://deku.posstree.com/assets/images/category/essay/2025/side-project/background.jpg","url":"https://deku.posstree.com/essay/side-project/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/essay/my-side-project-story/","name":"私のサイドプロジェクトストーリー"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/essay/side-project/","name":"開発者にとってサイドプロジェクトとは"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/essay/cooperation/","name":"協力"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/essay/social-capital-and-experts/","name":"社会資本と専門家"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/essay/effective-employee-training/","name":"効果的な従業員教育のための講師選定方法"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/essay/mistakes-management/","name":"ミス管理戦略"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/essay/studying-way-for-programmer/","name":"プログラマーの学習法"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/essay/cognitive-task-analysis/","name":"認知的作業分析による専門家の専門性の引き出し"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/essay/deliberate-practice-to-become-expert/","name":"専門家になるための意図的な訓練"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/essay/how-to-survive-in-ai-era/","name":"[エッセイ] AI時代で生き残るための学習方法"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/essay/learning-frame-and-execution-frame/","name":"[エッセイ] 学習フレームと実行フレーム"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/essay/exponential-teams/","name":"[エッセイ] 指数的チーム"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/essay/misconception-about-career/","name":"[エッセイ] キャリアに対する誤解"},{"@type":"ListItem","position":14,"url":"https://deku.posstree.com/essay/deliberate-practice/","name":"[エッセイ] 意図的な訓練"},{"@type":"ListItem","position":15,"url":"https://deku.posstree.com/essay/illusion-of-master/","name":"[エッセイ] マスターに対する幻想"},{"@type":"ListItem","position":16,"url":"https://deku.posstree.com/essay/study-in-school-and-society/","name":"[エッセイ] 学校での学習と社会での学習"},{"@type":"ListItem","position":17,"url":"https://deku.posstree.com/essay/work-together/","name":"[エッセイ] 一緒に働く"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/essay/2025/side-project/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>開発者にとってサイドプロジェクトとは</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2025-02-24 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fessay%2Fside-project%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">開発者にとってサイドプロジェクトとは何か、なぜサイドプロジェクトをすべきなのか、私の個人的な観点を共有します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/essay/" itemprop="item"> <span itemprop="name">エッセイ</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">開発者にとってサイドプロジェクトとは</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <h2 id="サイドプロジェクトとは">サイドプロジェクトとは</h2>
+<p>サイドプロジェクト（Side project）とは、<code>本業とは別に個人的に進める開発プロジェクト</code>を意味します。主に開発者が本業以外で自分の興味や能力を向上させるために進めるプロジェクトで、主に個人または小規模チームで進められます。</p>
+<p>類似の概念としてはトイプロジェクト（Toy project）があります。トイプロジェクトとは、<code>新しい技術やアイデアを実験するために進めるプロジェクト</code>で、主に個人的な目的で技術検討やアイデア検討のために進められます。</p>
+<p>サイドプロジェクトとトイプロジェクトの違いは主に目的にあります。サイドプロジェクトは個人の能力向上やポートフォリオ強化を目的としますが、トイプロジェクトは新しい技術やアイデアを実験する目的で進められます。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>区分</th><th>サイドプロジェクト (Side Project)</th><th>トイプロジェクト (Toy Project)</th></tr></thead><tbody><tr><td>目的</td><td>実用的な目標（リリース、収益化など）</td><td>技術学習、実験、練習用</td></tr><tr><td>規模</td><td>比較的大きく長期的に進行可能</td><td>小さな機能中心、短期的</td></tr><tr><td>完成度</td><td>製品レベル、実際のユーザーを考慮</td><td>MVPレベル、プロトタイプ形態</td></tr><tr><td>実用性</td><td>実使用可能、サービス化を考慮</td><td>個人学習、デモ用途</td></tr><tr><td>例</td><td>アプリ開発、オープンソースプロジェクト、サービス運営</td><td>新しいライブラリ実験、チュートリアルに沿う</td></tr></tbody></table>
+<h2 id="サイドプロジェクトの重要性">サイドプロジェクトの重要性</h2>
+<p>開発者はサイドプロジェクトを通じて、技術と問題解決能力を向上させることができ、ポートフォリオの向上と収益創出を通じて経済的成長にも役立ちます。</p>
+<ul>
+<li>技術成長
+<ul>
+<li>新しい技術、フレームワークの実験が可能</li>
+<li>本業では経験しにくい技術を学ぶ機会</li>
+</ul>
+</li>
+<li>問題解決能力の向上
+<ul>
+<li>実践で発生する問題を解決する経験の蓄積</li>
+<li>エンドツーエンド開発（企画 → 開発 → デプロイ → 運営）の経験</li>
+</ul>
+</li>
+<li>ポートフォリオ強化
+<ul>
+<li>履歴書や面接で強みになる</li>
+<li>実際の成果物（アプリ、ウェブサイト、ライブラリ）で自分の能力を証明可能</li>
+</ul>
+</li>
+<li>コミュニティとネットワーキング
+<ul>
+<li>オープンソースで共有すると開発者との協業機会が増加</li>
+<li>ブログ、発表資料として活用可能</li>
+<li>認知度上昇</li>
+</ul>
+</li>
+<li>収益創出の可能性
+<ul>
+<li>サイドプロジェクトがスタートアップに発展する事例が存在</li>
+<li>アプリストア、SaaS、広告などで収益化可能</li>
+<li>ポートフォリオ強化を通じてより良い職場への転職が可能、または年収交渉時に有利</li>
+</ul>
+</li>
+</ul>
+<p>ジュニア開発者は技術力とポートフォリオ強化に焦点を置き、シニア開発者は新しい技術導入やネットワーキング、収益創出に焦点を置くと大きな助けになります。</p>
+<p>サイドプロジェクトを進めると、開発領域だけでなく、目標設定、プロジェクトおよびスケジュール管理、マーケティング、収益化戦略、サービス運営能力など様々な能力を向上させることができます。このような経験は、開発者として開発能力を向上させるだけでなく、開発以外の領域を理解することができ、これを開発に接続すればより優れた開発者になることができます。</p>
+<h2 id="プロ意識">プロ意識</h2>
+<p>サイドプロジェクトをすべき最も重要な理由は、私たちがプロだからです。</p>
+<p>私たちは会社に雇用されたプロです。会社は私たちが持つ技術を活用するためにお金を支払い、私たちはお金を受け取る代わりに私たちが持つ技術を提供することになります。</p>
+<p>もし私たちが持つ技術が発展しなければ、当然会社はより多くのお金を支払わないでしょうし、逆に技術発展が速く優れていれば、会社はより多くの金額を支払うことになるでしょう。</p>
+<p>「会社で新しい技術を使わないから、新しい技術を習得する機会がない」、「会社の仕事が忙しくて勉強する時間がない」、「うちの会社で使う技術ではないからよく知らない」などの言い訳はプロには似合いません。</p>
+<p>このようなプロ意識が最も高いところはスポーツ業界です。私たちは世界的な選手たちを見ることで、なぜサイドプロジェクトをすべきなのか確認できます。</p>
+<ul>
+<li>コービー・ブライアント：早朝4時に起床後6時間以上トレーニング、試合後も数百本のシュートを追加練習</li>
+<li>大谷翔平：1日10時間以上トレーニング、投手と打者の練習をすべてこなす</li>
+<li>クリスティアーノ・ロナウド：チームトレーニング後も個人トレーニングを追加、水泳、ヨガなど様々な補助トレーニング</li>
+</ul>
+<p>彼らも会社に雇用された選手なので、チームの勝利のために会社で決められた練習およびトレーニングを進め、試合に出ます。しかし、彼らはそれ以外にも個人トレーニングなどを通じて自分の技術をさらに発展させています。大谷選手は野球の試合で最高のコンディションを出すために睡眠も徹底的に管理しているそうです。</p>
+<p>私たちは果たしてプログラミングを上手くするために睡眠の質も管理しているでしょうか？もちろん、私たちが必ず世界的なプログラマーを目指す必要もなく、プログラミングを上手くするために睡眠の質まで管理する必要はありません。しかし、少なくとも自分の技術を発展させるために努力してこそプロと言えるのではないでしょうか？</p>
+<p>サイドプロジェクトはこのためのとても良い手段です。会社で使わない技術を習得したり、会社で使う技術力をさらに高めることができ、新しい技術を実験し、自分の技術を発展させる良い機会です。プロ意識を持っているなら、自分のためにサイドプロジェクトを進めるのは当然の選択と言えます。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="サイドプロジェクトを始める方法">サイドプロジェクトを始める方法</h2>
+<p>サイドプロジェクトは本業と並行しなければならないので、大規模プロジェクトよりは小さな目標から始めるのが良いです。以下はサイドプロジェクトを始める方法についてのガイドです。</p>
+<ol>
+<li>アイデア選定</li>
+</ol>
+<ul>
+<li>自分が興味のあるテーマを選択</li>
+<li>日常生活の不便な点からアイデアを見つける</li>
+<li>すでに存在するサービスを改善する</li>
+</ul>
+<ol start="2">
+<li>目標設定</li>
+</ol>
+<ul>
+<li>プロジェクト範囲を小さく始めて徐々に拡張</li>
+<li>MVP（Minimum Viable Product）方式を推奨</li>
+<li>必ず完成できる目標を設定</li>
+</ul>
+<ol start="3">
+<li>技術スタック決定</li>
+</ol>
+<ul>
+<li>本業で扱えなかった技術を試す</li>
+<li>本業で使う技術が熟練していないなら、同じ技術スタックを使用して能力を強化</li>
+<li>個人技術スタック強化を考慮</li>
+</ul>
+<ol start="4">
+<li>開発進行</li>
+</ol>
+<ul>
+<li>GitHub、GitLabなどを活用したコード管理</li>
+<li>CI/CD適用でデプロイ自動化練習</li>
+<li>テストコード作成を習慣化</li>
+<li>ブログなどの作成を通じたドキュメント化練習</li>
+</ul>
+<ol start="5">
+<li>共有および拡張</li>
+</ol>
+<ul>
+<li>ブログ、SNS、オープンソース貢献を通じてフィードバックを受ける</li>
+<li>必要ならチームメンバーを募集して協業進行</li>
+<li>ベータテストを通じてユーザーフィードバックを反映</li>
+<li>広告やプレミアムモデルを通じた収益化を検討</li>
+</ul>
+<p>サイドプロジェクトは自分に必要なものを作ってデプロイし、維持することが重要です。そして固定費用を最小化して継続的に維持できるようにしなければなりません。そうすれば少なくとも自分の生活に役立ち、継続的に維持しながらポートフォリオとして活用できます。また、サービスを運営しながらでしか学べない経験も積むことができます。</p>
+<p>毎回サイドプロジェクトを最後まで進められていないなら、最小限の金額（サーバー/ドメイン費用、アプリ開発者登録費など）を先に投資するのも良い方法です。小さな金額でも自分が投資した金額があれば、もったいないと思ってでも最後まで進めるようになります。</p>
+<p>継続的に運営しなければポートフォリオに役立たず、運営しながら学べる様々な経験も積めません。したがって、運営費用を最小化して継続的に運営できるようにすることが重要です。また、Google Analytics、Adsense、Google Search Consoleなどを活用してユーザーが増えるのを見ることも、サイドプロジェクトを継続的に運営する大きなモチベーションになります。</p>
+<p>サイドプロジェクトを始めると自分のアイデアをサービス化すること、収益化することに目標を置く場合が多いです。もちろん、開発を超えてより大きな視野を持たせてくれるとても良い姿勢ですが、私たちがサイドプロジェクトをする最も根本的な理由は技術力強化にあることを忘れてはいけません。したがって、会社で使う技術を使うか、会社で使わない技術を使って自分の技術を発展させる部分が含まれるようにしなければなりません。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="サイドプロジェクトの短所">サイドプロジェクトの短所</h2>
+<p>サイドプロジェクトは多くの長所を持っていますが、それだけ短所も多く存在します。以下はサイドプロジェクトを進めながらぶつかる一般的な短所と解決策についてのガイドです。</p>
+<h3 id="時間とエネルギーの消耗">時間とエネルギーの消耗</h3>
+<p>本業と並行しなければならないのでスケジュール管理が難しく、仕事を2回するのと同じなので多くのエネルギーを消費します。</p>
+<ul>
+<li>職場、学業、個人生活と一緒にしていると疲労が蓄積する</li>
+<li>プロジェクトが予想より長くかかる可能性が高い</li>
+<li>継続的なモチベーションが必要</li>
+</ul>
+<p>小さな目標から始め（MVP方式）、一定の時間ブロック割り当て（例：週末2時間、平日30分）を通じて時間とエネルギー消耗を管理できます。</p>
+<p>サイドプロジェクト遂行が本業に影響を与えないように時間とエネルギー管理をしっかりしなければなりません。</p>
+<h3 id="モチベーション維持">モチベーション維持</h3>
+<p>サイドプロジェクトは初期は楽しいですが、時間が経つにつれて興味を失うことがあります。</p>
+<ul>
+<li>機能追加、バグ修正など繰り返し作業が退屈に感じることがある</li>
+<li>フィードバックを受ける機会が少ないと途中で諦める可能性が高くなる</li>
+</ul>
+<p>サイドプロジェクトを公開的に進め（ブログ、SNS、オープンソース共有）、フィードバックを受けたり、小さな達成感を感じられるように目標を小さく分けて設定することで継続的にモチベーションを与えなければなりません。</p>
+<h3 id="収益創出が簡単ではない">収益創出が簡単ではない</h3>
+<p>ほとんどのサイドプロジェクトは収益化につながりません。</p>
+<ul>
+<li>ユーザーが多くてもビジネスモデルがなければ維持が難しい</li>
+<li>運営費、サーバー費用などがかかり負担が大きくなることがある</li>
+</ul>
+<p>最初から収益化を目標にするよりは有用な製品を作ること、自分の開発力を向上させることに集中し、ユーザーが多くなった後に広告、プレミアムモデルなどで収益化を検討するのが良いです。</p>
+<h3 id="技術的負債と保守問題">技術的負債と保守問題</h3>
+<p>サイドプロジェクトは新しい技術を学ぼうという目的が強いため、長期的な保守が難しくなることがあります。</p>
+<ul>
+<li>最初は速く開発しますが、構造が複雑になると保守が難しくなる</li>
+<li>時間が経つにつれてコードが古くなったり、ライブラリがサポートされなくなることもある</li>
+</ul>
+<p>一人で開発しますが、アーキテクチャ、設計も一緒に進めたり、きれいなコードとドキュメント化に気を使えば、後の保守に大きな助けになります。また、あまりにも最新技術だけにこだわらず、長期的に保守可能な技術スタックを選択することも一つの方法で、このような技術選択は後の会社業務にも役立つことがあります。</p>
+<h3 id="一人でやると限界がある">一人でやると限界がある</h3>
+<p>すべてを一人でやらなければならないので速度が遅くなることがあります。最初からこれを認識することが良いです。</p>
+<ul>
+<li>デザイン、開発、マーケティングなどすべての役割を担わなければならないこともある</li>
+<li>協業なしに一人で進めると客観的なフィードバックを受けにくい</li>
+</ul>
+<p>開発しているコードをオープンソースで公開したり、コミュニティを通じて公開的かつ継続的にフィードバックを受けたり、サイドプロジェクトを一緒にする同僚や知人を見つけて一緒に進めることができます。または一人で速く進められる小さな目標から始めるのも良い方法です。</p>
+<h3 id="失敗する可能性が高い">失敗する可能性が高い</h3>
+<p>ほとんどのサイドプロジェクトはユーザーなしに終わります。</p>
+<ul>
+<li>ユーザー流入がないか、反応がなくて途中で諦める場合が多い</li>
+<li>完成しても維持するモチベーションがなくなることがある</li>
+</ul>
+<p>最初から大規模プロジェクトを目標にせず、小さな成功を経験することに目標を置くのが良いです。また、失敗しても学んだ点を記録し、次のプロジェクトまたは会社業務に活用するのも良い方法です。</p>
+<p>サイドプロジェクトが自分のための製品を作るなら、少なくとも1人のユーザーを確保でき、自分の生活に便利さを提供できます。また、運営費を最小限にすれば、ポートフォリオとして継続活用できるので、失敗しても資産として残すことができます。</p>
+<h2 id="成功するサイドプロジェクトのためのヒント">成功するサイドプロジェクトのためのヒント</h2>
+<p>成功するサイドプロジェクトのためのいくつかのヒントを紹介します。</p>
+<ul>
+<li>目標設定
+<ul>
+<li>自分に必要な製品を作ってみてください。</li>
+<li>使ったことのない技術を使える製品を作ってみてください。</li>
+<li>自分が使っている技術をより深く理解できる製品を作ってみてください。</li>
+</ul>
+</li>
+<li>プロジェクトおよびスケジュール管理
+<ul>
+<li>目標を小さく分けて設定してください。</li>
+<li>スケジュールを柔軟に管理してください。</li>
+</ul>
+</li>
+<li>モチベーション維持
+<ul>
+<li>自分だけの楽しい要素を追加してみてください。</li>
+<li>コミュニティやブログ、知人に進捗状況を共有してみてください。</li>
+</ul>
+</li>
+<li>シンプルに始める
+<ul>
+<li>完璧な製品を目標にしないでください。</li>
+<li>まず一つの機能が動作する製品を作ってください。</li>
+<li>今すぐ始めてください。</li>
+</ul>
+</li>
+<li>一定のルーティン維持
+<ul>
+<li>定期的に実行できる時間を確保してください。</li>
+<li>週末、通勤時間など自分だけのルーティンを作ってみてください。</li>
+</ul>
+</li>
+<li>失敗を恐れない
+<ul>
+<li>ほとんどのサイドプロジェクトはユーザーが一人もいません。</li>
+<li>サイドプロジェクトは失敗しても学びが残ります。</li>
+<li>自分だけの製品を最初から最後まで作ってみるだけでもとても大きな成果です。</li>
+</ul>
+</li>
+</ul>
+<p>私がサイドプロジェクトを進めながら経験したことや学んだ点が気になる方は、<a href="/essay/my-side-project-story/">私のサイドプロジェクトストーリー</a>を参考にしてください。</p>
+<h2 id="おすすめの本">おすすめの本</h2>
+<p>皆さんはすでにサイドプロジェクトを進めるための十分な開発能力があります。したがって、開発能力だけでなく、プロジェクトを成功的に遂行できる視野と能力を育ててみてください。</p>
+<ul>
+<li>リーン・スタートアップ（エリック・リース）</li>
+<li>スタートアップ・マニュアル（スティーブ・ブランク）</li>
+<li>アイデアの不敗の法則（アルベルト・サヴォイア）</li>
+</ul>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"私のサイドプロジェクトストーリー\",\"description\":\"開発者としてサイドプロジェクトを進めながら経験したことや学んだ点を共有します。\",\"url\":\"/essay/my-side-project-story/\",\"date\":\"2025-02-25\",\"category\":\"essay\"},{\"title\":\"開発者にとってサイドプロジェクトとは\",\"description\":\"開発者にとってサイドプロジェクトとは何か、なぜサイドプロジェクトをすべきなのか、私の個人的な観点を共有します。\",\"url\":\"/essay/side-project/\",\"date\":\"2025-02-24\",\"category\":\"essay\"},{\"title\":\"協力\",\"description\":\"私たちは仕事をする際に協力が重要だと言う。しかし、私たちは本当に協力しているのだろうか？\",\"url\":\"/essay/cooperation/\",\"date\":\"2025-01-28\",\"category\":\"essay\"},{\"title\":\"社会資本と専門家\",\"description\":\"専門家になるためには会社で新しい技術や方法論を使ってみなければいけません。しかし、自分が提案した新しい技術は導入できないことが多いです。自分が提案した新しい技術が導入されない理由は何であるか、新しい技術をもっと簡単に導入するためにはどのような方法があるのか見てみましょう。\",\"url\":\"/essay/social-capital-and-experts/\",\"date\":\"2024-12-05\",\"category\":\"essay\"},{\"title\":\"効果的な従業員教育のための講師選定方法\",\"description\":\"企業は従業員教育に多額の費用を投資していますが、実際には大きな効果を得ていません。なぜ企業は教育に多額の費用を投資しているのに、実際には大きな効果を得ていないのでしょうか？\",\"url\":\"/essay/effective-employee-training/\",\"date\":\"2024-11-14\",\"category\":\"essay\"},{\"title\":\"ミス管理戦略\",\"description\":\"組織でミスを管理する方法と、ミスに対する戦略がチームに与える影響について説明します。\",\"url\":\"/essay/mistakes-management/\",\"date\":\"2024-10-15\",\"category\":\"essay\"},{\"title\":\"プログラマーの学習法\",\"description\":\"プログラマーが新しい言語を学ぶ時、できる学習方法には何があるかを調べてみましょう。\",\"url\":\"/essay/studying-way-for-programmer/\",\"date\":\"2024-09-18\",\"category\":\"essay\"},{\"title\":\"認知的作業分析による専門家の専門性の引き出し\",\"description\":\"認知的作業分析を使って専門家から専門性を引き出す方法について見ていきましょう。\",\"url\":\"/essay/cognitive-task-analysis/\",\"date\":\"2024-09-17\",\"category\":\"essay\"},{\"title\":\"専門家になるための意図的な訓練\",\"description\":\"一生同じことを繰り返しても専門家にはなれません。専門家になるためには意図的な訓練が必要です。\",\"url\":\"/essay/deliberate-practice-to-become-expert/\",\"date\":\"2024-08-26\",\"category\":\"essay\"},{\"title\":\"[エッセイ] AI時代で生き残るための学習方法\",\"description\":\"AI時代でAIが置き換えることが難しいキャリアを作るための学習方法について見ていきましょう。\",\"url\":\"/essay/how-to-survive-in-ai-era/\",\"date\":\"2024-08-16\",\"category\":\"essay\"},{\"title\":\"[エッセイ] 学習フレームと実行フレーム\",\"description\":\"学習フレームと実行フレームについて説明し、自分に合ったフレームを見つけましょう。\",\"url\":\"/essay/learning-frame-and-execution-frame/\",\"date\":\"2024-08-01\",\"category\":\"essay\"},{\"title\":\"[エッセイ] 指数的チーム\",\"description\":\"指数的チームを構成してチームの生産性を最大化しよう。\",\"url\":\"/essay/exponential-teams/\",\"date\":\"2024-05-21\",\"category\":\"essay\"},{\"title\":\"[エッセイ] キャリアに対する誤解\",\"description\":\"ほとんどの人々が経験豊富な人を専門家と考え、経験豊富な人が仕事をよりよくこなすと考えています。果たして経験豊富な人が仕事をよりよくこなすでしょうか？\",\"url\":\"/essay/misconception-about-career/\",\"date\":\"2024-04-30\",\"category\":\"essay\"},{\"title\":\"[エッセイ] 意図的な訓練\",\"description\":\"1万時間同じことをしても、スキルが向上したり専門家になるわけではない。1万時間の意図的な訓練をしなければスキルが向上し、専門家になることはできない。\",\"url\":\"/essay/deliberate-practice/\",\"date\":\"2024-04-24\",\"category\":\"essay\"},{\"title\":\"[エッセイ] マスターに対する幻想\",\"description\":\"この世に私をマスターにしてくれるマスターはいない。\",\"url\":\"/essay/illusion-of-master/\",\"date\":\"2024-04-18\",\"category\":\"essay\"},{\"title\":\"[エッセイ] 学校での学習と社会での学習\",\"description\":\"私たちが学んできた学校での学習とこれから生きていく社会での学習は異なる。\",\"url\":\"/essay/study-in-school-and-society/\",\"date\":\"2024-04-17\",\"category\":\"essay\"},{\"title\":\"[エッセイ] 一緒に働く\",\"description\":\"私たちは一緒にするよりも一人でやることに慣れている。しかし、社会に大きなインパクトを与える仕事は一人でやるのは難しい。\",\"url\":\"/essay/work-together/\",\"date\":\"2024-04-08\",\"category\":\"essay\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%E9%96%8B%E7%99%BA%E8%80%85%E3%81%AB%E3%81%A8%E3%81%A3%E3%81%A6%E3%82%B5%E3%82%A4%E3%83%89%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%A8%E3%81%AF&url=https%3A%2F%2Fdeku.posstree.com%2Fessay%2Fside-project%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fessay%2Fside-project%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

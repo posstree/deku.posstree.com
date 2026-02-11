@@ -1,0 +1,996 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Fastlaneを使ってReact nativeで作ったアプリをを自動でデプロイしてみましょう。"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>Fastlaneを使ってアプリのデプロイを自動化する | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/react-native/fastlane/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/react-native/fastlane/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/react-native/fastlane/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/react-native/fastlane/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/react-native/fastlane/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="Fastlaneを使ってアプリのデプロイを自動化する"><meta name="twitter:description" content="Fastlaneを使ってReact nativeで作ったアプリをを自動でデプロイしてみましょう。"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/react-native/2020/fastlane/background.jpg"><meta name="twitter:image:alt" content="Fastlaneを使ってアプリのデプロイを自動化する"><!-- Open Graph --><meta property="og:title" content="Fastlaneを使ってアプリのデプロイを自動化する"><meta property="og:description" content="Fastlaneを使ってReact nativeで作ったアプリをを自動でデプロイしてみましょう。"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/react-native/2020/fastlane/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Fastlaneを使ってアプリのデプロイを自動化する"><meta property="og:url" content="https://deku.posstree.com/react-native/fastlane/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2020-01-18T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="react-native"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Fastlaneを使ってアプリのデプロイを自動化する","description":"Fastlaneを使ってReact nativeで作ったアプリをを自動でデプロイしてみましょう。","datePublished":"2020-01-18T00:00:00.000Z","dateModified":"2020-01-18T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/react-native/fastlane/"},"image":"https://deku.posstree.com/assets/images/category/react-native/2020/fastlane/background.jpg","url":"https://deku.posstree.com/react-native/fastlane/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/react-native/github-actions-fastlane/","name":"GitHub ActionsとFastlaneを使ってReact Nativeアプリをデプロイする"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/react-native/react-native-iap/","name":"React Nativeでアプリ内課金を実装する"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/react-native/react-native-admob-native-ads/","name":"React NativeでAdmobのNative Advanced広告を使う方法"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/react-native/react-native-youtube/","name":"React NativeでYoutubeを表示する"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/react-native/react-native-firebase-v6-admob/","name":"react-native-firebase V6 Admob"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/react-native/react-native-firebase-v6-crashlytics/","name":"react-native-firebase V6 Crashlytics"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/react-native/react-native-firebase-v6-installation/","name":"react-native-firebase V6インストール"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/react-native/react-native-multidex/","name":"React NativeでMultidexの設定"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/react-native/make-opensource-library/","name":"React Native用オープンソースを作る方法"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/react-native/react-native-firebase-fcm/","name":"react-native-firebase(V5)を使ってPush Message"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/react-native/react-native-image-picker/","name":"react-native-image-picker"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/react-native/react-native-image-modal/","name":"react-native-image-modal"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/react-native/fastlane/","name":"Fastlaneを使ってアプリのデプロイを自動化する"},{"@type":"ListItem","position":14,"url":"https://deku.posstree.com/react-native/react-native-maps/","name":"React Nativeへ地図を表示する方法"},{"@type":"ListItem","position":15,"url":"https://deku.posstree.com/react-native/react-native-geolocation-service/","name":"React Nativeで現在位置情報を取得する方法"},{"@type":"ListItem","position":16,"url":"https://deku.posstree.com/react-native/react-native-make/","name":"React NativeでAppアイコン & Splashイメージを作る方法"},{"@type":"ListItem","position":17,"url":"https://deku.posstree.com/react-native/react-native-push-notification/","name":"Local Push Notification"},{"@type":"ListItem","position":18,"url":"https://deku.posstree.com/react-native/open-file-with-app/","name":"特定のファイルでアプリを開く"},{"@type":"ListItem","position":19,"url":"https://deku.posstree.com/react-native/root-import/","name":"リアクトネイティブ(React Native)でrootからimportする"},{"@type":"ListItem","position":20,"url":"https://deku.posstree.com/react-native/react-native-custom-font/","name":"リアクトネイティブ(React Native)でカスタムフォントを使う方法"},{"@type":"ListItem","position":21,"url":"https://deku.posstree.com/react-native/react-native-sqlite-storage/","name":"RN(React Native)でsqliteを使う方法"},{"@type":"ListItem","position":22,"url":"https://deku.posstree.com/react-native/react-native-support-tablet/","name":"RN(React Native)タブレット対応"},{"@type":"ListItem","position":23,"url":"https://deku.posstree.com/react-native/react-native-status-bar/","name":"StatusBarコントロール"},{"@type":"ListItem","position":24,"url":"https://deku.posstree.com/react-native/react-native-itunes-share-file/","name":"iTunesファイルシェア機能"},{"@type":"ListItem","position":25,"url":"https://deku.posstree.com/react-native/react-native-rate/","name":"アプリストアレビュー"},{"@type":"ListItem","position":26,"url":"https://deku.posstree.com/react-native/react-native-splash-screen/","name":"App Splash スクリーン"},{"@type":"ListItem","position":27,"url":"https://deku.posstree.com/react-native/react-native-linear-gradient/","name":"グラデーション(Gradient)"},{"@type":"ListItem","position":28,"url":"https://deku.posstree.com/react-native/react-native-swipe-gestures/","name":"スワイプ検知"},{"@type":"ListItem","position":29,"url":"https://deku.posstree.com/react-native/react-native-lottie/","name":"アフターエフェクト(AEF)"},{"@type":"ListItem","position":30,"url":"https://deku.posstree.com/react-native/react-native-fs/","name":"ファイルシステム使用"},{"@type":"ListItem","position":31,"url":"https://deku.posstree.com/react-native/react-native-mail/","name":"メール送信機能"},{"@type":"ListItem","position":32,"url":"https://deku.posstree.com/react-native/react-native-voice/","name":"ユーザ音声認識"},{"@type":"ListItem","position":33,"url":"https://deku.posstree.com/react-native/android-google-play/","name":"アンドロイドアプリストア登録"},{"@type":"ListItem","position":34,"url":"https://deku.posstree.com/react-native/android-enroll-google-play-developer/","name":"アンドロイド開発者登録"},{"@type":"ListItem","position":35,"url":"https://deku.posstree.com/react-native/react-native-animatable/","name":"react-native-animatable"},{"@type":"ListItem","position":36,"url":"https://deku.posstree.com/react-native/firebase-crashlytics/","name":"Firebase Crashlytics"},{"@type":"ListItem","position":37,"url":"https://deku.posstree.com/react-native/ios-app-crash-debugging/","name":"iOS App crash分析"},{"@type":"ListItem","position":38,"url":"https://deku.posstree.com/react-native/react-native-firebase-analytics/","name":"Firebase Analytics"},{"@type":"ListItem","position":39,"url":"https://deku.posstree.com/react-native/ios-change-simulator/","name":"iOSシミュレータ変更"},{"@type":"ListItem","position":40,"url":"https://deku.posstree.com/react-native/android-running-on-device/","name":"アンドロイドビルドやテスト"},{"@type":"ListItem","position":41,"url":"https://deku.posstree.com/react-native/android-test-on-device/","name":"アンドロイドデバイステスト"},{"@type":"ListItem","position":42,"url":"https://deku.posstree.com/react-native/react-native-firebase-admob/","name":"Firebase Admob"},{"@type":"ListItem","position":43,"url":"https://deku.posstree.com/react-native/react-native-analytics-bridge/","name":"Google Analytics"},{"@type":"ListItem","position":44,"url":"https://deku.posstree.com/react-native/ios-app-store/","name":"iOS App store 登録"},{"@type":"ListItem","position":45,"url":"https://deku.posstree.com/react-native/ios-testflight/","name":"iOS TestFlight"},{"@type":"ListItem","position":46,"url":"https://deku.posstree.com/react-native/ios-certification/","name":"iOS 証明書(Certification)"},{"@type":"ListItem","position":47,"url":"https://deku.posstree.com/react-native/ios-enroll-developer-program/","name":"iOS開発者登録"},{"@type":"ListItem","position":48,"url":"https://deku.posstree.com/react-native/ios-running-on-device/","name":"iOSビルドやテスト"},{"@type":"ListItem","position":49,"url":"https://deku.posstree.com/react-native/ios-test-on-device/","name":"iOSデバイステスト"},{"@type":"ListItem","position":50,"url":"https://deku.posstree.com/react-native/react-native-admob/","name":"グーグルアドモブ"},{"@type":"ListItem","position":51,"url":"https://deku.posstree.com/react-native/react-native-device-info/","name":"react-native-device-info"},{"@type":"ListItem","position":52,"url":"https://deku.posstree.com/react-native/react-native-tts/","name":"react-native-tts"},{"@type":"ListItem","position":53,"url":"https://deku.posstree.com/react-native/react-native-vector-icons/","name":"react-native-vector-icons"},{"@type":"ListItem","position":54,"url":"https://deku.posstree.com/react-native/nativebase/","name":"NativeBase"},{"@type":"ListItem","position":55,"url":"https://deku.posstree.com/react-native/splash-image/","name":"Splashイメージ"},{"@type":"ListItem","position":56,"url":"https://deku.posstree.com/react-native/app-icon/","name":"App icon"},{"@type":"ListItem","position":57,"url":"https://deku.posstree.com/react-native/react-navigation-v5/","name":"react-navigation V5"},{"@type":"ListItem","position":58,"url":"https://deku.posstree.com/react-native/react-navigation/","name":"react-navigation"},{"@type":"ListItem","position":59,"url":"https://deku.posstree.com/react-native/styled-components/","name":"styled-components"},{"@type":"ListItem","position":60,"url":"https://deku.posstree.com/react-native/eslint-prettier-husky-lint-staged/","name":"React NativeでESLint, Prettierを使う方法"},{"@type":"ListItem","position":61,"url":"https://deku.posstree.com/react-native/typescript/","name":"React NativeでTypeScriptを使う方法"},{"@type":"ListItem","position":62,"url":"https://deku.posstree.com/react-native/install-on-mac/","name":"マック(Mac)にreact nativeの開発環境を構築する方法"},{"@type":"ListItem","position":63,"url":"https://deku.posstree.com/react-native/install-on-windows/","name":"ウィンドウ(Windows)にreact nativeの開発環境を構築する方法"},{"@type":"ListItem","position":64,"url":"https://deku.posstree.com/react-native/installation/","name":"リアクトネイティブ(RN)インストール"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/react-native/2020/fastlane/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>Fastlaneを使ってアプリのデプロイを自動化する</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2020-01-18 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Freact-native%2Ffastlane%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">Fastlaneを使ってReact nativeで作ったアプリをを自動でデプロイしてみましょう。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/react-native/" itemprop="item"> <span itemprop="name">react-native</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">Fastlaneを使ってアプリのデプロイを自動化する</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ol>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#fastlane">Fastlane</a></li>
+<li><a href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">インストール</a></li>
+<li><a href="#ios">iOS</a>
+<ul>
+<li><a href="#ios%E3%81%AE%E3%81%9F%E3%82%81fastlane%E3%81%AE%E5%88%9D%E6%9C%9F%E5%8C%96">iOSのためFastlaneの初期化</a></li>
+<li><a href="#ios%E7%94%A8fastlane%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%82%84%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">iOS用Fastlaneフォルダやファイル</a></li>
+<li><a href="#ios%E7%94%A8%E5%AE%9F%E8%A1%8C%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%BF%AE%E6%AD%A3">iOS用実行ファイル修正</a></li>
+<li><a href="#ios%E7%94%A8fastlane%E3%82%92%E5%AE%9F%E8%A1%8C">iOS用fastlaneを実行</a></li>
+</ul>
+</li>
+<li><a href="#%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AD%E3%82%A4%E3%83%89">アンドロイド</a>
+<ul>
+<li><a href="#api-access%E3%81%AE%E3%81%9F%E3%82%81service-account%E7%94%9F%E6%88%90">API accessのためService Account生成</a></li>
+<li><a href="#%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AD%E3%82%A4%E3%83%89%E3%81%AE%E3%81%9F%E3%82%81fastlane%E5%88%9D%E6%9C%9F%E5%8C%96">アンドロイドのためFastlane初期化</a></li>
+<li><a href="#%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AD%E3%82%A4%E3%83%89%E7%94%A8%E3%81%AEfastlane%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%82%84%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB">アンドロイド用のFastlaneフォルダやファイル</a></li>
+<li><a href="#%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AD%E3%82%A4%E3%83%89%E7%94%A8%E5%AE%9F%E8%A1%8C%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%BF%AE%E6%AD%A3">アンドロイド用実行ファイル修正</a></li>
+<li><a href="#%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AD%E3%82%A4%E3%83%89%E3%81%AEfastlane%E5%AE%9F%E8%A1%8C">アンドロイドのfastlane実行</a></li>
+</ul>
+</li>
+<li><a href="#packagejson">package.json</a></li>
+<li><a href="#gitignore">gitignore</a></li>
+<li><a href="#%E5%AE%8C%E4%BA%86">完了</a></li>
+</ol>
+</div>
+<h2 id="概要">概要</h2>
+<p>React Nativeを使って趣味でアプリを開発していますが、アプリがどんどん多くなってアプリをアップデートする時、結構な時間が掛かってしまいました。</p>
+<ul>
+<li>趣味で作ったアプリリスト: <a href="/app/list">App List</a></li>
+</ul>
+<p>それでReact Nativeで作ったアプリを自動で配布する方法を探して、<code>Fastlane</code>と言うツールを見つけました。</p>
+<ul>
+<li>公式サイト: <a href="https://docs.fastlane.tools/" rel="nofollow noreferrer" target="_blank">Fastlane</a></li>
+</ul>
+<p>このブログポストは<code>Fastlane</code>を使ってReact Nativeで開発したアプリのデプロイを自動化する方法について説明します。 (React Nativeで作ったアプリ以外にもネーティブで作ったアプリも使うことができますので、ネーティブで開発した方もご参考してください。)</p>
+<p>もしReact Nativeのデプロイについて良く知らない方は以前のブログを参考してください。</p>
+<ul>
+<li>iOS
+<ul>
+<li><a href="/react-native/ios-running-on-device/">iOSビルドやテスト</a></li>
+<li><a href="/react-native/ios-test-on-device/">iOSデバイステスト</a></li>
+<li><a href="/react-native/ios-enroll-developer-program/">iOS開発者登録</a></li>
+<li><a href="/react-native/ios-certification/">iOS証明書(Certification)</a></li>
+<li><a href="/react-native/ios-testflight/">iOS TestFlight</a></li>
+<li><a href="/react-native/ios-app-store/">iOS App store 登録</a></li>
+</ul>
+</li>
+<li>Android
+<ul>
+<li><a href="/react-native/android-test-on-device/">アンドロイドデバイステスト</a></li>
+<li><a href="/react-native/android-running-on-device/">アンドロイドビルドやテスト</a></li>
+<li><a href="/react-native/android-enroll-google-play-developer/">アンドロイド開発者登録</a></li>
+<li><a href="/react-native/android-google-play/">アンドロイドアプリストア登録</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="fastlane">Fastlane</h2>
+<blockquote>
+<p>fastlane is the easiest way to automate beta deployments and releases for your iOS and Android apps. It handles all tedious tasks, like generating screenshots, dealing with code signing, and releasing your application.</p>
+</blockquote>
+<p>FastlaneはiOSとアンドロイドのテスト用やリリース用のデプロイを簡単に自動化してくれるツールです。デプロイ以外にも、スクリンショット、コードサイニング、アプリストアーの情報などを生成、管理することもできます。</p>
+<p>このブログではスクリンショット、アプリストアー登録情報などは既に登録したと思って、テスト用/リリース用のデプロイを自動化する部分だけ説明する予定です。</p>
+<p>スクリンショット、アプリストアー登録情報の生成など、他の機能を使ってみたい方は公式サイトを参考してください。</p>
+<ul>
+<li>公式サイト: <a href="https://docs.fastlane.tools/" rel="nofollow noreferrer" target="_blank">Fastlane</a></li>
+</ul>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="インストール">インストール</h2>
+<p>下記のコマンドで<code>Fastlane</code>をインストールすることができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># Using RubyGems</span></span>
+<span class="line"><span style="color:#FFCB6B">sudo</span><span style="color:#C3E88D"> gem</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> fastlane</span><span style="color:#C3E88D"> -NV</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Alternatively using Homebrew</span></span>
+<span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> cask</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> fastlane</span></span></code></pre>
+<p>公式サイトでは<code>Homebrew</code>を使ってインストールする方法と<code>RubyGems</code>を使ってインストールする方法を案内しています。</p>
+<p>私は最初はHomebrewを使ってインストールして、テストしましたが、上手く行かない部分がありました。したがって、RubyGemsを使ってインストールすることをおすすめします。もし、Homebrewで上手く行かない方はRubyGemsで再インストールして試してみてください。</p>
+<h2 id="ios">iOS</h2>
+<p>React Nativeで開発したアプリをFastlaneを使ってiOSのデプロイを自動化してみます。</p>
+<h3 id="iosのためfastlaneの初期化">iOSのためFastlaneの初期化</h3>
+<p>下記のコマンドを使ってiOSのため、Fastlaneを初期化します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">cd</span><span style="color:#C3E88D"> ios</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> init</span></span></code></pre>
+<p>上のコマンドを実行すると下記の画面が見えます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/init-ios.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/init-ios.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/init-ios.jpg" alt="Fastlaneを使ってReact Nativeアプリ自動配布 - iOSの初期化">
+</picture>
+<p>基本設定をするためTestflight用のデプロイ設定である<code>2</code>やアプリストアへのデプロイ設定である<code>3</code>を選択します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">2.</span><span style="color:#C3E88D"> Automate</span><span style="color:#C3E88D"> beta</span><span style="color:#C3E88D"> distribution</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> TestFlight</span></span>
+<span class="line"><span style="color:#FFCB6B">3.</span><span style="color:#C3E88D"> Automate</span><span style="color:#C3E88D"> App</span><span style="color:#C3E88D"> Store</span><span style="color:#C3E88D"> distribution</span></span></code></pre>
+<p>ここではTestflight用のデプロイ設定である<code>2</code>を選んで進めます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/select-ios-project.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/select-ios-project.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/select-ios-project.jpg" alt="Fastlaneを使ってReact Nativeアプリ自動配布 - iOSのプロジェクト選択">
+</picture>
+<p>2を選択して進めると上のようにiOSのプロジェクトを選択する画面が確認できます。tvアプリを開発していない場合<code>2</code>を選択してReact NativeのiOSアプリプロジェクトを選べます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/login-apple.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/login-apple.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/login-apple.jpg" alt="Fastlaneを使ってReact Nativeアプリ自動配布 - Appleログイン">
+</picture>
+<p>React NativeのiOSプロジェクトを選択したら、上のようにAppleログインをする画面がでます。iOSのアプリ配布のため使ってるApple store connectのログインIDを入力します。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/enter-ios.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/enter-ios.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/enter-ios.jpg" alt="Fastlaneを使ってReact Nativeアプリ自動配布 - iOS設定">
+</picture>
+<p>私はすでにFastlaneを使ってログインしたことがあるので、上のような画面が確認できます。最初Fastlaneを設定する方は二重認証の手続きが出るので、その手続き通りやってください。</p>
+<p>上のような画面以外にも何回も<code>Continue by pressing Enter</code>を入力する画面がでます。Enterキーを押して進めて設定を完了します。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="ios用fastlaneフォルダやファイル">iOS用Fastlaneフォルダやファイル</h3>
+<p>iOSの設定を完了したらReact Nativeのiosフォルダ下へ下記のようなフォルダやファイルが生成されることが確認できます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#89DDFF">|</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> fastlane</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#89DDFF">  |</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Appfile</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#89DDFF">  |</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Fastfile</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Gemfile</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Gemfile.lock</span></span></code></pre>
+<p>各フォルダやファイルを詳しくみてみましょう。</p>
+<ul>
+<li>fastlane フォルダ: fastlaneの設定ファイルや実行ファイルが入っているフォルダ</li>
+<li>Gemfile, Gemfile.lock: fastlaneはRubyでできてるのでfastlaneを実行するためのライブラリインストールファイルです。</li>
+</ul>
+<p>fastlaneを実行するための設定内容が入ってる<code>fastlane/Appfile</code>ファイルのコメントアウトを消して見ると下記のようです。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">app_identifier</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">io.github.dev-yakuza.kumoncho</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">apple_id</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">dev.yakuza@gmail.com</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">itc_team_id</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">119423059</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">team_id</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">WFDJCJXQZ6</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span></code></pre>
+<p>AppfileはiOSの自動配布のためfastlaneの設定ファイルです。簡単なファイルですので、詳しく説明は省略します。</p>
+<p>その次は実際アプリをデプロイする時、実行するファイルである<code>fastlane/Fastfile</code>ファイルをコメントアウトを消して見ると下記のようです。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">default_platform</span><span style="color:#89DDFF">(:ios)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">platform </span><span style="color:#89DDFF">:ios</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Push a new beta build to TestFlight</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:beta</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#82AAFF">    increment_build_number</span><span style="color:#89DDFF">(xcodeproj:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcodeproj</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    build_app</span><span style="color:#89DDFF">(workspace:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcworkspace</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> scheme:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    upload_to_testflight</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>下記のコマンドで上のfastlaneを実行することができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd ios</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> beta</span></span></code></pre>
+<p>上のようにfastlaneを実行するとiOSのbuild numberを上げて(<code>increment_build_number</code>)、アプリをビルドして(<code>build_app</code>)、Testflight用でアップロードします。(<code>upload_to_testflight</code>)</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="ios用実行ファイル修正">iOS用実行ファイル修正</h3>
+<p>基本でき提供するfastlaneファイルでは完璧に自動化ができません。したがってiOS用のデプロイ自動化のため<code>fastlane/Fastfile</code>を下記のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">default_platform</span><span style="color:#89DDFF">(:ios)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">platform </span><span style="color:#89DDFF">:ios</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  def</span><span style="color:#82AAFF"> updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    if</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#EEFFFF">      version </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    else</span></span>
+<span class="line"><span style="color:#EEFFFF">      version </span><span style="color:#89DDFF">=</span><span style="color:#82AAFF"> prompt</span><span style="color:#89DDFF">(text:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Enter the version type or specific version</span><span style="color:#EEFFFF">\n</span><span style="color:#C3E88D">(major, minor, patch or 1.0.0): </span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">    re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> /</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">/</span></span>
+<span class="line"><span style="color:#EEFFFF">    versionNum </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> version</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 0</span><span style="color:#89DDFF">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    if</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">versionNum</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">      increment_version_number</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">        version_number:</span><span style="color:#EEFFFF"> versionNum</span></span>
+<span class="line"><span style="color:#89DDFF">      )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    elsif</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">major</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> ||</span><span style="color:#EEFFFF"> version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">minor</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> ||</span><span style="color:#EEFFFF"> version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">patch</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">      increment_version_number</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">        bump_type:</span><span style="color:#EEFFFF"> version</span></span>
+<span class="line"><span style="color:#89DDFF">      )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    else</span></span>
+<span class="line"><span style="color:#FFCB6B">      UI</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">user_error!</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">[ERROR] Wrong version!!!!!!</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    end</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Push a new beta build to TestFlight</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:beta</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#EEFFFF">    cert</span></span>
+<span class="line"><span style="color:#82AAFF">    sigh</span><span style="color:#89DDFF">(force:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">    increment_build_number</span><span style="color:#89DDFF">(xcodeproj:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcodeproj</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    build_app</span><span style="color:#89DDFF">(workspace:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcworkspace</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> scheme:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    upload_to_testflight</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Push a new release build to the App Store</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:release</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#EEFFFF">    cert</span></span>
+<span class="line"><span style="color:#82AAFF">    sigh</span><span style="color:#89DDFF">(force:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">    increment_build_number</span><span style="color:#89DDFF">(xcodeproj:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcodeproj</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    build_app</span><span style="color:#89DDFF">(workspace:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcworkspace</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> scheme:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    upload_to_app_store</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">      force:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      reject_if_possible:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_metadata:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_screenshots:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      languages:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">en-US</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">],</span></span>
+<span class="line"><span style="color:#89DDFF">      release_notes:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">        "</span><span style="color:#C3E88D">default</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">bug fixed</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        "</span><span style="color:#C3E88D">en-US</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">bug fixed</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        "</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">バグ修正</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        "</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">버그 수정</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">      },</span></span>
+<span class="line"><span style="color:#89DDFF">      submit_for_review:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      automatic_release:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      submission_information:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">        add_id_info_uses_idfa:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        add_id_info_serves_ads:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        add_id_info_tracks_install:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        add_id_info_tracks_action:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        add_id_info_limits_tracking:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        export_compliance_encryption_updated:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      }</span></span>
+<span class="line"><span style="color:#89DDFF">    )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>追加した内容を見ると下記のようです。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#89DDFF;font-style:italic">def</span><span style="color:#82AAFF"> updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#EEFFFF">    version </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  else</span></span>
+<span class="line"><span style="color:#EEFFFF">    version </span><span style="color:#89DDFF">=</span><span style="color:#82AAFF"> prompt</span><span style="color:#89DDFF">(text:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Enter the version type or specific version</span><span style="color:#EEFFFF">\n</span><span style="color:#C3E88D">(major, minor, patch or 1.0.0): </span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> /</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">/</span></span>
+<span class="line"><span style="color:#EEFFFF">  versionNum </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> version</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 0</span><span style="color:#89DDFF">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">versionNum</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    increment_version_number</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">      version_number:</span><span style="color:#EEFFFF"> versionNum</span></span>
+<span class="line"><span style="color:#89DDFF">    )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  elsif</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">major</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> ||</span><span style="color:#EEFFFF"> version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">minor</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> ||</span><span style="color:#EEFFFF"> version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">patch</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    increment_version_number</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">      bump_type:</span><span style="color:#EEFFFF"> version</span></span>
+<span class="line"><span style="color:#89DDFF">    )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  else</span></span>
+<span class="line"><span style="color:#FFCB6B">    UI</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">user_error!</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">[ERROR] Wrong version!!!!!!</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>ユーザーが入力したバージョンに合わせて、バージョンを修正する関数を定義しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">lane </span><span style="color:#89DDFF">:beta</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#EEFFFF">  cert</span></span>
+<span class="line"><span style="color:#82AAFF">  sigh</span><span style="color:#89DDFF">(force:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">  ...</span></span></code></pre>
+<p>fastlaneのコマンドで実行する時、パラメーターを使うため<code>|options|</code>を追加して、該当optionを新しく定義した関数のパラメーターへ入れました。このように新しく追加したスクリプトを使うためには下記のようなコマンドを実行します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># fastlane beta version:1.0.0</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># fastlane beta version:major</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># fastlane beta version:minor</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> beta</span><span style="color:#C3E88D"> version:patch</span></span></code></pre>
+<p>もし、パラメーターを入力しなかった場合、ユーザーの入力を待てるようにしました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#89DDFF;font-style:italic">def</span><span style="color:#82AAFF"> updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#EEFFFF">    version </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  else</span></span>
+<span class="line"><span style="color:#EEFFFF">    version </span><span style="color:#89DDFF">=</span><span style="color:#82AAFF"> prompt</span><span style="color:#89DDFF">(text:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Enter the version type or specific version</span><span style="color:#EEFFFF">\n</span><span style="color:#C3E88D">(major, minor, patch or 1.0.0): </span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
+<p>また、<code>cert</code>を使って証明書を持ってくるように設定して、<code>sigh(force: true)</code>を使ってProvisioning profileと連携するようにしました。</p>
+<p>今まではTestflight用でアップロードする方法について説明しました。実際デプロイのため下記のような内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Push a new release build to the App Store</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">lane </span><span style="color:#89DDFF">:release</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#EEFFFF">  cert</span></span>
+<span class="line"><span style="color:#82AAFF">  sigh</span><span style="color:#89DDFF">(force:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">  increment_build_number</span><span style="color:#89DDFF">(xcodeproj:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcodeproj</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  build_app</span><span style="color:#89DDFF">(workspace:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho.xcworkspace</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> scheme:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">kumoncho</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  upload_to_app_store</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">    force:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    reject_if_possible:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_metadata:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_screenshots:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    languages:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">en-US</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">],</span></span>
+<span class="line"><span style="color:#89DDFF">    release_notes:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">      "</span><span style="color:#C3E88D">default</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">bug fixed</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      "</span><span style="color:#C3E88D">en-US</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">bug fixed</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      "</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">バグ修正</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      "</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">버그 수정</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">    },</span></span>
+<span class="line"><span style="color:#89DDFF">    submit_for_review:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    automatic_release:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    submission_information:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">      add_id_info_uses_idfa:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      add_id_info_serves_ads:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      add_id_info_tracks_install:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      add_id_info_tracks_action:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      add_id_info_limits_tracking:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      export_compliance_encryption_updated:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    }</span></span>
+<span class="line"><span style="color:#89DDFF">  )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>アプリをビルドするところまではTestflight用と同じです。ビルドされたアプリをアプリストアーへ配布するために下記のような内容を追加しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">upload_to_app_store</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">  force:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  reject_if_possible:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  skip_metadata:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  skip_screenshots:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  languages:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">en-US</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">],</span></span>
+<span class="line"><span style="color:#89DDFF">  release_notes:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#C3E88D">default</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">bug fixed</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#C3E88D">en-US</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">bug fixed</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">バグ修正</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> =></span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">버그 수정</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">  },</span></span>
+<span class="line"><span style="color:#89DDFF">  submit_for_review:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  automatic_release:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  submission_information:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    add_id_info_uses_idfa:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    add_id_info_serves_ads:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    add_id_info_tracks_install:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    add_id_info_tracks_action:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    add_id_info_limits_tracking:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    export_compliance_encryption_updated:</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">)</span></span></code></pre>
+<ul>
+<li>force: fastlaneが生成するHTML reportを生成されないようにします。(true)</li>
+<li>reject_if_possible: アプリ審査を待ってるバージョンがある時、その審査をキャンセルします。(true)</li>
+<li>skip_metadata: アプリストアの情報を登録するかを設定します。自動配布する時、バージョンの修正内容を作成する必要があるので、この情報を登録できるように設定します。(false)</li>
+<li>skip_screenshots: 私は既に配布されたアプリについて自動配布を適用しています。したがって、スクリンショットを再アップロードする必要がありません。(true)</li>
+<li>languages: 現在ストアへ登録されたアプリのローカライゼーションを設定します。使える言語は <code>ar-SA, ca, cs, da, de-DE, el, en-AU, en-CA, en-GB, en-US, es-ES, es-MX, fi, fr-CA, fr-FR, he, hi, hr, hu, id, it, ja, ko, ms, nl-NL, no, pl, pt-BR, pt-PT, ro, ru, sk, sv, th, tr, uk, vi, zh-Hans, zh-Hant</code>で、詳しく内容は公式サイトを参考してください。(<a href="https://docs.fastlane.tools/actions/upload_to_app_store/#available-language-codes" rel="nofollow noreferrer" target="_blank">公式サイト</a>)</li>
+<li>release_notes: iOSはアプリを再配布する時、Release notesを必ず作成します。私が使ってるスクリプトは3国語を提供してるアプリなので、defaultと와 3国語に該当するRelease notesを作成しました。</li>
+<li>submit_for_review: アプリ審査へ提出するようにします。(true)</li>
+<li>automatic_release: 審査が終わったらアプリを自動でデプロイするように設定します。これを設定しないとアプリ審査が終わった後、開発者が手動でデプロイする必要があります。(true)</li>
+<li>submission_information: デプロイ前、暗号化や広告が含まれたかをチェックするオプションです。</li>
+</ul>
+<p>これ意外にもたくさんのオプションがあります。詳しく内容は公式サイトを参考してください。</p>
+<ul>
+<li>公式サイト: <a href="https://docs.fastlane.tools/actions/upload_to_app_store/" rel="nofollow noreferrer" target="_blank">https://docs.fastlane.tools/actions/upload_to_app_store/</a></li>
+<li>例題: <a href="https://github.com/artsy/eigen/blob/faa02e2746194d8d7c11899474de9c517435eca4/fastlane/Fastfile#L131-L149" rel="nofollow noreferrer" target="_blank">submission_information</a></li>
+</ul>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="ios用fastlaneを実行">iOS用fastlaneを実行</h3>
+<p>これでfastlaneを使ってiOSへの自動デプロイ準備は終わりました。これからfastlaneを使ってアプリを自動デプロイしてみます。</p>
+<p>下記のコマンドを使ってReact Nativeで作ったアプリをTestflightへデプロイしてみます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd ios</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> beta</span><span style="color:#C3E88D"> version:patch</span></span></code></pre>
+<p>デプロイが終わるまで、結構な時間がかかります。デプロイが終わったら下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/ios-testflight.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/ios-testflight.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/ios-testflight.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - iOS Testflightデプロイ">
+</picture>
+<p>もちろん、App store connectのTestflightへも上手くデプロイされたことが確認できます。</p>
+<p>じゃ、今回は下記のコマンド使って実際デプロイしてみましょう。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd ios</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> release</span><span style="color:#C3E88D"> version:patch</span></span></code></pre>
+<p>デプロイが終わったら下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/ios-upload-app-store.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/ios-upload-app-store.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/ios-upload-app-store.jpg" alt="Fastlaneを使ってReact Nativeアプリ自動配布 - iOSアプリデプロイ">
+</picture>
+<p>また、App store connectにも上手くデプロイが出来たことが確認出来ます。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="アンドロイド">アンドロイド</h2>
+<p>今回はReact Nativeで開発したアンドロイドアプリをFastlaneを使ってアンドロイドのデプロイを自動化してみます。</p>
+<h3 id="api-accessのためservice-account生成">API accessのためService Account生成</h3>
+<p>Fastlaneを使ってアンドロイドをデプロイする時、グーグルのAPIを使うため、<code>Google Developer Service Account</code>を生成する必要があります。</p>
+<p>Google Developer Service Accountを生成するため、下記のリンクを使ってグーグルコンソール(Google Play Console)に行きます。</p>
+<ul>
+<li>グーグルプレイコンソール: <a href="https://play.google.com/apps/publish/" rel="nofollow noreferrer" target="_blank">https://play.google.com/apps/publish/</a></li>
+</ul>
+<p>グーグルプレイコンソールに移動したら、下記の画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/google-play-console.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/google-play-console.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/google-play-console.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - グーグルプレイコンソール">
+</picture>
+<p>左メニューの<code>Settings</code>を選択します。そして<code>Developer account</code>下にある<code>API access</code>メニューを選択します。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-api-access.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - グーグルプレイコンソールapi accessメニュー">
+</picture>
+<p>上のような画面が見えたら、<code>CREATE NEW PROJECT</code>ボタンを押して、新しプロジェクトを生成します。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access-service-account.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access-service-account.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-api-access-service-account.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - グーグルプレイコンソールapi access, service account">
+</picture>
+<p>新しプロジェクトが生成されると、上のような画面が確認できます。下にある<code>CREATE SERVICE ACCOUNT</code>ボタンを選択したら、下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access-how-to-create-service-account.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access-how-to-create-service-account.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-api-access-how-to-create-service-account.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - グーグルプレイコンソールapi access, how to create service account">
+</picture>
+<p>上のような画面で<code>Google API Console</code>リンクを選択します。選択したら、下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-google-api-console.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - Google API Console">
+</picture>
+<p>上にある<code>CREATE SERVICE ACCOUNT</code>ボタンを選択します。選択したら、下記のように新しService accountを生成する画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-create-service-account.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-create-service-account.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-google-api-console-create-service-account.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - Google API Console, service account生成">
+</picture>
+<p>上のような画面で、<code>Service account name</code>へ名前を入力して、<code>CREATE</code>ボタンを押してService accountを生成します。(私はService account nameへgoogle-play-fastlane-deploymentを入力しました。)</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-role.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-role.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-role.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - Google API Console, service account役割設定">
+</picture>
+<p>上のような画面が見えたら、<code>Role</code>を選択して<code>Service Account User</code>を検索して選択します。RoleにService Account Userを設定したら、下にある<code>CONTINUE</code>ボタンを押して進めます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-create-key.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-create-key.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-create-key.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - Google API Console, service accountキー生成">
+</picture>
+<p>上のような画面が見えたら、下にある<code>CREATE KEY</code>を選択して<code>JSON</code>が選択された状態で<code>CREATE</code>を押してキーを生成します。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-create-json-key.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-create-json-key.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-google-api-console-service-account-create-json-key.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - Google API Console, service account JSONキー生成">
+</picture>
+<p>CREATEボタンを押してキーを生成したら、JSON形式のファイルが自動でダウンロードされます。このファイルをReact Nativeプロジェクトの<code>android</code>フォルダー下にコピーします。最後に<code>DONE</code>ボタンを押してService Accountを生成します。</p>
+<p>そして現在画面へ戻って、右下にある<code>DONE</code>ボタンを押してService Account生成を終了します。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access-how-to-create-service-account.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-api-access-how-to-create-service-account.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-api-access-how-to-create-service-account.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - グーグルプレイコンソールapi access, how to create service account">
+</picture>
+<p>そしたら以前と違って下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-finish-to-create-service-account.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-finish-to-create-service-account.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-finish-to-create-service-account.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - グーグルプレイコンソールService Account生成完了">
+</picture>
+<p>そしたら、権限を設定するため、右下の<code>GRANT ACCESS</code>ボタンを選択します。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-service-account-grant-access.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-service-account-grant-access.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-service-account-grant-access.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - グーグルプレイコンソールService Account権限設定">
+</picture>
+<p>上の画面が表示されたら、スクロールして<code>ADD USER</code>を選択してユーザーを登録します。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="アンドロイドのためfastlane初期化">アンドロイドのためFastlane初期化</h3>
+<p>今からアンドロイド用のFastlaneを生成してみましょう。下記のコマンドを使ってアンドロイド用のFastlaneを生成します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">cd</span><span style="color:#C3E88D"> android</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> init</span></span></code></pre>
+<p>上のコマンドを実行すると下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-package-name.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-package-name.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-package-name.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - アンドロイド初期化: package name">
+</picture>
+<p>アンドロイドプロジェクトの<code>Package Name</code>を入力します。(ex> io.github.dev.yakuza.kumoncho)そしたら、下記のようにJSONファイルのpathを入力する画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-json-path.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-json-path.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-json-path.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - アンドロイド初期化: JSON path">
+</picture>
+<p>Service Accountを生成した時、ダウンロードしたJSONファイルを<code>android</code>フォルダーへコピーしました。このファイルのpathを指定します。(ex> <code>app-xxx.json</code>)</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-download-metadata.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-download-metadata.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-download-metadata.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - アンドロイド初期化:ダウンロードmetadata">
+</picture>
+<p>次はアンドロイドをデプロイする時、登録したストアー情報(metadata)をダウンロードするかどうか設定します。私は既にデプロイしたアプリを自動化してるのでストアー情報を更新する必要がありません。したがって、nを入力してストアー情報をダウンロードしないようにしました。</p>
+<p>上のような画面以外にも何回にも<code>Continue by pressing Enter</code>を入力する画面がでます。Enterキーを押して進めて設定を完了します。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="アンドロイド用のfastlaneフォルダやファイル">アンドロイド用のFastlaneフォルダやファイル</h3>
+<p>アンドロイドの設定を完了したら、React Nativeのandroidフォルダ下へ下記のようなフォルダやファイルが生成されたことが確認できます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#89DDFF">|</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> fastlane</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#89DDFF">  |</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Appfile</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#89DDFF">  |</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Fastfile</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Gemfile</span></span>
+<span class="line"><span style="color:#89DDFF">|</span><span style="color:#FFCB6B">-</span><span style="color:#C3E88D"> Gemfile.lock</span></span></code></pre>
+<p>各フォルダやファイルを詳しく説明します。</p>
+<ul>
+<li>fastlaneフォルダ: fastlaneの設定や実行するファイルが入ってるフォルダ</li>
+<li>Gemfile, Gemfile.lock: fastlaneはRubyでできてるので、fastlaneを実行するためのライブラリのインストールファイルです。</li>
+</ul>
+<p>fastlaneを実行する設定内容が入ってる<code>fastlane/Appfile</code>ファイルのコメントアウトを消して見ると下記のようです。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">json_key_file</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">api-xxx.json</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">package_name</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">io.github.dev.yakuza.kumoncho</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span></code></pre>
+<p>私たちが設定したPackage NameとJSONファイルのいちが設定されたことが確認できます。その次、実際アプリをデプロイする時実行されるファイルである<code>fastlane/Fastfile</code>ファイルのコメントアウトを消して見ると下記のようです。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">default_platform</span><span style="color:#89DDFF">(:android)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">platform </span><span style="color:#89DDFF">:android</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Runs all the tests</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:test</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#82AAFF">    gradle</span><span style="color:#89DDFF">(task:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">test</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Submit a new Beta Build to Crashlytics Beta</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:beta</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#82AAFF">    gradle</span><span style="color:#89DDFF">(task:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">clean assembleRelease</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    crashlytics</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Deploy a new version to the Google Play</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:deploy</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#82AAFF">    gradle</span><span style="color:#89DDFF">(task:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">clean assembleRelease</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    upload_to_play_store</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>iOSとは違って<code>beta</code>と<code>deploy</code>,2つのlaneが生成されることが確認できます。上のFastlaneももちろん下記のコマンドで実行することができます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd android</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> beta</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> deploy</span></span></code></pre>
+<p>しかし、完璧な自動化をするため、Fastfileを修正する必要があります。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="アンドロイド用実行ファイル修正">アンドロイド用実行ファイル修正</h3>
+<p>基本的提供されるfastlaneファイルでは完璧に自動化ができません。したがって、アンドロイド用のデプロイを自動化するため<code>fastlane/Fastfile</code>ファイルを下記のように修正します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">default_platform</span><span style="color:#89DDFF">(:android)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">platform </span><span style="color:#89DDFF">:android</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  def</span><span style="color:#82AAFF"> increment_version_code</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#EEFFFF">    path </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">../app/build.gradle</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#EEFFFF">    re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> /</span><span style="color:#C3E88D">versionCode</span><span style="color:#EEFFFF">\s</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">)/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">    s </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">read</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    versionCode </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"><span style="color:#EEFFFF">    s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">versionCode </span><span style="color:#89DDFF">+</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">).</span><span style="color:#82AAFF">to_s</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">    f </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#F78C6C">new</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">w</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">write</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">close</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  def</span><span style="color:#82AAFF"> increment_version_number</span><span style="color:#89DDFF">(bump_type:</span><span style="color:#89DDFF"> nil,</span><span style="color:#89DDFF"> version_number:</span><span style="color:#89DDFF"> nil)</span></span>
+<span class="line"><span style="color:#EEFFFF">    path </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">../app/build.gradle</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#EEFFFF">    re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> /</span><span style="color:#C3E88D">versionName</span><span style="color:#EEFFFF">\s</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">(</span><span style="color:#C3E88D">"</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+"</span><span style="color:#89DDFF">)/</span></span>
+<span class="line"><span style="color:#EEFFFF">    s </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">read</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    versionName </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">gsub!</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">"</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF">''</span><span style="color:#89DDFF">).</span><span style="color:#82AAFF">split</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">.</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">    major </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> versionName</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">0</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"><span style="color:#EEFFFF">    minor </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> versionName</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">1</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"><span style="color:#EEFFFF">    patch </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> versionName</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">2</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    if</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">bump_type </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">major</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">        major </span><span style="color:#89DDFF">+=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#EEFFFF">        minor </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#EEFFFF">        patch </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    elsif</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">bump_type </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">minor</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">        minor </span><span style="color:#89DDFF">+=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#EEFFFF">        patch </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    elsif</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">bump_type </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">patch</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">        patch </span><span style="color:#89DDFF">+=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    if</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">version_number</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">      s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">version_number</span><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    else</span></span>
+<span class="line"><span style="color:#EEFFFF">      s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">major</span><span style="color:#89DDFF">}</span><span style="color:#C3E88D">.</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">minor</span><span style="color:#89DDFF">}</span><span style="color:#C3E88D">.</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">patch</span><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">    f </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#F78C6C">new</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">w</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">write</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">close</span></span>
+<span class="line"><span style="color:#82AAFF">    increment_version_code</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  def</span><span style="color:#82AAFF"> updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    if</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#EEFFFF">      version </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> options</span><span style="color:#89DDFF">[:version]</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    else</span></span>
+<span class="line"><span style="color:#EEFFFF">      version </span><span style="color:#89DDFF">=</span><span style="color:#82AAFF"> prompt</span><span style="color:#89DDFF">(text:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Enter the version type or specific version</span><span style="color:#EEFFFF">\n</span><span style="color:#C3E88D">(major, minor, patch or 1.0.0): </span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">    re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> /</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">/</span></span>
+<span class="line"><span style="color:#EEFFFF">    versionNum </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> version</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 0</span><span style="color:#89DDFF">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    if</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">versionNum</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">      increment_version_number</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">        version_number:</span><span style="color:#EEFFFF"> versionNum</span></span>
+<span class="line"><span style="color:#89DDFF">      )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    elsif</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">major</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> ||</span><span style="color:#EEFFFF"> version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">minor</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> ||</span><span style="color:#EEFFFF"> version </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">patch</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">      increment_version_number</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">        bump_type:</span><span style="color:#EEFFFF"> version</span></span>
+<span class="line"><span style="color:#89DDFF">      )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    else</span></span>
+<span class="line"><span style="color:#FFCB6B">      UI</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">user_error!</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">[ERROR] Wrong version!!!!!!</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    end</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Submit a new Beta Build to Crashlytics Beta</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:beta</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#82AAFF">    updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">    gradle</span><span style="color:#89DDFF">(task:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">clean bundleRelease</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    upload_to_play_store</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_metadata:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_changelogs:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_screenshots:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_images:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_apk:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      track:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">internal</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">    )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Deploy a new version to the Google Play</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">  lane </span><span style="color:#89DDFF">:release</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#82AAFF">    updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">    gradle</span><span style="color:#89DDFF">(task:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">clean bundleRelease</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">    upload_to_play_store</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_metadata:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_changelogs:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_screenshots:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_images:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">      skip_upload_apk:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#89DDFF">    )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>追加した内容を詳しく見ると下記のようです。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#89DDFF;font-style:italic">def</span><span style="color:#82AAFF"> increment_version_code</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#EEFFFF">  path </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">../app/build.gradle</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#EEFFFF">  re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> /</span><span style="color:#C3E88D">versionCode</span><span style="color:#EEFFFF">\s</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">)/</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  s </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">read</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  versionCode </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"><span style="color:#EEFFFF">  s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">versionCode </span><span style="color:#89DDFF">+</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">).</span><span style="color:#82AAFF">to_s</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  f </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#F78C6C">new</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">w</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">write</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">close</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">def</span><span style="color:#82AAFF"> increment_version_number</span><span style="color:#89DDFF">(bump_type:</span><span style="color:#89DDFF"> nil,</span><span style="color:#89DDFF"> version_number:</span><span style="color:#89DDFF"> nil)</span></span>
+<span class="line"><span style="color:#EEFFFF">  path </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">../app/build.gradle</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#EEFFFF">  re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> /</span><span style="color:#C3E88D">versionName</span><span style="color:#EEFFFF">\s</span><span style="color:#C3E88D">+</span><span style="color:#89DDFF">(</span><span style="color:#C3E88D">"</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+.</span><span style="color:#EEFFFF">\d</span><span style="color:#C3E88D">+"</span><span style="color:#89DDFF">)/</span></span>
+<span class="line"><span style="color:#EEFFFF">  s </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">read</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  versionName </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">gsub!</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">"</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF">''</span><span style="color:#89DDFF">).</span><span style="color:#82AAFF">split</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">.</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  major </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> versionName</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">0</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"><span style="color:#EEFFFF">  minor </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> versionName</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">1</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"><span style="color:#EEFFFF">  patch </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> versionName</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">2</span><span style="color:#89DDFF">].</span><span style="color:#82AAFF">to_i</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">bump_type </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">major</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">      major </span><span style="color:#89DDFF">+=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#EEFFFF">      minor </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#EEFFFF">      patch </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  elsif</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">bump_type </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">minor</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">      minor </span><span style="color:#89DDFF">+=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#EEFFFF">      patch </span><span style="color:#89DDFF">=</span><span style="color:#F78C6C"> 0</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  elsif</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF">bump_type </span><span style="color:#89DDFF">==</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">patch</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">      patch </span><span style="color:#89DDFF">+=</span><span style="color:#F78C6C"> 1</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  if</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">version_number</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">    s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">version_number</span><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  else</span></span>
+<span class="line"><span style="color:#EEFFFF">    s</span><span style="color:#89DDFF">[</span><span style="color:#EEFFFF">re</span><span style="color:#89DDFF">,</span><span style="color:#F78C6C"> 1</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">major</span><span style="color:#89DDFF">}</span><span style="color:#C3E88D">.</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">minor</span><span style="color:#89DDFF">}</span><span style="color:#C3E88D">.</span><span style="color:#89DDFF">#{</span><span style="color:#EEFFFF">patch</span><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">\"</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">  f </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> File</span><span style="color:#89DDFF">.</span><span style="color:#F78C6C">new</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">path</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">w</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">write</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">s</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  f</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">close</span></span>
+<span class="line"><span style="color:#82AAFF">  increment_version_code</span><span style="color:#89DDFF">()</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>アンドロイドはiOSと違ってアプリのバージョンをアップデートする機能が提供されていません。(私が探せなかったかも知れないです。もし、分かる方はフィドバックお願いします。)したがって、アンドロイドのversionCodeとversionNameをアップデートする機能を実装しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#89DDFF;font-style:italic">def</span><span style="color:#82AAFF"> updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
+<p>updateバージョンの部分はiOSで説明したので省略します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">lane </span><span style="color:#89DDFF">:beta</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#82AAFF">  updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">  gradle</span><span style="color:#89DDFF">(task:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">clean bundleRelease</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  upload_to_play_store</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_metadata:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_changelogs:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_screenshots:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_images:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_apk:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    track:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">internal</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#89DDFF">  )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>アンドロイドはgradleのcleanとbundleReleaseでアプリをビルドするようにしました。(<code>assembleRelease</code>ではありません。)また、upload_to_play_storeの<code>track: 'internal'</code>を使ってinternal test用でデプロイするようにしました。</p>
+<p>アンドロイドはiOSとは違ってRelease notes(change log)を作成する必要がありません。だから、ストアーと関係ある全ての機能はskipするように設定しました。</p>
+<p>最後にbundleReleaseをを使ってaabファイルを生成してアップロードする予定なので、skip_upload_apkをtrueで設定しました。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">desc </span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">Deploy a new version to the Google Play</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">lane </span><span style="color:#89DDFF">:release</span><span style="color:#89DDFF;font-style:italic"> do</span><span style="color:#89DDFF"> |</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">|</span></span>
+<span class="line"><span style="color:#82AAFF">  updateVersion</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF">options</span><span style="color:#89DDFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">  gradle</span><span style="color:#89DDFF">(task:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">clean bundleRelease</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">  upload_to_play_store</span><span style="color:#89DDFF">(</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_metadata:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_changelogs:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_screenshots:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_images:</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    skip_upload_apk:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#89DDFF">  )</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
+<p>グーグルプレイにデプロイするスクリプトです。iOSと同じようにするため<code>lane :deploy</code>を<code>lane :release</code>で変更しました。</p>
+<p>upload_to_play_storeのtrackパレメーターが無いこと以外はbeta用と同じなので詳しく説明は省略します。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="アンドロイドのfastlane実行">アンドロイドのfastlane実行</h3>
+<p>fastlaneを使ってアンドロイドを自動デプロイする準備が終わりました。今からfastlaneを使ってアプリを自動デプロイしてみます。</p>
+<p>下記のコマンドを使ってReact Nativeで作成したアプリをinternal testへデプロイしてみます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd android</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> beta</span><span style="color:#C3E88D"> version:patch</span></span></code></pre>
+<p>デプロイが終わるまで、結構な時間がかかります。デプロイが終わったら下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-fastlane-beta.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-fastlane-beta.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-fastlane-beta.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - アンドロイドinternal testデプロイ">
+</picture>
+<p>もちろんPlay store consoleでもinternal testへ上手くデプロイされたことが確認できます。</p>
+<p>じゃ、今から下記のコマンドを使って実際デプロイをやってみます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># cd android</span></span>
+<span class="line"><span style="color:#FFCB6B">fastlane</span><span style="color:#C3E88D"> release</span><span style="color:#C3E88D"> version:patch</span></span></code></pre>
+<p>デプロイが完了されたら、下記のような画面が確認できます。</p>
+<picture>
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-fastlane-release.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2020/fastlane/android-fastlane-release.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2020/fastlane/android-fastlane-release.jpg" alt="Fastlaneを使ってReact Nativeのアプリを自動配布 - アンドロイドアプリストアーデプロイ">
+</picture>
+<p>また、グーグルプレイストアにも上手くデプロイされたことが確認できます。</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="packagejson">package.json</h2>
+<p>私はこのように作ったfastlaneを実行するコマンドを下記のようにpackage.jsonへ作成して使っています。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">"</span><span style="color:#C3E88D">scripts</span><span style="color:#89DDFF">"</span><span style="color:#EEFFFF">: </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">beta:android</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">npm run prebuild-android &#x26;&#x26; cd ./android &#x26;&#x26; bundle exec fastlane beta version:patch</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">beta:ios</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">cd ./ios &#x26;&#x26; bundle exec fastlane beta version:patch</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">beta</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">npm run beta:android &#x26;&#x26; npm run beta:ios</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">release:android</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">npm run prebuild-android &#x26;&#x26; cd ./android &#x26;&#x26; bundle exec fastlane release version:patch</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">release:ios</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">cd ./ios &#x26;&#x26; bundle exec fastlane release version:patch</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">release</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">npm run release:android &#x26;&#x26; npm run release:ios</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">,</span></span></code></pre>
+<h2 id="gitignore">gitignore</h2>
+<p>fastlaneを使ってデプロイすると、それによるファイルだちが生成されます。gitで管理しないようにするため<code>.gitignore</code>ファイルへ下記の内容を追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">...</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># fastlane</span></span>
+<span class="line"><span style="color:#FFCB6B">ios/*.mobileprovision</span></span>
+<span class="line"><span style="color:#FFCB6B">ios/*.cer</span></span>
+<span class="line"><span style="color:#FFCB6B">ios/*.dSYM.zip</span></span>
+<span class="line"><span style="color:#FFCB6B">android/fastlane/README.md</span></span>
+<span class="line"><span style="color:#FFCB6B">ios/fastlane/README.md</span></span></code></pre>
+<h2 id="完了">完了</h2>
+<p>これでfastlaneを使ってReact Nativeを作成したアプリを自動デプロイする方法についてみてみました。このブログで説明した内容はもちろんNativeで開発したアプリでも活用できるので、たくさんの方にやくにたてらいいかと思います。</p>
+<p>このfastlaneを導入して時間を節約できたし、楽になって嬉しいです。皆さんもぜひ使ってみてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"GitHub ActionsとFastlaneを使ってReact Nativeアプリをデプロイする\",\"description\":\"GitHub ActionsとFastlaneを使ってReact Nativeで開発したアプリを自動でデプロイする\",\"url\":\"/react-native/github-actions-fastlane/\",\"date\":\"2020-12-13\",\"category\":\"react-native\"},{\"title\":\"React Nativeでアプリ内課金を実装する\",\"description\":\"React Nativeでアプリ内課金を実装するためreact-native-iapを使う方法について説明します。\",\"url\":\"/react-native/react-native-iap/\",\"date\":\"2020-10-23\",\"category\":\"react-native\"},{\"title\":\"React NativeでAdmobのNative Advanced広告を使う方法\",\"description\":\"React NativeでAdmobのNative Advanced広告を使うため、react-native-admob-native-adsライブラリを使う方法について説明します。\",\"url\":\"/react-native/react-native-admob-native-ads/\",\"date\":\"2020-06-25\",\"category\":\"react-native\"},{\"title\":\"React NativeでYoutubeを表示する\",\"description\":\"React NativeでYoutubeを表示するため、react-native-youtubeを使う方法について説明します。\",\"url\":\"/react-native/react-native-youtube/\",\"date\":\"2020-06-23\",\"category\":\"react-native\"},{\"title\":\"react-native-firebase V6 Admob\",\"description\":\"react-native-firebase(V6)を使ってFirebaseのAdmobを使う方法について説明します。\",\"url\":\"/react-native/react-native-firebase-v6-admob/\",\"date\":\"2020-05-12\",\"category\":\"react-native\"},{\"title\":\"react-native-firebase V6 Crashlytics\",\"description\":\"react-native-firebase(V6)を使ってFirebaseのCrashlyticsを使う方法について説明します。\",\"url\":\"/react-native/react-native-firebase-v6-crashlytics/\",\"date\":\"2020-05-11\",\"category\":\"react-native\"},{\"title\":\"react-native-firebase V6インストール\",\"description\":\"React NativeでFirebaseを使うため、react-native-firebase(V6)をインストールする方法について説明します。\",\"url\":\"/react-native/react-native-firebase-v6-installation/\",\"date\":\"2020-05-10\",\"category\":\"react-native\"},{\"title\":\"React NativeでMultidexの設定\",\"description\":\"React NativeのプロジェクトのアンドロイドへMultidexを設定する方法について説明します。\",\"url\":\"/react-native/react-native-multidex/\",\"date\":\"2020-05-09\",\"category\":\"react-native\"},{\"title\":\"React Native用オープンソースを作る方法\",\"description\":\"React Native用のオープンソースを作る方法について説明します。\",\"url\":\"/react-native/make-opensource-library/\",\"date\":\"2020-04-27\",\"category\":\"react-native\"},{\"title\":\"react-native-firebase(V5)を使ってPush Message\",\"description\":\"React Nativeでプッシュメッセージを使うため、react-native-firebase(V5)のライブラリを使ってFCM(Firebase Cloud Messaging)を使う方法について説明します。\",\"url\":\"/react-native/react-native-firebase-fcm/\",\"date\":\"2020-04-09\",\"category\":\"react-native\"},{\"title\":\"react-native-image-picker\",\"description\":\"react-native-image-pickerを使って写真を取ったり、カメラロールから写真を取得する方法について説明します。\",\"url\":\"/react-native/react-native-image-picker/\",\"date\":\"2020-04-05\",\"category\":\"react-native\"},{\"title\":\"react-native-image-modal\",\"description\":\"react-native-image-modalを使ってイメージを全体画面で表示して、pinch拡大、縮小などをしてみましょう。\",\"url\":\"/react-native/react-native-image-modal/\",\"date\":\"2020-01-31\",\"category\":\"react-native\"},{\"title\":\"Fastlaneを使ってアプリのデプロイを自動化する\",\"description\":\"Fastlaneを使ってReact nativeで作ったアプリをを自動でデプロイしてみましょう。\",\"url\":\"/react-native/fastlane/\",\"date\":\"2020-01-18\",\"category\":\"react-native\"},{\"title\":\"React Nativeへ地図を表示する方法\",\"description\":\"react-native-mapsライブラリを使ってReact Nativeへ地図を使う方法について調べてみます。\",\"url\":\"/react-native/react-native-maps/\",\"date\":\"2019-12-08\",\"category\":\"react-native\"},{\"title\":\"React Nativeで現在位置情報を取得する方法\",\"description\":\"react-native-geolocation-serviceライブラリを使ってReact Nativeで現在位置を取得する方法について調べてみましょう。\",\"url\":\"/react-native/react-native-geolocation-service/\",\"date\":\"2019-12-07\",\"category\":\"react-native\"},{\"title\":\"React NativeでAppアイコン & Splashイメージを作る方法\",\"description\":\"react-native-makeライブラリを使ってAppアイコンやSplashイメージを生成する方法について説明します。\",\"url\":\"/react-native/react-native-make/\",\"date\":\"2019-10-18\",\"category\":\"react-native\"},{\"title\":\"Local Push Notification\",\"description\":\"react-native-push-notificationライブラリを使ってLocal Push Notification, つまりアプリ(App)自体からお知らせを送る方法について説明します。\",\"url\":\"/react-native/react-native-push-notification/\",\"date\":\"2019-06-13\",\"category\":\"react-native\"},{\"title\":\"特定のファイルでアプリを開く\",\"description\":\"ウェブやメールでダウンロードした特定なファイルを(エクセル, パワーポイントなど)をリアクトネイティブ(React Native)で作成したアプリに入れる方法について説明します。\",\"url\":\"/react-native/open-file-with-app/\",\"date\":\"2019-04-16\",\"category\":\"react-native\"},{\"title\":\"リアクトネイティブ(React Native)でrootからimportする\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでimportをする時、rootフォルダを基準にしてimportが出来るようにプロジェクトを設定してみましょう。\",\"url\":\"/react-native/root-import/\",\"date\":\"2019-04-15\",\"category\":\"react-native\"},{\"title\":\"リアクトネイティブ(React Native)でカスタムフォントを使う方法\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでカスタムフォントを適用して使う方法について説明します。\",\"url\":\"/react-native/react-native-custom-font/\",\"date\":\"2019-04-10\",\"category\":\"react-native\"},{\"title\":\"RN(React Native)でsqliteを使う方法\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでsqliteデータベースを使う方法について説明します。\",\"url\":\"/react-native/react-native-sqlite-storage/\",\"date\":\"2019-03-18\",\"category\":\"react-native\"},{\"title\":\"RN(React Native)タブレット対応\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでタブレットを対応する方法について説明します。\",\"url\":\"/react-native/react-native-support-tablet/\",\"date\":\"2019-03-03\",\"category\":\"react-native\"},{\"title\":\"StatusBarコントロール\",\"description\":\"リアクトネイティブ(React Native)でStatusBarをコントロールする方法について説明します。\",\"url\":\"/react-native/react-native-status-bar/\",\"date\":\"2019-03-01\",\"category\":\"react-native\"},{\"title\":\"iTunesファイルシェア機能\",\"description\":\"iTunesを使ってリアクトネイティブ(React Native)で開発したアプリへファイルをシェアする方法について説明します。\",\"url\":\"/react-native/react-native-itunes-share-file/\",\"date\":\"2019-02-28\",\"category\":\"react-native\"},{\"title\":\"アプリストアレビュー\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでreact-native-rateを使ってアプリストアのレビューを作成するように誘導する方法について説明します。\",\"url\":\"/react-native/react-native-rate/\",\"date\":\"2019-02-09\",\"category\":\"react-native\"},{\"title\":\"App Splash スクリーン\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでreact-native-splash-screenを使ってSplashスクリーンを好きな時間に終了するように作ってみましょう。\",\"url\":\"/react-native/react-native-splash-screen/\",\"date\":\"2019-02-06\",\"category\":\"react-native\"},{\"title\":\"グラデーション(Gradient)\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでreact-native-linear-gradientを使ってグラデーション(Gradient)バックグラウンド(background)を作ってみましょう。\",\"url\":\"/react-native/react-native-linear-gradient/\",\"date\":\"2019-02-02\",\"category\":\"react-native\"},{\"title\":\"スワイプ検知\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでユーザが画面でどの方向でスワイプ(Swipe)したか検知するためreact-native-swipe-gesturesを使ってみましょう。 \",\"url\":\"/react-native/react-native-swipe-gestures/\",\"date\":\"2019-02-01\",\"category\":\"react-native\"},{\"title\":\"アフターエフェクト(AEF)\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでアドビのアフターエフェクト(Adobe After Effects)で作ったアニメーションを適用してみましょう\",\"url\":\"/react-native/react-native-lottie/\",\"date\":\"2019-01-31\",\"category\":\"react-native\"},{\"title\":\"ファイルシステム使用\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでreact-native-fsライブラリを使ってファイルを読んだり書いたりしてみましょう。\",\"url\":\"/react-native/react-native-fs/\",\"date\":\"2019-01-27\",\"category\":\"react-native\"},{\"title\":\"メール送信機能\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでreact-native-mailライブラリを使って端末にインストールされてあるメールアプリを起動してメールを送信してみましょう。\",\"url\":\"/react-native/react-native-mail/\",\"date\":\"2019-01-26\",\"category\":\"react-native\"},{\"title\":\"ユーザ音声認識\",\"description\":\"リアクトネイティブ(React Native)プロジェクトでreact-native-voiceライブラリを使ってユーザの音声を認識して文字で変換する機能を追加してみます。\",\"url\":\"/react-native/react-native-voice/\",\"date\":\"2019-01-25\",\"category\":\"react-native\"},{\"title\":\"アンドロイドアプリストア登録\",\"description\":\"リアクトネイティブ(React Native)で開発したアンドロイドアプリ(Android App)をアンドロイドアプリストア(Google Play)に登録して見ましょう。\",\"url\":\"/react-native/android-google-play/\",\"date\":\"2019-01-12\",\"category\":\"react-native\"},{\"title\":\"アンドロイド開発者登録\",\"description\":\"アンドロイドアプリ(Android App)を登録するためアンドロイド開発者登録をして見ましょう。\",\"url\":\"/react-native/android-enroll-google-play-developer/\",\"date\":\"2019-01-11\",\"category\":\"react-native\"},{\"title\":\"react-native-animatable\",\"description\":\"react-native-animatableを使って簡単にリアクトネイティブ(React Native)へアニメーションを追加してみましょう。\",\"url\":\"/react-native/react-native-animatable/\",\"date\":\"2018-12-19\",\"category\":\"react-native\"},{\"title\":\"Firebase Crashlytics\",\"description\":\"react-native-firebaseを使ってファイアベース(Firebase)のCrashlyticsでアプリのCrashが発生したらその情報を取得してみましょう。\",\"url\":\"/react-native/firebase-crashlytics/\",\"date\":\"2018-12-12\",\"category\":\"react-native\"},{\"title\":\"iOS App crash分析\",\"description\":\"iOS App crashログ(Log)を分析する方法について説明します。\",\"url\":\"/react-native/ios-app-crash-debugging/\",\"date\":\"2018-12-11\",\"category\":\"react-native\"},{\"title\":\"Firebase Analytics\",\"description\":\"react-native-firebaseライブラリを使ってもっと詳しくアプリを分析してみましょう。\",\"url\":\"/react-native/react-native-firebase-analytics/\",\"date\":\"2018-11-26\",\"category\":\"react-native\"},{\"title\":\"iOSシミュレータ変更\",\"description\":\"リアクトネイティブ(React Native)をiOSでシミュレータでテストする時シミュレータを変更する方法を紹介します。\",\"url\":\"/react-native/ios-change-simulator/\",\"date\":\"2018-11-23\",\"category\":\"react-native\"},{\"title\":\"アンドロイドビルドやテスト\",\"description\":\"リアクトネイティブ(React Native)で開発したプロジェクトをアンドロイド(Android)用でビルドしてデバイスでテストしてみましょう。\",\"url\":\"/react-native/android-running-on-device/\",\"date\":\"2018-11-21\",\"category\":\"react-native\"},{\"title\":\"アンドロイドデバイステスト\",\"description\":\"リアクトネイティブ(React Native)で開発したプロジェクトをアンドロイド(Android)デバイスでテストしてみましょう。\",\"url\":\"/react-native/android-test-on-device/\",\"date\":\"2018-11-20\",\"category\":\"react-native\"},{\"title\":\"Firebase Admob\",\"description\":\"react-native-firebaseライブラリを使ってグーグルアドモブ(Google Admob)を表示してみましょう。\",\"url\":\"/react-native/react-native-firebase-admob/\",\"date\":\"2018-11-17\",\"category\":\"react-native\"},{\"title\":\"Google Analytics\",\"description\":\"リアクトネイティブ(React Native)で開発したアプリをグーグルアナリティクス(Google Analytics)を使ってアプリを分析してみましょう。\",\"url\":\"/react-native/react-native-analytics-bridge/\",\"date\":\"2018-11-14\",\"category\":\"react-native\"},{\"title\":\"iOS App store 登録\",\"description\":\"iOSアプリストア(App Store)へ登録するため必要な項目について説明します。\",\"url\":\"/react-native/ios-app-store/\",\"date\":\"2018-11-13\",\"category\":\"react-native\"},{\"title\":\"iOS TestFlight\",\"description\":\"iOSのTestFlightを使って作ったアプリをテスターに送ってテストしてみましょう。\",\"url\":\"/react-native/ios-testflight/\",\"date\":\"2018-11-12\",\"category\":\"react-native\"},{\"title\":\"iOS 証明書(Certification)\",\"description\":\"アップル開発者プログラム(Apple Developer Program)の登録を完了したら、開発者証明書(Certification)を設定する方法について説明します。\",\"url\":\"/react-native/ios-certification/\",\"date\":\"2018-11-11\",\"category\":\"react-native\"},{\"title\":\"iOS開発者登録\",\"description\":\"リアクトネイティブ(React Native)で開発したプロジェクトをiOSアップストア(App store)へ登録するためアップル開発者プログラム(Apple Developer Program)へ登録する方法について説明します。\",\"url\":\"/react-native/ios-enroll-developer-program/\",\"date\":\"2018-11-10\",\"category\":\"react-native\"},{\"title\":\"iOSビルドやテスト\",\"description\":\"リアクトネイティブ(React Native)で開発したプロジェクトをiOS用でビルドしてデバイスでテストしてみましょう。\",\"url\":\"/react-native/ios-running-on-device/\",\"date\":\"2018-11-09\",\"category\":\"react-native\"},{\"title\":\"iOSデバイステスト\",\"description\":\"リアクトネイティブ(React Native)で開発したプロジェクトをiOSデバイスでテストしてみましょう。\",\"url\":\"/react-native/ios-test-on-device/\",\"date\":\"2018-11-08\",\"category\":\"react-native\"},{\"title\":\"グーグルアドモブ\",\"description\":\"グーグルアドモブ(google admob)広告を使うためreact-native-admobライブラリを使ってみましょう。\",\"url\":\"/react-native/react-native-admob/\",\"date\":\"2018-11-04\",\"category\":\"react-native\"},{\"title\":\"react-native-device-info\",\"description\":\"ユーザーのデバイスの情報を取得するためreact-native-device-infoライブラリを使って見ましょう。\",\"url\":\"/react-native/react-native-device-info/\",\"date\":\"2018-10-16\",\"category\":\"react-native\"},{\"title\":\"react-native-tts\",\"description\":\"react-native-ttsを使ってtext-to-speech機能を作って見ましょう。\",\"url\":\"/react-native/react-native-tts/\",\"date\":\"2018-10-16\",\"category\":\"react-native\"},{\"title\":\"react-native-vector-icons\",\"description\":\"react-native-vector-iconsライブラリを使ってアイコンを表示して見ましょう。\",\"url\":\"/react-native/react-native-vector-icons/\",\"date\":\"2018-10-15\",\"category\":\"react-native\"},{\"title\":\"NativeBase\",\"description\":\"基本Component UIでNativeBaseライブラリを使って見ましょう。\",\"url\":\"/react-native/nativebase/\",\"date\":\"2018-10-14\",\"category\":\"react-native\"},{\"title\":\"Splashイメージ\",\"description\":\"generator-rn-toolboxを使ってSplashイメージを設定して見ましょう。\",\"url\":\"/react-native/splash-image/\",\"date\":\"2018-10-13\",\"category\":\"react-native\"},{\"title\":\"App icon\",\"description\":\"generator-rn-toolboxを使ってアプリアイコンを作って見ましょう。\",\"url\":\"/react-native/app-icon/\",\"date\":\"2018-10-08\",\"category\":\"react-native\"},{\"title\":\"react-navigation V5\",\"description\":\"react-navigation V5をインストールして使う方法について共有します。\",\"url\":\"/react-native/react-navigation-v5/\",\"date\":\"2018-10-06\",\"category\":\"react-native\"},{\"title\":\"react-navigation\",\"description\":\"react-navigationを使ってアプリを開発して見ましょう。\",\"url\":\"/react-native/react-navigation/\",\"date\":\"2018-10-05\",\"category\":\"react-native\"},{\"title\":\"styled-components\",\"description\":\"react-nativeスタイリングのためstyled-componentsライブラリを活用する方法について説明します。\",\"url\":\"/react-native/styled-components/\",\"date\":\"2018-09-26\",\"category\":\"react-native\"},{\"title\":\"React NativeでESLint, Prettierを使う方法\",\"description\":\"React NativeのプロジェクトへESLintとPrettierを適用する方法と、Husky, lint-stagedでプロみたいに使う方法について説明します。\",\"url\":\"/react-native/eslint-prettier-husky-lint-staged/\",\"date\":\"2018-09-25\",\"category\":\"react-native\"},{\"title\":\"React NativeでTypeScriptを使う方法\",\"description\":\"React NativeプロジェクトへTypeScriptを適用して開発してみよう。\",\"url\":\"/react-native/typescript/\",\"date\":\"2018-09-24\",\"category\":\"react-native\"},{\"title\":\"マック(Mac)にreact nativeの開発環境を構築する方法\",\"description\":\"react-nativeでアプリを開発するためマック(Mac)に開発環境を構築して見て、react-nativeのプロジェクトがうまく起動できるか確認して見ます。\",\"url\":\"/react-native/install-on-mac/\",\"date\":\"2018-09-23\",\"category\":\"react-native\"},{\"title\":\"ウィンドウ(Windows)にreact nativeの開発環境を構築する方法\",\"description\":\"react-nativeでアプリを開発するためウィンドウ(Windows)に開発環境を構築して見て、react-nativeのプロジェクトがうまく起動できるか確認して見ます。\",\"url\":\"/react-native/install-on-windows/\",\"date\":\"2018-09-23\",\"category\":\"react-native\"},{\"title\":\"リアクトネイティブ(RN)インストール\",\"description\":\"react-nativeをインストールしてプロジェクトが起動するか確認しましょう。\",\"url\":\"/react-native/installation/\",\"date\":\"2018-09-23\",\"category\":\"react-native\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=Fastlane%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%82%92%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%99%E3%82%8B&url=https%3A%2F%2Fdeku.posstree.com%2Freact-native%2Ffastlane%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Freact-native%2Ffastlane%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

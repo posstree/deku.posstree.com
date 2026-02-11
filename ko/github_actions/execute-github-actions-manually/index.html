@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="수동으로 GitHub Actions를 실행하는 방법에 대해서 알아보겠습니다."><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>[GitHub Actions] 수동으로 GitHub Actions 실행하기 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/ko/github_actions/execute-github-actions-manually/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/github_actions/execute-github-actions-manually/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/github_actions/execute-github-actions-manually/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/github_actions/execute-github-actions-manually/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/github_actions/execute-github-actions-manually/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="[GitHub Actions] 수동으로 GitHub Actions 실행하기"><meta name="twitter:description" content="수동으로 GitHub Actions를 실행하는 방법에 대해서 알아보겠습니다."><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/github_actions/background.jpg"><meta name="twitter:image:alt" content="[GitHub Actions] 수동으로 GitHub Actions 실행하기"><!-- Open Graph --><meta property="og:title" content="[GitHub Actions] 수동으로 GitHub Actions 실행하기"><meta property="og:description" content="수동으로 GitHub Actions를 실행하는 방법에 대해서 알아보겠습니다."><meta property="og:image" content="https://deku.posstree.com/assets/images/category/github_actions/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="[GitHub Actions] 수동으로 GitHub Actions 실행하기"><meta property="og:url" content="https://deku.posstree.com/ko/github_actions/execute-github-actions-manually/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="ja_JP"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2024-09-13T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="GitHub Actions"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/ko/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"[GitHub Actions] 수동으로 GitHub Actions 실행하기","description":"수동으로 GitHub Actions를 실행하는 방법에 대해서 알아보겠습니다.","datePublished":"2024-09-13T00:00:00.000Z","dateModified":"2024-09-13T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/ko/github_actions/execute-github-actions-manually/"},"image":"https://deku.posstree.com/assets/images/category/github_actions/background.jpg","url":"https://deku.posstree.com/ko/github_actions/execute-github-actions-manually/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/ko/github_actions/dependabot-sop-automation/","name":"[GitHub Actions] Dependabot PR 처리를 위한 자동화"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/ko/github_actions/dependabot-sop/","name":"Dependabot PR 처리를 위한 SOP(Standard Operating Procedure)"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/ko/github_actions/send_slack_message_for_reviewer/","name":"[GitHub Actions] Reviewer 알림을 위한 Slack 메시지 보내기"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/ko/github_actions/improve-test-performance/","name":"[GitHub Actions] Jest 실행 Action 성능 개선하기"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/ko/github_actions/composite-action/","name":"[GitHub Actions] Composite Action를 사용하여 GitHub Actions 중복 제거하기"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/ko/github_actions/execute-github-actions-manually/","name":"[GitHub Actions] 수동으로 GitHub Actions 실행하기"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/ko/github_actions/action-check-pr-title/","name":"[GitHub Actions] 모노레포 환경에서 GitHub Actions로 PR 제목 검사하는 방법"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/ko/github_actions/check-branch-name/","name":"[GitHub Actions] GitHub Actions로 브랜치 이름을 검사하는 방법"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/ko/github_actions/auto-assign-assigness/","name":"[GitHub Actions] PR에 자동으로 Assignees 추가하기"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/ko/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/github_actions/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>[GitHub Actions] 수동으로 GitHub Actions 실행하기</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2024-09-13 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fko%2Fgithub_actions%2Fexecute-github-actions-manually%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">수동으로 GitHub Actions를 실행하는 방법에 대해서 알아보겠습니다.</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/github_actions/" itemprop="item"> <span itemprop="name">GitHub Actions</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">[GitHub Actions] 수동으로 GitHub Actions 실행하기</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="목차">목차</h2>
+<ul>
+<li><a href="#%EB%AA%A9%EC%B0%A8">목차</a></li>
+<li><a href="#%EA%B0%9C%EC%9A%94">개요</a></li>
+<li><a href="#workflow_dispatch">workflow_dispatch</a></li>
+<li><a href="#inputs-%ED%83%80%EC%9E%85">inputs 타입</a></li>
+<li><a href="#%EC%98%88%EC%A0%9C">예제</a>
+<ul>
+<li><a href="#boolean">boolean</a></li>
+<li><a href="#choice">choice</a></li>
+<li><a href="#number">number</a></li>
+<li><a href="#string">string</a></li>
+<li><a href="#environment">environment</a></li>
+</ul>
+</li>
+<li><a href="#%EC%99%84%EB%A3%8C">완료</a></li>
+</ul>
+</div>
+<h2 id="개요">개요</h2>
+<p>GitHub Actions를 사용하다보면 수동으로 GitHub Actions를 실행해야 할 때가 있습니다. 이번 블로그 포스트에서는 GitHub Actions를 수동으로 실행하는 방법에 대해서 알아보겠습니다.</p>
+<h2 id="workflow_dispatch">workflow_dispatch</h2>
+<p><code>GitHub Actions</code>를 수동으로 실행하기 위해서는 <code>workflow_dispatch</code>를 사용해야 합니다.</p>
+<ul>
+<li>공식 문서: <a href="https://docs.github.com/ko/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatch" rel="nofollow noreferrer" target="_blank">https://docs.github.com/ko/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatch</a></li>
+</ul>
+<p>이때, <code>workflow_dispatch</code>의 <code>inputs</code>을 통해 파라미터를 전달할 수 있습니다.</p>
+<p><code>workflow_dispatch</code>는 다음과 같이 설정할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> GITHUB ACTIONS NAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  workflow_dispatch</span><span style="color:#89DDFF">:</span></span></code></pre>
+<h2 id="inputs-타입">inputs 타입</h2>
+<p><code>workflow_dispatch</code>의 <code>inputs</code>에는 다음과 같은 종류가 있습니다.</p>
+<ul>
+<li><code>boolean</code>: true 또는 false</li>
+<li><code>choice</code>: 미리 지정된 옵션 중 하나를 선택할 수 있는 SelectBox</li>
+<li><code>number</code>: 숫자</li>
+<li><code>string</code>: 문자열</li>
+<li><code>environment</code>: GitHub에 설정한 환경 변수 사용</li>
+</ul>
+<p>공식 문서에서도 사용 가능한 <code>inputs</code> 타입을 확인할 수 있습니다.</p>
+<ul>
+<li>공식 문서: <a href="https://docs.github.com/ko/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputsinput_idtype" rel="nofollow noreferrer" target="_blank">https://docs.github.com/ko/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatchinputsinput_idtype</a></li>
+</ul>
+<p><code>workflow_dispatch</code>의 <code>inputs</code>은 다음과 같이 설정할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> GITHUB ACTIONS NAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  workflow_dispatch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    inputs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      input_boolean</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">This is a boolean input</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        required</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#F07178">        default</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> false</span></span>
+<span class="line"><span style="color:#F07178">        type</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> boolean</span></span></code></pre>
+<p><code>inputs</code>은 <code>type</code>이외에도 <code>description</code>, <code>required</code>, <code>default</code>를 설정할 수 있습니다. <code>type</code>이외에는 모두 선택 사항입니다.</p>
+<h2 id="예제">예제</h2>
+<p>그럼 <code>workflow_dispatch</code>를 사용하여 GitHub Actions를 수동으로 실행하는 예제를 살펴보겠습니다.</p>
+<h3 id="boolean">boolean</h3>
+<p>수동으로 실행하는 GitHub Actions를 만들기 위해 <code>.github/workflows/manual_test.yml</code> 파일을 생성하고 다음과 같이 수정합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> GITHUB ACTIONS NAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  workflow_dispatch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    inputs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      input_boolean</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">This is a boolean input</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        required</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#F07178">        default</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> false</span></span>
+<span class="line"><span style="color:#F07178">        type</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> boolean</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  deploy-to-staging</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Print the input</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> echo ${{ inputs.input_boolean }}</span></span></code></pre>
+<p>이렇게 작성한 파일을 commit하고 push한 후, <code>GitHub</code>의 <code>Actions</code> 탭으로 이동하면 다음과 같은 화면을 확인할 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/boolean_input.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/boolean_input.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/boolean_input.png" alt="Execute GitHub Actions manually - Boolean input">
+</picture>
+<p>오른쪽에 표시된 <code>Run workflow</code>를 클릭하면 우리가 설정한 <code>boolean</code> 타입의 <code>inputs</code>를 확인할 수 있습니다. 이를 실행하면 다음과 같은 결과를 얻을 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/boolean_input_result.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/boolean_input_result.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/boolean_input_result.png" alt="Execute GitHub Actions manually - Boolean input result">
+</picture>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="choice">choice</h3>
+<p>수동으로 실행하는 GitHub Actions를 만들기 위해 <code>.github/workflows/manual_test.yml</code> 파일을 생성하고 다음과 같이 수정합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> GITHUB ACTIONS NAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  workflow_dispatch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    inputs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      input_choice</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">This is a choice input</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        required</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#F07178">        default</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">warning</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        type</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> choice</span></span>
+<span class="line"><span style="color:#F07178">        options</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> info</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> warning</span></span>
+<span class="line"><span style="color:#89DDFF">          -</span><span style="color:#C3E88D"> debug</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  deploy-to-staging</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Print the input</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> echo ${{ inputs.input_choice }}</span></span></code></pre>
+<p>이렇게 작성한 파일을 commit하고 push한 후, <code>GitHub</code>의 <code>Actions</code> 탭으로 이동하면 다음과 같은 화면을 확인할 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/choice_input.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/choice_input.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/choice_input.png" alt="Execute GitHub Actions manually - Choice input">
+</picture>
+<p>오른쪽에 표시된 <code>Run workflow</code>를 클릭하면 우리가 설정한 <code>choice</code> 타입의 <code>inputs</code>를 확인할 수 있습니다. 이를 실행하면 다음과 같은 결과를 얻을 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/choice_input_result.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/choice_input_result.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/choice_input_result.png" alt="Execute GitHub Actions manually - Choice input result">
+</picture>
+<h3 id="number">number</h3>
+<p>수동으로 실행하는 GitHub Actions를 만들기 위해 <code>.github/workflows/manual_test.yml</code> 파일을 생성하고 다음과 같이 수정합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> GITHUB ACTIONS NAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  workflow_dispatch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    inputs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      input_number</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">This is a number input</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        required</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#F07178">        default</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 20</span></span>
+<span class="line"><span style="color:#F07178">        type</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> number</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  deploy-to-staging</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Print the input</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> echo ${{ inputs.input_number }}</span></span></code></pre>
+<p>이렇게 작성한 파일을 commit하고 push한 후, <code>GitHub</code>의 <code>Actions</code> 탭으로 이동하면 다음과 같은 화면을 확인할 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/number_input.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/number_input.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/number_input.png" alt="Execute GitHub Actions manually - Number input">
+</picture>
+<p>오른쪽에 표시된 <code>Run workflow</code>를 클릭하면 우리가 설정한 <code>number</code> 타입의 <code>inputs</code>를 확인할 수 있습니다. 이를 실행하면 다음과 같은 결과를 얻을 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/number_input_result.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/number_input_result.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/number_input_result.png" alt="Execute GitHub Actions manually - Number input result">
+</picture>
+<h3 id="string">string</h3>
+<p>수동으로 실행하는 GitHub Actions를 만들기 위해 <code>.github/workflows/manual_test.yml</code> 파일을 생성하고 다음과 같이 수정합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> GITHUB ACTIONS NAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  workflow_dispatch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    inputs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      input_string</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">This is a string input</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        required</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#F07178">        default</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Hello, World!</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        type</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> string</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  deploy-to-staging</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Print the input</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> echo ${{ inputs.input_string }}</span></span></code></pre>
+<p>이렇게 작성한 파일을 commit하고 push한 후, <code>GitHub</code>의 <code>Actions</code> 탭으로 이동하면 다음과 같은 화면을 확인할 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/string_input.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/string_input.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/string_input.png" alt="Execute GitHub Actions manually - String input">
+</picture>
+<p>오른쪽에 표시된 <code>Run workflow</code>를 클릭하면 우리가 설정한 <code>string</code> 타입의 <code>inputs</code>를 확인할 수 있습니다. 이를 실행하면 다음과 같은 결과를 얻을 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/string_input_result.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/string_input_result.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/string_input_result.png" alt="Execute GitHub Actions manually - String input result">
+</picture>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h3 id="environment">environment</h3>
+<p><code>workflow_dispatch</code>의 에서 <code>environment</code> 타입을 사용하기 위해서는 <code>GitHub</code>의 <code>Settings</code>에서 <code>Environment</code>를 설정해야 합니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environments.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environments.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/environments.png" alt="Execute GitHub Actions manually - Environments">
+</picture>
+<p><code>New environment</code>를 클릭하고 다음과 같이 <code>Name</code>에 <code>dev</code>를 입력한 후, <code>Configure environment</code>를 클릭합니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/dev_environment.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/dev_environment.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/dev_environment.png" alt="Execute GitHub Actions manually - New Dev Environment">
+</picture>
+<p>그런 다음 <code>Environment variables</code>의 <code>Add environment variable</code> 버튼을 누르고 다음과 같이 <code>Variable</code>을 추가합니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/dev_environment_variable.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/dev_environment_variable.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/dev_environment_variable.png" alt="Execute GitHub Actions manually - Dev environment variable">
+</picture>
+<p>동일한 방식으로 <code>prod</code>라는 환경에도 동일한 변수를 추가합니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/prod_environment_variable.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/prod_environment_variable.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/prod_environment_variable.png" alt="Execute GitHub Actions manually - Prod environment variable">
+</picture>
+<p>이제 수동으로 실행하는 GitHub Actions를 만들기 위해 <code>.github/workflows/manual_test.yml</code> 파일을 생성하고 다음과 같이 수정합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> GITHUB ACTIONS NAME</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF9CAC">on</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  workflow_dispatch</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    inputs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">      input_environment</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">        description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">This is a environment input</span><span style="color:#89DDFF">'</span></span>
+<span class="line"><span style="color:#F07178">        required</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
+<span class="line"><span style="color:#F07178">        type</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> environment</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F07178">jobs</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">  deploy-to-staging</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#F07178">    runs-on</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ubuntu-latest</span></span>
+<span class="line"><span style="color:#F07178">    environment</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> ${{ inputs.input_environment }}</span></span>
+<span class="line"><span style="color:#F07178">    steps</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">      -</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Print the input</span></span>
+<span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> echo ${{ vars.ENV_VALUE }}</span></span></code></pre>
+<p>이렇게 작성한 파일을 commit하고 push한 후, <code>GitHub</code>의 <code>Actions</code> 탭으로 이동하면 다음과 같은 화면을 확인할 수 있습니다.</p>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environment_input.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environment_input.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/environment_input.png" alt="Execute GitHub Actions manually - Environment input">
+</picture>
+<p>오른쪽에 표시된 <code>Run workflow</code>를 클릭하면 <code>GitHub</code>의 <code>Settings</code>에서 <code>Environment</code>에 설정한 값이 표시되는 것을 확인할 수 있습니다. 이를 실행하면 다음과 같은 결과를 얻을 수 있습니다.</p>
+<ul>
+<li>dev 환경</li>
+</ul>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environment_input_result_dev.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environment_input_result_dev.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/environment_input_result_dev.png" alt="Execute GitHub Actions manually - Environment input result dev">
+</picture>
+<ul>
+<li>prod 환경</li>
+</ul>
+<picture>
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environment_input_result_prod.avif" type="image/avif">
+  <source srcset="/assets/images/category/github_actions/execute-github-actions-manually/environment_input_result_prod.webp" type="image/webp">
+  <img src="/assets/images/category/github_actions/execute-github-actions-manually/environment_input_result_prod.png" alt="Execute GitHub Actions manually - Environment input result prod">
+</picture>
+<h2 id="완료">완료</h2>
+<p>이것으로 GitHub Actions를 수동으로 실행하는 방법에 대해서 알아보았습니다. 또한 설정 가능한 <code>inputs</code> 타입에 대해서도 알아보았습니다.</p>
+<p>여러분도 <code>workflow_dispatch</code>와 다양한 타입의 <code>inputs</code>을 사용하여 GitHub Actions를 수동으로 실행해보세요.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 제 블로그가 도움이 되셨나요? 하단의 댓글을 달아주시면 저에게 큰 힘이 됩니다! </code> </p>  <h2>앱 홍보</h2> <div class="book-greeting"> 지금 보고 계신 블로그를 작성하는 <code class="highlighter-rouge">Deku</code>가 개발한 앱을 한번 사용해보세요.<br /><code class="highlighter-rouge">Deku</code>가 개발한 앱은 Flutter로 개발되었습니다.<br /><br />관심있으신 분들은 앱을 다운로드하여 사용해 주시면 정말 감사하겠습니다. <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/ko/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="어린이용 단어 공부 앱, 블라부"> <div> <div class="app_description">어린이용 단어 공부 앱</div> <div class="app_title">블라부</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/clog/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/clog.png" alt="세상의 모든 정보를 모아보다, 씨로그"> <div> <div class="app_description">세상의 모든 정보를 모아보다</div> <div class="app_title">씨로그</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/ildangongbu/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/ildangongbu.png" alt="JLPT 일본어 단어앱, 일단 공부"> <div> <div class="app_description">JLPT 일본어 단어앱</div> <div class="app_title">일단 공부</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwords.png" alt="토익 영어 단어앱, 토익 단어앱"> <div> <div class="app_description">토익 영어 단어앱</div> <div class="app_title">토익 단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/secondaryenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/secondaryenglish.png" alt="중고등 영어 단어앱, 중고등 영단어앱"> <div> <div class="app_description">중고등 영어 단어앱</div> <div class="app_title">중고등 영단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/hskwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/hskwords.png" alt="HSK 중국어 단어앱, 중국어 단어앱"> <div> <div class="app_description">HSK 중국어 단어앱</div> <div class="app_title">중국어 단어앱</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/germanwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/germanwords.png" alt="독일어 단어앱, 독일어 단어장"> <div> <div class="app_description">독일어 단어앱</div> <div class="app_title">독일어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/russianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/russianwords.png" alt="러시아어 단어앱, 러시아어 단어장"> <div> <div class="app_description">러시아어 단어앱</div> <div class="app_title">러시아어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/arabicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/arabicwords.png" alt="아랍어 단어앱, 아랍어 단어장"> <div> <div class="app_description">아랍어 단어앱</div> <div class="app_title">아랍어 단어장</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/indonesianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/indonesianwords.png" alt="인도네시아 단어앱, 인도네시아 단어장"> <div> <div class="app_description">인도네시아 단어앱</div> <div class="app_title">인도네시아 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/frenchwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/frenchwords.png" alt="프랑스어 단어앱, 프랑스어 단어장"> <div> <div class="app_description">프랑스어 단어앱</div> <div class="app_title">프랑스어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/spanishwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/spanishwords.png" alt="스페인어 단어앱, 스페인어 단어장"> <div> <div class="app_description">스페인어 단어앱</div> <div class="app_title">스페인어 단어장</div> </div> </a> </div> </div> </div> <h2>책 홍보</h2> <div class="book-greeting">
+블로그를 운영하면서 좋은 기회가 생겨 책을 출판하게 되었습니다.
+<br><br>
+아래 링크를 통해 제가 쓴 책을 구매하실 수 있습니다.<br>
+많은 분들에게 도움이 되면 좋겠네요.<br><br> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/bMMos6" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b95772cbabc4ca68f13398b6d001d523@2x.jpg" alt="스무디 한 잔 마시며 끝내는 React Native, 비제이퍼블릭" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/bMMos6" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/82895471" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001934238" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=216744127" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/b2q2jo" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b1adb4aa04d9020b64437a41d0eb5d56@2x.jpg" alt="스무디 한 잔 마시며 끝내는 리액트 + TDD, 비제이퍼블릭" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/b2qM3D" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/102280451" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001842185" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=273805547" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> </div> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://link.coupang.com/a/blh8s3" target="_blank" referrerpolicy="unsafe-url"> <img src="https://img1c.coupangcdn.com/image/affiliate/banner/7cba8cb0601eebaf88a17a0c3cf65a63@2x.jpg" alt="현장에서 바로 써먹는 리액트 with 타입스크립트, 심통" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://link.coupang.com/a/blh8s3" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/119695609" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000202707764" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=319109984" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"></div> </div> </div>    </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"[GitHub Actions] Dependabot PR 처리를 위한 자동화\",\"description\":\"Monorepo 환경에서 Dependabot 설정과 GitHub Actions를 사용하여 PR 처리를 위한 SOP(Standard Operating Procedure)을 자동화하는 방법에 대해서 알아봅니다.\",\"url\":\"/ko/github_actions/dependabot-sop-automation/\",\"date\":\"2025-02-04\",\"category\":\"github_actions\"},{\"title\":\"Dependabot PR 처리를 위한 SOP(Standard Operating Procedure)\",\"description\":\"Monorepo 환경에서 Dependabot이 생성한 PR을 효율적으로 처리하기 위한 리스크 분류 기준과 처리 방법에 대해서 알아봅니다.\",\"url\":\"/ko/github_actions/dependabot-sop/\",\"date\":\"2025-02-03\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Reviewer 알림을 위한 Slack 메시지 보내기\",\"description\":\"GitHub Actions를 사용하여 Reviewer에 지정된 경우 Slack 메시지를 보내는 방법과 매일 아침에 리뷰어에게 PR 목록을 Slack 메시지로 발송하는 방법에 대해 알아보겠습니다.\",\"url\":\"/ko/github_actions/send_slack_message_for_reviewer/\",\"date\":\"2024-11-13\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Jest 실행 Action 성능 개선하기\",\"description\":\"GitHub Actions에서 Jest를 실행하는 Action의 성능을 개선하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/github_actions/improve-test-performance/\",\"date\":\"2024-10-23\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] Composite Action를 사용하여 GitHub Actions 중복 제거하기\",\"description\":\"GitHub Actions에서 중복으로 사용되는 Action를 Composite Action로 만들어 Action의 재사용성을 높이는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/github_actions/composite-action/\",\"date\":\"2024-10-22\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] 수동으로 GitHub Actions 실행하기\",\"description\":\"수동으로 GitHub Actions를 실행하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/github_actions/execute-github-actions-manually/\",\"date\":\"2024-09-13\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] 모노레포 환경에서 GitHub Actions로 PR 제목 검사하는 방법\",\"description\":\"모노레포 환경에서 GitHub Actions를 사용하여 PR을 생성했을 때, PR(Pull Request)의 제목을 검사하는 방법에 대해서 알아보도록 하겠습니다.\",\"url\":\"/ko/github_actions/action-check-pr-title/\",\"date\":\"2024-09-10\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] GitHub Actions로 브랜치 이름을 검사하는 방법\",\"description\":\"GitHub Actions를 사용하여 PR을 생성했을 때, 브랜치 이름을 검사하는 방법에 대해서 알아보도록 하겠습니다.\",\"url\":\"/ko/github_actions/check-branch-name/\",\"date\":\"2024-09-02\",\"category\":\"github_actions\"},{\"title\":\"[GitHub Actions] PR에 자동으로 Assignees 추가하기\",\"description\":\"GitHub Actions를 사용하여 PR에 자동으로 Assignees를 추가하는 방법에 대해서 알아보겠습니다.\",\"url\":\"/ko/github_actions/auto-assign-assigness/\",\"date\":\"2024-08-28\",\"category\":\"github_actions\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%5BGitHub%20Actions%5D%20%EC%88%98%EB%8F%99%EC%9C%BC%EB%A1%9C%20GitHub%20Actions%20%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0&url=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fgithub_actions%2Fexecute-github-actions-manually%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fgithub_actions%2Fexecute-github-actions-manually%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/ko/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

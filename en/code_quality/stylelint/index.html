@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Let's see how to install and configure Stylelint to check code style of CSS, SCSS files, and CSS-in-JS."><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>[Code Quality] Stylelint V14 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/en/code_quality/stylelint/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/code_quality/stylelint/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/code_quality/stylelint/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/code_quality/stylelint/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/code_quality/stylelint/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="[Code Quality] Stylelint V14"><meta name="twitter:description" content="Let's see how to install and configure Stylelint to check code style of CSS, SCSS files, and CSS-in-JS."><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/code_quality/stylelint/background.jpg"><meta name="twitter:image:alt" content="[Code Quality] Stylelint V14"><!-- Open Graph --><meta property="og:title" content="[Code Quality] Stylelint V14"><meta property="og:description" content="Let's see how to install and configure Stylelint to check code style of CSS, SCSS files, and CSS-in-JS."><meta property="og:image" content="https://deku.posstree.com/assets/images/category/code_quality/stylelint/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="[Code Quality] Stylelint V14"><meta property="og:url" content="https://deku.posstree.com/en/code_quality/stylelint/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="article:published_time" content="2022-03-06T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="code_quality"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/en/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Code Quality] Stylelint V14","description":"Let's see how to install and configure Stylelint to check code style of CSS, SCSS files, and CSS-in-JS.","datePublished":"2022-03-06T00:00:00.000Z","dateModified":"2022-03-06T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/en/code_quality/stylelint/"},"image":"https://deku.posstree.com/assets/images/category/code_quality/stylelint/background.jpg","url":"https://deku.posstree.com/en/code_quality/stylelint/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/en/code_quality/semgrep/","name":"[Code Quality] Check Code using Semgrep with Regular Expression"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/en/code_quality/stylelint/v15/","name":"[Code Quality] Stylelint V15"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/en/code_quality/lighthouse_ci/","name":"[Code Quality] Lighthouse CI"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/en/gitlab/dependabot/","name":"[GitLab] Dependabot"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/en/code_quality/eslint/eslint-plugin-import/","name":"[ESLint] eslint-plugin-import"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/en/code_quality/cspell/","name":"[Code Quality] CSpell"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/en/code_quality/stylelint/","name":"[Code Quality] Stylelint V14"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/en/code_quality/remark-lint/","name":"[Code Quality] remark-lint"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/en/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/en/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/en/react-native/"> React Native </a><a class="dropdown-item" href="/en/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/en/books/"> Writing Books </a><a class="dropdown-item" href="/en/clog/"> Clog </a><a class="dropdown-item" href="/en/django/"> django </a><a class="dropdown-item" href="/en/environment/"> dev environment </a><a class="dropdown-item" href="/en/essay/"> Essay </a><a class="dropdown-item" href="/en/flutter/"> Flutter </a><a class="dropdown-item" href="/en/git/"> git </a><a class="dropdown-item" href="/en/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/en/golang/"> Golang </a><a class="dropdown-item" href="/en/ildangongbu/"> 일단공부(Il-Dan-Gong-Bu) </a><a class="dropdown-item" href="/en/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/en/kubernetes/"> Kubernetes </a><a class="dropdown-item" href="/en/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/en/laravel/"> Laravel </a><a class="dropdown-item" href="/en/code_quality/"> Code Quality </a><a class="dropdown-item" href="/en/react/"> React </a><a class="dropdown-item" href="/en/ruby/"> Ruby </a><a class="dropdown-item" href="/en/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/en/share/"> Share </a><a class="dropdown-item" href="/en/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/en/web/"> Knowledge about Web </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/en/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/en/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/en/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/en/react-native/"> React Native </a><a class="dropdown-item" href="/en/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/en/books/"> Writing Books </a><a class="dropdown-item" href="/en/clog/"> Clog </a><a class="dropdown-item" href="/en/django/"> django </a><a class="dropdown-item" href="/en/environment/"> dev environment </a><a class="dropdown-item" href="/en/essay/"> Essay </a><a class="dropdown-item" href="/en/flutter/"> Flutter </a><a class="dropdown-item" href="/en/git/"> git </a><a class="dropdown-item" href="/en/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/en/golang/"> Golang </a><a class="dropdown-item" href="/en/ildangongbu/"> 일단공부(Il-Dan-Gong-Bu) </a><a class="dropdown-item" href="/en/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/en/kubernetes/"> Kubernetes </a><a class="dropdown-item" href="/en/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/en/laravel/"> Laravel </a><a class="dropdown-item" href="/en/code_quality/"> Code Quality </a><a class="dropdown-item" href="/en/react/"> React </a><a class="dropdown-item" href="/en/ruby/"> Ruby </a><a class="dropdown-item" href="/en/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/en/share/"> Share </a><a class="dropdown-item" href="/en/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/en/web/"> Knowledge about Web </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/en/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/en/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/code_quality/stylelint/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>[Code Quality] Stylelint V14</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2022-03-06 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fen%2Fcode_quality%2Fstylelint%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">Let&#39;s see how to install and configure Stylelint to check code style of CSS, SCSS files, and CSS-in-JS.</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/en/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/en/code_quality/" itemprop="item"> <span itemprop="name">code_quality</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">[Code Quality] Stylelint V14</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <p>This blog post is about the <code>V14</code> version of <code>Stylelint</code>. If you want to know how to install an configure about the <code>V15</code> version of <code>Stylelint</code>, please see the following link.</p>
+<ul>
+<li><a href="/code_quality/stylelint/v15/">[Code Quality] Stylelint V15</a></li>
+</ul>
+<div id="contents_list" markdown="1">
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#outline">Outline</a></li>
+<li><a href="#install-node">Install Node</a>
+<ul>
+<li><a href="#macos">macOS</a></li>
+<li><a href="#windows">Windows</a></li>
+</ul>
+</li>
+<li><a href="#stylelint-for-css">Stylelint for CSS</a>
+<ul>
+<li><a href="#create-packagejson-for-stylelint-for-css">Create package.json for Stylelint for CSS</a></li>
+<li><a href="#install-stylelint-for-css">Install Stylelint for CSS</a></li>
+<li><a href="#configure-stylelint-for-css">Configure Stylelint for CSS</a></li>
+<li><a href="#stylelint-execution-script-for-css">Stylelint execution script for CSS</a></li>
+<li><a href="#execute-stylelint-for-css">Execute Stylelint for CSS</a></li>
+</ul>
+</li>
+<li><a href="#stylelint-for-scss">Stylelint for SCSS</a>
+<ul>
+<li><a href="#create-packagejson-for-stylelint-for-scss">Create package.json for Stylelint for SCSS</a></li>
+<li><a href="#install-stylelint-for-scss">Install Stylelint for SCSS</a></li>
+<li><a href="#configure-stylelint-for-scss">Configure Stylelint for SCSS</a></li>
+<li><a href="#stylelint-execution-script-for-scss">Stylelint execution script for SCSS</a></li>
+<li><a href="#execute-stylelint-for-scss">Execute Stylelint for SCSS</a></li>
+</ul>
+</li>
+<li><a href="#stylelint-for-css-in-js">Stylelint for CSS-in-JS</a>
+<ul>
+<li><a href="#prepare-project">Prepare project</a></li>
+<li><a href="#install-stylelint-for-css-in-js">Install Stylelint for CSS-in-JS</a></li>
+<li><a href="#configure-stylelint-for-css-in-js">Configure Stylelint for CSS-in-JS</a></li>
+<li><a href="#stylelint-execution-script-for-css-in-js">Stylelint execution script for CSS-in-JS</a></li>
+<li><a href="#execute-stylelint-for-css-in-js">Execute Stylelint for CSS-in-JS</a></li>
+</ul>
+</li>
+<li><a href="#typeerror-cannot-read-properties-of-undefined-reading-stringify-error">TypeError: Cannot read properties of undefined (reading ‘stringify’) error</a></li>
+<li><a href="#completed">Completed</a></li>
+</ul>
+</div>
+<h2 id="outline">Outline</h2>
+<p>When we develop the website, we use CSS(Cascading Style Sheets) for the style of the website. In this blog post, I will introduce how to install and configure Stylelint to check code style of CSS, SCSS files, and CSS-in-JS.</p>
+<ul>
+<li><a href="https://stylelint.io/" rel="nofollow noreferrer" target="_blank">Stylelint</a></li>
+</ul>
+<p>You can see the full source code of this blog post on the following link.</p>
+<ul>
+<li>GitHub: <a href="https://github.com/dev-yakuza/study-linters/tree/main/stylelint-example" rel="nofollow noreferrer" target="_blank">https://github.com/dev-yakuza/study-linters/tree/main/stylelint-example</a></li>
+</ul>
+<h2 id="install-node">Install Node</h2>
+<p>To use the <code>Stylelint</code>, you need to install <code>Node</code>. Install Node for your system by following.</p>
+<h3 id="macos">macOS</h3>
+<p><code>Homebrew</code> is a package manager for macOS to install and manage packages. You can simple install packages with Homebrew. Execute the command below to install <code>Homebrew</code>.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">/usr/bin/ruby</span><span style="color:#C3E88D"> -e</span><span style="color:#89DDFF"> "$(</span><span style="color:#FFCB6B">curl</span><span style="color:#C3E88D"> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install</span><span style="color:#89DDFF">)"</span></span></code></pre>
+<p>After installing, execute the following command to check Homebrew installed well.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> --version</span></span></code></pre>
+<p>If the version is now shown up, exit Terminal and restart it. If you already installed Homebrew, you can skip this step. Next, execute the command below to install <code>Node</code>.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">brew</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> node</span></span></code></pre>
+<h3 id="windows">Windows</h3>
+<p>In Windows, <code>Chocolatey</code> is a package manager. Open the <code>CMD</code> or <code>Powershell</code> with <code>Administrator</code> privileges. Execute the command below to install <code>Chocolatey</code>.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Set-ExecutionPolicy</span><span style="color:#C3E88D"> Bypass</span><span style="color:#C3E88D"> -Scope</span><span style="color:#C3E88D"> Process</span><span style="color:#C3E88D"> -Force</span><span style="color:#89DDFF">;</span><span style="color:#89DDFF"> [</span><span style="color:#EEFFFF">System.Net.ServicePointManager</span><span style="color:#89DDFF">]</span><span style="color:#82AAFF">:</span><span style="color:#C3E88D">:SecurityProtocol</span><span style="color:#C3E88D"> =</span><span style="color:#EEFFFF"> [System.Net.ServicePointManager]::SecurityProtocol -bor 3072</span><span style="color:#89DDFF">;</span><span style="color:#FFCB6B"> iex</span><span style="color:#EEFFFF"> ((New-Object </span><span style="color:#C3E88D">System.Net.WebClient</span><span style="color:#EEFFFF">).DownloadString(</span><span style="color:#FFCB6B">'https://chocolatey.org/install.ps1'</span><span style="color:#EEFFFF">))</span></span></code></pre>
+<p>After installing, execute the following command to check Chocolatey installed well.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">choco</span><span style="color:#C3E88D"> –version</span></span></code></pre>
+<p>If the version of Chocolatey is not shown up, exit CMD or Powershell and restart it. After installing Chocolatey, execute the command below to install <code>Node</code>.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">choco</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> -y</span><span style="color:#C3E88D"> nodejs.install</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="stylelint-for-css">Stylelint for CSS</h2>
+<p>Let’s see how to install and configure <code>Stylelint</code> to check the <code>CSS</code> files.</p>
+<h3 id="create-packagejson-for-stylelint-for-css">Create package.json for Stylelint for CSS</h3>
+<p>The <code>Stylelint</code> works on the Node development environment. So, we need to create the <code>package.json</code> file to manage the Node packages. Execute the following command to create the <code>package.json</code> file.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> init</span></span></code></pre>
+<p>After executing the command, you can see the many questions. If you don’t need to change the default value, just press <code>Enter</code> key for all of them.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">package</span><span style="color:#C3E88D"> name:</span><span style="color:#EEFFFF"> (stylelint-example)</span></span>
+<span class="line"><span style="color:#FFCB6B">version:</span><span style="color:#EEFFFF"> (1.0.0)</span></span>
+<span class="line"><span style="color:#FFCB6B">description:</span></span>
+<span class="line"><span style="color:#FFCB6B">entry</span><span style="color:#C3E88D"> point:</span><span style="color:#EEFFFF"> (index.js)</span></span>
+<span class="line"><span style="color:#82AAFF">test</span><span style="color:#C3E88D"> command:</span></span>
+<span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> repository:</span></span>
+<span class="line"><span style="color:#FFCB6B">keywords:</span></span>
+<span class="line"><span style="color:#FFCB6B">author:</span></span>
+<span class="line"><span style="color:#FFCB6B">license:</span><span style="color:#EEFFFF"> (ISC)</span></span></code></pre>
+<p>After that, you can see the <code>package.json</code> file created like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">name</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint-example</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">version</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">1.0.0</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">description</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> ""</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">main</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">index.js</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">test</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">echo </span><span style="color:#EEFFFF">\"</span><span style="color:#C3E88D">Error: no test specified</span><span style="color:#EEFFFF">\"</span><span style="color:#C3E88D"> &#x26;&#x26; exit 1</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">  },</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">author</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> ""</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">license</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">ISC</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h3 id="install-stylelint-for-css">Install Stylelint for CSS</h3>
+<p>If you want to use <code>Stylelint</code> to check the <code>CSS</code> files, execute the command below to install <code>Stylelint</code> and required libraries.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> --save-dev</span><span style="color:#C3E88D"> stylelint</span><span style="color:#C3E88D"> stylelint-config-standard</span><span style="color:#C3E88D"> stylelint-config-prettier</span></span></code></pre>
+<h3 id="configure-stylelint-for-css">Configure Stylelint for CSS</h3>
+<p>To use <code>Stylelint</code>, you need to create the <code>.stylelintrc.json</code> file and modify it like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">extends</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">stylelint-config-standard</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint-config-prettier</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">]</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h3 id="stylelint-execution-script-for-css">Stylelint execution script for CSS</h3>
+<p>To use <code>Stylelint</code> for checking all <code>CSS</code> files, modify the <code>package.json</code> file like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">lint:css</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint --ignore-path .gitignore '**/*.css'</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  },</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>we set <code>.gitignore</code> to the <code>--ignore-path</code> option not to check unnecessary files.</p>
+<h3 id="execute-stylelint-for-css">Execute Stylelint for CSS</h3>
+<p>To check <code>Stylelint</code> works well, create the <code>test.css</code> file and modify it like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#FFCB6B">h2</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#B2CCD6">  margin</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span><span style="color:#F78C6C"> 0</span><span style="color:#F78C6C"> 1rem</span><span style="color:#F78C6C"> 0</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#B2CCD6">  font-size</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 1.5rem</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>And then, execute the following command to check <code>Stylelint</code> works well.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> lint:css</span></span></code></pre>
+<p>If you install and configure <code>Stylelint</code> well, you can see the following warning message.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">test</span><span style="color:#C3E88D">.css</span></span>
+<span class="line"><span style="color:#FFCB6B"> 2:3</span><span style="color:#C3E88D">  ✖</span><span style="color:#C3E88D">  Unexpected</span><span style="color:#C3E88D"> longhand</span><span style="color:#C3E88D"> value</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">0 0 1rem 0</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D"> instead</span><span style="color:#C3E88D"> of</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">0 0 1rem</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">  shorthand-property-no-redundant-values</span></span></code></pre>
+<p>After modifying the <code>test.css</code> file like the below and executing <code>Stylelint</code>, you can see the issue fixed.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#FFCB6B">h2</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#B2CCD6">  margin</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 0</span><span style="color:#F78C6C"> 0</span><span style="color:#F78C6C"> 1rem</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#B2CCD6">  font-size</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 1.5rem</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="stylelint-for-scss">Stylelint for SCSS</h2>
+<p>Let’s see how to install and configure <code>Stylelint</code> to check the <code>SCSS</code> files,</p>
+<h3 id="create-packagejson-for-stylelint-for-scss">Create package.json for Stylelint for SCSS</h3>
+<p><code>Stylelint</code> works on the Node development environment. So, we need to create the <code>package.json</code> file to manage the Node packages. Execute the following command to create the <code>package.json</code> file.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> init</span></span></code></pre>
+<p>After executing the command, you can see the many questions. If you don’t need to change the default value, just press <code>Enter</code> key for all of them.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">package</span><span style="color:#C3E88D"> name:</span><span style="color:#EEFFFF"> (stylelint-example)</span></span>
+<span class="line"><span style="color:#FFCB6B">version:</span><span style="color:#EEFFFF"> (1.0.0)</span></span>
+<span class="line"><span style="color:#FFCB6B">description:</span></span>
+<span class="line"><span style="color:#FFCB6B">entry</span><span style="color:#C3E88D"> point:</span><span style="color:#EEFFFF"> (index.js)</span></span>
+<span class="line"><span style="color:#82AAFF">test</span><span style="color:#C3E88D"> command:</span></span>
+<span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> repository:</span></span>
+<span class="line"><span style="color:#FFCB6B">keywords:</span></span>
+<span class="line"><span style="color:#FFCB6B">author:</span></span>
+<span class="line"><span style="color:#FFCB6B">license:</span><span style="color:#EEFFFF"> (ISC)</span></span></code></pre>
+<p>After that, you can see the <code>package.json</code> file created like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">name</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint-example</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">version</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">1.0.0</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">description</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> ""</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">main</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">index.js</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">test</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">echo </span><span style="color:#EEFFFF">\"</span><span style="color:#C3E88D">Error: no test specified</span><span style="color:#EEFFFF">\"</span><span style="color:#C3E88D"> &#x26;&#x26; exit 1</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">  },</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">author</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> ""</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">license</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">ISC</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h3 id="install-stylelint-for-scss">Install Stylelint for SCSS</h3>
+<p>To check the <code>SCSS</code> files by <code>Stylelint</code>, execute the command below to install <code>Stylelint</code> and required libraries.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> --save-dev</span><span style="color:#C3E88D"> stylelint</span><span style="color:#C3E88D"> stylelint-config-standard-scss</span><span style="color:#C3E88D"> stylelint-config-prettier-scss</span></span></code></pre>
+<h3 id="configure-stylelint-for-scss">Configure Stylelint for SCSS</h3>
+<p>To use <code>Stylelint</code>, you need to create the <code>.stylelintrc.json</code> file and modify it like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">extends</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">stylelint-config-standard-scss</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint-config-prettier-scss</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">]</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h3 id="stylelint-execution-script-for-scss">Stylelint execution script for SCSS</h3>
+<p>To check <code>SCSS</code> files by <code>Stylelint</code>, modify the <code>package.json</code> file like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">lint:css</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint --ignore-path .gitignore '**/*.scss'</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">  },</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>we set <code>.gitignore</code> to the <code>--ignore-path</code> option not to check unnecessary files.</p>
+<h3 id="execute-stylelint-for-scss">Execute Stylelint for SCSS</h3>
+<p>Next, to check <code>Stylelint</code> works well, create the <code>test.scss</code> file and modify it like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="scss"><code><span class="line"><span style="color:#EEFFFF">$font-stack</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> Helvetica</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> sans-serif</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#EEFFFF">$primary-color</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> #</span><span style="color:#EEFFFF">333</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">body</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#FFCB6B">  font</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 100%</span><span style="color:#EEFFFF"> $font-stack</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#B2CCD6">  color</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> $primary-color</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span></code></pre>
+<p>And then, execute the following command to check <code>Stylelint</code> works well.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> lint:css</span></span></code></pre>
+<p>If you install and configure <code>Stylelint</code> well, you can see the following warning message.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">test</span><span style="color:#C3E88D">.scss</span></span>
+<span class="line"><span style="color:#FFCB6B"> 1:14</span><span style="color:#C3E88D">  ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Helvetica</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> be</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">helvetica</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">  value-keyword-case</span></span></code></pre>
+<p>After modifying the <code>test.scss</code> file like the below and executing <code>Stylelint</code>, you can see the issue fixed.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="scss"><code><span class="line"><span style="color:#EEFFFF">$font-stack</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> helvetica</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> sans-serif</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#EEFFFF">$primary-color</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> #</span><span style="color:#EEFFFF">333</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">body</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#FFCB6B">  font</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 100%</span><span style="color:#EEFFFF"> $font-stack</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#B2CCD6">  color</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> $primary-color</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="stylelint-for-css-in-js">Stylelint for CSS-in-JS</h2>
+<p>I use <code>React</code> for developing, and normally, I use <code>MUI</code> and <code>Emotion</code> which is one of the <code>CSS-in-JS</code> libraries.</p>
+<ul>
+<li><a href="https://mui.com/" rel="nofollow noreferrer" target="_blank">MUI</a></li>
+<li><a href="https://emotion.sh/" rel="nofollow noreferrer" target="_blank">Emotion</a></li>
+</ul>
+<p>In here, I will introduce how to install and configure <code>Stylelint</code> to check the code style of <code>CSS-in-JS</code>.</p>
+<h3 id="prepare-project">Prepare project</h3>
+<p>To check <code>CSS-in-JS</code> by <code>Stylelint</code>, I will create a React project by <code>CRA(create-react-app)</code>. If you want to know how to install <code>CRA</code> and how to create the React project by <code>CRA</code>, see the previous blog post.</p>
+<ul>
+<li><a href="/code_quality/create-react-app/start/">create-react-app</a></li>
+</ul>
+<p>Execute the command below to create a React project.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npx</span><span style="color:#C3E88D"> create-react-app</span><span style="color:#C3E88D"> stylelint-example</span><span style="color:#C3E88D"> --template</span><span style="color:#C3E88D"> typescript</span></span></code></pre>
+<p>And, execute the following command to install <code>Emotion</code> and <code>MUI</code> to the project.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> --save</span><span style="color:#C3E88D"> @mui/material</span><span style="color:#C3E88D"> @emotion/react</span><span style="color:#C3E88D"> @emotion/styled</span></span></code></pre>
+<p>And then, open the <code>./src/App.tsx</code> file and modify it like the below to use <code>CSS-in-JS</code> for the style.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="jsx"><code><span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> styled </span><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@emotion/styled</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> Title </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> styled</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">h2</span><span style="color:#89DDFF">`</span></span>
+<span class="line"><span style="color:#C3E88D">  margin: 0 0 1rem 0;</span></span>
+<span class="line"><span style="color:#C3E88D">  font-size: 1.5rem;</span></span>
+<span class="line"><span style="color:#89DDFF">`</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">function</span><span style="color:#82AAFF"> App</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  return</span><span style="color:#F07178"> (</span></span>
+<span class="line"><span style="color:#89DDFF">    &#x3C;</span><span style="color:#F07178">div</span><span style="color:#89DDFF">></span></span>
+<span class="line"><span style="color:#89DDFF">      &#x3C;</span><span style="color:#FFCB6B">Title</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">Learn React</span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#FFCB6B">Title</span><span style="color:#89DDFF">></span></span>
+<span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">div</span><span style="color:#89DDFF">></span></span>
+<span class="line"><span style="color:#F07178">  )</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">export</span><span style="color:#89DDFF;font-style:italic"> default</span><span style="color:#EEFFFF"> App</span><span style="color:#89DDFF">;</span></span></code></pre>
+<h3 id="install-stylelint-for-css-in-js">Install Stylelint for CSS-in-JS</h3>
+<p>To use <code>Stylelint</code> for checking <code>CSS-in-JS</code>, execute the command below to install <code>Stylelint</code> and required libraries.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> --save-dev</span><span style="color:#C3E88D"> stylelint</span><span style="color:#C3E88D"> stylelint-config-standard</span><span style="color:#C3E88D"> stylelint-config-prettier</span><span style="color:#C3E88D"> postcss</span><span style="color:#C3E88D"> postcss-syntax</span><span style="color:#C3E88D"> @stylelint/postcss-css-in-js</span></span></code></pre>
+<h3 id="configure-stylelint-for-css-in-js">Configure Stylelint for CSS-in-JS</h3>
+<p>To use <code>Stylelint</code>, you need to create the <code>.stylelintrc.json</code> file and modify it like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">extends</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">stylelint-config-standard</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint-config-prettier</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">],</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">overrides</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span></span>
+<span class="line"><span style="color:#89DDFF">    {</span></span>
+<span class="line"><span style="color:#89DDFF">      "</span><span style="color:#FFCB6B">files</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">**/*.tsx</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">],</span></span>
+<span class="line"><span style="color:#89DDFF">      "</span><span style="color:#FFCB6B">customSyntax</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">@stylelint/postcss-css-in-js</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">    }</span></span>
+<span class="line"><span style="color:#89DDFF">  ],</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">rules</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">function-no-unknown</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [true,</span><span style="color:#89DDFF"> {</span><span style="color:#89DDFF"> "</span><span style="color:#F78C6C">ignoreFunctions</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/</span><span style="color:#EEFFFF">\\</span><span style="color:#C3E88D">${/</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> }]</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h3 id="stylelint-execution-script-for-css-in-js">Stylelint execution script for CSS-in-JS</h3>
+<p>To use <code>Stylelint</code> for checking <code>CSS-in-JS</code>, modify the <code>package.json</code> file like the below.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">lint:css</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">stylelint --ignore-path .gitignore '**/*.(css|tsx)'</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#89DDFF">  },</span></span>
+<span class="line"><span style="color:#EEFFFF">  ...</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<p>we set <code>.gitignore</code> to the <code>--ignore-path</code> option not to check unnecessary files.</p>
+<h3 id="execute-stylelint-for-css-in-js">Execute Stylelint for CSS-in-JS</h3>
+<p>Next, execute the following command to check <code>Stylelint</code> works well.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> lint:css</span></span></code></pre>
+<p>If you install and configure <code>Stylelint</code> well, you can see the following warning message.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">src/App.css</span></span>
+<span class="line"><span style="color:#FFCB6B">  1:1</span><span style="color:#C3E88D">   ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#C3E88D"> class</span><span style="color:#C3E88D"> selector</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> be</span><span style="color:#C3E88D"> kebab-case</span><span style="color:#C3E88D">  selector-class-pattern</span></span>
+<span class="line"><span style="color:#FFCB6B">  5:1</span><span style="color:#C3E88D">   ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#C3E88D"> class</span><span style="color:#C3E88D"> selector</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> be</span><span style="color:#C3E88D"> kebab-case</span><span style="color:#C3E88D">  selector-class-pattern</span></span>
+<span class="line"><span style="color:#FFCB6B"> 11:3</span><span style="color:#C3E88D">   ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#C3E88D"> class</span><span style="color:#C3E88D"> selector</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> be</span><span style="color:#C3E88D"> kebab-case</span><span style="color:#C3E88D">  selector-class-pattern</span></span>
+<span class="line"><span style="color:#FFCB6B"> 16:1</span><span style="color:#C3E88D">   ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#C3E88D"> class</span><span style="color:#C3E88D"> selector</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> be</span><span style="color:#C3E88D"> kebab-case</span><span style="color:#C3E88D">  selector-class-pattern</span></span>
+<span class="line"><span style="color:#FFCB6B"> 27:1</span><span style="color:#C3E88D">   ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#C3E88D"> class</span><span style="color:#C3E88D"> selector</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> be</span><span style="color:#C3E88D"> kebab-case</span><span style="color:#C3E88D">  selector-class-pattern</span></span>
+<span class="line"><span style="color:#FFCB6B"> 31:12</span><span style="color:#C3E88D">  ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#C3E88D"> keyframe</span><span style="color:#C3E88D"> name</span><span style="color:#C3E88D"> to</span><span style="color:#C3E88D"> be</span><span style="color:#C3E88D"> kebab-case</span><span style="color:#C3E88D">   keyframes-name-pattern</span></span>
+<span class="line"><span style="color:#FFCB6B"> 35:3</span><span style="color:#C3E88D">   ✖</span><span style="color:#C3E88D">  Expected</span><span style="color:#C3E88D"> empty</span><span style="color:#C3E88D"> line</span><span style="color:#C3E88D"> before</span><span style="color:#C3E88D"> rule</span><span style="color:#C3E88D">           rule-empty-line-before</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">src/App.tsx</span></span>
+<span class="line"><span style="color:#FFCB6B"> 4:3</span><span style="color:#C3E88D">  ✖</span><span style="color:#C3E88D">  Unexpected</span><span style="color:#C3E88D"> longhand</span><span style="color:#C3E88D"> value</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">0 0 1rem 0</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D"> instead</span><span style="color:#C3E88D"> of</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">0 0 1rem</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">  shorthand-property-no-redundant-values</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFCB6B">src/index.css</span></span>
+<span class="line"><span style="color:#FFCB6B"> 3:64</span><span style="color:#C3E88D">  ✖</span><span style="color:#C3E88D">  Unexpected</span><span style="color:#C3E88D"> quotes</span><span style="color:#C3E88D"> around</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Roboto</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">     font-family-name-quotes</span></span>
+<span class="line"><span style="color:#FFCB6B"> 3:74</span><span style="color:#C3E88D">  ✖</span><span style="color:#C3E88D">  Unexpected</span><span style="color:#C3E88D"> quotes</span><span style="color:#C3E88D"> around</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Oxygen</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">     font-family-name-quotes</span></span>
+<span class="line"><span style="color:#FFCB6B"> 4:6</span><span style="color:#C3E88D">   ✖</span><span style="color:#C3E88D">  Unexpected</span><span style="color:#C3E88D"> quotes</span><span style="color:#C3E88D"> around</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Ubuntu</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">     font-family-name-quotes</span></span>
+<span class="line"><span style="color:#FFCB6B"> 4:16</span><span style="color:#C3E88D">  ✖</span><span style="color:#C3E88D">  Unexpected</span><span style="color:#C3E88D"> quotes</span><span style="color:#C3E88D"> around</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Cantarell</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">  font-family-name-quotes</span></span></code></pre>
+<p>The warning messages include the issues of the other files, but let’s focus the <code>./src/App.tsx</code> file that we’ve modified. You can see the same warning message that we’ve seen in the <code>CSS</code> section. So, we know the <code>Stylelint</code> configured well and works well.</p>
+<p>After modifying the <code>src/App.tsx</code> file like the below and executing <code>Stylelint</code>, you can see the issue fixed.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="jsx"><code><span class="line"><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> styled </span><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">@emotion/styled</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> Title </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> styled</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">h2</span><span style="color:#89DDFF">`</span></span>
+<span class="line"><span style="color:#C3E88D">  margin: 0 0 1rem;</span></span>
+<span class="line"><span style="color:#C3E88D">  font-size: 1.5rem;</span></span>
+<span class="line"><span style="color:#89DDFF">`</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">function</span><span style="color:#82AAFF"> App</span><span style="color:#89DDFF">()</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  return</span><span style="color:#F07178"> (</span></span>
+<span class="line"><span style="color:#89DDFF">    &#x3C;</span><span style="color:#F07178">div</span><span style="color:#89DDFF">></span></span>
+<span class="line"><span style="color:#89DDFF">      &#x3C;</span><span style="color:#FFCB6B">Title</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">Learn React</span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#FFCB6B">Title</span><span style="color:#89DDFF">></span></span>
+<span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">div</span><span style="color:#89DDFF">></span></span>
+<span class="line"><span style="color:#F07178">  )</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">export</span><span style="color:#89DDFF;font-style:italic"> default</span><span style="color:#EEFFFF"> App</span><span style="color:#89DDFF">;</span></span></code></pre>
+<h2 id="typeerror-cannot-read-properties-of-undefined-reading-stringify-error">TypeError: Cannot read properties of undefined (reading ‘stringify’) error</h2>
+<p>Recently, I update the <code>Stylelint</code> version from <code>14.9.1</code> to <code>14.14.0</code> and get the error like the following.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">TypeError:</span><span style="color:#C3E88D"> Cannot</span><span style="color:#C3E88D"> read</span><span style="color:#C3E88D"> properties</span><span style="color:#C3E88D"> of</span><span style="color:#C3E88D"> undefined</span><span style="color:#EEFFFF"> (reading </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">stringify</span><span style="color:#89DDFF">'</span><span style="color:#EEFFFF">)</span></span>
+<span class="line"><span style="color:#FFCB6B">    at</span><span style="color:#C3E88D"> Function.stringify</span><span style="color:#EEFFFF"> (/node_modules/postcss-syntax/stringify.js:8:38)</span></span>
+<span class="line"><span style="color:#FFCB6B">    at</span><span style="color:#C3E88D"> MapGenerator.generate</span><span style="color:#EEFFFF"> (/node_modules/stylelint/node_modules/postcss/lib/map-generator.js:328:12)</span></span>
+<span class="line"><span style="color:#FFCB6B">    at</span><span style="color:#C3E88D"> LazyResult.stringify</span><span style="color:#EEFFFF"> (/node_modules/stylelint/node_modules/postcss/lib/lazy-result.js:277:20)</span></span>
+<span class="line"><span style="color:#FFCB6B">    at</span><span style="color:#C3E88D"> LazyResult.runAsync</span><span style="color:#EEFFFF"> (/node_modules/stylelint/node_modules/postcss/lib/lazy-result.js:443:17)</span></span>
+<span class="line"><span style="color:#FFCB6B">    at</span><span style="color:#C3E88D"> LazyResult.async</span><span style="color:#EEFFFF"> (/node_modules/stylelint/node_modules/postcss/lib/lazy-result.js:221:30)</span></span>
+<span class="line"><span style="color:#FFCB6B">    at</span><span style="color:#C3E88D"> LazyResult.then</span><span style="color:#EEFFFF"> (/node_modules/stylelint/node_modules/postcss/lib/lazy-result.js:206:17)</span></span></code></pre>
+<p>To solve this error, you need to install <code>postcss</code> by executing the command following.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> --save-dev</span><span style="color:#C3E88D"> postcss</span></span></code></pre>
+<p>After installing <code>postcss</code>, when you execute the <code>Stylelint</code> command, you can see the error is resolved.</p>
+<h2 id="completed">Completed</h2>
+<p>Done! we’ve seen how to install and configure <code>Stylelint</code> to check CSS/SCSS files. Also, we’ve seen how to use <code>Stylelint</code> to check <code>CSS-in-JS</code> files like <code>styled-components/Emotion</code>.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> Was my blog helpful? Please leave a comment at the bottom. it will be a great help to me! </code> </p>   <h2>App promotion</h2> <div class="book-greeting"> You can use the applications that are created by this blog writer <code class="highlighter-rouge">Deku</code>.<br /><code class="highlighter-rouge">Deku</code> created the applications with Flutter.<br /><br />If you have interested, please try to download them for free. <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/en/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="word learning app for kids, BlaBoo"> <div> <div class="app_description">word learning app for kids</div> <div class="app_title">BlaBoo</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/koreanwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/koreanwords.png" alt="Korean TOPIK vocabulary app, TOPIK words"> <div> <div class="app_description">Korean TOPIK vocabulary app</div> <div class="app_title">TOPIK words</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/japanesewords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/japanesewords.png" alt="Japanese vocabulary app, Japanese words"> <div> <div class="app_description">Japanese vocabulary app</div> <div class="app_title">Japanese words</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/chinesewords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/hskwordsen.png" alt="Chinese HSK vocabulary app, HSK words"> <div> <div class="app_description">Chinese HSK vocabulary app</div> <div class="app_title">HSK words</div> </div> </a> </div> </div> </div> </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"[Code Quality] Check Code using Semgrep with Regular Expression\",\"description\":\"Let's see how to check the code quality by using Semgrep with regular expression.\",\"url\":\"/en/code_quality/semgrep/\",\"date\":\"2024-12-18\",\"category\":\"code_quality\"},{\"title\":\"[Code Quality] Stylelint V15\",\"description\":\"Let's see how to check the style code in the CSS, SCSS, and CSS-in-JS files by using StyleLint V15.\",\"url\":\"/en/code_quality/stylelint/v15/\",\"date\":\"2023-10-03\",\"category\":\"code_quality\"},{\"title\":\"[Code Quality] Lighthouse CI\",\"description\":\"Let's see how to execute Lighthouse provided Google Chrome on the local or the CI environment and how to measure automatically the performance of the web page in the CI environment.\",\"url\":\"/en/code_quality/lighthouse_ci/\",\"date\":\"2023-03-11\",\"category\":\"code_quality\"},{\"title\":\"[GitLab] Dependabot\",\"description\":\"Let's see how to add Dependabot to GitLab for checking automatically the version updating of the libraries in the project.\",\"url\":\"/en/gitlab/dependabot/\",\"date\":\"2023-02-10\",\"category\":\"code_quality\"},{\"title\":\"[ESLint] eslint-plugin-import\",\"description\":\"Let's see how to clean up the import part using ESLint's eslint-plugin-import.\",\"url\":\"/en/code_quality/eslint/eslint-plugin-import/\",\"date\":\"2022-10-12\",\"category\":\"code_quality\"},{\"title\":\"[Code Quality] CSpell\",\"description\":\"Let's see how to check typo by CSpell.\",\"url\":\"/en/code_quality/cspell/\",\"date\":\"2022-03-08\",\"category\":\"code_quality\"},{\"title\":\"[Code Quality] Stylelint V14\",\"description\":\"Let's see how to install and configure Stylelint to check code style of CSS, SCSS files, and CSS-in-JS.\",\"url\":\"/en/code_quality/stylelint/\",\"date\":\"2022-03-06\",\"category\":\"code_quality\"},{\"title\":\"[Code Quality] remark-lint\",\"description\":\"Let's see how to use the remark-lint to make the same style of the Markdown.\",\"url\":\"/en/code_quality/remark-lint/\",\"date\":\"2022-03-05\",\"category\":\"code_quality\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%5BCode%20Quality%5D%20Stylelint%20V14&url=https%3A%2F%2Fdeku.posstree.com%2Fen%2Fcode_quality%2Fstylelint%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fen%2Fcode_quality%2Fstylelint%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/en/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Ruby에서 문자열을 다루는 방법에 대해서 살펴봅니다."><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>Ruby의 문자열 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/ko/ruby/string/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/ruby/string/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/ruby/string/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/ruby/string/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/ruby/string/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="Ruby의 문자열"><meta name="twitter:description" content="Ruby에서 문자열을 다루는 방법에 대해서 살펴봅니다."><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/ruby/2020/string/background.jpg"><meta name="twitter:image:alt" content="Ruby의 문자열"><!-- Open Graph --><meta property="og:title" content="Ruby의 문자열"><meta property="og:description" content="Ruby에서 문자열을 다루는 방법에 대해서 살펴봅니다."><meta property="og:image" content="https://deku.posstree.com/assets/images/category/ruby/2020/string/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Ruby의 문자열"><meta property="og:url" content="https://deku.posstree.com/ko/ruby/string/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="ja_JP"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2020-08-21T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="Ruby"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- Bootstrap CSS --><link rel="preload" as="style" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css"><!-- Font Awesome CSS --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/ko/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><link rel="preload" as="script" href="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><link rel="preload" as="script" href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Ruby의 문자열","description":"Ruby에서 문자열을 다루는 방법에 대해서 살펴봅니다.","datePublished":"2020-08-21T00:00:00.000Z","dateModified":"2020-08-21T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/ko/ruby/string/"},"image":"https://deku.posstree.com/assets/images/category/ruby/2020/string/background.jpg","url":"https://deku.posstree.com/ko/ruby/string/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/ko/ruby/exception/","name":"Ruby에서 예외 처리"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/ko/ruby/file/","name":"Ruby의 파일 입출력"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/ko/ruby/procedure-object/","name":"Ruby의 절차 오브젝트"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/ko/ruby/iterator/","name":"Ruby의 이터레이터"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/ko/ruby/module/","name":"Ruby의 모듈"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/ko/ruby/class/","name":"Ruby의 클래스"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/ko/ruby/string/","name":"Ruby의 문자열"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/ko/ruby/object/","name":"Ruby의 Object"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/ko/ruby/method/","name":"Ruby에서 메서드 사용하기"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/ko/ruby/loop/","name":"Ruby에서 반복문 사용하기"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/ko/ruby/begin-end-block/","name":"Ruby에서 BEGIN, END"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/ko/ruby/range/","name":"Ruby에서 범위 연산자"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/ko/ruby/array/","name":"Ruby에서 배열"},{"@type":"ListItem","position":14,"url":"https://deku.posstree.com/ko/ruby/puts-print-p/","name":"Ruby에서 문자열 출력 함수"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><link rel="stylesheet" href="/_astro/_path_.D1HxJ0x2.css">
+<style>.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#ff813f!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/ko/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/ruby/2020/string/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>Ruby의 문자열</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2020-08-21 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fko%2Fruby%2Fstring%2F?color=red&label=hits&size=medium" alt="hit count image"> </div> <h2 class="subheading">Ruby에서 문자열을 다루는 방법에 대해서 살펴봅니다.</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/ruby/" itemprop="item"> <span itemprop="name">Ruby</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">Ruby의 문자열</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto">  <div id="contents_list" markdown="1">
+<h2 id="목차">목차</h2>
+<ul>
+<li><a href="#%EA%B0%9C%EC%9A%94">개요</a></li>
+<li><a href="#%EB%AC%B8%EC%9E%90%EC%97%B4-%EA%B2%80%EC%83%89">문자열 검색</a></li>
+<li><a href="#%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%B9%98%ED%99%98">문자열 치환</a></li>
+<li><a href="#%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84">정규 표현</a>
+<ul>
+<li><a href="#%EB%A9%94%ED%83%80-%EB%AC%B8%EC%9E%90">메타 문자</a></li>
+<li><a href="#%ED%8C%A8%ED%84%B4-%EB%A7%A4%EC%B9%98">패턴 매치</a></li>
+<li><a href="#regexp-%ED%81%B4%EB%9E%98%EC%8A%A4">Regexp 클래스</a></li>
+<li><a href="#%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8">정규 표현 오브젝트</a></li>
+</ul>
+</li>
+<li><a href="#%EC%8B%AC%EB%B2%8C">심벌</a>
+<ul>
+<li><a href="#%EC%8B%AC%EB%B2%8C%EA%B3%BC-%EB%AC%B8%EC%9E%90%EC%97%B4">심벌과 문자열</a></li>
+<li><a href="#%EC%8B%AC%EB%B2%8C%EC%9D%98-%ED%99%9C%EC%9A%A9">심벌의 활용</a></li>
+</ul>
+</li>
+<li><a href="#%ED%8D%BC%EC%84%BC%ED%8A%B8-%EA%B8%B0%EB%B2%95">퍼센트 기법</a></li>
+<li><a href="#%EC%99%84%EB%A3%8C">완료</a></li>
+</ul>
+</div>
+<h2 id="개요">개요</h2>
+<p>이번 블로그에서는 Ruby에서 문자열을 사용함에 있어 도움이 되는 방법들을 소개하려고 합니다.</p>
+<h2 id="문자열-검색">문자열 검색</h2>
+<p>Ruby에서 문자열을 검색할 때는 <code>index</code> 메서드를 사용합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">puts</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">ABCD</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">index</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">C</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># 2</span></span></code></pre>
+<p>검색한 문자열이 해당 문자열에 존재하는 경우 해당 문자열에 위치를 반환하고, 존재하지 않는 경우 <code>nil</code>을 반환합니다.</p>
+<h2 id="문자열-치환">문자열 치환</h2>
+<p>문자열에 각 문자를 index로 참조하고 대입할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">a </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Apple Juice</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">a</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">0</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">O</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">a</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">1</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">r</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">a</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">2</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">a</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">a</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">3</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">n</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#EEFFFF">a</span><span style="color:#89DDFF">[</span><span style="color:#F78C6C">4</span><span style="color:#89DDFF">]</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">ge</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> a</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># Orange Juice</span></span></code></pre>
+<p>위에서도 알 수 있듯이, <code>a[4] = "ge"</code>처럼 문자열의 길이가 달라도 문자열을 치환할 수 있습니다.</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="정규-표현">정규 표현</h2>
+<p>다른 언어와 같이 Ruby에서도 정규 표현식을 사용하여 문자열을 검색할 수 있습니다.</p>
+<h3 id="메타-문자">메타 문자</h3>
+<p>정규 표현에서는 메타 문자(특수한 의미를 가진 문자)를 사용하여 정규 표현식을 만듭니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>메타 문자</th><th>설명</th></tr></thead><tbody><tr><td>[]</td><td>[]안에 있는 문자 중 어느 한 문자</td></tr><tr><td>.</td><td>임의의 한 문자</td></tr><tr><td>*</td><td>직전 표현을 0번 이상 반복</td></tr><tr><td>+</td><td>직전 표현을 1번 이상 반복</td></tr><tr><td>?</td><td>직전 표현을 0번 또는 1번 반복</td></tr><tr><td>()</td><td>정규 표현 그룹</td></tr><tr><td>a|b</td><td>a, b 중 어느 하나</td></tr><tr><td>\s</td><td>공백 문자</td></tr><tr><td>\w</td><td>영숫자나 언더바(_)</td></tr><tr><td>\d</td><td>숫자(0~9)</td></tr><tr><td>^</td><td>맨 앞</td></tr><tr><td>$</td><td>맨 뒤</td></tr></tbody></table>
+<h3 id="패턴-매치">패턴 매치</h3>
+<p>정규 표현식을 사용하여 문자열을 검색할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">puts</span><span style="color:#89DDFF"> /</span><span style="color:#C3E88D">R.by</span><span style="color:#89DDFF">/</span><span style="color:#89DDFF"> =~</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Let's study Ruby!</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># 12</span></span></code></pre>
+<p>문자열 검색 함수인 <code>index</code>와 마찬가지로 패턴이 일치하면, 일치한 패턴의 index를 반환하고, 패턴이 매치되지 않으면 <code>nil</code>을 반환합니다.</p>
+<h3 id="regexp-클래스">Regexp 클래스</h3>
+<p>정규 표현을 <code>Regexp</code> 클래스의 <code>new</code>메서드를 사용하여 정규 표현 오브젝트를 생성할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">re </span><span style="color:#89DDFF">=</span><span style="color:#FFCB6B"> Regexp</span><span style="color:#89DDFF">.</span><span style="color:#F78C6C">new</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">R.by</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> re </span><span style="color:#89DDFF">=~</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Let's study Ruby!</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># 12</span></span></code></pre>
+<h3 id="정규-표현-오브젝트">정규 표현 오브젝트</h3>
+<p>정규 표현 오브젝트를 사용하면 정규 표현식을 더욱 효과적으로 활용할 수 있습니다.</p>
+<ul>
+<li>
+<p>정규 표현 오브젝트 <code>x</code>: x를 사용하면 정규 표현식 안에 <code>#</code>을 통해 주석을 추가할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">/</span><span style="color:#C3E88D">R.by # Search Ruby</span><span style="color:#89DDFF">/x</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> re </span><span style="color:#89DDFF">=~</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Let's study Ruby!</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># 12</span></span></code></pre>
+</li>
+<li>
+<p>정규 표현 오브젝트 <code>i</code>: i를 사용하면 대소문자 구분없이 문자열을 찾을 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">re </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">/</span><span style="color:#C3E88D">r.by</span><span style="color:#89DDFF">/i</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> re </span><span style="color:#89DDFF">=~</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Let's study Ruby!</span><span style="color:#89DDFF">"</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># 12</span></span></code></pre>
+</li>
+</ul>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="심벌">심벌</h2>
+<p>심벌(symbol)은 임의의 문자열과 일대일로 대응하는 값을 나타내는 클래스입니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">a </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> :apple</span></span>
+<span class="line"><span style="color:#EEFFFF">b </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> :apple</span></span>
+<span class="line"><span style="color:#EEFFFF">c </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> :orange</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> a </span><span style="color:#89DDFF">==</span><span style="color:#EEFFFF"> b </span><span style="color:#545454;font-style:italic"># true</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> a </span><span style="color:#89DDFF">==</span><span style="color:#EEFFFF"> c </span><span style="color:#545454;font-style:italic"># false</span></span></code></pre>
+<p>a와 b는 같은 이름의 심벌이므로 같은 오브젝트를 나타내고 있습니다.</p>
+<h3 id="심벌과-문자열">심벌과 문자열</h3>
+<p>심벌 오브젝트에 <code>to_s</code>를 사용하면 문자열로 치환할 수 있으며, 문자열에 <code>intern</code>을 사용하면 심벌로 치환할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#EEFFFF">a </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> :apple</span></span>
+<span class="line"><span style="color:#EEFFFF">b </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">apple</span><span style="color:#89DDFF">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> a </span><span style="color:#545454;font-style:italic"># apple</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> b </span><span style="color:#545454;font-style:italic"># apple</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> a </span><span style="color:#89DDFF">==</span><span style="color:#EEFFFF"> b </span><span style="color:#545454;font-style:italic"># false</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> a</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">to_s</span><span style="color:#89DDFF"> ==</span><span style="color:#EEFFFF"> b </span><span style="color:#545454;font-style:italic"># true</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#EEFFFF"> a </span><span style="color:#89DDFF">==</span><span style="color:#EEFFFF"> b</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">intern</span><span style="color:#545454;font-style:italic"> # true</span></span></code></pre>
+<h3 id="심벌의-활용">심벌의 활용</h3>
+<p>심벌은 수치와 똑같은 것이므로 문자열을 사용하는 것보다 메모리나 실행 속도면에서 효율적인 경우가 많습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#89DDFF;font-style:italic">def</span><span style="color:#82AAFF"> triangle</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">value</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#EEFFFF">  value</span><span style="color:#89DDFF">[:a]</span><span style="color:#89DDFF"> +</span><span style="color:#EEFFFF"> value</span><span style="color:#89DDFF">[:b]</span><span style="color:#89DDFF"> +</span><span style="color:#EEFFFF"> value</span><span style="color:#89DDFF">[:c]</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">test </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> {:a</span><span style="color:#89DDFF"> =></span><span style="color:#F78C6C"> 5</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> :b</span><span style="color:#89DDFF"> =></span><span style="color:#F78C6C"> 2</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> :c</span><span style="color:#89DDFF"> =></span><span style="color:#F78C6C"> 5</span><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#82AAFF"> triangle</span><span style="color:#89DDFF">(</span><span style="color:#82AAFF">test</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># 12</span></span></code></pre>
+<p>심벌은 보통 해시의 키로 많이 사용됩니다.</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="퍼센트-기법">퍼센트 기법</h2>
+<p>문자열은 보통 큰따옴표(“)나 작은따옴표(‘)로 묶어서 나타내지만, <code>% 기법</code>을 사용하여 나타낼 수도 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">puts</span><span style="color:#89DDFF"> %{</span><span style="color:#C3E88D">This string has " character</span><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># This string has " character</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#89DDFF"> %Q{</span><span style="color:#C3E88D">This string has " character</span><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># This string has " character</span></span>
+<span class="line"><span style="color:#82AAFF">puts</span><span style="color:#89DDFF"> %q{</span><span style="color:#C3E88D">This string has ' character</span><span style="color:#89DDFF">}</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># This string has ' character</span></span></code></pre>
+<p>또한 <code>%w</code>를 사용하여 스페이스로 구분된 문자열을 배열로 변환할 수 있습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="ruby"><code><span class="line"><span style="color:#82AAFF">puts</span><span style="color:#89DDFF"> %w(</span><span style="color:#C3E88D">apple orange banana</span><span style="color:#89DDFF">)</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># apple</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># orange</span></span>
+<span class="line"><span style="color:#545454;font-style:italic"># banana</span></span></code></pre>
+<h2 id="완료">완료</h2>
+<p>이것으로 Ruby에서 문자열을 다루는 다양한 방법에 대해서 알아보았습니다. 정규 표현은 다른 언어에서도 많이 활용되는 부분이므로 잘 기억해 두면, 많은 곳에서 활용할 수 있습니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 제 블로그가 도움이 되셨나요? 하단의 댓글을 달아주시면 저에게 큰 힘이 됩니다! </code> </p>  <h2>앱 홍보</h2> <div class="book-greeting"> 지금 보고 계신 블로그를 작성하는 <code class="highlighter-rouge">Deku</code>가 개발한 앱을 한번 사용해보세요.<br /><code class="highlighter-rouge">Deku</code>가 개발한 앱은 Flutter로 개발되었습니다.<br /><br />관심있으신 분들은 앱을 다운로드하여 사용해 주시면 정말 감사하겠습니다. <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/ko/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="어린이용 단어 공부 앱, 블라부"> <div> <div class="app_description">어린이용 단어 공부 앱</div> <div class="app_title">블라부</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/clog/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/clog.png" alt="세상의 모든 정보를 모아보다, 씨로그"> <div> <div class="app_description">세상의 모든 정보를 모아보다</div> <div class="app_title">씨로그</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/ildangongbu/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/ildangongbu.png" alt="JLPT 일본어 단어앱, 일단 공부"> <div> <div class="app_description">JLPT 일본어 단어앱</div> <div class="app_title">일단 공부</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwords.png" alt="토익 영어 단어앱, 토익 단어앱"> <div> <div class="app_description">토익 영어 단어앱</div> <div class="app_title">토익 단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/secondaryenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/secondaryenglish.png" alt="중고등 영어 단어앱, 중고등 영단어앱"> <div> <div class="app_description">중고등 영어 단어앱</div> <div class="app_title">중고등 영단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/hskwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/hskwords.png" alt="HSK 중국어 단어앱, 중국어 단어앱"> <div> <div class="app_description">HSK 중국어 단어앱</div> <div class="app_title">중국어 단어앱</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/germanwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/germanwords.png" alt="독일어 단어앱, 독일어 단어장"> <div> <div class="app_description">독일어 단어앱</div> <div class="app_title">독일어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/russianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/russianwords.png" alt="러시아어 단어앱, 러시아어 단어장"> <div> <div class="app_description">러시아어 단어앱</div> <div class="app_title">러시아어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/arabicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/arabicwords.png" alt="아랍어 단어앱, 아랍어 단어장"> <div> <div class="app_description">아랍어 단어앱</div> <div class="app_title">아랍어 단어장</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/indonesianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/indonesianwords.png" alt="인도네시아 단어앱, 인도네시아 단어장"> <div> <div class="app_description">인도네시아 단어앱</div> <div class="app_title">인도네시아 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/frenchwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/frenchwords.png" alt="프랑스어 단어앱, 프랑스어 단어장"> <div> <div class="app_description">프랑스어 단어앱</div> <div class="app_title">프랑스어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/spanishwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/spanishwords.png" alt="스페인어 단어앱, 스페인어 단어장"> <div> <div class="app_description">스페인어 단어앱</div> <div class="app_title">스페인어 단어장</div> </div> </a> </div> </div> </div> <h2>책 홍보</h2> <div class="book-greeting">
+블로그를 운영하면서 좋은 기회가 생겨 책을 출판하게 되었습니다.
+<br><br>
+아래 링크를 통해 제가 쓴 책을 구매하실 수 있습니다.<br>
+많은 분들에게 도움이 되면 좋겠네요.<br><br> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/bMMos6" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b95772cbabc4ca68f13398b6d001d523@2x.jpg" alt="스무디 한 잔 마시며 끝내는 React Native, 비제이퍼블릭" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/bMMos6" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/82895471" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001934238" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=216744127" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/b2q2jo" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b1adb4aa04d9020b64437a41d0eb5d56@2x.jpg" alt="스무디 한 잔 마시며 끝내는 리액트 + TDD, 비제이퍼블릭" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/b2qM3D" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/102280451" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001842185" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=273805547" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> </div> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://link.coupang.com/a/blh8s3" target="_blank" referrerpolicy="unsafe-url"> <img src="https://img1c.coupangcdn.com/image/affiliate/banner/7cba8cb0601eebaf88a17a0c3cf65a63@2x.jpg" alt="현장에서 바로 써먹는 리액트 with 타입스크립트, 심통" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://link.coupang.com/a/blh8s3" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/119695609" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000202707764" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=319109984" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"></div> </div> </div>    </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"Ruby에서 예외 처리\",\"description\":\"Ruby에서 예상치 못한 에러가 발생하였을 때, 프로그램이 종료되지 않게 하기 위해 예외 처리를 하는 방법에 대해서 알아봅시다.\",\"url\":\"/ko/ruby/exception/\",\"date\":\"2020-09-24\",\"category\":\"ruby\"},{\"title\":\"Ruby의 파일 입출력\",\"description\":\"Ruby에서 파일의 입출력을 다루는 방법에 대해서 알아봅시다.\",\"url\":\"/ko/ruby/file/\",\"date\":\"2020-09-04\",\"category\":\"ruby\"},{\"title\":\"Ruby의 절차 오브젝트\",\"description\":\"Ruby의 절차 오브젝트란 무엇이며, 어떻게 사용하는지에 대해서 알아봅니다.\",\"url\":\"/ko/ruby/procedure-object/\",\"date\":\"2020-09-01\",\"category\":\"ruby\"},{\"title\":\"Ruby의 이터레이터\",\"description\":\"Ruby에서 배열을 좀 더 편하게 다루기 위해 이터레이터를 사용하는 방법에 대해서 알아봅시다.\",\"url\":\"/ko/ruby/iterator/\",\"date\":\"2020-08-28\",\"category\":\"ruby\"},{\"title\":\"Ruby의 모듈\",\"description\":\"Ruby에서 모듈이란 무엇인지 어떻게 다루는지에 대해서 살펴봅니다.\",\"url\":\"/ko/ruby/module/\",\"date\":\"2020-08-27\",\"category\":\"ruby\"},{\"title\":\"Ruby의 클래스\",\"description\":\"Ruby에서 클래스가 무엇인지 어떻게 다루는지에 대해서 살펴봅니다.\",\"url\":\"/ko/ruby/class/\",\"date\":\"2020-08-23\",\"category\":\"ruby\"},{\"title\":\"Ruby의 문자열\",\"description\":\"Ruby에서 문자열을 다루는 방법에 대해서 살펴봅니다.\",\"url\":\"/ko/ruby/string/\",\"date\":\"2020-08-21\",\"category\":\"ruby\"},{\"title\":\"Ruby의 Object\",\"description\":\"Ruby에서 Object에 관한 개념을 살펴보고 관련된 내용을 공유합니다.\",\"url\":\"/ko/ruby/object/\",\"date\":\"2020-07-16\",\"category\":\"ruby\"},{\"title\":\"Ruby에서 메서드 사용하기\",\"description\":\"Ruby에서 메서드(함수)를 사용하는 방법에 대해서 알아봅시다.\",\"url\":\"/ko/ruby/method/\",\"date\":\"2020-06-11\",\"category\":\"ruby\"},{\"title\":\"Ruby에서 반복문 사용하기\",\"description\":\"Ruby에서 for, while 등 반복문을 사용하는 방법에 대해서 알아봅니다.\",\"url\":\"/ko/ruby/loop/\",\"date\":\"2020-06-03\",\"category\":\"ruby\"},{\"title\":\"Ruby에서 BEGIN, END\",\"description\":\"Ruby에서 BEGIN, END 블록에 관해서 알아봅시다.\",\"url\":\"/ko/ruby/begin-end-block/\",\"date\":\"2020-05-29\",\"category\":\"ruby\"},{\"title\":\"Ruby에서 범위 연산자\",\"description\":\"Ruby의 범위 연산자에 대해서 알아봅시다.\",\"url\":\"/ko/ruby/range/\",\"date\":\"2020-05-28\",\"category\":\"ruby\"},{\"title\":\"Ruby에서 배열\",\"description\":\"Ruby에서 배열을 사용하는 방법에 대해서 알아봅시다.\",\"url\":\"/ko/ruby/array/\",\"date\":\"2020-05-27\",\"category\":\"ruby\"},{\"title\":\"Ruby에서 문자열 출력 함수\",\"description\":\"Ruby에서 문자열을 출력하는 함수인, puts, print, 그리고 p 함수에 대해서 알아봅시다.\",\"url\":\"/ko/ruby/puts-print-p/\",\"date\":\"2020-05-26\",\"category\":\"ruby\"}]";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+
+            function makePostList(data, isSearch) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+
+              // Remove existing pages and page links
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = isSearch === false && post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (isSearch === true && pageNum === 1) page.classList.add('active');
+                  else if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + (isSearch === true && pageNum === 1 ? 'active' : active);
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                // Pagination
+                var existingPageItem = paginationContainer.querySelector('.page-item[data-page="' + pageNum + '"]');
+                if (!existingPageItem) {
+                  var pageItem = document.createElement('li');
+                  pageItem.className = 'page-item page-item--link ' + active;
+                  pageItem.setAttribute('data-page', pageNum);
+                  pageItem.innerHTML = '<div class="page-link" data-page="' + pageNum + '">' + pageNum + '</div>';
+
+                  var nextBtn = paginationContainer.querySelector('.page-item--next');
+                  paginationContainer.insertBefore(pageItem, nextBtn);
+                }
+
+                if (isSearch === true) {
+                  var p1 = paginationContainer.querySelector('li[data-page="1"]');
+                  if (p1) p1.classList.add('active');
+                } else if (active === 'active') {
+                  var pn = paginationContainer.querySelector('li[data-page="' + pageNum + '"]');
+                  if (pn) pn.classList.add(active);
+                }
+
+                if (pageNum > 1) {
+                  document.querySelector('.post-list-container .footer').style.display = 'flex';
+                }
+              });
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts, false);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              var currentItem = paginationContainer.querySelector('.page-item.active');
+              var currentLink = currentItem ? currentItem.querySelector('.page-link') : null;
+              var currentPageNum = currentLink ? parseInt(currentLink.getAttribute('data-page')) : 1;
+              var pageNum;
+
+              if (link.closest('.page-item--previous')) {
+                pageNum = currentPageNum > 1 ? currentPageNum - 1 : 1;
+              } else if (link.closest('.page-item--next')) {
+                var total = paginationContainer.querySelectorAll('.page-item--link').length;
+                pageNum = currentPageNum < total ? currentPageNum + 1 : total;
+              } else {
+                pageNum = parseInt(link.getAttribute('data-page'));
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + pageNum);
+              if (targetPage) targetPage.classList.add('active');
+
+              paginationContainer.querySelectorAll('.page-item').forEach(function(el) { el.classList.remove('active'); });
+              var targetPagination = paginationContainer.querySelector('.page-link[data-page="' + pageNum + '"]');
+              if (targetPagination) targetPagination.closest('.page-item').classList.add('active');
+            });
+
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keyup', function() {
+                var keyword = this.value.toLowerCase();
+                var searchResult = [];
+
+                if (keyword.length > 0) {
+                  for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    if (
+                      post.title.toLowerCase().indexOf(keyword) >= 0 ||
+                      post.description.toLowerCase().indexOf(keyword) >= 0
+                    ) {
+                      searchResult.push(post);
+                    }
+                  }
+                  makePostList(searchResult, true);
+                } else {
+                  makePostList(posts, false);
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=Ruby%EC%9D%98%20%EB%AC%B8%EC%9E%90%EC%97%B4&url=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fruby%2Fstring%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fruby%2Fstring%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/ko/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script>  </body> </html>
