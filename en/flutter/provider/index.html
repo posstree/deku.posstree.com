@@ -89,29 +89,13 @@ Github Sponsor
 <h2 id="what-is-provider">What is Provider</h2>
 <p>There are two types of the widgets. One is the <code>Stateless Widget</code> which has no state, and another is the <code>Stateful Widget</code> which has the state.</p>
 <p>The <code>Stateful Widget</code> has the state(data) and when the state is changed, the UI is changed by the state.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/state.jpg" alt="flutter state">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/state.jpg" alt="flutter state" width="807" height="528" loading="lazy" decoding="async"></picture></p>
 <p>If the other widgets need the same state(data), what can we do?</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/need_state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/need_state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/need_state.jpg" alt="flutter state required">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/need_state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/need_state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/need_state.jpg" alt="flutter state required" width="807" height="535" loading="lazy" decoding="async"></picture></p>
 <p>Change the two widgets’ shared parent widget to the <code>Stateful Widget</code>, and by passing the state to the child widget when you create the child widget, you can share the state between two widgets.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/pass_state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/pass_state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/pass_state.jpg" alt="flutter state required">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/pass_state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/pass_state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/pass_state.jpg" alt="flutter state required" width="960" height="547" loading="lazy" decoding="async"></picture></p>
 <p>However, to show the state, many widgets do <code>re-build</code> unnecessarily, so the performance issue may occur. To solve this issue, <code>Provider</code> is created. When we want to share the state between widgets globally, we use <code>Provider</code>.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/provider.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/provider.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/provider.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/provider.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/provider.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/provider.jpg" alt="flutter provider" width="960" height="547" loading="lazy" decoding="async"></picture></p>
 <p>When we use Provider, we create a class to store the state(data) regardless of the widget tree, and provider <code>Provider</code> to the shared parent widget, and read <code>Provider</code> data in the widget which needs to consume the state.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -125,11 +109,7 @@ Github Sponsor
 </div>
 <h2 id="how-to-use">How to use</h2>
 <p>Now, let’s see how to use the <code>flutter_provider</code> package to manage the global state. In this blog post, we will make a simple counter app which uses the <code>flutter_provider</code> package.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider" width="1280" height="913" loading="lazy" decoding="async"></picture></p>
 <p>When you press the <code>+</code> button, the counter is increased, and when you press the <code>-</code> button, the number is decreased. It’s very simple app, so let’s see how to use Provider in Flutter via this app.</p>
 <h3 id="provider">Provider</h3>
 <p>First, let’s create a Provider to manage the global state. Create the <code>lib/providers/counts.dart</code> file and modify it like below.</p>
@@ -375,11 +355,7 @@ Github Sponsor
 <p>Execute the command below to star the app which we’ve created.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> run</span></span></code></pre>
 <p>Or, when you can execute the app via your editor’s debug feature, you can see the screen lik below.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider" width="1280" height="913" loading="lazy" decoding="async"></picture></p>
 <p>And then, when you press the <code>+</code> button on the screen, you can see the counter is increased. Also, when you press the <code>-</code> button, you can see the number is decreased.</p>
 <h2 id="completed">Completed</h2>
 <p>Done! we’ve see how to use Provider to manage the global state in Flutter. Also, we’ve created a simple app to understand how to use Provider.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

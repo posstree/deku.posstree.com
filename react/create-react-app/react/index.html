@@ -75,11 +75,7 @@ Github Sponsor
 <h3 id="バーチャルドーム">バーチャルドーム</h3>
 <p>Reactはバーチャルドームを使ってウェブアプリケーションの性能を最大化しました。バーチャルドームを理解するためにはまず、HTMLとCSSがレンダリング(Rendering)される流れを理解する必要があります。</p>
 <p>ウェブブラウザがネットワークを通じてHTMLを受け取ったらブラウザのレンタリングエンジンはHTMLをパーシングしてドームノード(DOM Node)で作られたツーリを作ります。また、CSSファイルとHTMLのエレメント(Element)のインラインスタイルをパーシングしてスタイル情報を持ってるスタイルツーリも生成します。</p>
-<picture>
-  <source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.webp" type="image/webp">
-  <img src="/assets/images/category/react/create-react-app/react/html-css-rendering.png" alt="html css rendering process">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.avif" type="image/avif"><source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.webp" type="image/webp"><img src="/assets/images/category/react/create-react-app/react/html-css-rendering.png" alt="html css rendering process" width="1280" height="425" loading="lazy" decoding="async"></picture></p>
 <p>このようにレンターツーリが完成されたらブラウザはAttachmentと言うプロセスでスタイル情報を計算します。レンダーツーリで生成された全てのノードはattachと言う関数を持ってますが、このAttachmentと言うプロセスでこの関数が呼ばれます。呼ばれた関数はスタイルの情報を計算して結果をオブジェクトタイプで返すことになります。</p>
 <p>この時の計算は全て同期的(Synchronous)で動作して、もしレンダーツーリへ新しいノードが追加されたらそのノードのattach関数が実行され、計算のプロセスを走ることになります。</p>
 <p>レンダーツーリはAttachmentのプロセスが終わった後、レイアウトと言うプロセスが走ります。このレイアウトと言うプロセスはレンダーツーリの各ノードの座標を与えて性格的にどこにどう表示されるかを決定します。</p>
@@ -101,18 +97,10 @@ Github Sponsor
 </div>
 <h3 id="一方向データバインティング">一方向データバインティング</h3>
 <p>一方向データバインティングを説明する前に双方向データバインディングについてちょっと説明します。双方向データバインディングはUIのデータが変更されることを監視しるWatcherとジャバスクリプトデータの変更を監視するWatcherがUIとジャバスクリプトのデータを自動で同期化してくれる方式を言います。この方式を使うとプログラマはジャバスクリプト内のデータ変更とUIのデータ変更に関するデータ同期化を気にしなくてプログラムを作成することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.webp" type="image/webp">
-  <img src="/assets/images/category/react/create-react-app/react/two-way-data-binding.png" alt="two-way data binding">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.avif" type="image/avif"><source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.webp" type="image/webp"><img src="/assets/images/category/react/create-react-app/react/two-way-data-binding.png" alt="two-way data binding" width="1280" height="321" loading="lazy" decoding="async"></picture></p>
 <p>しかし、一つのデータを同期化するため二つのWatcherが使用され、データが多くなるとこのデータの同期化のためたくさんのWatcherが生成されて、逆に性能が悪くなる問題が発生します。</p>
 <p>この問題のせいで、Reactは他のフレームワークとは違って一方向データバインティングを使ってます。</p>
-<picture>
-  <source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.webp" type="image/webp">
-  <img src="/assets/images/category/react/create-react-app/react/one-way-data-binding.png" alt="one-way data binding">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.avif" type="image/avif"><source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.webp" type="image/webp"><img src="/assets/images/category/react/create-react-app/react/one-way-data-binding.png" alt="one-way data binding" width="1280" height="373" loading="lazy" decoding="async"></picture></p>
 <p>一方向データバインティングは一つのWatcherがジャバスクリプトのデータの更新を検出してユーザのUIデータを更新します。ユーザがUIを使ってジャバスクリプトのデータを更新する時は、イベントを使って更新します。このように一方向データバインティングは一つのWatcherを使うので双方向データバインティングが持ってる性能的問題を解決し、もっと簡単にデータを追跡できるようにします。</p>
 <h3 id="jsx">JSX</h3>
 <p>ReactではJSXと言う独特の文法を持っています。JSXはジャバスクリプトとHTMLを同時に使って、HTMLでジャバスクリプトの変数を直接使える一種のテンプレート言語(Template language)です。</p>

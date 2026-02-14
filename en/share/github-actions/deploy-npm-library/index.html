@@ -64,37 +64,17 @@ Github Sponsor
 <li><a href="https://www.npmjs.com/" rel="nofollow noreferrer" target="_blank">https://www.npmjs.com/</a></li>
 </ul>
 <p>After logging in, press the profile image on the top right and the <code>Access Tokens</code> menu to go to the <code>Access Tokens</code> menu.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.png" alt="NPM access token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.png" alt="NPM access token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>In the <code>Access Tokens</code> page, press the <code>Generate New Token</code> > <code>Classic Token</code> button on the top right to go to the page where you can create a new token.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>In the <code>New Access Token</code> page, select <code>Automation</code> and insert the <code>name</code> to create a new token. In my case, I create the token with the <code>For GitHub</code> name.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>After creating, you can see the screen where you can copy the token. Copy the token that will be used for <code>GitHub Actions</code>.</p>
 <h2 id="github-actions-variables">GitHub Actions variables</h2>
 <p>Go to the repository that you want to automate the <code>NPM</code> package deployment by <code>GitHub Actions</code>, and click the <code>Settings</code> > <code>Secrets and variables</code> > <code>Actions</code> menu.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.png" alt="Set NPM token to GitHub Actions variables">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.png" alt="Set NPM token to GitHub Actions variables" width="1280" height="598" loading="lazy" decoding="async"></picture></p>
 <p>When you click the <code>New repository secret</code> button on the top right, you can see the following screen.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.png" alt="Add NPM token to GitHub Actions new secret">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.png" alt="Add NPM token to GitHub Actions new secret" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>Insert <code>NPM TOKEN</code> to <code>NAME</code>, and paste <code>Access token</code> that you copied in the <code>NPM</code> site.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -195,11 +175,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> tag</span><span style="color:#C3E88D"> v0.1.0</span></span>
 <span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#C3E88D"> v0.1.0</span></span></code></pre>
 <p>After deploying the package by <code>GitHub Actions</code>, you can see the package deployed well like the following in the <code>NPM</code> site.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.png" alt="package is deployed to NPM">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.png" alt="package is deployed to NPM" width="1280" height="693" loading="lazy" decoding="async"></picture></p>
 <h2 id="completed">Completed</h2>
 <p>Done! we’ve seen how to deploy the JavaScript library automatically to <code>NPM</code> by <code>GitHub Actions</code>. If you deploy and manage the package in <code>NPM</code>, try to automate the <code>NPM</code> package deployment with <code>GitHub Actions</code>.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

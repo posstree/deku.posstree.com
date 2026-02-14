@@ -51,11 +51,7 @@ Github Sponsor
 </div>
 <h2 id="outline">Outline</h2>
 <p>In apps, we usually see the UI that shows the calendar(DatePicker) for users to select the date.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>In this blog post, I will introduce how to use <code>showDatePicker</code> to show the <code>DatePicker</code> on <code>Flutter</code>.</p>
 <ul>
 <li>showDatePicker: <a href="https://api.flutter.dev/flutter/material/showDatePicker.html" rel="nofollow noreferrer" target="_blank">https://api.flutter.dev/flutter/material/showDatePicker.html</a></li>
@@ -66,11 +62,7 @@ Github Sponsor
 </ul>
 <h2 id="prepare-project">Prepare project</h2>
 <p>To check how to use <code>showDatePicker</code>, we’ll make a simple app to show the button like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>So, execute the following command to create a new Flutter project.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> create</span><span style="color:#C3E88D"> show_date_picker</span></span></code></pre>
 <p>After creating the new Flutter project, open the <code>main.dart</code> file and modify it like the following.</p>
@@ -95,11 +87,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>The app will update the date of the button by <code>DatePicker</code>, so I use the <code>Stateful</code> widget. After modifying and saving the <code>main.dart</code> file, you can see the button is shown well like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>We didn’t add any code to the button event, so you can see nothing happens when you press the button.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -133,30 +121,14 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>The <code>showDatePicker</code> function will return the <code>Future&#x3C;DateTime?></code> type data, so you need to use <code>async-await</code>. Also, if the user doesn’t select the date, <code>null</code> will be returned, so I use the <code>if</code> statement here to store the user-selected date. Lastly, I use <code>setState</code> to update <code>State</code> with the user-selected date for updating the screen.</p>
 <p>After modifying and saving the code, you can see the button is still shown well like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>And, let’s press the button. When you press the button, you can see the calendar like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>And then, when you select the date, you can see the date of the button is changed well like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/change_date.png" alt="Flutter showDatePicker - change date by DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/change_date.png" alt="Flutter showDatePicker - change date by DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <h2 id="initialentrymode">initialEntryMode</h2>
 <p>On the current <code>DatePicker</code>, you can see the edit icon on the top right, and when you press the icon, you can see the input like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.png" alt="Flutter showDatePicker - edit date mode by DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.png" alt="Flutter showDatePicker - edit date mode by DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>If you want to disable this feature, you need to set <code>DatePickerEntryMode.calendarOnly</code> to the <code>initialEntryMode</code> option in the <code>showDatePicker</code> function like the following.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">...</span></span>
 <span class="line"><span style="color:#FFCB6B">ElevatedButton</span><span style="color:#EEFFFF">(</span></span>
@@ -178,11 +150,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>And then, you can see the edit icon on the top right is disappeared.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.png" alt="Flutter showDatePicker - disable edit date mode by DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.png" alt="Flutter showDatePicker - disable edit date mode by DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -236,11 +204,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>After modifying and saving the code, you can see Japanese is shown well on the calendar instead of English.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.png" alt="Flutter showDatePicker - change locale of date picker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.png" alt="Flutter showDatePicker - change locale of date picker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <h2 id="test-code">Test code</h2>
 <p>You can write the test code like the following to check <code>showDatePicker</code> works well.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">...</span></span>

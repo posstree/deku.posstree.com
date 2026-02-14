@@ -105,11 +105,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#89DDFF">?</span><span style="color:#EEFFFF"> Do you want to run the </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">eslintPlugin</span><span style="color:#89DDFF">'</span><span style="color:#EEFFFF"> fix on your project</span><span style="color:#89DDFF">?</span><span style="color:#EEFFFF"> › (</span><span style="color:#FFCB6B">y/N</span><span style="color:#EEFFFF">)</span></span></code></pre>
 <p><code>ESLint</code>を使ってコードを検査している場合は<code>y</code>キーを押して、違う場合は<code>N</code>キーを押して進めます。このブログポストでは<code>y</code>キーを押して進めました。</p>
 <p>その後、次のように<code>Storybook</code>に必要なライブラリが自動でインストールされることが確認できるし、<code>Storybook</code>を実行するスクリプトが自動で作成されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/sb-init.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/sb-init.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/sb-init.jpg" alt="Storybook configuration automatically">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/sb-init.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/sb-init.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/sb-init.jpg" alt="Storybook configuration automatically" width="1280" height="551" loading="lazy" decoding="async"></picture></p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
 <span class="line"><span style="color:#EEFFFF">   ...</span></span>
 <span class="line"><span style="color:#89DDFF">   "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
@@ -161,19 +157,11 @@ Github Sponsor
 <p>今まで設定した<code>Storybook</code>を実行して、<code>Storybook</code>が上手くインストールされたか確認してみましょう。次のコマンドを実行して<code>Storybook</code>を実行します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> storybook</span></span></code></pre>
 <p>そしたら、ブラウザに<code>http://localhost:6006/</code>が事項で開いて、次のような画面が表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen" width="1280" height="590" loading="lazy" decoding="async"></picture></p>
 <p>この画面は<code>./stories/Introduction.stories.mdx</code>ファイル内容が表示された画面です。</p>
 <h2 id="storybookの確認">Storybookの確認</h2>
 <p>実行された<code>Storybook</code>の左メニューの<code>Button > Primary</code>を押すと次のような画面が表示されます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook-button-sample.jpg" alt="Storybook button sample">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook-button-sample.jpg" alt="Storybook button sample" width="1280" height="578" loading="lazy" decoding="async"></picture></p>
 <p>この画面は<code>./stories/Button.stories.tsx</code>ファイルの内容が表示された画面です。</p>
 <h2 id="サンプルコード確認">サンプルコード確認</h2>
 <p>もっと詳しくサンプルコードを確認してみましょう。<code>Button</code>コンポーネント(<code>./stories/Button.tsx</code>)は次のようになります。</p>
@@ -252,11 +240,7 @@ Github Sponsor
 <span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> Template</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> ComponentStory</span><span style="color:#89DDFF">&#x3C;typeof</span><span style="color:#EEFFFF"> Button</span><span style="color:#89DDFF">></span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">args</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#FFCB6B">Button</span><span style="color:#89DDFF"> {...</span><span style="color:#EEFFFF">args</span><span style="color:#89DDFF">} />;</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p><code>argTypes</code>の<code>backgroundColor</code>に<code>control: 'color'</code>を設定すると、次のように<code>Storybook</code>で色を選択することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook-color-control.jpg" alt="Storybook color control">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook-color-control.jpg" alt="Storybook color control" width="1280" height="791" loading="lazy" decoding="async"></picture></p>
 <p>その後、画面に表示される<code>Story</code>を作成します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="jsx"><code><span class="line"><span style="color:#89DDFF">...</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">export</span><span style="color:#C792EA"> const</span><span style="color:#EEFFFF"> Primary </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> Template</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">bind</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">{}</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
@@ -322,11 +306,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p><code>Storybook</code>の設定を変更したので、これを反映されるため、現在実行中の<code>Storybook</code>を終了して、再び実行します。<code>Storybook</code>が再び実行されると次のように私たちが作った<code>SampleButton</code>が上手く表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook-sample-button.jpg" alt="Storybook SampleButton">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook-sample-button.jpg" alt="Storybook SampleButton" width="1280" height="796" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>今回のブログポストでは<code>TypeScript</code>をベースにする<code>Next.js</code>プロジェクトにコンポーネント主導開発をするため、<code>Storybook</code>を設定する方法についてみてみました。今度からアプリを開発するとき、<code>Storybook</code>を見ながら、コンポーネントに集中して開発してみてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

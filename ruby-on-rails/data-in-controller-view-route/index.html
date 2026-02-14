@@ -98,11 +98,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> s</span></span>
 <span class="line"><span style="color:#545454;font-style:italic"># bundle exec rails server</span></span></code></pre>
 <p>そしてブラウザで<code>http://127.0.0.1:3000/</code>に接続したら、下記のように設定した変数が画面に表示されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.jpg" alt="Ruby on Rails サーバー実行の結果 - ControllerとViewのデーター交換">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.jpg" alt="Ruby on Rails サーバー実行の結果 - ControllerとViewのデーター交換" width="1280" height="642" loading="lazy" decoding="async"></picture></p>
 <p>このようにControllerからViewへデータを伝達するためにはインスタンス変数を使えます。</p>
 <h2 id="viewからcontrollerでデータを伝達">ViewからControllerでデータを伝達</h2>
 <p>ControllerからViewへデータを伝達するためには簡単にインスタンスヘンスを使えば良いでした。この理由はURLでRailsのウェブにリクエストが入ってくるとControllerがそのリクエストを処理して、Viewど表示するためです。</p>
@@ -141,17 +137,9 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#EEFFFF">input type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">submit</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#EEFFFF">form</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>そしてブラウザをみると下記のような画面が確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.jpg" alt="POST転送 - データを入力する前の画面">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.jpg" alt="POST転送 - データを入力する前の画面" width="1280" height="642" loading="lazy" decoding="async"></picture></p>
 <p>そして入力欄へデータを入力して<code>Submit</code>ボタンを押したら下記のようなエラーが発生します。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.jpg" alt="POST転送 - データ送信エラー画面">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.jpg" alt="POST転送 - データ送信エラー画面" width="1280" height="715" loading="lazy" decoding="async"></picture></p>
 <p>エラーメッセージ(<code>Routing Error</code>)を見ると分かると思いますが、Route設定をしてないので、このようなエラーが発生しました。</p>
 <p>まず、今現在のRouteファイルを確認するため、<code>config/routes.rb</code>ファイルを開いてみます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="rb"><code><span class="line"><span style="color:#FFCB6B">Rails</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">application</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">routes</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">draw</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
@@ -164,11 +152,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  post </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> to:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">home#index</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>そして、また、<code>submit</code>ボタンを押すと下記のようなエラーメッセージが表示されることが見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.jpg" alt="POST転送 - データ転送エラー画面 authenticity token">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.jpg" alt="POST転送 - データ転送エラー画面 authenticity token" width="1280" height="704" loading="lazy" decoding="async"></picture></p>
 <p>他の言語のフレームワークようにRailsも基本的セキュリティーの脆弱性を保護してます。ここでRailsは<code>CSRF - Cross-site request forgery</code>の脆弱性を保護するため、POSTデータを送信する時、特定キー(key)を一緒に送るようにしてます。</p>
 <p>このエラーを解決するためにはPOSTデータを転送する時、<code>authenticity_token</code>と言うパラメータでRailsが提供する<code>form_authenticity_token</code>を一緒に送る必要があります。</p>
 <p>もう一回<code>app/views/home/index.erb</code>ファイルを開いて下記のように修正します。</p>
@@ -181,11 +165,7 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#EEFFFF">input type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">submit</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#EEFFFF">form</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>そしてまた、<code>http://127.0.0.1:3000/</code>接続して、入力欄にtestを入力してsubmitボタンを押すと下記のようにデータが上手く送信されて表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.jpg" alt="POST転送 - データ転送成功画面">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.jpg" alt="POST転送 - データ転送成功画面" width="1280" height="487" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでControllerとViewの間でデータを転送する方法についてみてみました。</p>
 <p>ControllerからViewへデータを転送するためにはインスタンス変数を使って、ViewからControllerへデータを送信するためにはGET/POST形式でデータを転送しました。

@@ -62,46 +62,26 @@ Github Sponsor
 <p>ウェブ開発においてキャッシュ(Cache)は重要な役割を果たします。キャッシュを通じてウェブサービスのパフォーマンスを向上させることができ、ユーザーエクスペリエンスを改善することができます。今回のブログポストでは、ウェブ開発におけるキャッシュ(Cache)について説明をして、AWS S3に静的ファイルでウェブサービスを提供する際にキャッシュを適用する方法について説明します。</p>
 <h2 id="ウェブキャッシュの誕生背景">ウェブキャッシュの誕生背景</h2>
 <p>クライアント(PC、スマートフォン)からサーバーにある情報を取得するためにはインターネット(Internet)を使います。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.png" alt="Web cache and S3 - server and client with internet">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.png" alt="Web cache and S3 - server and client with internet" width="709" height="423" loading="lazy" decoding="async"></picture></p>
 <p>クライアントとサーバーを接続するインターネットは物理的に接続されており、世界中のインターネットは海底ケーブルで接続されています。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.jpg" alt="Web cache and S3 - internet submarine cable">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.jpg" alt="Web cache and S3 - internet submarine cable" width="628" height="314" loading="lazy" decoding="async"></picture></p>
 <p>クライアントとサーバーはこのように物理的に接続されているため、もちろん距離が遠いほどデータの送受信に時間がかかることになります。</p>
 <h2 id="ウェブキャッシュ">ウェブキャッシュ</h2>
 <p>ウェブキャッシュは物理的に遠い場所にあるサーバーのコンテンツのうち、変更が少ないコンテンツ(静的コンテンツ: HTML、CSS、JS、画像、ビデオなど)を物理的に近い場所(サーバー)にコピーして配置することでデータの送受信の遅延を減らす技術です。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" alt="Web cache and S3 - web cache">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.avif" type="image/avif"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" alt="Web cache and S3 - web cache" width="1000" height="500" loading="lazy" decoding="async"></picture></p>
 <p>ウェブでは大きく3つのキャッシュを使用します。</p>
 <ol>
 <li>CDN(Contents Delivery Network)</li>
 <li>ブラウザキャッシュ(Browser cache)</li>
 <li>データベースキャッシュ(Database cache)</li>
 </ol>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache with browser">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache with browser" width="1110" height="578" loading="lazy" decoding="async"></picture></p>
 <p>今回のブログポストではCDNとブラウザキャッシュについて説明します。</p>
 <h3 id="cdncontents-delivery-network">CDN(Contents Delivery Network)</h3>
 <p>CDNは変更が少ないコンテンツのコピーを世界中の複数の場所にあるサーバーに配置してコンテンツを提供するサービスです。</p>
 <p>これを通じてクライアントとサーバー間の距離を縮めてデータの送受信の遅延を減らすことができます。</p>
 <p>例えば、世界的に有名なCDNサービスである<code>Cloudflare</code>は次のように世界中にサーバーを置いています。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.png" alt="Web cache and S3 - cloudflare server list">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.png" alt="Web cache and S3 - cloudflare server list" width="1280" height="542" loading="lazy" decoding="async"></picture></p>
 <p><code>Cloudflare</code>を利用すると静的ファイルを<code>Cloudflare</code>が提供するサーバーにコピーしてクライアントと近いサーバーからコンテンツを提供することができます。</p>
 <h3 id="ブラウザキャッシュbrowser-cache">ブラウザキャッシュ(Browser cache)</h3>
 <p>クライアント側から見ると最も近いサーバーはクライアント自体です。ブラウザはクライアントが一度アクセスしたサイトから一部のコンテンツをクライアントストレージに保存して再度アクセスする際にこの保存されたコンテンツを使えるようにするブラウザキャッシュ機能を提供します。</p>
@@ -122,11 +102,7 @@ Github Sponsor
 </div>
 <h2 id="ウェブキャッシュの動作方法">ウェブキャッシュの動作方法</h2>
 <p>ウェブキャッシュがどのように動作するかについて説明します。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache process">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache process" width="1110" height="578" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>ユーザーがブラウザからサービスにアクセスします。</li>
 <li>ブラウザはブラウザにキャッシュされたものがあるか確認し、キャッシュがある場合はそれを使って画面を表示します。</li>
@@ -200,11 +176,7 @@ Github Sponsor
 </ul>
 <p>S3はストレージサービスですが、静的ファイルでウェブサービスを提供するサーバー機能も提供しています。</p>
 <p>一般的にHTML、CSS、JavaScriptで開発された静的ウェブページやReact、Vue、Angularなどのフロントエンドフレームワークで開発されたウェブアプリケーションのビルド結果をS3にアップロードしてCloudFrontを通じてサービスします。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.png" alt="Web cache and S3 - AWS S3 and CloudFront cache">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.png" alt="Web cache and S3 - AWS S3 and CloudFront cache" width="1024" height="798" loading="lazy" decoding="async"></picture></p>
 <p>この時、S3にアップロードしたファイル設定を通じてブラウザキャッシュとCDN(CloudFront)キャッシュを設定することができます。</p>
 <h2 id="aws-s3キャッシュ設定">AWS S3キャッシュ設定</h2>
 <p>キャッシュはHTTPのレスポンスヘッダーに<code>Expires</code>や<code>Cache-Control</code>を設定するため、基本的にフロントエンド側で設定することはできません。</p>
@@ -243,11 +215,7 @@ Github Sponsor
 <li><a href="https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/" rel="nofollow noreferrer" target="_blank">https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/</a></li>
 </ul>
 <p>stale-while-revalidateを使うと中断なしにサービスバージョンを更新することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.png" alt="Web cache and S3 - stale-while-revalidate option for no downtime deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.png" alt="Web cache and S3 - stale-while-revalidate option for no downtime deployment" width="941" height="710" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>ユーザーがブラウザでサービスを実行します。</li>
 <li>V1で既にサービスを利用しているユーザーは、ブラウザにstale-while-revalidateが設定されたV1のキャッシュがあるため、それを優先して使います。</li>

@@ -253,11 +253,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">./install.sh</span></span></code></pre>
 <h3 id="セキュリティとプライバシー">セキュリティとプライバシー</h3>
 <p>Casksでダウンロードしたツールはウェブでダウンロードしたツールと同じなので実行すると<code>Security</code>の問題で実行が出来ません。普通はこの時、<code>設定 > セキュリティとプライバシー</code>を開いて<code>許可</code>ボタンを押してツールを実行します。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ja.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ja.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ja.jpg" alt="マック(mac)の開発環境設定 - セキュリティとプライバシーの許可">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ja.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ja.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ja.jpg" alt="マック(mac)の開発環境設定 - セキュリティとプライバシーの許可" width="582" height="496" loading="lazy" decoding="async"></picture></p>
 <p>この部分も下記のコマンドで解決出来ます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># sudo xattr -dr com.apple.quarantine /Applications/[App name]</span></span>
 <span class="line"><span style="color:#FFCB6B">sudo</span><span style="color:#C3E88D"> xattr</span><span style="color:#C3E88D"> -dr</span><span style="color:#C3E88D"> com.apple.quarantine</span><span style="color:#C3E88D"> /Applications/Sourcetree.app</span></span></code></pre>
@@ -500,11 +496,7 @@ Github Sponsor
 <span class="line"><span style="color:#FFCB6B">code</span><span style="color:#C3E88D"> --install-extension</span><span style="color:#C3E88D"> shardulm94.trailing-spaces</span></span>
 <span class="line"><span style="color:#FFCB6B">code</span><span style="color:#C3E88D"> --install-extension</span><span style="color:#C3E88D"> vscode-icons-team.vscode-icons</span></span></code></pre>
 <p>VSCodeのextensionをインストールするためには<code>code --install-extension [extension id]</code>なようにコマンドを作ります。ここで<code>extension id</code>は下記のようにExtensionの詳細ページでExtensionの名前の横で確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.jpg" alt="マック(mac)の開発環境設定 - vscode  extension インストール">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.jpg" alt="マック(mac)の開発環境設定 - vscode  extension インストール" width="1120" height="324" loading="lazy" decoding="async"></picture></p>
 <p>最後には現在使ってるVSCodeの設定を<code>./vscode/</code>フォルダにコピーします。VSCodeの設定は下記のフォルダにあります。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#89DDFF">~</span><span style="color:#EEFFFF">/Library/Application\ Support/Code/User/settings.json</span></span></code></pre>
 <p>このようにコピーした<code>settings.json</code>ファイルを新しマックで設定するため下記のコマンドを<code>./vscode/install.sh</code>に追加します。</p>
@@ -557,17 +549,9 @@ Github Sponsor
 </div>
 <h3 id="iterm2">iTerm2</h3>
 <p>iTerm2のインストールや設定を管理するため<code>./iterm2/</code>フォルダを生成します。そして現在のiTerm2を実行します。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.jpg" alt="マック(mac)の開発環境設定 - iterm2 設定">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.jpg" alt="マック(mac)の開発環境設定 - iterm2 設定" width="648" height="440" loading="lazy" decoding="async"></picture></p>
 <p>iTerm2の現在設定をエクスポートするため<code>Preferences... > General > Preferences</code>を選択します。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.jpg" alt="マック(mac)の開発環境設定 - iterm2 設定エクスポート 내보내기">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.jpg" alt="マック(mac)の開発環境設定 - iterm2 設定エクスポート 내보내기" width="672" height="331" loading="lazy" decoding="async"></picture></p>
 <p>上の画面で<code>Load preferences from a custom folder or URL</code>をチェックします。そして<code>Browse</code>ボタンを押して上部で作った<code>./iterm2/</code>フォルダを設定します。</p>
 <p>設定を完了したら<code>Save Current Settings to Folder</code>ボタンを押して現在のiTerm2の設定をエクスポートします。</p>
 <p>このように設定をエクスポートすると、<code>./iterm2/com.googlecode.iterm2.plist</code>ファイルが生成されることが確認できます。</p>
@@ -667,16 +651,8 @@ Github Sponsor
 <p>スクリプトが実行する際、管理者権限が必要なコマンドがあるので途中に管理者のパスワードを入力する必要があります。</p>
 <h3 id="iterm2手動設定">iTerm2手動設定</h3>
 <p>残念ですがiTerm2は手動でテーマとフォントを設定する必要があります。下記のように新しマックに手動でテーマとフォントを設定します。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.jpg" alt="マック(mac)の開発環境設定 - iterm2のテーマを手動で設定">
-</picture>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.jpg" alt="マック(mac)の開発環境設定 - iterm2のフォントを手動で設定">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.jpg" alt="マック(mac)の開発環境設定 - iterm2のテーマを手動で設定" width="953" height="673" loading="lazy" decoding="async"></picture></p>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.jpg" alt="マック(mac)の開発環境設定 - iterm2のフォントを手動で設定" width="953" height="673" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>今回、マックのOSであるカタリナ(Catalina)をアップデートする際、マックの開発環境を最初から構築することになりました。毎回毎回、手動で一つ一つづつインストールしたものをちょっと効率的できる方法がないか探してみて、今回のブログを作成することになりました。</p>
 <p>今後はHomebrewとShell Scriptを使ってマックをもっと簡単に再設定ができるようになりました。皆さんも皆さんのBrewfileとShell Scriptを作って簡単にマックの開発環境が設定できるようにしてみてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

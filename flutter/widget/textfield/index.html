@@ -119,11 +119,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>上のようにコードをセク生すると次のような画面が確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield.jpg" alt="Flutter - textfield">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield.jpg" alt="Flutter - textfield" width="1280" height="975" loading="lazy" decoding="async"></picture></p>
 <p><code>TextField</code>を表示する部分を詳しくみてみましょう。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#FFCB6B">TextField</span><span style="color:#EEFFFF">(</span></span>
 <span class="line"><span style="color:#EEFFFF">  decoration</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> InputDecoration</span><span style="color:#EEFFFF">(</span></span>
@@ -163,11 +159,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  keyboardType</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> TextInputType</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">emailAddress</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#EEFFFF">)</span></span></code></pre>
 <p>このように<code>InputDecoration</code>を使うと下記のように色んなデザインを適用することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/input_decoration.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/input_decoration.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/input_decoration.jpg" alt="Flutter - TextField InputDecoration">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/input_decoration.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/input_decoration.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/input_decoration.jpg" alt="Flutter - TextField InputDecoration" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -180,23 +172,11 @@ Github Sponsor
 </div>
 <h2 id="singlechildscrollview">SingleChildScrollView</h2>
 <p><code>TextField</code>を使うとキーボードが出た時、下記のように特に問題はないです。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield_keyboard.jpg" alt="Flutter - TextField keyboard">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield_keyboard.jpg" alt="Flutter - TextField keyboard" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <p>しかし、普通デザインのため<code>Column</code>ウィジェットと<code>TextField</code>を使います。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_column.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_column.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield_column.jpg" alt="Flutter - TextField column">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield_column.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield_column.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield_column.jpg" alt="Flutter - TextField column" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <p>この時、Columnのエリアの上にキーボードが表示されると下記のようなワーニングがでます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_column_warning.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_column_warning.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield_column_warning.jpg" alt="Flutter - TextField column">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield_column_warning.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield_column_warning.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield_column_warning.jpg" alt="Flutter - TextField column" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <p>このワーニングを解決するため、使えるものが<code>SingleChildScrollView</code>ウィジェットです。</p>
 <p><code>SingleChildScrollView</code>ウィジェットを次のように使うと上の問題を解決することができます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#FFCB6B">SingleChildScrollView</span><span style="color:#EEFFFF">(</span></span>
@@ -234,11 +214,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  )</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#EEFFFF">)</span></span></code></pre>
 <p><code>SingleChildScrollView</code>を使うと、TextFieldでキーボードがアクティブされた時、画面がスクロールできる状態になって発生した問題が解決されます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_with_single_child_scroll_view.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_with_single_child_scroll_view.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield_with_single_child_scroll_view.jpg" alt="Flutter - TextField SingleChildScrollView">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield_with_single_child_scroll_view.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield_with_single_child_scroll_view.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield_with_single_child_scroll_view.jpg" alt="Flutter - TextField SingleChildScrollView" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -339,11 +315,7 @@ Github Sponsor
 <p>変更された値を保存するため、<code>StatefulWidget</code>を生成しました。そして、ユーザの入力を保存するためString変数を定義しました。このように生成したString変数を<code>Text</code>ウィジェットを使って画面へ表示しました。</p>
 <p>そして<code>TextField</code>ウィジェットの<code>onChanged</code>関数を使ってユーザが入力した値を<code>setState</code>を使って宣言した変数を変更しました。</p>
 <p>今から、TextFieldの値を入力すると、次のようにTextFieldの上に入力した内容が出力されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_on_changed.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_on_changed.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield_on_changed.jpg" alt="Flutter - TextField SingleChildScrollView">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield_on_changed.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield_on_changed.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield_on_changed.jpg" alt="Flutter - TextField SingleChildScrollView" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -449,11 +421,7 @@ Github Sponsor
 </div>
 <h2 id="scaffoldのresizetoavoidbottominset">ScaffoldのresizeToAvoidBottomInset</h2>
 <p><code>TextField</code>ウィジェットを使って開発する時、次のようにキーボードとコンテンツの間に空間が表示される場合が発生します。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard_space.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard_space.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield_keyboard_space.jpg" alt="Flutter - TextField resizeToAvoidBottomInset error">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard_space.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield_keyboard_space.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield_keyboard_space.jpg" alt="Flutter - TextField resizeToAvoidBottomInset error" width="1280" height="903" loading="lazy" decoding="async"></picture></p>
 <p>この時は<code>Scaffold</code>の<code>resizeToAvoidBottomInset</code>オプションを使うと問題を解決することができます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#FFCB6B">Scaffold</span><span style="color:#EEFFFF">(</span></span>
 <span class="line"><span style="color:#EEFFFF">  resizeToAvoidBottomInset</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> false,</span></span>
@@ -470,11 +438,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  )</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span></code></pre>
 <p>このように<code>Scaffold</code>の<code>resizeToAvoidBottomInset</code>オプションを<code>false</code>で設定すると次のように問題が解決されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_resizeToAvoidBottomInset.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/textfield/textfield_resizeToAvoidBottomInset.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/textfield/textfield_resizeToAvoidBottomInset.jpg" alt="Flutter - TextField resizeToAvoidBottomInset">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/textfield/textfield_resizeToAvoidBottomInset.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/textfield/textfield_resizeToAvoidBottomInset.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/textfield/textfield_resizeToAvoidBottomInset.jpg" alt="Flutter - TextField resizeToAvoidBottomInset" width="1280" height="903" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これで<code>TextField</code>ウィジェットを使ってユーザが入力した値にアクセスして使う方法についてみてみました。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

@@ -262,11 +262,7 @@ To DB created like this, we will do CRUD(Create Read Update Delete) to understan
 <span class="line"></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>Also you can see the Table created well via Database tool like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/result-create-table.jpg" alt="Ruby on Rails result of table creation">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/result-create-table.jpg" alt="Ruby on Rails result of table creation" width="871" height="216" loading="lazy" decoding="async"></picture></p>
 <p>After creating Table via Migration, you can execute the command below to rollback.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rake</span><span style="color:#C3E88D"> db:rollback</span></span></code></pre>
 <div class="in-feed-ads ads-container">
@@ -308,11 +304,7 @@ To DB created like this, we will do CRUD(Create Read Update Delete) to understan
 <p>And then, to check it, execute the command below to start Rails server.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> s</span></span></code></pre>
 <p>When you open <code>http://127.0.0.1:3000/form</code> on the browser, you can see the screen like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/form-page.jpg" alt="Ruby on Rails, CRUD create data form">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/form-page.jpg" alt="Ruby on Rails, CRUD create data form" width="884" height="242" loading="lazy" decoding="async"></picture></p>
 <p>Let’s make it to get the data and to save it. Open <code>app/controllers/home_controller.rb</code> file and modify it like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="rb"><code><span class="line"><span style="color:#89DDFF;font-style:italic">class</span><span style="color:#FFCB6B"> HomeController</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#FFCB6B"> ApplicationController</span></span>
 <span class="line"><span style="color:#89DDFF">    ...</span></span>
@@ -346,11 +338,7 @@ To DB created like this, we will do CRUD(Create Read Update Delete) to understan
 <span class="line"><span style="color:#EEFFFF">  get </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/list</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> to:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">home#list</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>And insert Data on <code>http://127.0.0.1:3000/form</code> and click the Submit button. You can see the URL is redirected to <code>http://127.0.0.1:3000/list</code>. Also, You can see the data is created well via Database tool.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/result-create-data.jpg" alt="Ruby on Rails, CRUD - check data is created">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/result-create-data.jpg" alt="Ruby on Rails, CRUD - check data is created" width="871" height="216" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -403,11 +391,7 @@ To DB created like this, we will do CRUD(Create Read Update Delete) to understan
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">&#x3C;%= post.title %></span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">&#x3C;%= post.content %></span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>After this, when you open <code>http://127.0.0.1:3000/list</code> on the browser, you can see the data is shown well like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/display-data.jpg" alt="Ruby on Rails display data from database">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/display-data.jpg" alt="Ruby on Rails display data from database" width="884" height="300" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -465,17 +449,9 @@ Get <code>id</code> via URL, find the Data using id in Controller, and display i
 <span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">tbody</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">table</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>And then, open <code>http://127.0.0.1:3000/list</code> on the browser. You can see the data is shown well like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails add the link to modify the data">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails add the link to modify the data" width="764" height="308" loading="lazy" decoding="async"></picture></p>
 <p>Here, when you click <code>modify</code> link, you can see the screen like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/modify-page.jpg" alt="Ruby on Rails modify data page">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/modify-page.jpg" alt="Ruby on Rails modify data page" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <p>Let’s make update action to update the data. We’ve made to click the Submit button in <code>modify</code> page to go to the <code>/update/:id</code>.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">a</span><span style="color:#C792EA"> href</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/list</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">Go back</span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">a</span><span style="color:#89DDFF">>&#x3C;</span><span style="color:#F07178">br</span><span style="color:#89DDFF">/></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">form</span><span style="color:#C792EA"> action</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/update/&#x3C;%= @post.id %></span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> method</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">POST</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span></span>
@@ -502,23 +478,11 @@ Lastly, after updating the data, redirect to <code>/list</code> page.</p>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>This route will get <code>id</code> via URL parameter, and get the data that user inputs through the Post method.</p>
 <p>Go to the modify page,</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails modify data page">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails modify data page" width="764" height="308" loading="lazy" decoding="async"></picture></p>
 <p>Input the different contents like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/update-data.jpg" alt="Ruby on Rails modify data page - edit data">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/update-data.jpg" alt="Ruby on Rails modify data page - edit data" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <p>And then, when you click the <code>Submit</code> button, you can see the data is updated well like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/update-data-result.jpg" alt="Ruby on Rails data list page - result of updating the data">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/update-data-result.jpg" alt="Ruby on Rails data list page - result of updating the data" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -565,17 +529,9 @@ Lastly, after updating the data, redirect to <code>/list</code> page.</p>
 <span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">tbody</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">table</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>Open <code>http://127.0.0.1:3000/list</code> on the browser again. You can see the <code>delete</code> link is added like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/delete-link.jpg" alt="Ruby on Rails data list page - delete link">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/delete-link.jpg" alt="Ruby on Rails data list page - delete link" width="748" height="362" loading="lazy" decoding="async"></picture></p>
 <p>Click <code>delete</code> link. You can see the data is deleted when you click the <code>delete</code> link, and you can see the data is disappeared on the list page.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/deleted.jpg" alt="Ruby on Rails data list page - succeed to delete">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/deleted.jpg" alt="Ruby on Rails data list page - succeed to delete" width="748" height="362" loading="lazy" decoding="async"></picture></p>
 <h2 id="completed">Completed</h2>
 <p>In this blog post, we’ve seen how to create the Database in Ruby on Rails and how to do CRUD(Create Read Update Delete) on Rails. Now, you’re ready to develop a web service by Ruby on Rails.</p>
 <p>Study Rails deeply while making a web service.</p>

@@ -58,11 +58,7 @@ Github Sponsor
 <p>테스트 코드에서 부모 위젯이나 자식 위젯을 찾는 방법을 알아보기 위해, 다음 명령어를 실행하여 새로운 프로젝트를 생성합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> create</span><span style="color:#C3E88D"> find_child_and_parent_widget</span></span></code></pre>
 <p>이번 블로그 포스트에서는 <code>flutter create</code> 명령어로 생성된 기본 앱의 테스트 코드를 수정하여 부모나 자식 위젯에 접근하는 방법에 대해서 알아보도록 하겠습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png" alt="Flutter find child and parent widget - basic_app">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png" alt="Flutter find child and parent widget - basic_app" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <h2 id="부모-위젯-찾기">부모 위젯 찾기</h2>
 <p>테스트 코드에서 부모 위젯을 찾기 위해서는 <code>findAncestorWidgetOfExactType</code>을 사용해야 합니다. 부모 위젯을 찾는 방법에 대해 알아보기 위해 <code>test/widget_test.dart</code> 파일을 열고 다음과 같이 수정합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#82AAFF">testWidgets</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'Find parent widget'</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> (</span><span style="color:#FFCB6B">WidgetTester</span><span style="color:#EEFFFF"> tester) </span><span style="color:#89DDFF;font-style:italic">async</span><span style="color:#EEFFFF"> {</span></span>

@@ -41,11 +41,7 @@ Github Sponsor
 <p>we’ve submitted an app for review but rejected by App crash reason. Apple sent kindly rejected reason and crash log files. so in here we will see how to analyze crash log files and find where problem is.</p>
 <h2 id="app-review-rejection">App review rejection</h2>
 <p>Apple send email when the app is rejected in review. if you got the email, go to App store Connect and check out what reject reason is.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.jpg" alt="app review reject">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.jpg" alt="app review reject" width="1280" height="504" loading="lazy" decoding="async"></picture></p>
 <p>especially, if app review rejection reason is App crash, Apple would send App crash log files.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Guideline 2.1 - Performance - App Completeness</span></span>
 <span class="line"><span></span></span>
@@ -77,17 +73,9 @@ Github Sponsor
 </div>
 <h2 id="download-symbol-file">download Symbol file</h2>
 <p>we need the Symbol file(<code>dSYM</code>) to analyze App crash log files. go to <code>Activity</code> tab in App Store Connect.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.jpg" alt="Activity tab in App Store Connect">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.jpg" alt="Activity tab in App Store Connect" width="1280" height="504" loading="lazy" decoding="async"></picture></p>
 <p>click <code>All Builds</code> menu on left side and select build version which you submitted for app review.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.jpg" alt="download symbol file">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.jpg" alt="download symbol file" width="1280" height="552" loading="lazy" decoding="async"></picture></p>
 <p>click <code>Download dSYM</code> on left bottom of the screen to download  and unzip it.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>7ED9CAAD-F7F7-31E6-8480-2D358FBEF9C7.dSYM</span></span>
 <span class="line"><span>E3430BAD-2EB8-3B8D-8E04-4BB66E2A4E58.dSYM</span></span></code></pre>

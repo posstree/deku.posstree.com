@@ -52,11 +52,7 @@ Github Sponsor
 <p>このように生成したアプリは基本的<code>com.example.project_name</code>のように任意にApplication IDが生成されます。Flutterで開発されたアプリをデプロイするためにはユニークなIDでApplication IDを変更する必要があります。今回のブログポストではFlutterで生成したアプリのApplication IDを変更する方法について説明します。</p>
 <h2 id="ios">iOS</h2>
 <p>Flutterで生成したプロジェクトでiOSアプリのApplication IDを変更するため<code>ios/Runner.xcworkspace</code>ファイルを実行します。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/app-id/bundle-identifier.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/app-id/bundle-identifier.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/app-id/bundle-identifier.jpg" alt="flutter change iOS bundle identifier">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/app-id/bundle-identifier.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/app-id/bundle-identifier.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/app-id/bundle-identifier.jpg" alt="flutter change iOS bundle identifier" width="1280" height="396" loading="lazy" decoding="async"></picture></p>
 <p><code>Xcode</code>が実行されたら、左タブで<code>Runner</code>を選択して<code>Targets</code>で<code>Runner</code>を選択します。そして<code>General</code>タブで<code>Bundle Identifier</code>を好きなApplication IDで変更します。</p>
 <p>Application IDは普通次のようにURLを逆で入力する形を使います。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">com.posstree.dev.yakuza.app</span></span></code></pre>

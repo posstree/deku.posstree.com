@@ -57,11 +57,7 @@ Github Sponsor
 <p>To see how to find the parent widget or child widget in the test code, execute the following command to create a new Flutter project.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> create</span><span style="color:#C3E88D"> find_child_and_parent_widget</span></span></code></pre>
 <p>In this blog post, I will use the basic app, that is created when the <code>flutter create</code> command is executed, to access the parent widget or child widget.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png" alt="Flutter find child and parent widget - basic_app">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png" alt="Flutter find child and parent widget - basic_app" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <h2 id="find-parent-widget">Find parent widget</h2>
 <p>To find the parent widget in the test code, you can use <code>findAncestorWidgetOfExactType</code>. Open the <code>test/widget_test.dart</code> file and modify it like the following to see how to find the parent widget.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#82AAFF">testWidgets</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'Find parent widget'</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> (</span><span style="color:#FFCB6B">WidgetTester</span><span style="color:#EEFFFF"> tester) </span><span style="color:#89DDFF;font-style:italic">async</span><span style="color:#EEFFFF"> {</span></span>

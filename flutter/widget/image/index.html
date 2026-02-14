@@ -111,11 +111,7 @@ Github Sponsor
 <p>イメージを表示するためには下記のように<code>Image</code>ウィジェットを使います。ローカルイメージを使う時には<code>AssetsImage</code>ウィジェットを使うし、表示したいローカルイメージを指定します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#FFCB6B">Image</span><span style="color:#EEFFFF">(image</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> AssetImage</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'assets/profile.png'</span><span style="color:#EEFFFF">))</span></span></code></pre>
 <p>このように<code>main.dart</code>ファイルを修正してFlutterプロジェクトを実行すると次のようにローカルイメージがうまく表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/image/local_image.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/image/local_image.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/image/local_image.jpg" alt="Flutter - local image">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/image/local_image.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/image/local_image.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/image/local_image.jpg" alt="Flutter - local image" width="1280" height="967" loading="lazy" decoding="async"></picture></p>
 <p>次のように<code>Image</code>ウィジェットの色んなオプションを使ってイメージを表示することができます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#FFCB6B">Image</span><span style="color:#EEFFFF">(</span></span>
 <span class="line"><span style="color:#EEFFFF">  image</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> AssetImage</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'assets/profile.png'</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">,</span></span>

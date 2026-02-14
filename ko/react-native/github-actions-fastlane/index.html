@@ -168,11 +168,7 @@ Github Sponsor
 <p>iOS에서 Fastlane은 인증서, 2FA 인증 등으로 인해 조금 복잡합니다.</p>
 <h3 id="certificate">Certificate</h3>
 <p>일단 로컬에서 배포에 사용하는 인증서를 서버에서도 사용할 수 있게 해야합니다. <code>Keychain Access</code>를 열고 현재 사용하고 있는 인증서에서 마우스 오른쪽 클릭을 하고, <code>Export</code> 메뉴를 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/certificate.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/certificate.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/github-actions-fastlane/certificate.jpg" alt="Export Certificate">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/certificate.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/certificate.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/github-actions-fastlane/certificate.jpg" alt="Export Certificate" width="1280" height="753" loading="lazy" decoding="async"></picture></p>
 <p>메뉴를 선택하면 암호를 입력하는 화면이 나옵니다. 해당 암호는 나중에 Fastlane에도 설정을 해야함으로 잘 기억해 둡니다.</p>
 <p>이렇게 저장한 파일을 React Native 프로젝트의 <code>ios</code> 폴더에 복사합니다. 저는 알기 쉽게 하기 위해 파일명을 <code>distribution.p12</code>으로 변경하여 저장하였습니다.</p>
 <h3 id="provisioning-profile">Provisioning profile</h3>
@@ -181,11 +177,7 @@ Github Sponsor
 <li><a href="https://developer.apple.com/account/resources/profiles/list" rel="nofollow noreferrer" target="_blank">https://developer.apple.com/account/resources/profiles/list</a></li>
 </ul>
 <p>그리고 GitHub Actions를 통해 배포하려는 앱의 Provisioning profile 파일을 다운로드받습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/provisioning_profile.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/provisioning_profile.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/github-actions-fastlane/provisioning_profile.jpg" alt="Export Certificate">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/provisioning_profile.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/provisioning_profile.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/github-actions-fastlane/provisioning_profile.jpg" alt="Export Certificate" width="1280" height="238" loading="lazy" decoding="async"></picture></p>
 <p>이렇게 저장한 파일을 React Native 프로젝트의 <code>ios</code> 폴더에 복사합니다. 저는 알기 쉽게 하기 위해 파일명을 <code>distribution.mobileprovision</code>으로 변경하여 저장하였습니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -199,11 +191,7 @@ Github Sponsor
 </div>
 <h3 id="signing--capabilities">Signing &#x26; Capabilities</h3>
 <p>GitHub Actions를 사용하여 앱을 배포하기 위에서 다운로드한 <code>Provisioning profile</code>을 설정하고 <code>Automatically manage signing</code>을 해제할 필요가 있습니다. <code>ios/[Your project name].xcworkspace</code> 파일을 실행하여 xcode를 실행합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/signing_and_capabilities.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/signing_and_capabilities.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/github-actions-fastlane/signing_and_capabilities.jpg" alt="signing and capabilities">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/signing_and_capabilities.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/github-actions-fastlane/signing_and_capabilities.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/github-actions-fastlane/signing_and_capabilities.jpg" alt="signing and capabilities" width="1280" height="328" loading="lazy" decoding="async"></picture></p>
 <p>그리고 <code>Signing &#x26; Capabilities</code>로 이동한 후, <code>Automatically manage signing</code>를 사용하지 않기 위해 체크를 해제합니다. 또한 앞에서 다운로드한 Provisioning profile 파일을 설정하기 위해 <code>Provisioning Profile</code> 항목 옆에 드롭 다운 메뉴를 선택한 후 <code>Import Profile...</code>를 선택하여 위에서 다운로드한 파일을 설정합니다.</p>
 <h3 id="api-key">API key</h3>
 <p>Fastlane으로 앱을 배포할 때, 애플 아이디로 로그인을 하고 여러 동작을 수행하게 됩니다. 하지만 애플 개발자 계정에는 <code>2FA</code>가 설정되어 있어 서버(CI)를 통해 배포할 경우, 로그인을 할 수 없어 문제가 발생합니다.</p>

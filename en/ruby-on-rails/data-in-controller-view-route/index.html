@@ -98,11 +98,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> s</span></span>
 <span class="line"><span style="color:#545454;font-style:italic"># bundle exec rails server</span></span></code></pre>
 <p>After it, open <code>http://127.0.0.1:3000/</code> on the browser. You can see the Instance Variable works fine like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.jpg" alt="Ruby on Rails result of server starting - Exchange Data between Controller and View">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.jpg" alt="Ruby on Rails result of server starting - Exchange Data between Controller and View" width="1280" height="642" loading="lazy" decoding="async"></picture></p>
 <p>We use Instance Variable to send Data from Controller to View like above.</p>
 <h2 id="send-data-from-view-to-controller">Send Data from View to Controller</h2>
 <p>It is easy to send Data from Controller to View by using the Instance Variable. Because when Rails gets the Request via URL, the Controller works first and shows View with Data.</p>
@@ -140,17 +136,9 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#EEFFFF">input type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">submit</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#EEFFFF">form</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>And when you open the browser, you can see the screen like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.jpg" alt="POST request - before inserting the data">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.jpg" alt="POST request - before inserting the data" width="1280" height="642" loading="lazy" decoding="async"></picture></p>
 <p>And then, when you insert Data and click <code>Submit</code> button, you can get the error like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.jpg" alt="POST request - sending data error screen">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.jpg" alt="POST request - sending data error screen" width="1280" height="715" loading="lazy" decoding="async"></picture></p>
 <p>As you can see the error message(<code>Routing Error</code>), we got this error message because, we didn’t set Route configuration.</p>
 <p>First, check ourRoute file, open <code>config/routes.rb</code> file.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="rb"><code><span class="line"><span style="color:#FFCB6B">Rails</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">application</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">routes</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">draw</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
@@ -163,11 +151,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  post </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> to:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">home#index</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>And then, to click <code>submit</code> button again, you can see the error message like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.jpg" alt="POST request - send data error screen, authenticity token">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.jpg" alt="POST request - send data error screen, authenticity token" width="1280" height="704" loading="lazy" decoding="async"></picture></p>
 <p>Like other language frameworks, Rails also protects the service from Security vulnerability basically. In here, to protect from <code>CSRF - Cross-site request forgery</code>, Rails requires specific Key when the data is sent via POST.</p>
 <p>To solve this error, when you send Data via POST, you should set <code>form_authenticity_token</code> to <code>authenticity_token</code> parameter for Rails.</p>
 <p>Open <code>app/views/home/index.erb</code> file again and modify it like below.</p>
@@ -180,11 +164,7 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#EEFFFF">input type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">submit</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#EEFFFF">form</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>And open <code>http://127.0.0.1:3000/</code> on the browser. Insert Data and click Submit button, you can send Data well and see the screen like below.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.jpg" alt="POST request - success to send data">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.jpg" alt="POST request - success to send data" width="1280" height="487" loading="lazy" decoding="async"></picture></p>
 <h2 id="complete">Complete</h2>
 <p>We’ve seen how to exchange Data between Controller and View.</p>
 <p>To send Data from Controller to View, we’ve used Instance variable. To send Data from View to Controller, we’ve used GET/POST method.

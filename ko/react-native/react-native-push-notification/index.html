@@ -91,24 +91,12 @@ Github Sponsor
 <li>iOS manual Installation: <a href="https://facebook.github.io/react-native/docs/linking-libraries-ios#manual-linking" rel="nofollow noreferrer" target="_blank">https://facebook.github.io/react-native/docs/linking-libraries-ios#manual-linking</a></li>
 </ul>
 <p>먼저 <code>/ios/[project-name].xcworkspace</code> 또는 <code>/ios/[project-name].xcodeproj</code>을 실행시켜 xcode로 실행합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/react-native-push-notification/add-library.jpg" alt="react-native-push-notification 라이브러리 iOS 연결(link)">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/react-native-push-notification/add-library.jpg" alt="react-native-push-notification 라이브러리 iOS 연결(link)" width="1198" height="544" loading="lazy" decoding="async"></picture></p>
 <p>위와 같이 <code>node_modules/react-native/libraries/PushNotificationIOS/RCTPushNotification.xcodeproj</code>를 xcode의 프로젝트명 하단의 <code>libraries</code>에 드래그해서 추가합니다. 주의해야할 사항은 node_modules의 react-native-push-notification가 아닌 <code>react-native</code>입니다.</p>
 <p>그 다음 아래와 같이 <code>프로젝트명 > Build Phases > Link Binary with Libraries</code>를 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/build-phases.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/build-phases.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/react-native-push-notification/build-phases.jpg" alt="react-native-push-notification 라이브러리 iOS 연결(link) - build phases">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/build-phases.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/build-phases.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/react-native-push-notification/build-phases.jpg" alt="react-native-push-notification 라이브러리 iOS 연결(link) - build phases" width="1280" height="298" loading="lazy" decoding="async"></picture></p>
 <p>하단에 있는 <code>+</code> 버튼을 누르고 <code>Push</code>를 검색합니다. 검색 결과에 있는 <code>libRCTPushNotification.a</code>를 선택하고 <code>Add</code>를 눌러 추가합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library-to-build-phases.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library-to-build-phases.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/react-native-push-notification/add-library-to-build-phases.jpg" alt="react-native-push-notification 라이브러리 iOS 연결(link) - build phases에 라이브러리 추가">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library-to-build-phases.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/add-library-to-build-phases.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/react-native-push-notification/add-library-to-build-phases.jpg" alt="react-native-push-notification 라이브러리 iOS 연결(link) - build phases에 라이브러리 추가" width="1280" height="503" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -412,11 +400,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#FFCB6B">repeatType</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">minute</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#FFCB6B">date</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> new</span><span style="color:#82AAFF"> Date</span><span style="color:#EEFFFF">(Date</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">now</span><span style="color:#EEFFFF">())</span><span style="color:#89DDFF">,</span></span></code></pre>
 <p>앱(App)을 실행시키고, 앱(App)을 비활성화(종료 또는 백그라운드) 시키면, 1분후 아래와 같이 메세지(Local Push Notification)가 표시되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/local-push-notification.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/react-native-push-notification/local-push-notification.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/react-native-push-notification/local-push-notification.jpg" alt="react-native-push-notification 앱(App) 내부 알림 기능(Local Push Notification) 확인">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/local-push-notification.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/react-native-push-notification/local-push-notification.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/react-native-push-notification/local-push-notification.jpg" alt="react-native-push-notification 앱(App) 내부 알림 기능(Local Push Notification) 확인" width="946" height="449" loading="lazy" decoding="async"></picture></p>
 <p>앱(App)을 꼭 실행해야 한다는 점과 앱(App)을 비활성화해야 메세지가 표시된다는 점을 주의하시기 바랍니다.</p>
 <h2 id="문제점">문제점</h2>
 <p>앱(App)을 실행시키면, 앱(App) 내부 알림(Local Push Notification)이 등록됩니다. 이때 메세지도 함께 등록이 됩니다만, 앱(App)을 다시 실행시켜 앱(App) 내부 알림(Local Push Notification)을 다시 등록하지 않는 이상 항상 같은 메세지가 표시됩니다.</p>

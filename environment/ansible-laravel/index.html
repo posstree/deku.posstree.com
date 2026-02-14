@@ -209,17 +209,9 @@ Github Sponsor
 <p>この部分でLaradockのworkspaceドッカー(Docker)が実行される時<code>/vagrant/app</code>フォルダと同期化するように設定しました。したがって、私たちは新しプロジェクトを<code>/vagrant</code>フォルダに<code>/app</code>のフォルダ名で生成しました。皆さんが既存のララベル(Laravel)プロジェクトを持ってるだったら<code>/vagrant/app</code>フォルダにコピーするか以前のブログで作ったLaradockの<code>role</code>中で上記の部分を皆さんのララベル(Laravel)プロジェクトフォルダで指定して使ってください。</p>
 <h2 id="ララベルプロジェクト確認">ララベルプロジェクト確認</h2>
 <p>また、localhostに接続したら下記のようにララベル(Laravel)の基本画面が見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2018/ansible-laravel/laravel.jpg" alt="laravel first page">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel.avif" type="image/avif"><source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel.webp" type="image/webp"><img src="/assets/images/category/environment/2018/ansible-laravel/laravel.jpg" alt="laravel first page" width="1280" height="569" loading="lazy" decoding="async"></picture></p>
 <p>ララベル(Laravel)設定がよく出来てない時は下記のように500エラー画面が出ます。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel_error.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel_error.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2018/ansible-laravel/laravel_error.jpg" alt="laravel 500 error page">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel_error.avif" type="image/avif"><source srcset="/assets/images/category/environment/2018/ansible-laravel/laravel_error.webp" type="image/webp"><img src="/assets/images/category/environment/2018/ansible-laravel/laravel_error.jpg" alt="laravel 500 error page" width="1280" height="569" loading="lazy" decoding="async"></picture></p>
 <p>ララベル(Laravel)設定中で下記の部分を全て実行したか確認します。<code>composer create-project laravel/laravel app</code>コマンドでララベル(Laravel)プロジェクトを新しく生成し場合、下記の設定は自動で実行されます。</p>
 <p>ララベル(Laravel)プロジェクトに必要なライブラリはインストルしたか？</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">composer</span><span style="color:#C3E88D"> install</span></span></code></pre>
@@ -229,33 +221,17 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">php</span><span style="color:#C3E88D"> artisan</span><span style="color:#C3E88D"> key:generate</span></span></code></pre>
 <h2 id="phpmyadmin">phpmyadmin</h2>
 <p>データベースを触るためインストールした<code>phpmyadmin</code>に接続してみます。<code>localhost:8080</code>で接続したら<code>phpmyadmin</code>の画面が見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_login.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_login.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_login.jpg" alt="phpmyadmin login">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_login.avif" type="image/avif"><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_login.webp" type="image/webp"><img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_login.jpg" alt="phpmyadmin login" width="1280" height="569" loading="lazy" decoding="async"></picture></p>
 <p>何も設定してなかったら下の情報を入力して接続します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>server: mysql</span></span>
 <span class="line"><span>username: root</span></span>
 <span class="line"><span>password: root</span></span></code></pre>
 <p>このように接続した後下記のような画面が見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_change_password.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_change_password.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_change_password.jpg" alt="phpmyadmin change password">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_change_password.avif" type="image/avif"><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_change_password.webp" type="image/webp"><img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_change_password.jpg" alt="phpmyadmin change password" width="1280" height="569" loading="lazy" decoding="async"></picture></p>
 <p>画面の真ん中にある<code>Change password</code>を押してパスワードを変更します。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_password.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_password.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_password.jpg" alt="phpmyadmin new password">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_password.avif" type="image/avif"><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_password.webp" type="image/webp"><img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_password.jpg" alt="phpmyadmin new password" width="1280" height="569" loading="lazy" decoding="async"></picture></p>
 <p>上部にあるメニュー中で<code>Database</code>を押してララベル(Laravel)と連結するデータベースを生成します。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_database.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_database.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_database.jpg" alt="phpmyadmin new database">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_database.avif" type="image/avif"><source srcset="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_database.webp" type="image/webp"><img src="/assets/images/category/environment/2018/ansible-laravel/phpmyadmin_new_database.jpg" alt="phpmyadmin new database" width="1280" height="569" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>

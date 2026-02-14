@@ -176,11 +176,7 @@ Github Sponsor
 <p>まず、下記のジャンゴ(django)のコマンドで私たちが作ったモデル(models)からデーターベース(database)のテーブルを生成するためのマイグレーション(migration)ファイルを生成します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> makemigrations</span><span style="color:#C3E88D"> blog</span></span></code></pre>
 <p>コマンドが実行されたら下記のような結果が見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/models/makemigrations.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/models/makemigrations.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/models/makemigrations.jpg" alt="ジャンゴ(django)のモデル(models)からマイグレーション生成">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/models/makemigrations.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/models/makemigrations.webp" type="image/webp"><img src="/assets/images/category/django/2019/models/makemigrations.jpg" alt="ジャンゴ(django)のモデル(models)からマイグレーション生成" width="873" height="79" loading="lazy" decoding="async"></picture></p>
 <p>そしてフォルダを確認したらマイグレーションフォルダが生成されたことが確認できます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>|-- django_exercise</span></span>
 <span class="line"><span>|   |-- __init__.py</span></span>
@@ -202,17 +198,9 @@ Github Sponsor
 <p>下記のジャンゴ(django)のコマンドでモデル(models)から生成したマイグレーション(migration)ファイルを使ってデーターベースのテーブルを生成します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> migrate</span><span style="color:#C3E88D"> blog</span></span></code></pre>
 <p>コマンドが実行されたら下記のような結果が見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/models/migrate.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/models/migrate.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/models/migrate.jpg" alt="ジャンゴ(django)のモデル(models)から生成したマイグレーションファイルを生成してデーターベーステーブル生成">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/models/migrate.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/models/migrate.webp" type="image/webp"><img src="/assets/images/category/django/2019/models/migrate.jpg" alt="ジャンゴ(django)のモデル(models)から生成したマイグレーションファイルを生成してデーターベーステーブル生成" width="873" height="103" loading="lazy" decoding="async"></picture></p>
 <p>データーベースツールを使ってデーターベースを見たら私たちが作ったモデル(models)に設定した内容からがテーブルが生成されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/models/database-table.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/models/database-table.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/models/database-table.jpg" alt="マイグレーションファイルを生成してテーブル確認">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/models/database-table.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/models/database-table.webp" type="image/webp"><img src="/assets/images/category/django/2019/models/database-table.jpg" alt="マイグレーションファイルを生成してテーブル確認" width="1059" height="258" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでジャンゴ(django)でモデル(models)を生成して生成したモデル(models)を使ってDBテーブルを生成する方法について見てみました。これで開発に必要なデーターを保存するようになりました。じゃ、サービスに必要なDBを設計してそれによるモデル(models)とマイグレーション(migration)を生成してDBテーブルを作ってみましょう！</p>
 <h2 id="参考">参考</h2>

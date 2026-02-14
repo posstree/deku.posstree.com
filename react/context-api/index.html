@@ -66,39 +66,19 @@ Github Sponsor
 </ul>
 <h2 id="context">Context</h2>
 <p>ReactでPropsとStateは親コンポーネントと子コンポーネント、または1つのコンポーネント中でデータを扱う時使います。このPropsとStateを使う場合、親コンポーネントから子コンポーネント、つまり上から下、片側にデータが流れるようになります。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/react-data-flow.png" alt="React data flow with Props">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/react-data-flow.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/react-data-flow.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/react-data-flow.png" alt="React data flow with Props" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>もし、他のコンポーネントで片側で流れてるデータを使いたい場合、または他のコンポーネントが使ってるデータを現在のデータ流れに入れたい場合はどうすればいいでしょうか？</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/react-data-flow-another-component.png" alt="React need data in another data flow">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/react-data-flow-another-component.png" alt="React need data in another data flow" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>Reactではデータは上から下に流れるので、使いたいデータとこのデータを使うコンポーネントの共通親コンポーネントにStateを作って使いたいデータをPropsで子コンポーネントに渡せば問題を解決することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/global-data-use-props.png" alt="React global data with props and state">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/global-data-use-props.png" alt="React global data with props and state" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>しかし、このようにコンポーネント中で共有されるデータのため毎回共通親コンポーネントを修正して全ての子コンポーネントにデータをPropsで渡すことは非常に非効率です。このような問題を解決するためReactでは<code>Flux</code>と言う概念を導入し、それに合う<code>Context API</code>を提供を始めました。</p>
 <ul>
 <li>Reactの公式サイト: <a href="https://reactjs.org/docs/context.html#consuming-multiple-contexts" rel="nofollow noreferrer" target="_blank">Context</a></li>
 </ul>
 <p>Contextは親コンポーネントから子コンポーネントに渡されるデータの流れとは関係なくグローバル的なデータを扱う時使います。グローバルデータをContextに保存した後、データが必要なコンポーネントで当該データを取ってきて使います。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/context.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/context.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/context.png" alt="React context">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/context.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/context.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/context.png" alt="React context" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>ReactでContextを使うためにはContext APIを使う必要があり、Contextの<code>Provider</code>と<code>Consumer</code>を使う必要があります。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/context-provider-consumer.png" alt="React context with Provider and Consumer">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/context-provider-consumer.png" alt="React context with Provider and Consumer" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>Contextで保存されたデータを使うためには共通親コンポーネントにContextのProviderを使ってデータを提供いて、データを使うコンポーネントではContextのConsumerを使って実際データを使います。</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -290,17 +270,9 @@ Github Sponsor
 <p>Contextを使ってグローバルデータを扱う例題を作ってみました。このように作ったReactプロジェクトを確認するため、次のコマンドを使ってReactプロジェクトを実行します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> start</span></span></code></pre>
 <p>Reactプロジェクトが実行されたら次のように<code>0</code>と<code>+ 1</code>ボタンが表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/count.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/count.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/count.jpg" alt="React Context example: Count">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/count.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/count.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/count.jpg" alt="React Context example: Count" width="687" height="276" loading="lazy" decoding="async"></picture></p>
 <p><code>+ 1</code>ボタンを押すと、次のようにカウントが上がることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/count_increased.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/count_increased.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/count_increased.jpg" alt="React Context example: Count increased">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/count_increased.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/count_increased.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/count_increased.jpg" alt="React Context example: Count increased" width="687" height="276" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでReactでコンポーネントがグローバルデータを扱う方法であるContextについて簡単に説明しました。今回のブログポストの例題ではContextを使わなくてもいいぐらいの小さいプロジェクトだったので、Contextを使う必要性を感じてなかったと思います。しかし、たくさんのコンポーネントを使ってるプロジェクトではContextを使ってデータを共有する場合がありますので、今回の機会でよく勉強して置くと役に立つと思います。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

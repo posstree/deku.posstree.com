@@ -80,27 +80,15 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>Sometimes, we use <code>print</code> to debug. But, this code is only needed on the development, and this is needless to deploy the app. Of course, we don’t need to commit this code to Git.</p>
 <p>Next, we’ll add Linter to notice this code to the developer. Currently, there is no problem to use <code>print</code> like below.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.jpg" alt="Flutter Linter test code">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.jpg" alt="Flutter Linter test code" width="1246" height="284" loading="lazy" decoding="async"></picture></p>
 <p>To use Linter in Flutter, we don’t need to install any packages. Just, when we create <code>analysis_options.yaml</code> file, we can use Linter right away. Create <code>analysis_options.yaml</code> file in the Flutter root folder(pubspec.yaml located folder) and modify i like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">linter</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#F07178">  rules</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#89DDFF">    -</span><span style="color:#C3E88D"> avoid_print</span></span></code></pre>
 <p>I just add the rule to the <code>analysis_options.yaml</code> file that I found it on <a href="https://dart-lang.github.io/linter/lints/" rel="nofollow noreferrer" target="_blank">Dart linter</a>. After modifying, you can see Linter is working well like below.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning" width="1246" height="284" loading="lazy" decoding="async"></picture></p>
 <p>When you hover the mouse, you can see the details of Linter.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.jpg" alt="Flutter Linter warning message">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.jpg" alt="Flutter Linter warning message" width="1246" height="544" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -125,11 +113,7 @@ Github Sponsor
 <h2 id="severity-of-linter-rules">Severity of Linter rules</h2>
 <p>We can add Linter to Flutter simply like above. This Linter configuration basically has the <code>info</code> Severity.</p>
 <p>This Info Severity is shown up with the blue color like below, and it doesn’t have any problem to execute the Flutter project.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning" width="1246" height="284" loading="lazy" decoding="async"></picture></p>
 <p>Next, let’s see how to change the Severity of the Linter. Open the <code>analysis_options.yaml</code> file and modify it like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">analyzer</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#F07178">  errors</span><span style="color:#89DDFF">:</span></span>
@@ -138,11 +122,7 @@ Github Sponsor
 <span class="line"><span style="color:#F07178">  rules</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#89DDFF">    -</span><span style="color:#C3E88D"> avoid_print</span></span></code></pre>
 <p>To change the rule severity, we need to add the rule to the <code>errors</code> of the <code>analyzer</code>, and set the severity. After modifying, you can see the Error severity instead of Info severity like below.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_error.jpg" alt="Flutter Linter error">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_error.jpg" alt="Flutter Linter error" width="1246" height="320" loading="lazy" decoding="async"></picture></p>
 <p>If the severity is changed to the error, Flutter can’t build the project before fixing the issue.</p>
 <p>You can use <code>ignore</code>, <code>info</code>, <code>warning</code>, <code>error</code> to the Severity.</p>
 <div class="in-feed-ads ads-container">

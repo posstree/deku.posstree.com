@@ -253,11 +253,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">./install.sh</span></span></code></pre>
 <h3 id="보안-및-개인-정보-보호">보안 및 개인 정보 보호</h3>
 <p>Casks로 다운로드한 툴들은 웹에서 다운로드한 툴과 동일하기 때문에 실행을 하면 <code>Security</code> 문제로 실행이 되지 않습니다. 보통 이럴 경우, <code>설정 > 보안 및 개인 정보 보호</code>의 <code>확인 없이 열기</code>를 눌러 툴을 실행해야 합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ko.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ko.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ko.jpg" alt="맥(mac) 개발환경 설정 - 확인 없이 열기">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ko.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ko.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/open-without-check-ko.jpg" alt="맥(mac) 개발환경 설정 - 확인 없이 열기" width="1280" height="1107" loading="lazy" decoding="async"></picture></p>
 <p>이 부분도 아래에 명령어를 통해 해결할 수 있습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># sudo xattr -dr com.apple.quarantine /Applications/[App name]</span></span>
 <span class="line"><span style="color:#FFCB6B">sudo</span><span style="color:#C3E88D"> xattr</span><span style="color:#C3E88D"> -dr</span><span style="color:#C3E88D"> com.apple.quarantine</span><span style="color:#C3E88D"> /Applications/Sourcetree.app</span></span></code></pre>
@@ -500,11 +496,7 @@ Github Sponsor
 <span class="line"><span style="color:#FFCB6B">code</span><span style="color:#C3E88D"> --install-extension</span><span style="color:#C3E88D"> shardulm94.trailing-spaces</span></span>
 <span class="line"><span style="color:#FFCB6B">code</span><span style="color:#C3E88D"> --install-extension</span><span style="color:#C3E88D"> vscode-icons-team.vscode-icons</span></span></code></pre>
 <p>VSCode의 extension을 설치하기 위해서는 <code>code --install-extension [extension id]</code>와 같이 명령어를 실행해야 합니다. 여기서 <code>extension id</code>는 아래와 같이 Extension 상세 페이지에서 Extension 이름 옆에서 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.jpg" alt="맥(mac) 개발환경 설정 - vscode  extension 설치">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/vscode-install-extension.jpg" alt="맥(mac) 개발환경 설정 - vscode  extension 설치" width="1120" height="324" loading="lazy" decoding="async"></picture></p>
 <p>마지막으로 현재 사용하고 있는 VSCode의 설정을 <code>./vscode/</code> 폴더에 복사합니다. VSCode의 설정은 아래에 폴더 위치에 있습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#89DDFF">~</span><span style="color:#EEFFFF">/Library/Application\ Support/Code/User/settings.json</span></span></code></pre>
 <p>이렇게 복사한 <code>settings.json</code> 파일을 새로운 맥에서 설정하기 위해 아래에 명령어를 <code>./vscode/install.sh</code>에 추가합니다.</p>
@@ -557,17 +549,9 @@ Github Sponsor
 </div>
 <h3 id="iterm2">iTerm2</h3>
 <p>iTerm2의 설치와 설정을 관리하기 위해 <code>./iterm2/</code> 폴더를 생성합니다. 그리고 현재의 iTerm2를 실행합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.jpg" alt="맥(mac) 개발환경 설정 - iterm2 설정">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference.jpg" alt="맥(mac) 개발환경 설정 - iterm2 설정" width="648" height="440" loading="lazy" decoding="async"></picture></p>
 <p>iTerm2의 현재 설정을 내보내기 위해서 <code>Preferences... > General > Preferences</code>를 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.jpg" alt="맥(mac) 개발환경 설정 - iterm2 설정 내보내기">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-preference-expert.jpg" alt="맥(mac) 개발환경 설정 - iterm2 설정 내보내기" width="672" height="331" loading="lazy" decoding="async"></picture></p>
 <p>위와 같은 화면에서 <code>Load preferences from a custom folder or URL</code>에 체크합니다. 그리고 <code>Browse</code> 버튼을 눌러 위에서 만든 <code>./iterm2/</code> 폴더를 설정합니다.</p>
 <p>설정을 완료하면 <code>Save Current Settings to Folder</code> 버튼을 눌러 현재의 iTerm2의 설정을 내보냅니다.</p>
 <p>이렇게 설정을 내보내면, <code>./iterm2/com.googlecode.iterm2.plist</code> 파일이 생성되는 것을 확인할 수 있습니다.</p>
@@ -667,16 +651,8 @@ Github Sponsor
 <p>스크립트가 실행될 때, 관리자 권한이 필요한 명령어들이 있어 중간중간 관리자의 패스워드를 입력해 주어야 합니다.</p>
 <h3 id="iterm2-수동-설정">iTerm2 수동 설정</h3>
 <p>아쉽게도 iTerm2는 수동으로 테마와 폰트를 설정해야 합니다. 아래와 같이 새로운 맥에서 수동으로 테마와 폰트를 설정해야 합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.jpg" alt="맥(mac) 개발환경 설정 - iterm2 테마 수동으로 설정">
-</picture>
-<picture>
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.jpg" alt="맥(mac) 개발환경 설정 - iterm2 폰트 수동으로 설정">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-theme.jpg" alt="맥(mac) 개발환경 설정 - iterm2 테마 수동으로 설정" width="953" height="673" loading="lazy" decoding="async"></picture></p>
+<p><picture><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.avif" type="image/avif"><source srcset="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.webp" type="image/webp"><img src="/assets/images/category/environment/2019/configure-development-environment-on-mac-with-homebrew-and-shell-script/iterm2-font.jpg" alt="맥(mac) 개발환경 설정 - iterm2 폰트 수동으로 설정" width="953" height="673" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이번 맥 OS인 카탈리나(Catalina)로 업데이트하면서, 맥에 개발 환경을 처음부터 구성하게 되었습니다. 매번 수동으로 하나씩 하나씩 설치하던 것을 좀 더 효율적으로 할 방법이 없나 생각하다가 이번 블로그를 작성하게 되었습니다.</p>
 <p>이제 Homebrew와 Shell Script를 사용하여 맥을 좀 더 쉽게 재설정하게 되었습니다. 여러분도 여러분만의 Brewfile과 Shell Script를 작성하여 좀 더 쉽게 개발 환경을 재설정 해 보세요~</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

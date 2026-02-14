@@ -245,48 +245,20 @@ Github Sponsor
 <p>今まで作った内容をPostmanで確認してみます。下記のコマンドでジャンゴ(django)のテストサーバーを実行します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">python manage</span><span style="color:#89DDFF">.</span><span style="color:#F07178">py</span><span style="color:#EEFFFF"> runserver</span></span></code></pre>
 <p>そしてPostmanを開いて下記のように<code>http://localhost:8000/api/blog/posts/</code>へGETリクエストを送ります。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-authentication-error.jpg" alt="ジャンゴ(django)でJWTを使う - JWT認証エラー">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-authentication-error.jpg" alt="ジャンゴ(django)でJWTを使う - JWT認証エラー" width="1280" height="573" loading="lazy" decoding="async"></picture></p>
 <p>そしたら上のようにエラーメッセージが確認できます。私たちが作ったAPIがJWT認証をちゃんと使ってることが確認できます。</p>
 <p>それじゃ、JWT認証で情報を持てくるためJWTトークンを発行してみます。<code>http://localhost:8000/api/token/</code>へPOSTで<code>username</code>と<code>password</code>を設定してリクエストを送ります。ここで使ってusernameとpasswordは私たちが作ったジャンゴ(django)の<code>superuser</code>です。(ジャンゴの管理画面にログインする時使ったusernameとpassword)</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/issue-jwt-token.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンの発行">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/issue-jwt-token.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンの発行" width="1280" height="573" loading="lazy" decoding="async"></picture></p>
 <p>上のようにJWTトークンがうまく発行されたことが確認できます。発行されたJWTトークンを使ってもう一回上のリクエスト(<code>http://localhost:8000/api/blog/posts/</code>)を送ってみます。ここではリクエストの<code>Header</code>に<code>Authorization</code>を設定して送ります。<code>jwt [jwt key]</code>の形式で入れます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-get-data.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンを使ってデーター取得">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-get-data.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンを使ってデーター取得" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>以前と違ってデーターが取得できることが確認できます。次はJWTトークンを検証する方法と更新する方法について見てみます。JWTトークンを検証する方法は<code>http://localhost:8000/api/token/verify/</code>へPOSTで上で発行して貰ったトークンを送信します。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-verify.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークン検証">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-verify.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークン検証" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>そしたら、上のように問題がないことが確認できます。JWTトークンに問題があったら下記のようにエラーメッセージが帰ってきます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-verify-error.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンの検証エラー">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-verify-error.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンの検証エラー" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>じゃ、JWTトークンを更新(Refresh)してみましょうか？<code>http://localhost:8000/api/token/refresh/</code>へPOSTで既に発行して貰ったJWTトークを送ります。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-refresh.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークン更新">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-refresh.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークン更新" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>そしたら上のように新しJWTトークンが発行されます。もしJWTトークンを更新しなかった、有効期限で切れた場合、下記のようなエラーメッセージが帰ってきます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-expired.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンエラー">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-expired.jpg" alt="ジャンゴ(django)でJWTを使う - JWTトークンエラー" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでジャンゴ(django)でJWTを使う方法について見てみました。今からはJWTトークンを使ってアプリとサーバーの通信やフロントエンドとサーバー間通信へ使えます！</p>
 <h2 id="参考">参考</h2>

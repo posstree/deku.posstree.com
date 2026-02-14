@@ -41,11 +41,7 @@ Github Sponsor
 <p>앱 심사를 위해 앱을 제출했지만 App crash 이유로 거절(reject)되었습니다. 친절하게 거절(reject) 이유와 함께 crash 로그(log) 파일을 함께 보내주었습니다. 이렇게 받은 crash 로그(log) 파일을 분석하여 어떤 부분에서 에러가 발생했는지 찾는 방법에 대해서 설명하겠습니다.</p>
 <h2 id="앱-심사-거절">앱 심사 거절</h2>
 <p>애플의 앱 심사가 거절(reject)되면 메일을 발송해줍니다. 메일을 받았다면 앱스토어 커넥트(App store connect)로 이동하여 앱 심사 거절(reject) 이유를 확인합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.jpg" alt="앱 심사 거절">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-app-crash-debugging/app_reject.jpg" alt="앱 심사 거절" width="1280" height="504" loading="lazy" decoding="async"></picture></p>
 <p>특히 앱 심사 거절(reject) 이유가 App crash라면 아래와 같이 App crash log도 함께 보내줍니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Guideline 2.1 - Performance - App Completeness</span></span>
 <span class="line"><span></span></span>
@@ -77,17 +73,9 @@ Github Sponsor
 </div>
 <h2 id="심볼-파일-다운로드">심볼 파일 다운로드</h2>
 <p>App crash log를 분석하기 위해서는 앱의 심볼 파일(<code>dSYM</code>)이 필요합니다. 앱스토어 커넥트(App Store connect)의 <code>Activity</code>탭으로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.jpg" alt="앱스토어 커넥트 Activity 탭">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_activity.jpg" alt="앱스토어 커넥트 Activity 탭" width="1280" height="504" loading="lazy" decoding="async"></picture></p>
 <p>왼쪽에 <code>All Builds</code>를 선택하고 앱 심사에 제출한 빌드의 버전을 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.jpg" alt="심볼 파일 다운로드">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-app-crash-debugging/appstoreconnect_download_symbol.jpg" alt="심볼 파일 다운로드" width="1280" height="552" loading="lazy" decoding="async"></picture></p>
 <p>오른쪽 하단에 <code>Download dSYM</code> 링크를 눌러 심볼 파일을 다운로드하고 압축을 해제합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>7ED9CAAD-F7F7-31E6-8480-2D358FBEF9C7.dSYM</span></span>
 <span class="line"><span>E3430BAD-2EB8-3B8D-8E04-4BB66E2A4E58.dSYM</span></span></code></pre>

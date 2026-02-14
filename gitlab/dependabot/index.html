@@ -84,29 +84,17 @@ Github Sponsor
 </ul>
 <h2 id="gitlab-token生成">GitLab token生成</h2>
 <p><code>dependabot-script</code>リポジトリで他のリポジトリのライブラリのバージョンを検査して、新しいバージョンがある場合 <code>Merge request</code>を自動で作ります。したがって、他のリポジトリにアクセスして<code>Merge request</code>を作るため、<code>Personal Access Tokens</code>が必要です。</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/personal_access_tokens.png" alt="GitLab Dependabot - personal access tokens">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/personal_access_tokens.png" alt="GitLab Dependabot - personal access tokens" width="1280" height="594" loading="lazy" decoding="async"></picture></p>
 <p><code>api</code>の権限を持つ<code>Personal Access Token</code>を生成します。</p>
 <h2 id="github-token生成">GitHub token生成</h2>
 <p><code>dependabot-script</code>リポジトリは<code>GitHub</code>の<code>API</code>を使ってライブラリのバージョンを検査します。したがって、<code>GitHub</code>の<code>API</code>を使うため<code>GitHub</code>の<code>Personal access token</code>を生成する必要があります。</p>
 <p><code>GitHub</code>でログインをした後、右上のプロフィールイメージを選択します。その後、<code>Settings</code>を選択して設定画面に移動します。</p>
 <p>設定画面で左メニューリストの一番下の<code>Developer settings</code>を選択します。その後、<code>Personal access tokens</code> > <code>Token (classic)</code>を押して<code>Token</code>生成画面に移動します。</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/github_personal_access_token.png" alt="GitLab Dependabot - GitHub personal access tokens">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/github_personal_access_token.png" alt="GitLab Dependabot - GitHub personal access tokens" width="1169" height="865" loading="lazy" decoding="async"></picture></p>
 <p><code>Token</code>は<code>repo</code>の<code>public_repo</code>権限を設定した後、生成します。</p>
 <h2 id="cicdの変数設定">CI/CDの変数設定</h2>
 <p>このように生成した<code>Personal Access Token</code>を<code>dependabot-script</code>の<code>CI/CD</code>変数に設定する必要があります。</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/ci_cd_variables.png" alt="GitLab Dependabot - add token to CI/CD variables">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/ci_cd_variables.png" alt="GitLab Dependabot - add token to CI/CD variables" width="1280" height="544" loading="lazy" decoding="async"></picture></p>
 <p><code>dependabot-script</code>リポジトリで<code>Settings</code> > <code>CI/CD</code> > <code>Variables</code>の<code>Expand</code>をクリックします。</p>
 <p>そして上で作った<code>GitLab</code>の<code>Personal Access Token</code>を<code>GITLAB_ACCESS_TOKEN</code>を<code>key</code>にして追加します。</p>
 <ul>
@@ -135,19 +123,11 @@ Github Sponsor
 </div>
 <h2 id="gitlab-ciymlファイル">.gitlab-ci.ymlファイル</h2>
 <p><code>dependabot-script</code>のリポジトリを見ると<code>.gitlab-ci.example.yml</code>ファイルがあります。このファイルの名前を<code>.gitlab-ci.yml</code>に変更します。</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.png" alt="GitLab Dependabot - rename .gitlab-ci.example.yml to .gitlab-ci.yml">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.png" alt="GitLab Dependabot - rename .gitlab-ci.example.yml to .gitlab-ci.yml" width="1280" height="594" loading="lazy" decoding="async"></picture></p>
 <h2 id="schedule生成">Schedule生成</h2>
 <p>次は<code>Dependabot</code>を一定周期で実行して特定プロジェクトで使ってるライブラリのバージョンを確認して、新しいバージョンがある場合<code>Merge request</code>を生成するように作る必要があります。</p>
 <p>そしたら、次のように<code>dependabot-script</code>リポジトリに新しい<code>Schedule</code>を追加します。</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>この時、<code>Variables</code>に特定プロジェクトの<code>Path</code>とそのプロジェクトで使ってる<code>Package manager</code>を設定する必要があります。</p>
 <ul>
 <li>PROJECT_PATH: <namespace>/<project> (ex> dev-yakuza/deku-nextjs-boilerplate)</project></namespace></li>
@@ -177,17 +157,9 @@ Github Sponsor
 </ul>
 <h2 id="scheduleの実行">Scheduleの実行</h2>
 <p>このように作った<code>Schedule</code>を実行して実際<code>Dependabot</code>がうまく機能できるか確認します。</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline" width="1280" height="464" loading="lazy" decoding="async"></picture></p>
 <p>問題なければ、<code>PROJECT_PATH</code>に設定されたリポジトリに次のように<code>Merge request</code>が生成されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/merge_request.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/merge_request.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/merge_request.png" alt="GitLab Dependabot - merge request">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/merge_request.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/merge_request.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/merge_request.png" alt="GitLab Dependabot - merge request" width="1280" height="407" loading="lazy" decoding="async"></picture></p>
 <h2 id="error-job-failed-failed-to-pull-image-dependabotdependabot-script">ERROR: Job failed: failed to pull image dependabot/dependabot-script</h2>
 <p>基本的に<code>.gitlab-ci.yml</code>ファイルの内容は変更する必要はないです。しかし、<code>GitLab</code>のサーバの設定によって次のようなエラーが発生する場合があります。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ERROR: Job failed: failed to pull image "dependabot/dependabot-script" with specified policies [always]: Error response from daemon: pull access denied for dependabot/dependabot-script, repository does not exist or may require 'docker login': denied: requested access to the resource is denied (manager.go: 237:2s)</span></span></code></pre>

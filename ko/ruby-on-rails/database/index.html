@@ -264,11 +264,7 @@ mysql은 이미 로컬에 설치되었다는 가정하에 진행합니다.</p>
 <span class="line"></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>또한 데이터베이스 툴을 사용하여 실제 테이블이 생성되었는지 확인하면, 아래와 같이 잘 생성된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/result-create-table.jpg" alt="Ruby on Rails 테이블 생성 결과">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/result-create-table.jpg" alt="Ruby on Rails 테이블 생성 결과" width="871" height="216" loading="lazy" decoding="async"></picture></p>
 <p>Migration을 사용하여 테이블을 생성하였다면, 아래에 명령어를 사용하여 생성전으로 돌아갈 수 있습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rake</span><span style="color:#C3E88D"> db:rollback</span></span></code></pre>
 <div class="in-feed-ads ads-container">
@@ -310,11 +306,7 @@ mysql은 이미 로컬에 설치되었다는 가정하에 진행합니다.</p>
 <p>그리고 확인을 위해 아래에 명령어로 Rails 서버를 실행합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> s</span></span></code></pre>
 <p>그리고 <code>http://127.0.0.1:3000/form</code>에 이동하면 아래와 같은 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/form-page.jpg" alt="Ruby on Rails, CRUD 데이터 생성 form">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/form-page.jpg" alt="Ruby on Rails, CRUD 데이터 생성 form" width="884" height="242" loading="lazy" decoding="async"></picture></p>
 <p>이제 실제로 데이터를 받고 처리하는 부분을 만들어 봅시다. <code>app/controllers/home_controller.rb</code> 파일을 열고 아래와 같이 수정합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="rb"><code><span class="line"><span style="color:#89DDFF;font-style:italic">class</span><span style="color:#FFCB6B"> HomeController</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#FFCB6B"> ApplicationController</span></span>
 <span class="line"><span style="color:#89DDFF">    ...</span></span>
@@ -348,11 +340,7 @@ mysql은 이미 로컬에 설치되었다는 가정하에 진행합니다.</p>
 <span class="line"><span style="color:#EEFFFF">  get </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/list</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> to:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">home#list</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>그리고 <code>http://127.0.0.1:3000/form</code>에 데이터를 넣고 Submit 버튼을 누르면 <code>http://127.0.0.1:3000/list</code>로 이동하는 것을 확인할 수 있습니다. 또한 데이터베이스 툴을 사용하면 아래와 같이 데이터가 잘 추가된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/result-create-data.jpg" alt="Ruby on Rails, CRUD 데이터 생성 확인">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/result-create-data.jpg" alt="Ruby on Rails, CRUD 데이터 생성 확인" width="871" height="216" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -405,11 +393,7 @@ mysql은 이미 로컬에 설치되었다는 가정하에 진행합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">&#x3C;%= post.title %></span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">&#x3C;%= post.content %></span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>이렇게 작성하고 다시 <code>http://127.0.0.1:3000/list</code>에 접속해 보면 아래와 같이 데이터를 잘 표시하는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/display-data.jpg" alt="Ruby on Rails 데이터베이스로부터 가져온 데이터를 화면에 표시">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/display-data.jpg" alt="Ruby on Rails 데이터베이스로부터 가져온 데이터를 화면에 표시" width="884" height="300" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -467,17 +451,9 @@ mysql은 이미 로컬에 설치되었다는 가정하에 진행합니다.</p>
 <span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">tbody</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">table</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>이렇게 작성하고 다시 <code>http://127.0.0.1:3000/list</code>에 접속해 보면 아래와 같이 데이터를 잘 표시하는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails 데이터를 수정하기 위한 링크 추가">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails 데이터를 수정하기 위한 링크 추가" width="764" height="308" loading="lazy" decoding="async"></picture></p>
 <p>여기서 <code>modify</code> 링크를 클릭하면 아래와 같은 화면을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/modify-page.jpg" alt="Ruby on Rails 데이터 수정 페이지">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/modify-page.jpg" alt="Ruby on Rails 데이터 수정 페이지" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <p>이제 데이터를 실제로 업데이트할 액션을 만들어 봅시다. 위의 <code>modify</code> 페이지에서 submit 버튼을 누르면 <code>/update/:id</code>로 이동하도록 설정하였습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">a</span><span style="color:#C792EA"> href</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/list</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">Go back</span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">a</span><span style="color:#89DDFF">>&#x3C;</span><span style="color:#F07178">br</span><span style="color:#89DDFF">/></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">form</span><span style="color:#C792EA"> action</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/update/&#x3C;%= @post.id %></span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> method</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">POST</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span></span>
@@ -504,23 +480,11 @@ mysql은 이미 로컬에 설치되었다는 가정하에 진행합니다.</p>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>URL을 통해 <code>id</code> 파라메터를 전달받을 예정이고, 사용자가 입력한 데이터는 POST 방식으로 전달받을 예정입니다.</p>
 <p>이제 데이터 수정 페이지로 이동한 후,</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails 데이터를 수정하기 위한 링크 추가">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Rails 데이터를 수정하기 위한 링크 추가" width="764" height="308" loading="lazy" decoding="async"></picture></p>
 <p>아래와 같이 기존 데이터와 다른 내용을 입력해 봅니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/update-data.jpg" alt="Ruby on Rails 데이터 수정 페이지 - 데이터 수정">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/update-data.jpg" alt="Ruby on Rails 데이터 수정 페이지 - 데이터 수정" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <p>그리고 <code>Submit</code> 버튼을 누르면 아래와 같이, 데이터가 잘 수정된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/update-data-result.jpg" alt="Ruby on Rails 데이터 리스트 페이지 - 데이터 수정 결과">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/update-data-result.jpg" alt="Ruby on Rails 데이터 리스트 페이지 - 데이터 수정 결과" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -567,17 +531,9 @@ mysql은 이미 로컬에 설치되었다는 가정하에 진행합니다.</p>
 <span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">tbody</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">table</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>다시 <code>http://127.0.0.1:3000/list</code>에 접속하면 아래와 같이 <code>delete</code> 링크가 추가된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/delete-link.jpg" alt="Ruby on Rails 데이터 리스트 페이지 - 삭제 링크">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/delete-link.jpg" alt="Ruby on Rails 데이터 리스트 페이지 - 삭제 링크" width="748" height="362" loading="lazy" decoding="async"></picture></p>
 <p>그럼 <code>delete</code> 링크를 눌러봅니다. <code>delete</code> 링크를 누르면 저장된 데이터가 잘 삭제되고, 아래와 같이 리스트 페이지에도 데이터가 표시되지 않는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/deleted.jpg" alt="Ruby on Rails 데이터 리스트 페이지 - 삭제 성공">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/deleted.jpg" alt="Ruby on Rails 데이터 리스트 페이지 - 삭제 성공" width="748" height="362" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이것으로 Ruby on Rails에서 데이터베이스를 생성하고 데이터를 CRUD(Create Read Update Delete)하는 방법에 대해서 알아보았습니다. 이제 여러분은 Ruby on Rails로 기본적인 웹 서비스를 개발할 준비가 되었습니다.</p>
 <p>이제 웹 서비스를 만들어보면서 Rails를 깊게 공부해 보시기 바랍니다.</p>

@@ -89,29 +89,13 @@ Github Sponsor
 <h2 id="provider란">Provider란</h2>
 <p>Flutter에서는 크게 두 종류의 위젯이 존재합니다. 하나는 상태를 가지지 않는 <code>Stateless Widget</code>과 상태를 가지고 있는 <code>Stateful Widget</code>입니다.</p>
 <p><code>Stateful Widget</code>은 한 위젯 안에서 상태(데이터)를 가지고 해당 상태의 변화에 따라 화면에 표시되는 UI를 변경합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/state.jpg" alt="flutter state">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/state.jpg" alt="flutter state" width="807" height="528" loading="lazy" decoding="async"></picture></p>
 <p>그런데 만약, 다른 위젯에서 동일한 상태(데이터)가 필요한 경우, 어떻게 해야할까요?</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/need_state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/need_state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/need_state.jpg" alt="flutter state required">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/need_state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/need_state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/need_state.jpg" alt="flutter state required" width="807" height="535" loading="lazy" decoding="async"></picture></p>
 <p>상태를 공유하는 두 위젯의 공통 부모 위젯을 <code>Stateful Widget</code>으로 만들고, 자식 위젯을 생성할 때, 파라메터로 해당 상태를 전달하면, 두 위젯 사이에서 동일한 상태를 사용할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/pass_state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/pass_state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/pass_state.jpg" alt="flutter state required">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/pass_state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/pass_state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/pass_state.jpg" alt="flutter state required" width="960" height="547" loading="lazy" decoding="async"></picture></p>
 <p>하지만 상태를 표시하기 위해 불필요한 위젯들이 <code>Re-build</code>되면서 성능 이슈가 나타날 수 있습니다. <code>Provider</code>는 이 문제를 해결하기 위해 등장했으며, 이렇게 동일한 상태(데이터)를 전역적으로 다른 위젯들과 공유할 때 사용합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/provider.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/provider.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/provider.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/provider.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/provider.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/provider.jpg" alt="flutter provider" width="960" height="547" loading="lazy" decoding="async"></picture></p>
 <p>Provider를 사용할 때에는, 위젯 트리와 상관없이 상태(데이터)를 저장할 클래스를 생성하고, 해당 상태를 공유하는 공통 부모 위젯에 <code>Provider</code>를 제공(Provide)하고, 상태를 사용하는 곳에는 <code>Provider</code>의 데이터를 읽어서 사용하게 됩니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -125,11 +109,7 @@ Github Sponsor
 </div>
 <h2 id="사용법">사용법</h2>
 <p>그럼 이제 <code>flutter_provider</code>를 사용하여 실제로 전역 상태를 관리해 봅시다. 이번 블로그 포스트에서는 <code>flutter_provider</code> 패키지를 사용하여, 다음과 같이 간단한 카운터 앱을 개발할 예정입니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider" width="1280" height="913" loading="lazy" decoding="async"></picture></p>
 <p><code>+</code> 버튼을 누르면, 화면에 표시된 숫자가 올라가고, <code>-</code> 버튼을 누르면 숫자가 감소하는 단순한 앱이다. 이 앱을 통해 Flutter에서 Provider를 사용하는 방법에 대해서 살펴봅시다.</p>
 <h3 id="provider">Provider</h3>
 <p>우선 전역 데이터를 관리하기 위한 Provider를 생성해 봅시다. <code>lib/providers/counts.dart</code> 파일을 생성하고, 다음과 같이 수정한다.</p>
@@ -375,11 +355,7 @@ Github Sponsor
 <p>지금까지 개발한 Flutter 앱을 다음 명령어로 실행해 봅니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> run</span></span></code></pre>
 <p>또는 사용하고 있는 에디터의 디버깅 기능으로 실행하면, 다음과 같은 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider" width="1280" height="913" loading="lazy" decoding="async"></picture></p>
 <p>그리고 화면에 보이는 <code>+</code> 버튼을 누르면 표시된 숫자가 증가하는 것을 확인할 수 있습니다. 또 <code>-</code> 버튼을 누르면 표시된 숫자가 감소하는 것을 확인할 수 있습니다.</p>
 <h2 id="완료">완료</h2>
 <p>이것으로 Flutter에서 Provider를 사용여 여러 위젯에서 사용되는 전역 상태를 관리하는 방법에 대해서 알아보았습니다. 또한 간단한 예제를 통해 Provider를 사용하는 방법에 대해서도 알아보았습니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

@@ -74,11 +74,7 @@ Github Sponsor
 </ul>
 <h2 id="firebaseプロジェクト設定">Firebaseプロジェクト設定</h2>
 <p>次はグーグルのファイアベース(Google Firebase)でプロジェクトにCrashlyticsを設定する必要があります。FirebaseのConsoleを移動した後、左メニューで<code>Crashlytics</code>を選択します。</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.jpg" alt="crashlytics add sdk">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.jpg" alt="crashlytics add sdk" width="1280" height="476" loading="lazy" decoding="async"></picture></p>
 <p>上にある<code>Add SDK</code>ボタンを押してSDKを追加します。また、上の<code>Crashlytics</code>タイトルの横にあるプロジェクトを選択してiOS/アンドロイドを変更して、<code>Add SDK</code>を押してiOSとアンドロイド、両方SDKを追加します。</p>
 <h2 id="firebase_crashlyticsインストール">firebase_crashlyticsインストール</h2>
 <p>FlutterプロジェクトでFirebase Crashlyticsを使うためには<code>firebase_crashlytics</code>パッケージをインストールする必要があります。次のコマンドを実行して<code>firebase_crashlytics</code>パッケージをインストールします。</p>
@@ -128,17 +124,9 @@ Github Sponsor
 <p>このコードをボタンや画面の移動などのイベントに連結して、アプリを強制終了させます。アプリが強制終了されたら、またアプリを実行してFirebase Crashlyticsに報告するようにします。</p>
 <p>アプリの強制終了テストは端末で実行しなければならないし、強制終了後、Firebase Crashlyticsに報告できるように必ずアプリを再起動しなければならないです。</p>
 <p>このように強制終了をしてFirebase Crashlyticsに報告をしたら、FirebaseのCrashlytics画面が次のように変更されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/crashlytics/message_list.jpg" alt="crashlytics error message list">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/crashlytics/message_list.jpg" alt="crashlytics error message list" width="1280" height="631" loading="lazy" decoding="async"></picture></p>
 <p>また、Crashlyticsのエラーメッセージを選択すると次のように<code>This is a test crash caused by calling .crash() in Dart</code>と言うテストメッセージを確認することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/crashlytics/result_test.jpg" alt="crashlytics error message list">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/crashlytics/result_test.jpg" alt="crashlytics error message list" width="1271" height="272" loading="lazy" decoding="async"></picture></p>
 <h2 id="アンドロイドのmultidexenabled">アンドロイドのmultiDexEnabled</h2>
 <p><code>firebase_crashlytics</code>をインストールしてFlutterプロジェクトをアンドロイドで実行した時、<code>Debug Console</code>に次のようなエラーが発生しました。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Note:</span><span style="color:#C3E88D"> .pub-cache/hosted/pub.dartlang.org/firebase_core-1.0.4/android/src/main/java/io/flutter/plugins/firebase/core/FlutterFirebaseCorePlugin.java</span><span style="color:#C3E88D"> uses</span><span style="color:#C3E88D"> or</span><span style="color:#C3E88D"> overrides</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> deprecated</span><span style="color:#C3E88D"> API.</span></span>

@@ -48,11 +48,7 @@ Github Sponsor
 </div>
 <h2 id="개요">개요</h2>
 <p><code>Google</code>의 <code>Chrome</code> 브라우저에서는 웹 페이지의 성능을 측정할 수 있는 <code>Lighthouse</code>라는 기능을 제공하고 있습니다. 이 기능을 사용하면 웹 페이지의 전반적인 성능을 확인할 수 있고, 다음과 같이 문제점도 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/web/2023/optimization_load_google_font/render_blocking_resources_issue_of_google_web_font.avif" type="image/avif">
-  <source srcset="/assets/images/category/web/2023/optimization_load_google_font/render_blocking_resources_issue_of_google_web_font.webp" type="image/webp">
-  <img src="/assets/images/category/web/2023/optimization_load_google_font/render_blocking_resources_issue_of_google_web_font.png" alt="Optimization loading Google web font - Lighthouse Eliminate render-blocking resources issue of google web font">
-</picture>
+<p><picture><source srcset="/assets/images/category/web/2023/optimization_load_google_font/render_blocking_resources_issue_of_google_web_font.avif" type="image/avif"><source srcset="/assets/images/category/web/2023/optimization_load_google_font/render_blocking_resources_issue_of_google_web_font.webp" type="image/webp"><img src="/assets/images/category/web/2023/optimization_load_google_font/render_blocking_resources_issue_of_google_web_font.png" alt="Optimization loading Google web font - Lighthouse Eliminate render-blocking resources issue of google web font" width="1280" height="564" loading="lazy" decoding="async"></picture></p>
 <p>이번 블로그 포스트에서는 <code>Google Web Font</code>의 로딩을 최적화하여 <code>Eliminate render-blocking resources</code> 문제를 해결하는 방법에 대해서 알아보겠습니다.</p>
 <h2 id="preconnect">Preconnect</h2>
 <p><code>Preconnect</code>는 현재 페이지에서 외부 도메인의 리소스를 가져올 때, 웹 브라우저에 미리 외부 도메인과 연결을 하도록 도와줍니다.</p>

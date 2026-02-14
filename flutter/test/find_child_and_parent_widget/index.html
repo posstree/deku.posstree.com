@@ -58,11 +58,7 @@ Github Sponsor
 <p>テストコードで親ウィジェットやチャイルドウィジェットを探す方法を調べるため、次のコマンドを実行して新しいプロジェクトを生成します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> create</span><span style="color:#C3E88D"> find_child_and_parent_widget</span></span></code></pre>
 <p>今回のブログポストでは<code>flutter create</code>コマンドで生成された基本アプリのテストコードを修正して親やチャイルドウィジェットにアクセスする方法についてみてみます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png" alt="Flutter find child and parent widget - basic_app">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png" alt="Flutter find child and parent widget - basic_app" width="1280" height="972" loading="lazy" decoding="async"></picture></p>
 <h2 id="親ウィジェットを探す">親ウィジェットを探す</h2>
 <p>テストコードで親ウィジェットを探すためには<code>findAncestorWidgetOfExactType</code>を使います。親ウィジェットを探す方法について調べるため<code>test/widget_test.dart</code>ファイルを開いて下記のように修正します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#82AAFF">testWidgets</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'Find parent widget'</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> (</span><span style="color:#FFCB6B">WidgetTester</span><span style="color:#EEFFFF"> tester) </span><span style="color:#89DDFF;font-style:italic">async</span><span style="color:#EEFFFF"> {</span></span>

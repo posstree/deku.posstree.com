@@ -51,11 +51,7 @@ Github Sponsor
 </div>
 <h2 id="概要">概要</h2>
 <p>アプリでユーザから日付を入力してもらうため、次のようにカレンダー(DatePicker)を表示するUIをよく見ます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>今回のブログポストでは<code>showDatePicker</code>を使って<code>Flutter</code>で<code>DatePicker</code>を表示する方法について説明します。</p>
 <ul>
 <li>showDatePicker: <a href="https://api.flutter.dev/flutter/material/showDatePicker.html" rel="nofollow noreferrer" target="_blank">https://api.flutter.dev/flutter/material/showDatePicker.html</a></li>
@@ -66,11 +62,7 @@ Github Sponsor
 </ul>
 <h2 id="プロジェクト準備">プロジェクト準備</h2>
 <p><code>showDatePicker</code>の使い方を確認するため、次のようにボタンを表示する簡単なアプリを作ってみます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>次のコマンドを実行して新しいFlutterプロジェクトを生成します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> create</span><span style="color:#C3E88D"> show_date_picker</span></span></code></pre>
 <p>新しいFlutterプロジェクトが生成されたら、<code>main.dart</code>ファイルを開いて下記のように修正します。</p>
@@ -95,11 +87,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p><code>DatePicker</code>を使ってボタンに表示される日付を変更する予定なので、<code>Stateful</code>ウィジェットで生成しました。このように<code>main.dart</code>ファイルを修正して保存すると、下記のようにボタンがうまく表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>今はボタンイベントに何もコードを追加してないので、ボタンを押しても何の動作もしないことが確認できます。</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -133,30 +121,14 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p><code>showDatePicker</code>関数は<code>Future&#x3C;DateTime?></code>タイプを返すので、<code>async-await</code>を使う必要があります。また、ユーザが日付を選択しない場合、<code>null</code>が帰ってくるので、ユーザが選択した日付を保存するため<code>if</code>文を使いました。最後に、ユーザが選択した日付を<code>setState</code>を使って<code>State</code>を変更して、画面をアップデートするようにしました。</p>
 <p>このようにコードを修正して保存すると、次のようにボタンがまだうまく表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/button_for_date_picker.png" alt="Flutter showDatePicker - button for showDatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>そしたら、ボタンを押してみます。ボタンを押したら以前と違って次のようにカレンダーが表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/DatePicker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/DatePicker.png" alt="Flutter showDatePicker - DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>次はカレンダーで好きな日付を押すと、次のようにボタンの日付がうまく変更されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/change_date.png" alt="Flutter showDatePicker - change date by DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_date.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/change_date.png" alt="Flutter showDatePicker - change date by DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <h2 id="initialentrymode">initialEntryMode</h2>
 <p>現在表示された<code>DatePicker</code>の右上にある修正アイコンを押すと次のように日付を直接入力する画面が確認されます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.png" alt="Flutter showDatePicker - edit date mode by DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/edit_date_mode.png" alt="Flutter showDatePicker - edit date mode by DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <p>この機能を使えないようにするためには、次のように<code>showDatePicker</code>関数の<code>initialEntryMode</code>オプションに<code>DatePickerEntryMode.calendarOnly</code>を設定する必要があります。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">...</span></span>
 <span class="line"><span style="color:#FFCB6B">ElevatedButton</span><span style="color:#EEFFFF">(</span></span>
@@ -178,11 +150,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>そしたら次のように右上に表示された修正アイコンが消えることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.png" alt="Flutter showDatePicker - disable edit date mode by DatePicker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/disable_edit_date_mode.png" alt="Flutter showDatePicker - disable edit date mode by DatePicker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -236,11 +204,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>このようにコードを修正して保存すると、次のようにカレンダーに表示される言語が英語ではなく日本語がうまく表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.png" alt="Flutter showDatePicker - change locale of date picker">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/showDatePicker/change_locale_of_date_picker.png" alt="Flutter showDatePicker - change locale of date picker" width="1280" height="1007" loading="lazy" decoding="async"></picture></p>
 <h2 id="テストコード">テストコード</h2>
 <p>次のようにテストコードを作成して、<code>showDatePicker</code>がうまく動作するか確認することができます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">...</span></span>

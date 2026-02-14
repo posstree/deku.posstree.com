@@ -151,23 +151,11 @@ Github Sponsor
 <span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#C3E88D"> test-pr</span></span></code></pre>
 <p><code>Git</code>で<code>commit</code>をする際に、<code>--no-verify</code>を使うと<code>husky</code>と<code>lint-staged</code>をスキップして<code>commit</code>をすることができます。</p>
 <p>このようにGitHubへ修正した内容をアップロードしたら、GitHubサイトに移動した後、<code>Pull requests</code>のタブを選択して、<code>New pull request</code>を押して新しいPull Requestを生成します。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/github-actions/create-pull-request.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/github-actions/create-pull-request.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/github-actions/create-pull-request.jpg" alt="GitHub create pull request">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/github-actions/create-pull-request.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/github-actions/create-pull-request.webp" type="image/webp"><img src="/assets/images/category/react/2021/github-actions/create-pull-request.jpg" alt="GitHub create pull request" width="1280" height="273" loading="lazy" decoding="async"></picture></p>
 <p>GitHub Actionsを上手く設定したら、先作った<code>Pull request</code>の下に次のようにGitHub Actionsでエラーが発生することが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/github-actions/github-actions-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/github-actions/github-actions-error.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/github-actions/github-actions-error.jpg" alt="GitHub actions error">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/github-actions/github-actions-error.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/github-actions/github-actions-error.webp" type="image/webp"><img src="/assets/images/category/react/2021/github-actions/github-actions-error.jpg" alt="GitHub actions error" width="934" height="315" loading="lazy" decoding="async"></picture></p>
 <p>右にある<code>Details</code>を選択したら、GitHub Actionsで発生したエラーの詳しい内容を確認することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/github-actions/github-actions-error-details.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/github-actions/github-actions-error-details.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/github-actions/github-actions-error-details.jpg" alt="GitHub actions error details">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/github-actions/github-actions-error-details.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/github-actions/github-actions-error-details.webp" type="image/webp"><img src="/assets/images/category/react/2021/github-actions/github-actions-error-details.jpg" alt="GitHub actions error details" width="1280" height="644" loading="lazy" decoding="async"></picture></p>
 <p>私たちが設定したESLintのルールを守ってない部分があり、そこでエラーが発生したことが確認できます。このように私たちが設定したGitHub Actionが上手く動いてることが確認できます。</p>
 <h2 id="完了">完了</h2>
 <p>これでGitHub Actionsを使ってPrettierとESLintを実行する方法について説明しました。huskyとlint-stagedを設定したので、事前に問題を発見できますが、開発者全員が同じ環境ではないので、GitHub Actionsを作って同じ環境でPrettierとESLintでソースコードを解析することができます。</p>

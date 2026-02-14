@@ -66,39 +66,19 @@ Github Sponsor
 </ul>
 <h2 id="context">Context</h2>
 <p>React에서 Props와 State는 부모 컴포넌트와 자식 컴포넌트 또는 한 컴포넌트 안에서 데이터를 다루기 위해 사용됩니다. 이 Props와 State를 사용하게 되면 부모 컴포넌트에서 자식 컴포넌트, 즉, 위에서 아래, 한쪽으로 데이터가 흐르게 됩니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/react-data-flow.png" alt="React data flow with Props">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/react-data-flow.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/react-data-flow.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/react-data-flow.png" alt="React data flow with Props" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>만약 다른 컴포넌트에서 한쪽으로 흐르고 있는 데이터를 사용하고 싶은 경우 또는 다른 컴포넌트에서 사용하고 있는 데이터를 현재의 데이터 흐름에 넣고 싶은 경우가 발생한다면 어떻게 해야할까요?</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/react-data-flow-another-component.png" alt="React need data in another data flow">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/react-data-flow-another-component.png" alt="React need data in another data flow" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>React에서 데이터는 위에서 아래로 흐르게 되므로 사용하고 싶은 데이터와 이 데이터를 사용할 컴포넌트의 공통 부모 컴포넌트에 State를 만들고 사용하고자 하는 데이터를 Props를 전달하면 이 문제를 해결할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/global-data-use-props.png" alt="React global data with props and state">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/global-data-use-props.png" alt="React global data with props and state" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>하지만 이처럼 컴포넌트 사이에 공유되는 데이터를 위해 매번 공통 부모 컴포넌트를 수정하고 하위 모든 컴포넌트에 데이터를 Props로 전달하는 것은 매우 비효율적입니다. 이와 같은 문제를 해결하기 위해 React에서는 <code>Flux</code>라는 개념을 도입하였고 그에 걸맞은 <code>Context API</code>를 제공하기 시작했습니다.</p>
 <ul>
 <li>React 공식 사이트: <a href="https://reactjs.org/docs/context.html#consuming-multiple-contexts" rel="nofollow noreferrer" target="_blank">Context</a></li>
 </ul>
 <p>Context는 부모 컴포넌트로부터 자식 컴포넌트로 전달되는 데이터의 흐름과는 상관없이 전역적인 데이터를 다룰 때 사용합니다. 전역 데이터를 Context에 저장한 후, 데이터가 필요한 컴포넌트에서 해당 데이터를 불러와 사용할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/context.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/context.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/context.png" alt="React context">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/context.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/context.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/context.png" alt="React context" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>React에서 Context를 사용하기 위해서는 Context API를 사용해야 하며, Context의 <code>Provider</code>와 <code>Consumer</code>를 사용해야 합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/context-provider-consumer.png" alt="React context with Provider and Consumer">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/context-provider-consumer.png" alt="React context with Provider and Consumer" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>Context에 저장된 데이터를 사용하기 위해서는 공통 부모 컴포넌트에 Context의 Provider를 사용하여 데이터를 제공해야 하며, 데이터를 사용하려는 컴포넌트에서 Context의 Consumer를 사용하여 실제로 데이터를 사용합니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -290,17 +270,9 @@ Github Sponsor
 <p>Context를 활용하여 전역 데이터를 다루는 예제를 모두 만들어 보았습니다. 이제 이렇게 생성한 React 프로젝트를 확인하기 위해, 다음 명령어를 사용하여 React 프로젝트를 실행합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> start</span></span></code></pre>
 <p>React 프로젝트가 실행되면 다음과 같이 <code>0</code>과 <code>+ 1</code> 버튼을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/count.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/count.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/count.jpg" alt="React Context example: Count">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/count.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/count.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/count.jpg" alt="React Context example: Count" width="687" height="276" loading="lazy" decoding="async"></picture></p>
 <p><code>+ 1</code> 버튼을 누르면, 다음과 같이 카운트가 증가되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/count_increased.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/count_increased.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/count_increased.jpg" alt="React Context example: Count increased">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/count_increased.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/count_increased.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/count_increased.jpg" alt="React Context example: Count increased" width="687" height="276" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이것으로 React에서 컴포넌트가 전역 데이터를 다루는 방법인 Context에 대해 간단히 살펴보았습니다. 이번 블로그 포스트의 예제에서는 Context를 사용하지 않을 정도로 작은 프로젝트였기 때문에, Context를 사용하는 필요성을 못 느끼셨을거 같습니다. 하지만, 많은 컴포넌트를 사용하는 프로젝트에서는 Context를 사용하여 데이터를 공유하는 경우가 많으므로 이번 기회에 잘 공부해 두시면 도움이 될거 같습니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

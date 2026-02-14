@@ -89,29 +89,13 @@ Github Sponsor
 <h2 id="providerとは">Providerとは</h2>
 <p>Flutterでは大きく2種類のウィジェットが存在します。1は状態を持ってない<code>Stateless Widget</code>と状態(State)を持ってる<code>Stateful Widget</code>です。</p>
 <p><code>Stateful Widget</code>は1つのウィジェット中で状態(データ)を持ってその状態の変化によって画面に表示されたUIを変更します。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/state.jpg" alt="flutter state">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/state.jpg" alt="flutter state" width="807" height="528" loading="lazy" decoding="async"></picture></p>
 <p>もし、他のウィジェットで同じ状態（データ）が必要な場合はどうすれば良いでしょうか？</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/need_state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/need_state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/need_state.jpg" alt="flutter state required">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/need_state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/need_state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/need_state.jpg" alt="flutter state required" width="807" height="535" loading="lazy" decoding="async"></picture></p>
 <p>状態をシェアする2つの共通親ウィジェットを<code>Stateful Widget</code>を作って、チャイルドウィジェットを生成する時、パラメータでその状態を渡して、2つのウィジェットの間で同じ状態を使うことができます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/pass_state.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/pass_state.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/pass_state.jpg" alt="flutter state required">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/pass_state.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/pass_state.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/pass_state.jpg" alt="flutter state required" width="960" height="547" loading="lazy" decoding="async"></picture></p>
 <p>しかし、状態を表示するため要らないウィジェットたちが<code>Re-build</code>され性能的な問題が出る可能性があります。<code>Provider</code>はこの問題を解決するため登場しました。このように同じ状態（データ）をグローバル的他のウィジェットと共有する時、<code>Provider</code>を使います。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/provider.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/provider.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/provider.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/provider.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/provider.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/provider.jpg" alt="flutter provider" width="960" height="547" loading="lazy" decoding="async"></picture></p>
 <p>Providerを使う時には、ウィジェットツリーと関係なく状態（データ）を保存するクラスを生成して、当該状態をシェアする共通親ウィジェットに<code>Provider</code>を提供(Provide)して、状態を使うところで<code>Provider</code>のデータを読み込んで使います。</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -125,11 +109,7 @@ Github Sponsor
 </div>
 <h2 id="使い方">使い方</h2>
 <p>次は<code>flutter_provider</code>を使って実際グローバルの状態を管理してみましょう。今回のブログポストでは<code>flutter_provider</code>パッケージを使って、次のような簡単なカウンターアプリを開発する予定です。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider" width="1280" height="913" loading="lazy" decoding="async"></picture></p>
 <p><code>+</code>ボタンを押すと、画面に表示される数字が上がって、<code>-</code>ボタンを押すと数字が下がる単純なアプリです。このアプリでFlutterでProviderを使う方法について説明します。</p>
 <h3 id="provider">Provider</h3>
 <p>まず、グローバルデータを管理するためProviderを作ってみましょう。<code>lib/providers/counts.dart</code>ファイルを生成して次のように修正します。</p>
@@ -374,11 +354,7 @@ Github Sponsor
 <p>今まで開発したFlutterアプリを次のコマンドで実行します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">flutter</span><span style="color:#C3E88D"> run</span></span></code></pre>
 <p>または使っているエディターのデバッグ機能を使って実行すると、次のような画面が見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/provider/counter_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/provider/counter_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/provider/counter_app.jpg" alt="flutter provider" width="1280" height="913" loading="lazy" decoding="async"></picture></p>
 <p>そして画面に見える<code>+</code>ボタンを押したら表示された数字が上がることが確認できます。また、<code>-</code>ボタンを押すと表示された数字が下がることが確認できます。</p>
 <h2 id="完了">完了</h2>
 <p>これでFlutterでProviderを使って色んなウィジェットで使えるグローバル状態を管理する方法についてみてみました。また、簡単な例題を使ってProviderを使う方法についてもみてみました。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

@@ -60,28 +60,13 @@ Github Sponsor
 <ul>
 <li>RN(react native) 프로젝트 폴더에서 <code>ios/[project].xcworkspace</code> 파일을 선택하여 xcode를 실행합니다.</li>
 <li>상단 메뉴에서 <code>Product</code> > <code>Scheme</code> > <code>Edit Scheme...</code>를 선택합니다.
-<picture>
-<source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme.avif" type="image/avif">
-<source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme.webp" type="image/webp">
-<img src="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme.jpg" alt="xcode edit scheme">
-</picture>
-</li>
+<picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme.jpg" alt="xcode edit scheme" width="898" height="336" loading="lazy" decoding="async"></picture></li>
 <li>활성화된 <code>Edit schema...</code> 창 왼쪽 메뉴에서 <code>Run</code>을 선택하고 오른쪽에 <code>Arguments</code> 탭을 선택합니다.
-<picture>
-<source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-arguments.avif" type="image/avif">
-<source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-arguments.webp" type="image/webp">
-<img src="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-arguments.jpg" alt="edit scheme arguments">
-</picture>
-</li>
+<picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-arguments.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-arguments.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-arguments.jpg" alt="edit scheme arguments" width="916" height="520" loading="lazy" decoding="async"></picture></li>
 <li>선택한 <code>Arguments</code> 탭에 <code>Arguments Passed On Launch</code>에 <code>+</code>버튼을 눌러 아래에 내용을 추가합니다.(마이너스(<code>-</code>) 부호도 같이 복사 붙여넣습니다.)
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">-FIRDebugEnabled</span></span></code></pre>
-  <picture>
-<source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-FIRDebugEnabled.avif" type="image/avif">
-<source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-FIRDebugEnabled.webp" type="image/webp">
-<img src="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-FIRDebugEnabled.jpg" alt="edit scheme arguments FIRDebugEnabled">
-</picture></li>
+<picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-FIRDebugEnabled.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-FIRDebugEnabled.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/edit-scheme-FIRDebugEnabled.jpg" alt="edit scheme arguments FIRDebugEnabled" width="916" height="520" loading="lazy" decoding="async"></picture></li>
 </ul>
-
 <h3 id="android">Android</h3>
 <p>안드로이드는 iOS보다 간단합니다. 안드로이드 에뮬레이터(Android Emulator)나 디바이스(Device)를 기동하고 아래에 명령어를 입력합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">adb</span><span style="color:#C3E88D"> shell</span><span style="color:#C3E88D"> setprop</span><span style="color:#C3E88D"> debug.firebase.analytics.app</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#C3E88D">package_nam</span><span style="color:#EEFFFF">e</span><span style="color:#89DDFF">></span></span></code></pre>
@@ -89,17 +74,9 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">adb</span><span style="color:#C3E88D"> shell</span><span style="color:#C3E88D"> setprop</span><span style="color:#C3E88D"> debug.firebase.analytics.app</span><span style="color:#C3E88D"> .none.</span></span></code></pre>
 <h3 id="테스트">테스트</h3>
 <p>이제 파이어베이스 콘솔(Firebase Console)에 파이어베이스 애널리틱스(Firebase Analytics) <code>DebugView</code> 메뉴로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/firebase-analytics-debugview.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/firebase-analytics-debugview.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/firebase-analytics-debugview.jpg" alt="firebase analytics debugview">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/firebase-analytics-debugview.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/firebase-analytics-debugview.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/firebase-analytics-debugview.jpg" alt="firebase analytics debugview" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>현재는 iOS, Android 둘 다 기동하지 않은 상태임으로 <code>DebugView</code>가 대기 상태에 있습니다. 이제 iOS나 Android를 기동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/debugview-analytics.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/debugview-analytics.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/debugview-analytics.jpg" alt="firebase analytics debugview analytics">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/debugview-analytics.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/debugview-analytics.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/debugview-analytics.jpg" alt="firebase analytics debugview analytics" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>잠시후 위와 같이 거의 실시간으로 분석되는 화면을 볼 수 있습니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -114,29 +91,13 @@ Github Sponsor
 <h2 id="화면-분석">화면 분석</h2>
 <p>파이어베이스 애널리틱스(Firebase Analytics)에서 사용자가 어떤 화면을 봤는지 기록해 주는 <code>screen_view</code>라는 이벤트(Event)가 있습니다.</p>
 <p>파이어베이스 콘솔(Firebase Console)에서 <code>Analytics</code>의 <code>Events</code>라는 메뉴를 선택하면 아래와 같은 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events.jpg" alt="google firebase console Analytics Events menu">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events.jpg" alt="google firebase console Analytics Events menu" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>화면에 보이는 <code>Event</code> 리스트에서 <code>screen_view</code>를 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events-screen_view.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events-screen_view.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events-screen_view.jpg" alt="Firebase Analytics Events screen_view">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events-screen_view.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events-screen_view.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/analytics-events-screen_view.jpg" alt="Firebase Analytics Events screen_view" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>조금 스크롤을 해서 하단으로 이동하면 <code>User engagement</code> > <code>Screen class</code>라는 항목이 보입니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_view-class-to-name.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_view-class-to-name.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_view-class-to-name.jpg" alt="Firebase Analytics Events screen_view screen class to screen name">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_view-class-to-name.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_view-class-to-name.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_view-class-to-name.jpg" alt="Firebase Analytics Events screen_view screen class to screen name" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>User engagement를 <code>Screen class</code>에서 <code>Screen name</code>으로 변경합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-no-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-no-data.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-no-data.jpg" alt="Firebase Analytics Events screen name no data">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-no-data.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-no-data.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-no-data.jpg" alt="Firebase Analytics Events screen name no data" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>여기까지 확인하면 무언가 부족함을 느끼셨을 겁니다. <code>Screen class</code>에서는 정말 기본이 되는 class만 확인이 되고 <code>Screen name</code>에는 아무 데이터가 없어 사용자가 어떤 화면을 많이 봤는지 분석이 되지 않습니다.</p>
 <p>그래서 우리는 <code>react-native-firebase</code>가 제공하는 <code>setCurrentScreen</code>함수를 사용하여 사용자가 본 화면을 분석하기로 했습니다.</p>
 <p>우리는 분석하고자 하는 앱(App)의 화면에 아래와 같이 코드를 추가하였습니다.</p>
@@ -149,17 +110,9 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
 <p>react-native-firebase가 제공하는 <code>setCurrentScreen</code> 함수에 앱(App)의 화면 이름을 입력해 줍니다.</p>
 <p>그리고 테스트하여 분석이 끝나면 아래와 같이 우리가 <code>setCurrentScreen</code> 함수에 입력한 앱(App)의 화면 이름을 확인 할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-with-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-with-data.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-with-data.jpg" alt="Firebase Analytics Events screen name with data">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-with-data.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-with-data.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-with-data.jpg" alt="Firebase Analytics Events screen name with data" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>파이어베이스 애널리틱스(Firebase Analytics)의 <code>DebugView</code>에서도 실시간으로 분석이 되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-on-debugview.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-on-debugview.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-on-debugview.jpg" alt="Firebase Analytics Events screen name on debug view">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-on-debugview.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-on-debugview.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/screen_name-on-debugview.jpg" alt="Firebase Analytics Events screen name on debug view" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>DebugView에서 해당 이벤트(screen_view)를 선택하면 위와 같이 상세 화면을 볼 수 있습니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -180,47 +133,19 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
 <p>logEvent의 첫번째 파라미터는 알파벳 100자와 특수문자는 언더바(_)만 지원합니다.(<code>up to 100 characters is the maximum character length supported for event parameters.</code>) 하지만 우리는 다국어를 지원하는 앱이고 어떤 언어로 어떤 액션을 했는지 분석하고 싶었습니다. 그래서 두번째 파라미터를 사용하여 커스텀 이벤트(Custom Event)에 커스텀 파라미터(Custom Parameter)를 추가하였습니다. 두번째 파라미터는 오브젝트(Object) 타입이므로 자유롭게 커스텀 파라미터(Custom Parameter)를 만들어 분석에 활용할 수 있습니다.</p>
 <p>위와 같이 커스텀 이벤트(Custom Event)에 커스텀 파라미터(Custom Parameter)를 추가하였다면 파이어베이스 콘솔(Firebase Console)에도 추가해야 합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-event-custom-parameter.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-event-custom-parameter.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-event-custom-parameter.jpg" alt="Firebase Analytics Events custom event">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-event-custom-parameter.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-event-custom-parameter.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-event-custom-parameter.jpg" alt="Firebase Analytics Events custom event" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>위와 같이 <code>Analytics</code> 메뉴의 <code>Events</code>로 이동한 후 이벤트(Event) 리스트에서 추가한 커스텀 이벤트(Custom Event)에 마우스를 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-menu.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-menu.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-menu.jpg" alt="Firebase Analytics custom parameter menu">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-menu.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-menu.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-menu.jpg" alt="Firebase Analytics custom parameter menu" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>마우스를 이동하면 해당 항목 오른쪽에 <code>...</code> 버튼이 활성화됩니다. 해당 버튼을 눌러 보이는 메뉴에서 <code>Edit parameter reporting</code>을 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-edit-parameter-reporting.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-edit-parameter-reporting.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-edit-parameter-reporting.jpg" alt="Firebase Analytics custom parameter edit parameter reporting">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-edit-parameter-reporting.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-edit-parameter-reporting.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-edit-parameter-reporting.jpg" alt="Firebase Analytics custom parameter edit parameter reporting" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>왼쪽 검색바에 분석하고 싶은 커스텀 이벤트(Custom Event)의 커스텀 파라미터(Custom Parameter)를 입력하고 <code>ADD</code>를 눌러 커스텀 파라미터(Custom Parameter) 추가합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/add-custom-parameter.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/add-custom-parameter.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/add-custom-parameter.jpg" alt="Firebase Analytics add custom parameter">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/add-custom-parameter.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/add-custom-parameter.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/add-custom-parameter.jpg" alt="Firebase Analytics add custom parameter" width="1280" height="597" loading="lazy" decoding="async"></picture></p>
 <p>추가 완료후 테스트를 진행합니다. 데이터가 쌓이고(하루정도 지나고), <code>Events</code> 메뉴에 추가한 커스텀 이벤트(Custom Event)를 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter.jpg" alt="Firebase Analytics custom parameter">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter.jpg" alt="Firebase Analytics custom parameter" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>조금 스크롤하여 하단으로 이동하면 우리가 추가한 커스텀 파라미터(Custom Parameter)의 분석 결과를 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-result.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-result.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-result.jpg" alt="Firebase Analytics custom parameter result">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-result.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-result.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/custom-parameter-result.jpg" alt="Firebase Analytics custom parameter result" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>파이어베이스 애널리틱스(Firebase Analytics)의 <code>DebugView</code>에서도 실시간으로 분석이 되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom_event-on-debugview.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom_event-on-debugview.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/react-native-firebase-analytics/custom_event-on-debugview.jpg" alt="Firebase Analytics Events custom event on debug view">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom_event-on-debugview.avif" type="image/avif"><source srcset="/assets/images/category/react-native/react-native-firebase-analytics/custom_event-on-debugview.webp" type="image/webp"><img src="/assets/images/category/react-native/react-native-firebase-analytics/custom_event-on-debugview.jpg" alt="Firebase Analytics Events custom event on debug view" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>DebugView에서 해당 커스텀 이벤트(Custom Event)를 선택하면 위와 같이 추가한 커스텀 파라미터(Custom Parameter)가 함께 보이는 상세 화면을 볼 수 있습니다.</p>
 <h2 id="참고">참고</h2>
 <ul>

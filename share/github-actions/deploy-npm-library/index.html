@@ -64,37 +64,17 @@ Github Sponsor
 <li><a href="https://www.npmjs.com/" rel="nofollow noreferrer" target="_blank">https://www.npmjs.com/</a></li>
 </ul>
 <p>ログインした後、右上のプロフィールイメージを選択して<code>Access Tokens</code>を押して<code>Access Tokens</code>ページに移動します。</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.png" alt="NPM access token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.png" alt="NPM access token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p><code>Access Tokens</code>ページで右上の<code>Generate New Token</code> > <code>Classic Token</code>ボタンを押して新しいトークンを生成するページに移動します。</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p><code>New Access Token</code>ページで<code>Automation</code>を選択して、<code>Name</code>を入力して新しいトークンを生成します。私は<code>For GitHub</code>と言う名前で新しいトークンを生成しました。</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>新しいトークンが生成されたらトークンをコピーできる画面が出ます。そのトークンを<code>GitHub Actions</code>で使う予定なのでコピーしておきます。</p>
 <h2 id="github-actions-variables">GitHub Actions variables</h2>
 <p><code>GitHub Actions</code>で<code>NPM</code>パッケージのデプロイ自動化をしたいレポジトリ(Repository)に移動した後、<code>Settings</code> > <code>Secrets and variables</code> > <code>Actions</code>メニューを選択すると次のような画面が確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.png" alt="Set NPM token to GitHub Actions variables">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.png" alt="Set NPM token to GitHub Actions variables" width="1280" height="598" loading="lazy" decoding="async"></picture></p>
 <p>ここで右上の<code>New repository secret</code>ボタンを押すと次のような画面が確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.png" alt="Add NPM token to GitHub Actions new secret">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.png" alt="Add NPM token to GitHub Actions new secret" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p><code>Name</code>では<code>NPM_TOKEN</code>を入力して<code>Secret</code>は前で<code>NPM</code>サイトでコピーした<code>Access token</code>を入力します。</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -195,11 +175,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> tag</span><span style="color:#C3E88D"> v0.1.0</span></span>
 <span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#C3E88D"> v0.1.0</span></span></code></pre>
 <p><code>GitHub Actions</code>で自動でデプロイされた後、<code>NPM</code>サイトに移動すると次のようにパッケージがうまくデプロイされたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.png" alt="package is deployed to NPM">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.png" alt="package is deployed to NPM" width="1280" height="693" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これで自分で開発した JavaScript ライブラリを<code>GitHub Actions</code>を使ってに自動でデプロイする方法について見てみました。もし、皆さんも<code>NPM</code>にパッケージをデプロイして管理してる場合、<code>GitHub Actions</code>を使って<code>NPM</code>パッケージデプロイを自動化して見てください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

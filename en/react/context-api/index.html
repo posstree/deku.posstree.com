@@ -66,39 +66,19 @@ Github Sponsor
 </ul>
 <h2 id="context">Context</h2>
 <p>In React, Props and State are used for managing the data from the parent component to the child component. When you use the Props and State, the data flows from the parent component and the child component, that is, from top to bottom and to one way.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/react-data-flow.png" alt="React data flow with Props">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/react-data-flow.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/react-data-flow.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/react-data-flow.png" alt="React data flow with Props" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>What should you do if you want to use data flowing one direction or insert data that is used by another component into the current data flow?</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/react-data-flow-another-component.png" alt="React need data in another data flow">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/react-data-flow-another-component.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/react-data-flow-another-component.png" alt="React need data in another data flow" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>In React, the data flows from top to bottom, so to solve this problem, you can create State for data in the common parent component and pass the data via Props to the child component.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/global-data-use-props.png" alt="React global data with props and state">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/global-data-use-props.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/global-data-use-props.png" alt="React global data with props and state" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>However, It’s very inefficient to create State and pass it by Props for every time when we need to share the data between components. To solve this issue, React introduces <code>Flux</code> concept and provide <code>Context API</code> for Flux.</p>
 <ul>
 <li>React official site: <a href="https://reactjs.org/docs/context.html#consuming-multiple-contexts" rel="nofollow noreferrer" target="_blank">Context</a></li>
 </ul>
 <p>Context is used to handle global data regardless of the data flow passed from the parent component to the child component. We can store global data to Context, and get the data on the component that needs it.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/context.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/context.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/context.png" alt="React context">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/context.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/context.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/context.png" alt="React context" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>To use Context in React, you need to use Context API, especially you need to use <code>Provider</code> and <code>Consumer</code> of Context API.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/context-provider-consumer.png" alt="React context with Provider and Consumer">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/context-provider-consumer.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/context-provider-consumer.png" alt="React context with Provider and Consumer" width="1280" height="728" loading="lazy" decoding="async"></picture></p>
 <p>To use the data stored in Context, we need to provide Context Provider to the common parent component, and we need to use Context consumer to consume the data in the component that needs it.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -290,17 +270,9 @@ Github Sponsor
 <p>We’ve made the example to use global data with Context. To check the React project we’ve created, execute the command below to start the React project.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> start</span></span></code></pre>
 <p>When the React project is started, you can see the <code>0</code> label and <code>+ 1</code> button on the screen like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/count.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/count.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/count.jpg" alt="React Context example: Count">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/count.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/count.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/count.jpg" alt="React Context example: Count" width="687" height="276" loading="lazy" decoding="async"></picture></p>
 <p>When you click the <code>+ 1</code> button, you can see the count value is increased like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/react/2021/context-api/count_increased.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/2021/context-api/count_increased.webp" type="image/webp">
-  <img src="/assets/images/category/react/2021/context-api/count_increased.jpg" alt="React Context example: Count increased">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/2021/context-api/count_increased.avif" type="image/avif"><source srcset="/assets/images/category/react/2021/context-api/count_increased.webp" type="image/webp"><img src="/assets/images/category/react/2021/context-api/count_increased.jpg" alt="React Context example: Count increased" width="687" height="276" loading="lazy" decoding="async"></picture></p>
 <h2 id="completed">Completed</h2>
 <p>Done! we’ve seen how to handle global data in the React component with Context. The example in the blog post is very small, so actually, we don’t need to use Context. However, if the project has many components, you can see Context to share the data, so someday this blog post about how to use Context is helpful for you.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

@@ -92,17 +92,9 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># python manage.py runserver</span></span>
 <span class="line"><span style="color:#FFCB6B">http://127.0.0.1:8000/admin</span></span></code></pre>
 <p>問題なく今まで進めたら、下記のようなページが見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/login.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/login.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/login.jpg" alt="ジャンゴ(django)管理者ページ - ログイン">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/login.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/login.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/login.jpg" alt="ジャンゴ(django)管理者ページ - ログイン" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <p>上で生成したスーパーユーザー(superuser)の情報を入力してログインすると下記のようなページが見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/main.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/main.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/main.jpg" alt="ジャンゴ(django)の管理者ページ - メインページ">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/main.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/main.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/main.jpg" alt="ジャンゴ(django)の管理者ページ - メインページ" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <h2 id="管理者ページへモデルmodels登録">管理者ページへモデル(Models)登録</h2>
 <p>ジャンゴ(django)が基本的提供してる管理者ページで私たちが作ったジャンゴ(django)アプリケーションのモデル(Models)を管理するためジャンゴ(django)アプリケーションのモデル(Models)を登録する必要があります。<code>blog/admin.py</code>ファイルを開いて下記のように私たちが作った<code>Post</code>モデルを登録します。ジャンゴ(django)のモデル(Models)の生成については以前のブログを参考してください。(<a href="/django/models/">ジャンゴ(django)のモデル(models)の使い方</a>)</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> django</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">contrib </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> admin</span></span>
@@ -110,36 +102,16 @@ Github Sponsor
 <span class="line"></span>
 <span class="line"><span style="color:#EEFFFF">admin</span><span style="color:#89DDFF">.</span><span style="color:#F07178">site</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">register</span><span style="color:#89DDFF">(</span><span style="color:#82AAFF">Post</span><span style="color:#89DDFF">)</span></span></code></pre>
 <p>そして管理者ページをリフレッシュすると下記のように私たちが作ったジャンゴ(django)のアプリケーションのモデル(Models)が画面に表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="ジャンゴ(django)管理者ページ - 管理者ページへモデル(models)表示">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="ジャンゴ(django)管理者ページ - 管理者ページへモデル(models)表示" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <h2 id="管理者ページでブログの記事を作成">管理者ページでブログの記事を作成</h2>
 <p>ジャンゴ(django)が基本的提供してる管理者ページを使って私たちが作るブログサイトに記事を作成してみましょう。下記のように管理者メインページで<code>BLOG</code>の下の<code>Posts</code>の横の<code>Add</code>を押します。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - 管理者ページへモデル(models)選択">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - 管理者ページへモデル(models)選択" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <p>下記のようにテスト用データーを作成します。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/add-test-data.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - テスト用データー登録">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/add-test-data.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/add-test-data.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/add-test-data.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - テスト用データー登録" width="1280" height="576" loading="lazy" decoding="async"></picture></p>
 <p>そして下にある<code>Save and add another</code>を押して、追加的にテストデーターをもっと入れます。今回はテストのため<code>published_at</code>も入れて保存します。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/add-test-data-with-published.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - テスト用データー登録">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/add-test-data-with-published.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - テスト用データー登録" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>今回は<code>Save</code>を押して保存して、保存データーリスト画面に移動します。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/data-list.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/data-list.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/data-list.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - テスト用データーリスト">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/data-list.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/data-list.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/data-list.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - テスト用データーリスト" width="1280" height="391" loading="lazy" decoding="async"></picture></p>
 <p>上のようにデーターが上手く保存されたことが出来ます。</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -153,11 +125,7 @@ Github Sponsor
 </div>
 <h2 id="確認">確認</h2>
 <p>データーが本当に保存されたか確認するためデーターベースツールを使って直接データーベース中を確認してみましょう。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/data-in-database.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/data-in-database.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/data-in-database.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - データーベースツールを使ってデーター確認">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/data-in-database.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/data-in-database.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/data-in-database.jpg" alt="ジャンゴ(django)管理者ページデーター登録 - データーベースツールを使ってデーター確認" width="1280" height="235" loading="lazy" decoding="async"></picture></p>
 <p>上でジャンゴ(django)が基本的に提供してる管理者ページで登録したデーターがデーターベースへ上手く保存されたことが確認出来ます。</p>
 <h2 id="完了">完了</h2>
 <p>これでジャンゴ(django)が基本的に提供する管理者ページを使う方法について見てみました。さらに、以前ブログで生成したジャンゴ(django)のモデル(Models)を管理者画面に表示する方法も一緒に見ました。これでデーターベースツールがなくても簡単にデーターを作ることが出来ます。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

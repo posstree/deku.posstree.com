@@ -80,27 +80,15 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>위와 같이 우리는 종종 <code>print</code>를 사용하여 디버깅을 할 때가 있습니다. 하지만, 이 코드는 개발할 때만 사용되므로, 배포할 때는 필요없습니다. 물론, Git를 사용하여 소스 코드를 관리할 때에도, 이 소스는 필요없습니다.</p>
 <p>이제 Linter를 사용하여 이런 코드를 개발자에게 알려주어 코드 스타일을 통일해 보겠습니다. 현재는 다음과 같이 아무런 문제 없이 <code>print</code>를 사용할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.jpg" alt="Flutter Linter test code">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_test_code.jpg" alt="Flutter Linter test code" width="1246" height="284" loading="lazy" decoding="async"></picture></p>
 <p>Flutter에서 Linter를 사용하기 위해 특별히 패키지를 설치할 필요가 없습니다. 단지, <code>analysis_options.yaml</code> 파일을 생성하면 바로 Linter를 사용할 수 있습니다. Flutter 프로젝트의 루트 폴더(pubspec.yaml 파일이 있는 폴더)에 <code>analysis_options.yaml</code> 생성하고 다음과 같이 수정합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">linter</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#F07178">  rules</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#89DDFF">    -</span><span style="color:#C3E88D"> avoid_print</span></span></code></pre>
 <p><a href="https://dart-lang.github.io/linter/lints/" rel="nofollow noreferrer" target="_blank">Dart linter</a>에서 확인한 룰을 <code>analysis_options.yaml</code> 파일에 설정하였습니다. 이렇게 파일을 수정하면, 이전과는 다르게 다음과 같이 Linter가 동작하는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning" width="1246" height="284" loading="lazy" decoding="async"></picture></p>
 <p>마우스를 올려보면 다음과 같이 Linter의 상세 내용도 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.jpg" alt="Flutter Linter warning message">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning_message.jpg" alt="Flutter Linter warning message" width="1246" height="544" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -125,11 +113,7 @@ Github Sponsor
 <h2 id="linter-룰의-severity">Linter 룰의 Severity</h2>
 <p>위와 같이 Flutter에서는 Linter를 간단하게 도입할 수 있습니다. 이렇게 설정한 Linter는 기본적으로 <code>info</code>라는 Severity(심각도)를 가지게 됩니다.</p>
 <p>이 Info Severity 다음과 같이 파란색으로 표시되지만, Flutter 프로젝트를 실행하는데는 문제가 되지 않습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_warning.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_warning.jpg" alt="Flutter Linter warning" width="1246" height="284" loading="lazy" decoding="async"></picture></p>
 <p>그럼 이제 Linter의 Severity를 변경하는 방법에 대해서 알아보도록 하겠습니다. <code>analysis_options.yaml</code>을 열고 다음과 같이 수정합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">analyzer</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#F07178">  errors</span><span style="color:#89DDFF">:</span></span>
@@ -138,11 +122,7 @@ Github Sponsor
 <span class="line"><span style="color:#F07178">  rules</span><span style="color:#89DDFF">:</span></span>
 <span class="line"><span style="color:#89DDFF">    -</span><span style="color:#C3E88D"> avoid_print</span></span></code></pre>
 <p>룰의 Severity를 변경하기 위해서는, <code>analyzer</code>의 <code>errors</code>에 Linter의 룰을 추가한 후, 해당 룰의 Severity를 설정합니다. 이렇게 수정하면, 이제 다음과 같이 Info였던, 문제가 Error로 변경된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/linter/flutter_linter_error.jpg" alt="Flutter Linter error">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/linter/flutter_linter_error.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/linter/flutter_linter_error.jpg" alt="Flutter Linter error" width="1246" height="320" loading="lazy" decoding="async"></picture></p>
 <p>이렇게 Error로 변경되면, 해당 문제를 해결하기 전까지는, Flutter 앱을 빌드할 수 없게 됩니다.</p>
 <p>Severity에는 <code>ignore</code>, <code>info</code>, <code>warning</code>, <code>error</code>를 설정할 수 있습니다.</p>
 <div class="in-feed-ads ads-container">

@@ -244,48 +244,20 @@ Github Sponsor
 <p>지금까지 작업한 내용을 Postman을 통해 확인해 보도록 하겠습니다. 아래에 명령어로 장고(django)의 테스트 서버를 실행합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">python manage</span><span style="color:#89DDFF">.</span><span style="color:#F07178">py</span><span style="color:#EEFFFF"> runserver</span></span></code></pre>
 <p>그리고 Postman을 열고 아래와 같이 <code>http://localhost:8000/api/blog/posts/</code>에 GET 요청을 보냅니다.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-authentication-error.jpg" alt="장고(django)에 JWT 사용하기 - JWT 인증 에러">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-authentication-error.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-authentication-error.jpg" alt="장고(django)에 JWT 사용하기 - JWT 인증 에러" width="1280" height="573" loading="lazy" decoding="async"></picture></p>
 <p>그러면 위와 같이 에러 메세지를 확인할 수 있습니다. 우리가 만든 API가 JWT 인증으로 보호되고 있음을 확인할 수 있습니다.</p>
 <p>그럼 JWT 인증으로 정보를 가져오기 위하 JWT 토큰을 발행해 봅니다. <code>http://localhost:8000/api/token/</code>에 POST로 <code>username</code>과 <code>password</code>를 설정하여 요청을 보냅니다. 여기서 사용하는 username과 password는 우리가 만든 장고(django)의 <code>superuser</code>입니다.(장고 관리자 페이지에 로그인할 때 사용하는 username과 password)</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/issue-jwt-token.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 발행">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/issue-jwt-token.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/issue-jwt-token.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 발행" width="1280" height="573" loading="lazy" decoding="async"></picture></p>
 <p>위와 같이 JWT 토큰이 잘 발행되는 것을 확인할 수 있습니다. 그럼 발행한 JWT 토큰으로 다시 위에 요청(<code>http://localhost:8000/api/blog/posts/</code>)을 보내보도록 하겠습니다. 여기에서는 요청의 <code>Header</code>에 <code>Authorization</code>을 설정해서 보냅니다. <code>jwt [jwt key]</code>와 같은 형식으로 작성해야 합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-get-data.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰을 사용하여 데이터 가져오기">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-get-data.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-get-data.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰을 사용하여 데이터 가져오기" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>이전과 다르게 데이터를 잘 가져오는 것을 확인할 수 있습니다. 그럼 JWT 토큰을 검증하는 방법과 갱신하는 방법에 대해서 알아보겠습니다. JWT 토큰을 검증하는 방법은 <code>http://localhost:8000/api/token/verify/</code>에 POST로 위에서 발급 받은 토큰을 전송합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-verify.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 검증">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-verify.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 검증" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>그러면 위와 같이 문제가 없는 것을 확인할 수 있습니다. JWT 토큰에 문제가 있으면 아래와 같이 에러 메세지를 전달 받습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-verify-error.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 검증 에러">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-verify-error.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-verify-error.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 검증 에러" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>그럼 JWT 토큰을 갱신(Refresh)해 볼까요? <code>http://localhost:8000/api/token/refresh/</code>에 POST로 이미 발급받은 JWT 토큰을 전달합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-refresh.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 갱신">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-refresh.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-refresh.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 갱신" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>그럼 위와 같이 새로운 JWT 토큰을 발급받을 수 있습니다. 만약 JWT 토큰을 갱신하지 않거나 유효 기간 이후 갱신하게 되면 아래와 같은 에러 메세지를 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/jwt/jwt-token-expired.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 에러">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/jwt/jwt-token-expired.webp" type="image/webp"><img src="/assets/images/category/django/2019/jwt/jwt-token-expired.jpg" alt="장고(django)에 JWT 사용하기 - JWT 토큰 에러" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이것으로 장고(django)에서 JWT를 사용하는 방법에 대해서 알아보았습니다. 이제 JWT 토큰을 사용하여 앱과 서버간에 통신이나, 프론트엔드와 서버간 통신에 사용할 수 있습니다.</p>
 <h2 id="참고">참고</h2>

@@ -105,11 +105,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#89DDFF">?</span><span style="color:#EEFFFF"> Do you want to run the </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">eslintPlugin</span><span style="color:#89DDFF">'</span><span style="color:#EEFFFF"> fix on your project</span><span style="color:#89DDFF">?</span><span style="color:#EEFFFF"> › (</span><span style="color:#FFCB6B">y/N</span><span style="color:#EEFFFF">)</span></span></code></pre>
 <p>If you use <code>ESLint</code> to check the code style, press the <code>y</code> key to proceed. If not, press the <code>N</code> key to skip. In this blog post, I pressed the <code>y</code> key for proceeding.</p>
 <p>And then, <code>Storybook</code> installs the required libraries and writes the execution script to the <code>package.json</code> automatically like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/sb-init.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/sb-init.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/sb-init.jpg" alt="Storybook configuration automatically">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/sb-init.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/sb-init.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/sb-init.jpg" alt="Storybook configuration automatically" width="1280" height="551" loading="lazy" decoding="async"></picture></p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
 <span class="line"><span style="color:#EEFFFF">   ...</span></span>
 <span class="line"><span style="color:#89DDFF">   "</span><span style="color:#C792EA">scripts</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
@@ -161,19 +157,11 @@ Github Sponsor
 <p>To check <code>Storybook</code> is installed and configured well, let’s try to execute <code>Storybook</code>. Execute the following command to execute <code>Storybook</code>.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> storybook</span></span></code></pre>
 <p>And then, the browser will open automatically with <code>http://localhost:6006</code> and you can see the screen like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen" width="1280" height="590" loading="lazy" decoding="async"></picture></p>
 <p>This page content is from the <code>./stories/Introduction.stories.mdx</code> file.</p>
 <h2 id="check-storybook">Check Storybook</h2>
 <p>When you click the <code>Button > Primary</code> on the left of the screen in <code>Storybook</code>, you can see the screen like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook-button-sample.jpg" alt="Storybook button sample">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook-button-sample.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook-button-sample.jpg" alt="Storybook button sample" width="1280" height="578" loading="lazy" decoding="async"></picture></p>
 <p>This page content is from the <code>./stories/Button.stories.tsx</code> file.</p>
 <h2 id="check-sample-code">Check sample code</h2>
 <p>To see more details, let’s see the sample code. The <code>Button</code> component(<code>./stories/Button.tsx</code>) is like the following.</p>
@@ -252,11 +240,7 @@ Github Sponsor
 <span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> Template</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> ComponentStory</span><span style="color:#89DDFF">&#x3C;typeof</span><span style="color:#EEFFFF"> Button</span><span style="color:#89DDFF">></span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">args</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#FFCB6B">Button</span><span style="color:#89DDFF"> {...</span><span style="color:#EEFFFF">args</span><span style="color:#89DDFF">} />;</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>When you configure <code>control: 'color'</code> to <code>backgroundColor</code> in <code>argTypes</code>, you can see the color picker on <code>Storybook</code> like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook-color-control.jpg" alt="Storybook color control">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook-color-control.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook-color-control.jpg" alt="Storybook color control" width="1280" height="791" loading="lazy" decoding="async"></picture></p>
 <p>And then, you need to write <code>Story</code>.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="jsx"><code><span class="line"><span style="color:#89DDFF">...</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">export</span><span style="color:#C792EA"> const</span><span style="color:#EEFFFF"> Primary </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> Template</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">bind</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">{}</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
@@ -322,11 +306,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p>We’ve modified the <code>Storybook</code> configuration, so we need to restart <code>Storybook</code> to apply it. When you restart <code>Storybook</code>, you can see the <code>SampleButton</code> component in the <code>Storybook</code> screen like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook-sample-button.jpg" alt="Storybook SampleButton">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook-sample-button.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook-sample-button.jpg" alt="Storybook SampleButton" width="1280" height="796" loading="lazy" decoding="async"></picture></p>
 <h2 id="complete">Complete</h2>
 <p>Done! we’ve seen how to install and configure <code>Storybook</code> for Component Driven Development in the <code>Next.js</code> project based on <code>TypeScript</code>. From now, when you develop an app, you can focus to develop the components with <code>Storybook</code>.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

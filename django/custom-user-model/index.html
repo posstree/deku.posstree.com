@@ -366,11 +366,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">python manage</span><span style="color:#89DDFF">.</span><span style="color:#F07178">py</span><span style="color:#EEFFFF"> migrate</span></span></code></pre>
 <h2 id="確認">確認</h2>
 <p>今まで作ったカスタムユーザーモデル(Custom User Model)がうまく適用されたか確認して見ます。まず、データーベースツール(database tool)で私たちが作ったテーブルを確認します。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/custom-user-model/check-tables.jpg" alt="ジャンゴ(django)のカスタムユーザーモデル(Custom User Model) - データーベースツールを使ってテーブル確認">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.webp" type="image/webp"><img src="/assets/images/category/django/2019/custom-user-model/check-tables.jpg" alt="ジャンゴ(django)のカスタムユーザーモデル(Custom User Model) - データーベースツールを使ってテーブル確認" width="1138" height="474" loading="lazy" decoding="async"></picture></p>
 <p>以前と違って<code>auth_user</code>テーブルが生成されないことが確認できます。下記のコマンドでジャンゴ(django)の<code>superuser</code>を生成して見ましょう。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> createsuperuser</span></span></code></pre>
 <p>そしたら、以前と違って下記のように私たちが設定した内容で<code>superuser</code>が生成されることが確認できます。</p>
@@ -382,17 +378,9 @@ Github Sponsor
 <p>下記のコマンドでジャンゴ(django)のテストサーバーを実行して管理画面(<code>http://127.0.0.1:8000/admin</code>)へ接続して見ます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">python manage</span><span style="color:#89DDFF">.</span><span style="color:#F07178">py</span><span style="color:#EEFFFF"> runserver</span></span></code></pre>
 <p>以前と違って<code>email</code>でログインすることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/custom-user-model/check-django-admin.jpg" alt="ジャンゴ(django)のカスタムユーザーモデル(Custom User Model) - ジャンゴ管理画面のemailログイン">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.webp" type="image/webp"><img src="/assets/images/category/django/2019/custom-user-model/check-django-admin.jpg" alt="ジャンゴ(django)のカスタムユーザーモデル(Custom User Model) - ジャンゴ管理画面のemailログイン" width="1216" height="724" loading="lazy" decoding="async"></picture></p>
 <p>最後に新しくユーザーを追加したり既存のユーザー情報を修正する時下記のように私たちが設定したフォーム(Form)が表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.jpg" alt="ジャンゴ(django)のカスタムユーザーモデル(Custom User Model) - ジャンゴ管理画面で新規ユーザー登録 ">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.webp" type="image/webp"><img src="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.jpg" alt="ジャンゴ(django)のカスタムユーザーモデル(Custom User Model) - ジャンゴ管理画面で新規ユーザー登録 " width="1280" height="700" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでジャンゴ(django)のカスタムユーザーモデル(Custom User Model)を使う方法について見て見ました。今からはジャンゴ(django)が基本的提供するユーザーモデル(User Model)ではなく私たちが必要な情報を持ってるカスタムユーザーモデル(Custom User Model)を使ってサービス開発ができます！</p>
 <h2 id="参考">参考</h2>

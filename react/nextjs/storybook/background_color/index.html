@@ -85,24 +85,12 @@ Github Sponsor
 <p>以前のブログを参考して設定した<code>Storybook</code>を実行して、<code>Storybook</code>が上手くインストールされたか確認します。次のコマンドを実行して<code>Storybook</code>を実行します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> storybook</span></span></code></pre>
 <p>その後、ブラウザに<code>http://localhost:6006/</code>が自動で表示されて、次のような画面が確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen" width="1280" height="590" loading="lazy" decoding="async"></picture></p>
 <h2 id="基本背景">基本背景</h2>
 <p><code>Storybook</code>は次のように基本的<code>light</code>と<code>dark</code>の背景を提供しています。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/default_colors.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/default_colors.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/default_colors.jpg" alt="Storybook default background color">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/default_colors.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/default_colors.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/default_colors.jpg" alt="Storybook default background color" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <p>メニューの色を選択したら次のように色が変わることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/dark_color.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/dark_color.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/dark_color.jpg" alt="Storybook default background color">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/dark_color.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/dark_color.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/dark_color.jpg" alt="Storybook default background color" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <h2 id="背景設定や変更">背景設定や変更</h2>
 <p><code>Storybook</code>が提供する基本背景のみでも十分使えますが、私たちがサービスで提供する基本背景と違ってコンポーネントが実際画面違く見える時があります。このように実際サービスで使うバックグラウンド色を基本色背景に設定したり、他の色をメニューに追加する方法について説明します。</p>
 <p><code>Storybook</code>のバックグラウンド色を設定して基本背景を変更するためには<code>.storybook/preview.js</code>ファイルを修正する必要があります。<code>.storybook/preview.js</code>ファイルを開いて下記のように修正します。</p>
@@ -135,23 +123,11 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">};</span></span></code></pre>
 <h2 id="確認">確認</h2>
 <p>上のように<code>Storybook</code>の背景を設定して、ブラウザの<code>http://localhost:6006/</code>ページに移動してみます。そしたら以前と違って基本バックグラウンド色が変更されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/change_default_color.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/change_default_color.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/change_default_color.jpg" alt="Storybook default background color is changed">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/change_default_color.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/change_default_color.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/change_default_color.jpg" alt="Storybook default background color is changed" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <p>また、背景変更アイコンをクリックすると、以前と違って私たちが設定した色が表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/color_list.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/color_list.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/color_list.jpg" alt="Storybook default background color list are changed">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/color_list.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/color_list.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/color_list.jpg" alt="Storybook default background color list are changed" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <p>最後に、メニューに表示された色を押すと、その色でバックグラウンド色が変わることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/change_color.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/change_color.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/change_color.jpg" alt="Storybook change background color">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/change_color.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/change_color.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/change_color.jpg" alt="Storybook change background color" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これで<code>TypeScript</code>をベースにした<code>Next.js</code>プロジェクトに適用された<code>Storybook</code>の背景を変更する方法についてみてみました。皆さんも<code>Storybook</code>のバックグラウンド色をサービスの色に変更して各コンポーネントが上手く表示されるか確認してみてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

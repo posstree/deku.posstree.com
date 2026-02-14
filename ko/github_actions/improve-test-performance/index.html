@@ -97,11 +97,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">            exit 1</span></span>
 <span class="line"><span style="color:#C3E88D">          fi</span></span></code></pre>
 <p><code>PR</code>이 생성된면 <code>Prettier</code>, <code>CSpell</code>, <code>ESLint</code>, <code>Stylelint</code>, <code>Test</code>, <code>Build</code>, <code>Build SCSS</code>를 실행하고 있습니다. 이 Action는 다음과 같이 약 25분 정도 소요됩니다.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Improve Jest test performance">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Improve Jest test performance" width="1280" height="89" loading="lazy" decoding="async"></picture></p>
 <h2 id="성능-개선">성능 개선</h2>
 <p>PR을 생성할 때마다 매번 25분이 소요되는 것은 매우 비효율적입니다. 이번 블로그 포스트에서는 <code>Jest</code>를 실행하는 Action의 성능을 개선하는 방법에 대해서 알아보겠습니다.</p>
 <h3 id="dependencies-cache">Dependencies Cache</h3>
@@ -156,19 +152,11 @@ Github Sponsor
 <ul>
 <li>Before: 1m 25s</li>
 </ul>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.png" alt="GitHub Actions - Before using actions/cache for dependencies">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.png" alt="GitHub Actions - Before using actions/cache for dependencies" width="1280" height="322" loading="lazy" decoding="async"></picture></p>
 <ul>
 <li>After: 9s</li>
 </ul>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.png" alt="GitHub Actions - After using actions/cache for dependencies">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.png" alt="GitHub Actions - After using actions/cache for dependencies" width="1280" height="322" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -268,17 +256,9 @@ Github Sponsor
 <span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn test:ci:service_1</span></span></code></pre>
 <p>모노레포를 사용하고 있기 때문에 이와 같은 <code>GitHub Actions</code>가 서비스별로 존재하고 있으며, <code>if</code>문을 사용하여 해당 서비스에만 실행되도록 하였습니다.</p>
 <p>분리하기 전, 이 <code>Action</code>는 약 25분 정도 소요되었습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Before separating actions">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Before separating actions" width="1280" height="89" loading="lazy" decoding="async"></picture></p>
 <p>분리한 후, 이 <code>Action</code>는 약 13분 정도로 성능이 개선되었습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating actions">
-</picture>
+<p><img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating actions"></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -327,17 +307,9 @@ Github Sponsor
 </ul>
 <p>이 <code>Action</code>에서 실행하는 <code>yarn test:ci:service_1</code>는 <code>turbo test:ci --parallel --filter=service_1</code> 명령어를 실행합니다. 그래서 <code>Jest</code>의 <code>--shard</code> 옵션을 전달하기 위해 <code>--</code>를 사용하여 옵션을 전달하였습니다.</p>
 <p><code>shard</code> 옵션을 추가하기전 테스트는 약 13분 정도 소요되었습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating action">
-</picture>
+<p><img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating action"></p>
 <p><code>shard</code> 옵션을 추가한 후 테스트는 약 2~3분 정도 소요되었습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.png" alt="GitHub Actions - Use Jest shard option">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.png" alt="GitHub Actions - Use Jest shard option" width="821" height="225" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이번 블로그 포스트에서는 <code>Jest</code>를 실행하는 <code>Action</code>의 성능을 개선하는 방법에 대해서 알아보았습니다. 성능 개선전에는 약 25분 정도 소요되었지만, 성능 개선 후에는 약 2~3분 정도 소요되었습니다.</p>
 <p>여러분도 <code>Cache</code>, <code>Actions 분리</code> 그리고 <code>shard</code> 옵션을 통해 <code>Jest</code>를 실행하는 <code>Action</code>의 성능을 개선해 보시기 바랍니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

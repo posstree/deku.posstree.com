@@ -75,11 +75,7 @@ Github Sponsor
 <h3 id="virtual-dom">Virtual DOM</h3>
 <p>React uses Virtual DOM to optimize the web application performance. Before understanding Virtual DOM, we need to understand how to render HTML and CSS on the browser.</p>
 <p>When the web browser gets HTML via the network, the browser rendering engine parses HTML to make DOM Node tree. Also, the browser parses CSS and inline styles of HTML elements to make the style tree that has style information.</p>
-<picture>
-  <source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.webp" type="image/webp">
-  <img src="/assets/images/category/react/create-react-app/react/html-css-rendering.png" alt="html css rendering process">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.avif" type="image/avif"><source srcset="/assets/images/category/react/create-react-app/react/html-css-rendering.webp" type="image/webp"><img src="/assets/images/category/react/create-react-app/react/html-css-rendering.png" alt="html css rendering process" width="1280" height="425" loading="lazy" decoding="async"></picture></p>
 <p>After making render trees, the browser calculates the style information in <code>Attachment</code> process. All render trees nodes have the <code>attach</code> function, and the function is called in the Attachment process. The function will return the object that has the style information calculated.</p>
 <p>The all calculations in here are synchronous. If a new node is added to the render tree, the node’s attach function is called and calculated.</p>
 <p>The render tree goes through the <code>Layout</code> process after the Attachment. In this Layout process, the browser assigns coordinates to each node in the render tree and determines exactly where and how they appear.</p>
@@ -101,17 +97,9 @@ Github Sponsor
 </div>
 <h3 id="one-way-data-binding">One-way data binding</h3>
 <p>Before seeing the one-way data binding, let’s see the two-way data binding first. The two-way data binding has two Watcher. One Watcher watches the data changing in the UI, and another Watcher watches the data changing in JavaScript to synchronize the data between UI and JavaScript automatically. This makes the programmers don’t care about the sync of the data to develop the programs.</p>
-<picture>
-  <source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.webp" type="image/webp">
-  <img src="/assets/images/category/react/create-react-app/react/two-way-data-binding.png" alt="two-way data binding">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.avif" type="image/avif"><source srcset="/assets/images/category/react/create-react-app/react/two-way-data-binding.webp" type="image/webp"><img src="/assets/images/category/react/create-react-app/react/two-way-data-binding.png" alt="two-way data binding" width="1280" height="321" loading="lazy" decoding="async"></picture></p>
 <p>However, two Watchers are used for one data sync, and when data increases, many Watchers are created to synchronize them. And it makes performance issues.</p>
-<picture>
-  <source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.avif" type="image/avif">
-  <source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.webp" type="image/webp">
-  <img src="/assets/images/category/react/create-react-app/react/one-way-data-binding.png" alt="one-way data binding">
-</picture>
+<p><picture><source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.avif" type="image/avif"><source srcset="/assets/images/category/react/create-react-app/react/one-way-data-binding.webp" type="image/webp"><img src="/assets/images/category/react/create-react-app/react/one-way-data-binding.png" alt="one-way data binding" width="1280" height="373" loading="lazy" decoding="async"></picture></p>
 <p>The one-way data binding has a single Watcher to watch the JavaScript data changing for updating the user’s UI. When the user changes the data in UI to update the JavaScript data, the Event is used for it. So the one-way data biding solves the two-way data binding’s performance issues and it makes you track the data easily.</p>
 <h3 id="jsx">JSX</h3>
 <p>React has very unique statement called JSX. You can use JavaScript and HTML both in JSX, and you can use the JavaScript variables directly in HTML. It is a kind of Template language.</p>

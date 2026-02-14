@@ -60,11 +60,7 @@ Github Sponsor
 <li><a href="/react-native/splash-image/">Splash image</a></li>
 </ul>
 <p>Until now, I was using generator-rn-toolbox well, I got a comment on my blog post, that there is a new library, from generator-rn-toolbox developer who is very kind.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/react-native-make/comment.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/react-native-make/comment.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/react-native-make/comment.jpg" alt="use react-native-make to make App icon and Splash image - developer comment">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/react-native-make/comment.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/react-native-make/comment.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/react-native-make/comment.jpg" alt="use react-native-make to make App icon and Splash image - developer comment" width="1280" height="196" loading="lazy" decoding="async"></picture></p>
 <p>I have checked it. generator-rn-toolbox is <code>Deprecated</code>, and he has made and provided new <a href="https://github.com/bamlab/react-native-make" rel="nofollow noreferrer" target="_blank">react-native-make</a>.</p>
 <p>In this blog post, I will introduce how to make App icon and Splash image via react-native-make library, and compare the previous library.</p>
 <h2 id="install-react-native-make">Install react-native-make</h2>
@@ -113,18 +109,10 @@ Github Sponsor
 <p>In my case, I use multiple colors background in Splash image. In this case, <code>cover</code> options is the best choice to create Splash image.</p>
 <h3 id="ios">iOS</h3>
 <p>To use Splash image on iOS, you need to set the Storyboard for Splash image. Execute the Xcode by opening <code>./ios/[Project Name].xcworkspace</code> file to set the Storyboard.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/react-native-make/add_files.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/react-native-make/add_files.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/react-native-make/add_files.jpg" alt="App icon &#x26; Splash image in React Native - add storyboard on iOS ">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/react-native-make/add_files.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/react-native-make/add_files.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/react-native-make/add_files.jpg" alt="App icon &#x26; Splash image in React Native - add storyboard on iOS " width="718" height="465" loading="lazy" decoding="async"></picture></p>
 <p>When the Xcode is executed, right-click the project name on the left top, and click the <code>Add Files to "Project Name"</code> menu.</p>
 <p>And then select the <code>ios/SplashScreen.storyboard</code> file to add it.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/react-native-make/create-splash-screen.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/react-native-make/create-splash-screen.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/react-native-make/create-splash-screen.jpg" alt="App icon &#x26; Splash image in React Native - setting launch_screen_file">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/react-native-make/create-splash-screen.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/react-native-make/create-splash-screen.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/react-native-make/create-splash-screen.jpg" alt="App icon &#x26; Splash image in React Native - setting launch_screen_file" width="1280" height="928" loading="lazy" decoding="async"></picture></p>
 <p>After adding the file, insert <code>SplashScreen</code> on <code>Launch Screen File</code> field in <code>General</code> tab.</p>
 <h3 id="react-native-splash-screen">react-native-splash-screen</h3>
 <p>The reason to make Splash image and to apply it is to manage login or data processing in the background of Splash image.</p>

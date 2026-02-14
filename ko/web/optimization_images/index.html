@@ -42,11 +42,7 @@ Github Sponsor
 </div>
 <h2 id="개요">개요</h2>
 <p><code>Google</code>의 <code>Chrome</code> 브라우저에서는 웹 페이지의 성능을 측정할 수 있는 <code>Lighthouse</code>라는 기능을 제공하고 있습니다. 이 기능을 사용하면 웹 페이지의 전반적인 성능을 확인할 수 있고, 다음과 같이 문제점도 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.avif" type="image/avif">
-  <source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.webp" type="image/webp">
-  <img src="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.png" alt="Optimization images - Lighthouse serve images in next-gen formats issue of images">
-</picture>
+<p><picture><source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.avif" type="image/avif"><source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.webp" type="image/webp"><img src="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.png" alt="Optimization images - Lighthouse serve images in next-gen formats issue of images" width="1280" height="580" loading="lazy" decoding="async"></picture></p>
 <p>이번 블로그 포스트에서는 웹 페이지에서 이미지 포맷을 최적화하여 <code>Serve images in next-gen formats</code> 문제를 해결하는 방법에 대해서 알아보겠습니다.</p>
 <h2 id="avif와-webp-포맷">avif와 webp 포맷</h2>
 <p><code>Serve images in next-gen formats</code> 문제를 해결하기 위해서는 <code>avif</code> 포맷 또는 <code>webp</code> 포맷의 이미지를 제공할 필요가 있습니다. <code>avif</code>와 <code>webp</code> 포맷의 이미지는 <code>IE</code>를 제외한 대부분의 모던 브라우저에서 지원하는 이미지 포맷입니다.</p>
@@ -154,11 +150,7 @@ Github Sponsor
 <span class="line"><span style="color:#FFCB6B">./assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png</span></span></code></pre>
 <h2 id="와--태그"><picture>와 <source> 태그</picture></h2>
 <p>그럼 이렇게 생성한 <code>avif</code>와 <code>webp</code> 포맷 파일을 웹 페이지에서 사용하는 방법에 대해서 알아보도록 하겠습니다. 웹 페이지에서 여러 포맷의 이미지를 사용하기 위해서는 <code>&#x3C;picture /></code> 태그와 <code>&#x3C;source /></code> 태그를 사용할 필요가 있습니다. 그럼 다음과 같이 <code>&#x3C;picture /></code> 태그와 <code>&#x3C;source /></code> 태그를 사용하여 <code>avif</code>와 <code>webp</code> 포맷을 불러오도록 설정합니다.</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">picture</span><span style="color:#89DDFF">></span></span>
-<span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">source</span><span style="color:#C792EA"> srcset</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example.avif</span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">image/avif</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
-<span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">source</span><span style="color:#C792EA"> srcset</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example.webp</span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">image/webp</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
-<span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">img</span><span style="color:#C792EA"> src</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example.png</span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> alt</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example file</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
-<span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">picture</span><span style="color:#89DDFF">></span></span></code></pre>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#EEFFFF">![example file](example.png)</span></span></code></pre>
 <p>이렇게 <code>&#x3C;picture /></code>와 <code>&#x3C;source /></code> 태그를 사용하면, 브라우저가 지원하는 포맷의 이미지를 다운로드하여 표시하게 됩니다.</p>
 <h2 id="완료">완료</h2>
 <p>이것으로 웹 페이지 성능 향상을 위해 새로운 이미지 포맷인 <code>avif</code>와 <code>webp</code> 파일을 생성하고, <code>&#x3C;picture /></code>와 <code>&#x3C;source /></code> 태그를 사용하여 이미지 로딩을 최적화하는 방법에 대해서 알아보았습니다. <code>Lighthouse</code>에서 자주 발생하는 지적 사항이므로 이번 기회에 잘 기억해 두면 좋을 거 같습니다. 혹시 브라우저가 아닌 로컬이나 <code>CI</code> 환경에서 <code>Lighthouse</code>를 실행시키는 방법에 대해 궁금하신 분들은 아래 링크를 참고하시기 바랍니다.</p>

@@ -49,11 +49,7 @@ Github Sponsor
 </div>
 <h2 id="概要">概要</h2>
 <p><code>GitHub</code>で<code>Pull request</code>を生成すると、次のように<code>Reviewers</code>に手動でレビュアーを設定していました。</p>
-<picture>
-  <source srcset="/assets/images/category/share/2024/set-reviewers/pull_request_reviewers.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2024/set-reviewers/pull_request_reviewers.webp" type="image/webp">
-  <img src="/assets/images/category/share/2024/set-reviewers/pull_request_reviewers.png" alt="GitHub Actions - Set reviewers">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2024/set-reviewers/pull_request_reviewers.avif" type="image/avif"><source srcset="/assets/images/category/share/2024/set-reviewers/pull_request_reviewers.webp" type="image/webp"><img src="/assets/images/category/share/2024/set-reviewers/pull_request_reviewers.png" alt="GitHub Actions - Set reviewers" width="1280" height="485" loading="lazy" decoding="async"></picture></p>
 <p>今回のブログポストでは<code>GitHub Actions</code>を使って<code>Pull request</code>の<code>Reiewers</code>にレビュアーを自動で設定する方法について説明します。</p>
 <h2 id="github-actions">GitHub Actions</h2>
 <p><code>Pull request</code>の<code>Reviewers</code>にレビュアーを自動で設定するためには、<code>.github/workflows/set_reviewers.yml</code>ファイルを生成して次のように修正します。</p>

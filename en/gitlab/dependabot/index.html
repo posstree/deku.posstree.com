@@ -84,29 +84,17 @@ Github Sponsor
 </ul>
 <h2 id="create-gitlab-token">Create GitLab token</h2>
 <p>The <code>dependabot-script</code> repository will access the other repositories and check the version. And then, when the new version exist, The <code>dependabot-script</code> repository creates <code>Merge request</code> automatically. So, <code>Personal Access Token</code> is required to access the other repositories and make <code>Merge request</code>.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/personal_access_tokens.png" alt="GitLab Dependabot - personal access tokens">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/personal_access_tokens.png" alt="GitLab Dependabot - personal access tokens" width="1280" height="594" loading="lazy" decoding="async"></picture></p>
 <p>Create <code>Personal Access Token</code> with the <code>api</code> permission.</p>
 <h2 id="create-github-token">Create GitHub token</h2>
 <p>The <code>dependabot-script</code> repository uses <code>GitHub API</code> to check the library versions.. So To use <code>GitHub API</code>, you need to create <code>Personal access token</code> of <code>GitHub</code>.</p>
 <p>After login on <code>GitHub</code>, click the profile image on the right top. And then, click <code>Settings</code> to go to the settings page.</p>
 <p>Click <code>Developer settings</code> on the bottom of the left menu on the settings page. And then, click <code>Personal access tokens</code> > <code>Token (classic)</code> to go to creating <code>Token</code> page.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/github_personal_access_token.png" alt="GitLab Dependabot - GitHub personal access tokens">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/github_personal_access_token.png" alt="GitLab Dependabot - GitHub personal access tokens" width="1169" height="865" loading="lazy" decoding="async"></picture></p>
 <p>Create <code>Token</code> with the <code>public_repo</code> permission of <code>repo</code>.</p>
 <h2 id="create-cicd-variables">Create CI/CD variables</h2>
 <p>Next, you need to configure <code>Personal Access Token</code> to the <code>CI/CD</code> variables in <code>dependabot-script</code>.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/ci_cd_variables.png" alt="GitLab Dependabot - add token to CI/CD variables">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/ci_cd_variables.png" alt="GitLab Dependabot - add token to CI/CD variables" width="1280" height="544" loading="lazy" decoding="async"></picture></p>
 <p>In the <code>dependabot-script</code> repository, click <code>Settings</code> > <code>CI/CD</code> > <code>Variables</code>, and <code>Expand</code>.</p>
 <p>And then add <code>Personal Access Token</code> of <code>GitLab</code> with <code>GITLAB_ACCESS_TOKEN</code> by <code>key</code>.</p>
 <ul>
@@ -135,19 +123,11 @@ Github Sponsor
 </div>
 <h2 id="create-gitlab-ciyml-file">Create .gitlab-ci.yml file</h2>
 <p>You can find the <code>.gitlab-ci.example.yml</code> file in the <code>dependabot-script</code> repository. Modify this file name to <code>.gitlab-ci.yml</code>.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.png" alt="GitLab Dependabot - rename .gitlab-ci.example.yml to .gitlab-ci.yml">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.png" alt="GitLab Dependabot - rename .gitlab-ci.example.yml to .gitlab-ci.yml" width="1280" height="594" loading="lazy" decoding="async"></picture></p>
 <h2 id="create-schedule">Create Schedule</h2>
 <p>Now, let’s create <code>Schedule</code> to execute <code>Dependabot</code> at regular interval to check that there are new versions of the libraries in the specific project and if there are, create <code>Merge request</code>.</p>
 <p>Create new <code>Schedule</code> on the <code>dependabot-script</code> repository.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>At this time, you need to configure the specific project <code>Path</code> and <code>Package manger</code> to <code>Variables</code>.</p>
 <ul>
 <li>PROJECT_PATH: <namespace>/<project> (ex> dev-yakuza/deku-nextjs-boilerplate)</project></namespace></li>
@@ -177,17 +157,9 @@ Github Sponsor
 </ul>
 <h2 id="execute-schedule">Execute Schedule</h2>
 <p>And then, let’s execute <code>Schedule</code> to check <code>Dependabot</code> works well.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline" width="1280" height="464" loading="lazy" decoding="async"></picture></p>
 <p>If there is no problem, you can see <code>Merge request</code> is created on the repository that you set to <code>PROJECT_PATH</code> like following.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/merge_request.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/merge_request.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/merge_request.png" alt="GitLab Dependabot - merge request">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/merge_request.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/merge_request.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/merge_request.png" alt="GitLab Dependabot - merge request" width="1280" height="407" loading="lazy" decoding="async"></picture></p>
 <h2 id="error-job-failed-failed-to-pull-image-dependabotdependabot-script">ERROR: Job failed: failed to pull image dependabot/dependabot-script</h2>
 <p>Basically, you don’t need to modify the <code>.gitlab-ci.yml</code> file. But due to the <code>GitLab</code> configuration, the following error may occur.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ERROR: Job failed: failed to pull image "dependabot/dependabot-script" with specified policies [always]: Error response from daemon: pull access denied for dependabot/dependabot-script, repository does not exist or may require 'docker login': denied: requested access to the resource is denied (manager.go: 237:2s)</span></span></code></pre>

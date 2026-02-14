@@ -264,11 +264,7 @@ mysqlは既にローカルにインストールされたと思って進めます
 <span class="line"></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>また、データベースツールを使って実際テーブルが生成されたか、確認すると、下記のようにテーブルができてることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/result-create-table.jpg" alt="Ruby on Rails テーブル生成結果">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-table.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/result-create-table.jpg" alt="Ruby on Rails テーブル生成結果" width="871" height="216" loading="lazy" decoding="async"></picture></p>
 <p>Migrationを使ってテーブル生成した後、下記のコマンドでテーブル生成前に戻ることができます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rake</span><span style="color:#C3E88D"> db:rollback</span></span></code></pre>
 <div class="in-feed-ads ads-container">
@@ -310,11 +306,7 @@ mysqlは既にローカルにインストールされたと思って進めます
 <p>そして確認のため、下記のコマンドを実行してRailsサーバを起動します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> s</span></span></code></pre>
 <p>実行が終わったら、<code>http://127.0.0.1:3000/form</code>へ移動したら、下記のような画面をみることができます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/form-page.jpg" alt="Ruby on Rails, CRUD 데이터 생성 form">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/form-page.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/form-page.jpg" alt="Ruby on Rails, CRUD 데이터 생성 form" width="884" height="242" loading="lazy" decoding="async"></picture></p>
 <p>今から実際データを貰って処理する部分を作ってみましょう。<code>app/controllers/home_controller.rb</code>ファイルを開いて下記のように修正します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="rb"><code><span class="line"><span style="color:#89DDFF;font-style:italic">class</span><span style="color:#FFCB6B"> HomeController</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#FFCB6B"> ApplicationController</span></span>
 <span class="line"><span style="color:#89DDFF">    ...</span></span>
@@ -348,11 +340,7 @@ mysqlは既にローカルにインストールされたと思って進めます
 <span class="line"><span style="color:#EEFFFF">  get </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/list</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> to:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">home#list</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>そして<code>http://127.0.0.1:3000/form</code>へデータを入れてSubmitボタンを押して<code>http://127.0.0.1:3000/list</code>へ移動することが確認できます。また、データベースツールを使ってみると、下記のようにデータがうまく追加されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/result-create-data.jpg" alt="Ruby on Rails, CRUDデータ生成確認">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/result-create-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/result-create-data.jpg" alt="Ruby on Rails, CRUDデータ生成確認" width="871" height="216" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -405,11 +393,7 @@ mysqlは既にローカルにインストールされたと思って進めます
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">&#x3C;%= post.title %></span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">&#x3C;%= post.content %></span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">td</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>このように作成して、また、<code>http://127.0.0.1:3000/list</code>へ接続してみると、下記のようにデータが表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/display-data.jpg" alt="Ruby on Rails データベースから取ってきたデータを画面へ表示">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/display-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/display-data.jpg" alt="Ruby on Rails データベースから取ってきたデータを画面へ表示" width="884" height="300" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -467,17 +451,9 @@ mysqlは既にローカルにインストールされたと思って進めます
 <span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">tbody</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">table</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>このように作成して、また<code>http://127.0.0.1:3000/list</code>へ接続してみると、下記のようにデータが上手く表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Railsデータを修正するためのリンク追加">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Railsデータを修正するためのリンク追加" width="764" height="308" loading="lazy" decoding="async"></picture></p>
 <p>ここで<code>modify</code>リンクを押したら、下記のような画面を確認することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/modify-page.jpg" alt="Ruby on Railsデータを修正するページ">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/modify-page.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/modify-page.jpg" alt="Ruby on Railsデータを修正するページ" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <p>次はデータを実際更新するアクション(Action)を作ってみましょう。上の<code>modify</code>ページでsubmitボタンを押すと、<code>/update/:id</code>へ遷移するように作りました。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">a</span><span style="color:#C792EA"> href</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/list</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">Go back</span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">a</span><span style="color:#89DDFF">>&#x3C;</span><span style="color:#F07178">br</span><span style="color:#89DDFF">/></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">form</span><span style="color:#C792EA"> action</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">/update/&#x3C;%= @post.id %></span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> method</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">POST</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span></span>
@@ -504,23 +480,11 @@ mysqlは既にローカルにインストールされたと思って進めます
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>URLを通じて<code>id</code>パラメーターを受ける予定で、ユーザが入力したデータはPOST方式で貰う予定です。</p>
 <p>この後、データの修正ページへ移動した後、</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Railsデータを修正するためリンク追加">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/add-modify-link.jpg" alt="Ruby on Railsデータを修正するためリンク追加" width="764" height="308" loading="lazy" decoding="async"></picture></p>
 <p>下記のように既存データとは違う内容を入力してみます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/update-data.jpg" alt="Ruby on Rails データ修正ページ - データ修正">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/update-data.jpg" alt="Ruby on Rails データ修正ページ - データ修正" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <p>そして<code>Submit</code>ボタンを押すと下記のように、データが上手く更新されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/update-data-result.jpg" alt="Ruby on Railsデータリストページ - データ修正結果">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/update-data-result.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/update-data-result.jpg" alt="Ruby on Railsデータリストページ - データ修正結果" width="774" height="308" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -567,17 +531,9 @@ mysqlは既にローカルにインストールされたと思って進めます
 <span class="line"><span style="color:#89DDFF">    &#x3C;/</span><span style="color:#F07178">tbody</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">table</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>また<code>http://127.0.0.1:3000/list</code>へ接続したら、下記のように<code>delete</code>リンクが追加されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/delete-link.jpg" alt="Ruby on Railsデータリストページ - 削除リンク">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/delete-link.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/delete-link.jpg" alt="Ruby on Railsデータリストページ - 削除リンク" width="748" height="362" loading="lazy" decoding="async"></picture></p>
 <p>そしたら、<code>delete</code>リンクを押してみましょう。<code>delete</code>リンクを押すと、保存されたデータが上手く削除されて、下記のようにリストページにもデータが表示されないことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/database/deleted.jpg" alt="Ruby on Railsデータリストページ削除成功">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/database/deleted.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/database/deleted.jpg" alt="Ruby on Railsデータリストページ削除成功" width="748" height="362" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これで、Ruby on Railsでデータベースを生成してデータをCRUD(Create Read Update Delete)する方法についてみてみました。皆さんはもうRuby on Railsで基本的なウェブサービスを開発する準備ができました。</p>
 <p>今後はウェブサービスを作って見ながら、Railsをもっと深く勉強してください。</p>

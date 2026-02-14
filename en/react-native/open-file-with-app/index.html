@@ -41,11 +41,19 @@ Github Sponsor
 <p>sometimes, we download the specific file from the web or the email, and want to open them with our app. for example, open the specific app with pdf file or excel file like below.</p>
 <p>in Android,</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/react-native/2019/open-file-with-app/android-open-with.jpg" alt="Android - open the app with file">
+    <picture>
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/android-open-with.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/android-open-with.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2019/open-file-with-app/android-open-with.jpg" alt="Android - open the app with file" width="1280" height="2275" loading="lazy" decoding="async">
+</picture>
 </div>
 <p>in iOS,</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/react-native/2019/open-file-with-app/iphone-open-with.jpg" alt="iOS - open the app with file">
+    <picture>
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/iphone-open-with.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/iphone-open-with.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2019/open-file-with-app/iphone-open-with.jpg" alt="iOS - open the app with file" width="1242" height="2208" loading="lazy" decoding="async">
+</picture>
 </div>
 <p>this blog is about how to open your app when we open the specific file like above and how to use the specific file in your app. in this blog, we’ll use <code>.temp</code> file to execute the app.</p>
 <div class="in-feed-ads ads-container">
@@ -114,28 +122,20 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">plist</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>I mention again, above is to open the app with <code>.temp</code> file. change 3 parts(<code>&#x3C;!-- change custom file extension --></code> comments) to the file type you want to use.</p>
 <p>first, open iTunes to check the file share feature is activated.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-no-file.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-no-file.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/open-file-with-app/itunes-no-file.jpg" alt="iOS - check itunes file share feature">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-no-file.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-no-file.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/open-file-with-app/itunes-no-file.jpg" alt="iOS - check itunes file share feature" width="819" height="461" loading="lazy" decoding="async"></picture></p>
 <p>for testing, change a file name to <code>.temp</code> and send an email with it. open the email app on iOS and select <code>.temp</code> file. when you click the share button on the right top, you can see that you can copy the file to your app.</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/react-native/2019/open-file-with-app/ios-copy-to.jpg" alt="iOS - open the app with the custom file">
+    <picture>
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/ios-copy-to.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/ios-copy-to.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2019/open-file-with-app/ios-copy-to.jpg" alt="iOS - open the app with the custom file" width="1242" height="2208" loading="lazy" decoding="async">
+</picture>
 </div>
 <p>if you select your app, the file will be copied in your app.</p>
 <p>open iTunes again, and select your app. you can see <code>Inbox</code> folder is created.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-inbox-file.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-inbox-file.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/open-file-with-app/itunes-inbox-file.jpg" alt="iOS - check file is copied on itunes">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-inbox-file.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/open-file-with-app/itunes-inbox-file.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/open-file-with-app/itunes-inbox-file.jpg" alt="iOS - check file is copied on itunes" width="819" height="461" loading="lazy" decoding="async"></picture></p>
 <p>copy that folder to outside. you can see the same file which you sent via the email.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/check-inbox-file.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/check-inbox-file.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/open-file-with-app/check-inbox-file.jpg" alt="iOS - check the inbox file">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/open-file-with-app/check-inbox-file.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/open-file-with-app/check-inbox-file.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/open-file-with-app/check-inbox-file.jpg" alt="iOS - check the inbox file" width="401" height="119" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -258,7 +258,11 @@ Github Sponsor
 <p>above is when you open the app with the file, copy the file to your app. on iOS, the file is copied automatically, but on Android, we need the code the file is copied on the app.</p>
 <p>rename any file to <code>.temp</code> and send the email with it like iOS test. open the email app and select <code>.temp</code> file that you sent or download the file and select it. you can see your app on the copy menu.</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/react-native/2019/open-file-with-app/android-copy-to.jpg" alt="Android - open the app with the custom file">
+    <picture>
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/android-copy-to.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/android-copy-to.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2019/open-file-with-app/android-copy-to.jpg" alt="Android - open the app with the custom file" width="1280" height="1656" loading="lazy" decoding="async">
+</picture>
 </div>
 <p>the file is copied when you select your app on the menu. the file is located on <code>/data/user/0/[app package name]/files</code>.</p>
 <div class="in-feed-ads ads-container">
@@ -355,20 +359,24 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">cd</span><span style="color:#C3E88D"> /Users/[user</span><span style="color:#C3E88D"> name]/Library/Developer/CoreSimulator/Devices/5C0277D7-12FA-42DE-AD6D-AC3C74324B4C/data/Containers/Data/Application/</span></span>
 <span class="line"><span style="color:#FFCB6B">open</span><span style="color:#C3E88D"> .</span></span></code></pre>
 <p>you can see the app created at today on the folder above. copy the file to <code>Documents</code> folder in the app folder.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/simulator-files.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/simulator-files.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2019/open-file-with-app/simulator-files.jpg" alt="copy the file to the simulator">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2019/open-file-with-app/simulator-files.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2019/open-file-with-app/simulator-files.webp" type="image/webp"><img src="/assets/images/category/react-native/2019/open-file-with-app/simulator-files.jpg" alt="copy the file to the simulator" width="1088" height="432" loading="lazy" decoding="async"></picture></p>
 <p>after it, execute the app or if you use my repository, select the refresh button on the right top.</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/react-native/2019/open-file-with-app/simulator-file-viewer.jpg" alt="iOS - show file list on the simulator">
+    <picture>
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/simulator-file-viewer.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/simulator-file-viewer.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2019/open-file-with-app/simulator-file-viewer.jpg" alt="iOS - show file list on the simulator" width="1125" height="2436" loading="lazy" decoding="async">
+</picture>
 </div>
 <p>after then, you can see the file list like above.</p>
 <h3 id="test-on-android">Test on Android</h3>
 <p>I’ve tested Android on the device. you can see the file list is displayed well on Android.</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/react-native/2019/open-file-with-app/android-file-viewer.jpg" alt="Android - show file list on Android device">
+    <picture>
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/android-file-viewer.avif" type="image/avif">
+  <source srcset="/assets/images/category/react-native/2019/open-file-with-app/android-file-viewer.webp" type="image/webp">
+  <img src="/assets/images/category/react-native/2019/open-file-with-app/android-file-viewer.jpg" alt="Android - show file list on Android device" width="1280" height="2275" loading="lazy" decoding="async">
+</picture>
 </div>
 <h2 id="completed">Completed</h2>
 <p>recently, we save and use all files on the servers, so this feature may not be needed. however, I think someday we can use it if we know it. we saw how to open the app with the specific file and use it. I hope this blog post is helpful for someone to implement to open the app with a specific file.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

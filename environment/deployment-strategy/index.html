@@ -53,11 +53,7 @@ Github Sponsor
 <p>ソフトウェア開発においてデプロイ戦略はサービスを安定して運用するための方法です。デプロイ戦略にはさまざまな種類があり、それぞれの特徴に応じて適切なデプロイ戦略を選択して使う必要があります。今回のブログポストでは、デプロイ戦略の種類と使い方について説明します。</p>
 <h2 id="インプレースデプロイ">インプレースデプロイ</h2>
 <p>インプレースデプロイ(In-place deployment)は金融機関やゲームのアップデートなど、ユーザーに通知をしてその時間にサービスを停止してアップデートする構造です。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/in-place.webp" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/in-place.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/deployment-strategy/in-place.webp" alt="Deployment strategy - in place deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/deployment-strategy/in-place.avif" type="image/avif"><img src="/assets/images/category/environment/2024/deployment-strategy/in-place.webp" alt="Deployment strategy - in place deployment" width="640" height="311" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>運用中のサーバーを停止します。</li>
 <li>新しいアプリケーションをデプロイします。</li>
@@ -79,11 +75,7 @@ Github Sponsor
 <p>金融機関のように、古いバージョンと新しいバージョンが同時に存在すると重大な問題(金銭的な問題)になるサービスや、ゲームのように新しいバージョンを使わないと新しいアイテム、マップ、ゲームシステムを使えないサービスにはインプレースデプロイを使います。</p>
 <h2 id="ローリングデプロイ">ローリングデプロイ</h2>
 <p>ローリングデプロイ(Rolling-update Deployment)は運用できるサーバーの数が限られている場合、インプレースデプロイと違って中断せずにデプロイする必要がある場合に使う方法です。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/rolling-update.webp" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/rolling-update.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/deployment-strategy/rolling-update.webp" alt="Deployment strategy - rolling update deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/deployment-strategy/rolling-update.avif" type="image/avif"><img src="/assets/images/category/environment/2024/deployment-strategy/rolling-update.webp" alt="Deployment strategy - rolling update deployment" width="640" height="353" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>現在運用中のサーバーのうち1つを外部(ユーザー)からアクセスできないようにします。</li>
 <li>アクセスがないか確認します。</li>
@@ -118,11 +110,7 @@ Github Sponsor
 </div>
 <h2 id="ブルーグリーンデプロイ">ブルーグリーンデプロイ</h2>
 <p>ブルーグリーンデプロイ(Blue/Green Deployment)はサーバーの制限がなく、サービスを中断せずにデプロイしたい場合、よく使われる方法です。新バージョンのアプリケーションをプロダクション環境でテストしたい場合にもこの方法を使います。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/blue-green.webp" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/blue-green.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/deployment-strategy/blue-green.webp" alt="Deployment strategy - Blue green deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/deployment-strategy/blue-green.avif" type="image/avif"><img src="/assets/images/category/environment/2024/deployment-strategy/blue-green.webp" alt="Deployment strategy - Blue green deployment" width="640" height="216" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>新バージョンをデプロイするためのサーバー(Green)を作ります。</li>
 <li>新しく作ったサーバーに新アプリケーションをデプロイします。</li>
@@ -146,11 +134,7 @@ Github Sponsor
 <p>新バージョンと旧バージョンがが同時に存在しても問題がないサービス、デプロイ中に既存のアクセスを強制的に切断しないので、SessionやSocketなどを使ってユーザーのアクセスを管理するサービスで使います。</p>
 <h2 id="カナリアデプロイ">カナリアデプロイ</h2>
 <p>カナリアデプロイ(Canary Deployment)はA/Bテストや新しいバージョンの機能のフィードバックが必要な場合、サービスのバージョンアップを慎重にしたい場合、開発中の機能をプロダクション環境でテストしたい場合に使えるデプロイ方法です。</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/canary.webp" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/deployment-strategy/canary.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/deployment-strategy/canary.webp" alt="Deployment strategy - Canary deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/deployment-strategy/canary.avif" type="image/avif"><img src="/assets/images/category/environment/2024/deployment-strategy/canary.webp" alt="Deployment strategy - Canary deployment" width="640" height="298" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>新バージョンをデプロイするためのサーバーを準備します。</li>
 <li>サービスアクセス中の一部を新バージョンに切り替えます。</li>

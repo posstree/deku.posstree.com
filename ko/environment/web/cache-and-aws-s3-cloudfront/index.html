@@ -62,46 +62,26 @@ Github Sponsor
 <p>웹 개발에서 캐시(Cache)는 중요한 역할을 합니다. 캐시를 통해 웹 서비스의 성능을 향상시킬 수 있고, 사용자 경험을 개선할 수 있습니다. 이번 블로그 포스트에서는 웹 개발에서의 캐시(Cache)에 대해서 알아보고, AWS S3에 정적 파일로 웹 서비스를 제공할 때 캐시를 적용하는 방법에 대해서 알아봅시다.</p>
 <h2 id="웹-캐시-탄생-배경">웹 캐시 탄생 배경</h2>
 <p>클라이언트(PC, 스마트폰)에서 서버에 있는 정보를 습득하기 위해서는 인터넷(Internet)을 사용하게 됩니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.png" alt="Web cache and S3 - server and client with internet">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.png" alt="Web cache and S3 - server and client with internet" width="709" height="423" loading="lazy" decoding="async"></picture></p>
 <p>클라이언트와 서버를 연결해주는 인터넷은 물리적으로 연결되어 있으며, 전 세계의 인터넷은 해저 케이블로 연결되어 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.jpg" alt="Web cache and S3 - internet submarine cable">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.jpg" alt="Web cache and S3 - internet submarine cable" width="628" height="314" loading="lazy" decoding="async"></picture></p>
 <p>클라이언트와 서버는 이렇게 물리적으로 연결이 되어있기 때문에, 당연히 거리가 멀수록 데이터를 주고 받는데 시간이 걸리게 됩니다.</p>
 <h2 id="웹-캐시">웹 캐시</h2>
 <p>웹 캐시는 물리적으로 먼 곳에 있는 서버의 콘텐츠 중 변경이 적은 콘텐츠(정적 콘텐츠: HTML, CSS, JS, Image, Video 등)를 물리적으로 가까운 곳(서버)에 복사하여 배치함으로써 데이터 송수신의 지연을 줄이는 기술입니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" alt="Web cache and S3 - web cache">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.avif" type="image/avif"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" alt="Web cache and S3 - web cache" width="1000" height="500" loading="lazy" decoding="async"></picture></p>
 <p>웹에서는 크게 세가지 캐시를 사용합니다.</p>
 <ol>
 <li>CDN(Contents Delivery Network)</li>
 <li>브라우저 캐시(Browser cache)</li>
 <li>데이터베이스 캐시(Database cache)</li>
 </ol>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache with browser">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache with browser" width="1110" height="578" loading="lazy" decoding="async"></picture></p>
 <p>이번 블로그 포스트에서는 CDN과 브라우저 캐시에 대해서 알아보도록 하겠습니다.</p>
 <h3 id="cdncontents-delivery-network">CDN(Contents Delivery Network)</h3>
 <p>CDN은 변경이 적은 콘텐츠의 복사본을 세계의 여러 곳에 있는 서버를 두고 콘텐츠를 제공하는 서비스입니다.</p>
 <p>이를 통해 클라이언트와 서버 간의 거리를 줄여 데이터 송수신의 지연을 줄일 수 있습니다.</p>
 <p>예를 들어, 세계적으로 유명한 CDN 서비스인 <code>Cloudflare</code>는 다음과 같이 전 세계에 서버를 두고 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.png" alt="Web cache and S3 - cloudflare server list">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.png" alt="Web cache and S3 - cloudflare server list" width="1280" height="542" loading="lazy" decoding="async"></picture></p>
 <p><code>Cloudflare</code>를 이용하면 정적 파일을 <code>Cloudflare</code>가 제공하는 서버에 복사하여 클라이언트와 가까운 서버에서 콘텐츠를 제공할 수 있습니다.</p>
 <h3 id="브라우저-캐시browser-cache">브라우저 캐시(Browser cache)</h3>
 <p>클라이언트 측에서 보면 가장 가까운 서버는 클라이언트 자체입니다. 브라우저는 클라이언트가 한 번 액세스한 사이트에서 일부 콘텐츠를 클라이언트 스토리지에 저장하고 다시 액세스할 때 이 저장된 콘텐츠를 사용하게 하는 브라우저 캐시 기능을 제공합니다.</p>
@@ -122,11 +102,7 @@ Github Sponsor
 </div>
 <h2 id="웹-캐시-동작-방식">웹 캐시 동작 방식</h2>
 <p>웹 캐시가 동작하는 방식에 대해서 알아보도록 하겠습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache process">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache process" width="1110" height="578" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>사용자가 브라우저에서 서비스에 액세스합니다.</li>
 <li>브라우저는 브라우저에 캐시된 것이 있는지 확인하고 캐시가 있는 경우 이를 사용하여 화면에 표시합니다.</li>
@@ -200,11 +176,7 @@ Github Sponsor
 </ul>
 <p>S3는 스토리지 서비스이지만 정적 파일로 웹 서비스를 할 수 있는 서버 기능도 제공하고 있습니다.</p>
 <p>일반적으로 HTML, CSS, JavaScript로 개발된 정적 웹 페이지나 React, Vue, Angular 등의 프론트엔드 프레임워크로 개발된 웹 애플리케이션의 빌드 결과물을 S3에 업로드하여 CloudFront를 통해 서비스하게 됩니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.png" alt="Web cache and S3 - AWS S3 and CloudFront cache">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.png" alt="Web cache and S3 - AWS S3 and CloudFront cache" width="1024" height="798" loading="lazy" decoding="async"></picture></p>
 <p>이때, S3에 업로드한 파일 설정으로 통해 브라우저 캐시와 CDN(CloudFront) 캐시를 설정할 수 있습니다.</p>
 <h2 id="aws-s3-캐시-설정">AWS S3 캐시 설정</h2>
 <p>캐시는 HTTP의 응답 헤더에 <code>Expires</code>나 <code>Cache-Control</code>을 설정하기 때문에 기본적으로 프론트엔드 측에서 설정할 수 없습니다.</p>
@@ -240,11 +212,7 @@ Github Sponsor
 <li><a href="https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/" rel="nofollow noreferrer" target="_blank">https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/</a></li>
 </ul>
 <p>stale-while-revalidate를 사용하면 중단없이 서비스 버전을 업데이트할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.png" alt="Web cache and S3 - stale-while-revalidate option for no downtime deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.png" alt="Web cache and S3 - stale-while-revalidate option for no downtime deployment" width="941" height="710" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>사용자가 브라우저에서 서비스를 실행합니다.</li>
 <li>V1에서 이미 서비스를 이용하고 있는 유저는, 브라우저에 stale-while-revalidate가 설정된 V1의 캐시가 있으므로, 그것을 우선 사용하게 됩니다.</li>

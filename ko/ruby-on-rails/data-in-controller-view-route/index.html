@@ -98,11 +98,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">bundle</span><span style="color:#C3E88D"> exec</span><span style="color:#C3E88D"> rails</span><span style="color:#C3E88D"> s</span></span>
 <span class="line"><span style="color:#545454;font-style:italic"># bundle exec rails server</span></span></code></pre>
 <p>그리고 브라우저로 <code>http://127.0.0.1:3000/</code>에 접속해보면 아래와 같이 우리가 설정한 변수가 화면에 잘 표시되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.jpg" alt="Ruby on Rails 서버 실행 결과 - Controller와 View의 데이터 교환">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-data-controller-view.jpg" alt="Ruby on Rails 서버 실행 결과 - Controller와 View의 데이터 교환" width="1280" height="642" loading="lazy" decoding="async"></picture></p>
 <p>이와 같이 Controller에서 View에 데이터를 전달하기 위해서는 인스턴스 변수를 사용하게 됩니다.</p>
 <h2 id="view에서-controller로-데이터-전달">View에서 Controller로 데이터 전달</h2>
 <p>Controller에서 View에 데이터를 전달하기 위해서는 간단하게 인스턴스 변수를 사용하면 됩니다. 그 이유는 URL로 Rails의 웹 서버로 요청이 들어오면 Controller가 그 요청에 해당하는 작업을 하고, View를 표기하기 때문입니다.</p>
@@ -141,17 +137,9 @@ View는 이미 사용자의 브라우저에 표시되었기 때문에 View에서
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#EEFFFF">input type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">submit</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#EEFFFF">form</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>그리고 브라우저를 보면 아래와 같은 화면을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.jpg" alt="POST 전송 - 데이터 입력전 화면">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/before-send-data.jpg" alt="POST 전송 - 데이터 입력전 화면" width="1280" height="642" loading="lazy" decoding="async"></picture></p>
 <p>그리고 입력창에 데이터를 입력하고 <code>Submit</code> 버튼을 누르면 다음과 같이 에러가 발생합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.jpg" alt="POST 전송 - 데이터 전송 에러 화면">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error.jpg" alt="POST 전송 - 데이터 전송 에러 화면" width="1280" height="715" loading="lazy" decoding="async"></picture></p>
 <p>에러 메세지(<code>Routing Error</code>)에서 보면 알 수 있듯이, Route 설정을 제대로 하지 않아서 에러가 발생하였습니다.</p>
 <p>우선 지금 현재의 Route 파일을 확인하기 위해, <code>config/routes.rb</code> 파일을 열어봅니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="rb"><code><span class="line"><span style="color:#FFCB6B">Rails</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">application</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">routes</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">draw</span><span style="color:#89DDFF;font-style:italic"> do</span></span>
@@ -164,11 +152,7 @@ View는 이미 사용자의 브라우저에 표시되었기 때문에 View에서
 <span class="line"><span style="color:#EEFFFF">  post </span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">/</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> to:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">home#index</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">end</span></span></code></pre>
 <p>그리고 다시 <code>submit</code> 버튼을 누르면 아래와 같은 에러 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.jpg" alt="POST 전송 - 데이터 전송 에러 화면 authenticity token">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/send-data-error-authenticity-token.jpg" alt="POST 전송 - 데이터 전송 에러 화면 authenticity token" width="1280" height="704" loading="lazy" decoding="async"></picture></p>
 <p>다른 언어의 프레임워크들처럼 Rails도 기본적인 보안 취약점을 기본적으로 보호해 주고 있습니다. 여기서는 Rails가 <code>CSRF - Cross-site request forgery</code> 취약점을 보호하기 위해 POST 데이터를 전송할 시, 특정 키(key)값을 같이 전송하도록 하고 있습니다.</p>
 <p>이 에러를 해결하기 위해서는 POST 데이터를 전송할 때, <code>authenticity_token</code>이라는 파라메터로 Rails에서 제공하는 <code>form_authenticity_token</code>을 전달해야 합니다.</p>
 <p>다시 <code>app/views/home/index.erb</code> 파일을 열고 아래와 같이 수정합니다.</p>
@@ -181,11 +165,7 @@ View는 이미 사용자의 브라우저에 표시되었기 때문에 View에서
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#EEFFFF">input type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">submit</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#EEFFFF">form</span><span style="color:#89DDFF">></span></span></code></pre>
 <p>그리고 다시 <code>http://127.0.0.1:3000/</code> 접속해서 입력칸에 test를 입력하고 submit 버튼을 누르면 아래와 같이 데이터가 잘 표시되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.webp" type="image/webp">
-  <img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.jpg" alt="POST 전송 - 데이터 전송 성공 화면">
-</picture>
+<p><picture><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.avif" type="image/avif"><source srcset="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.webp" type="image/webp"><img src="/assets/images/category/ruby-on-rails/2020/data-in-controller-view-route/result-post-data.jpg" alt="POST 전송 - 데이터 전송 성공 화면" width="1280" height="487" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이것으로 Controller와 View 사이에 데이터 전송에 대해서 알아보았습니다.</p>
 <p>Controller에서 View로 데이터를 전달하기 위해서는 인스턴스 변수를 사용하였고, View에서 Controller에 데이터를 전송하기 위해서는 GET/POST 방식으로 데이터를 전달해야 했습니다.

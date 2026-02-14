@@ -91,11 +91,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>When you execute the code, you can see the following screen.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.jpg" alt="Flutter - webview_flutter example">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.jpg" alt="Flutter - webview_flutter example" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <h2 id="safearea">SafeArea</h2>
 <p>As you see the example code, the web page is shown under the status bar on top of the screen and the home bar on the bottom of the screen. When you use the <code>SafeArea</code> widget, you can show the web page up status bar and the home bar. Open the <code>./lib/main.dart</code> file again and modify it like the below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">...</span></span>
@@ -115,11 +111,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>When you execute the code, you can see the web page shown well like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.jpg" alt="Flutter - webview_flutter SafeArea">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.jpg" alt="Flutter - webview_flutter SafeArea" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -150,18 +142,10 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>Execute the app again, and go to the another page, and then when you swipe the screen, now you can go back to the previous page.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.jpg" alt="Flutter - webview_flutter swipe back">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.jpg" alt="Flutter - webview_flutter swipe back" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <h2 id="useragent">userAgent</h2>
 <p>If you have the Google login in the web page, you acn see the <code>403: disallowed_useragent</code> error like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.jpg" alt="Flutter - webview_flutter disallowed_useragent">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.jpg" alt="Flutter - webview_flutter disallowed_useragent" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <p>To solve this issue, you need to configure the <code>userAgent</code> option to <code>WebView</code>. Open the <code>./lib/main.dart</code> file and modify it like the below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">class</span><span style="color:#FFCB6B"> MyHomePage</span><span style="color:#89DDFF"> extends</span><span style="color:#FFCB6B"> StatelessWidget</span><span style="color:#EEFFFF"> {</span></span>
 <span class="line"><span style="color:#C792EA">  const</span><span style="color:#FFCB6B"> MyHomePage</span><span style="color:#EEFFFF">({</span><span style="color:#FFCB6B">Key</span><span style="color:#89DDFF">?</span><span style="color:#EEFFFF"> key}) </span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> super(key</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> key)</span><span style="color:#89DDFF">;</span></span>
@@ -181,11 +165,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>When you execute the app and try Google login, you can see the Google login shown well like the below.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.jpg" alt="Flutter - webview_flutter Google Login">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.jpg" alt="Flutter - webview_flutter Google Login" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <h2 id="completed">Completed</h2>
 <p>Done! we’ve seen how to use <code>webview_flutter</code> to show the web page in the Flutter app. Also, we’ve seen solutions to the issues when you use <code>webview_flutter</code>.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

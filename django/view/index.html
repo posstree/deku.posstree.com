@@ -109,11 +109,7 @@ Github Sponsor
 <li><code>&#x3C;p>{{ post.content | linebreaksbr }}&#x3C;/p></code>: postデーターの<code>content</code>を持って来て改行(<code>\n</code>)を改行タグ(<code>&#x3C;br/></code>)に変換して表示します。</li>
 </ul>
 <p>上のようにコードを修正して<code>http://127.0.0.1:8000/</code>に接続すると下記のようにデーターが表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/show-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/show-data.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/show-data.jpg" alt="ジャンゴ(django)のビュー(View)を使ってデーター表示">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/show-data.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/show-data.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/show-data.jpg" alt="ジャンゴ(django)のビュー(View)を使ってデーター表示" width="1280" height="173" loading="lazy" decoding="async"></picture></p>
 <p>もっと練習するため、詳細ページを作ってみましょう。上で作った<code>blog/templates/blog/posts.html</code>を下記のように修正します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">html</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">head</span><span style="color:#89DDFF">>&#x3C;</span><span style="color:#F07178">title</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">Hello World</span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">title</span><span style="color:#89DDFF">>&#x3C;/</span><span style="color:#F07178">head</span><span style="color:#89DDFF">></span></span>
@@ -183,17 +179,9 @@ Github Sponsor
 <li><code>def post_detail(request, id):</code>: 新しく追加したURLとマッピングするファンクションです。パラメーターで渡した<code>id</code>を別の変数でもらえます。</li>
 </ul>
 <p>これで詳細ページを作ってみました。<code>http://127.0.0.1:8000</code>に接続したら以前と違って下記のようにリンクがあるページが見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-link.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/main-page-with-link.jpg" alt="ジャンゴ(django)のモデル(Models)の詳細ページリンク">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/main-page-with-link.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/main-page-with-link.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/main-page-with-link.jpg" alt="ジャンゴ(django)のモデル(Models)の詳細ページリンク" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <p>当該リンクを押したら詳細ページURL(<code>http://127.0.0.1:8000/post/2/</code>)に移動して下記のように<code>Post</code>の詳細ページが見えます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/post-detail-page.jpg" alt="ジャンゴ(django)のモデル(Models)の詳細ページ">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/post-detail-page.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/post-detail-page.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/post-detail-page.jpg" alt="ジャンゴ(django)のモデル(Models)の詳細ページ" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -273,17 +261,9 @@ Github Sponsor
 </div>
 <h2 id="確認">確認</h2>
 <p>今まで作成した内容を確認するため<code>http://127.0.0.1:8000/</code>に接続してみます。そしたら私たちが作成した<code>css</code>が適用された画面が下記のように見えます。(画面が上手く表示できない方はテストサーバーを再起動してください。)</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-static.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-static.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/main-page-with-static.jpg" alt="ジャンゴ(django)のテンプレート活用 - メインページ">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/main-page-with-static.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/main-page-with-static.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/main-page-with-static.jpg" alt="ジャンゴ(django)のテンプレート活用 - メインページ" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <p>リンクを押して詳細ページ(<code>http://127.0.0.1:8000/post/2/</code>)に移動しても下記のように<code>css</code>が適用されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/post-detail-page-with-static.jpg" alt="ジャンゴ(django)のテンプレート活用 - 詳細ページ">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/post-detail-page-with-static.jpg" alt="ジャンゴ(django)のテンプレート活用 - 詳細ページ" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <p>これで私たちはジャンゴ(django)のテンプレートを活用して静的ファイル(css, jsなど)を持って来る方法とHTMLの重複を減らすための方法についてみてみました。</p>
 <h2 id="完了">完了</h2>
 <p>今回のブログでジャンゴ(django)のビュー(View)を使う全般的方法についてみてみました。データーを持って来て画面に表示して、表示される画面を管理するためのジャンゴ(django)のテンプレートを確認してみました。また、cssとjsような静的ファイル(static)を持って来る方法もみてみました。もう、私たちはこれを使って一般的なウェブサービスサイトを作れるようになりました！</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

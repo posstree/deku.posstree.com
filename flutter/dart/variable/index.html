@@ -108,27 +108,15 @@ Github Sponsor
 </div>
 <h2 id="hello-world">Hello world</h2>
 <p>まず、Dartでコーディングするため、Dartファイルを生成してみましょう。VSCodeで下記のように新しファイルを生成してみます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/dart/new_file.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/dart/new_file.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/dart/new_file.jpg" alt="VSCode - create Dart file">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/dart/new_file.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/dart/new_file.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/dart/new_file.jpg" alt="VSCode - create Dart file" width="1280" height="372" loading="lazy" decoding="async"></picture></p>
 <p>ファイル名はなんでもいいですが、ここでは<code>main.dart</code>で生成します。このようにファイルを生成したら、当該ファイルを開いて下記のように作成します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#C792EA">void</span><span style="color:#82AAFF"> main</span><span style="color:#EEFFFF">() {</span></span>
 <span class="line"><span style="color:#82AAFF">  print</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'Hello world!'</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>全ての内容をセク生したら、<code>cmd + shift + d</code>を押して、<code>Debug: restart</code>を検索して実行します。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/dart/debug_restart.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/dart/debug_restart.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/dart/debug_restart.jpg" alt="VSCode - Dart debugging">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/dart/debug_restart.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/dart/debug_restart.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/dart/debug_restart.jpg" alt="VSCode - Dart debugging" width="1280" height="276" loading="lazy" decoding="async"></picture></p>
 <p>そしたらVSCodeが<code>.vscode/launch.json</code>ファイルを自動生成してくれます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/dart/launch_json.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/dart/launch_json.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/dart/launch_json.jpg" alt="VSCode - Dart launch.json">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/dart/launch_json.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/dart/launch_json.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/dart/launch_json.jpg" alt="VSCode - Dart launch.json" width="1280" height="552" loading="lazy" decoding="async"></picture></p>
 <p>私たちはそのファイルで私たちのDartファイルを指定する必要があります。当該ファイルを開いて下記のように修正します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
 <span class="line"><span style="color:#EEFFFF">  ...</span></span>
@@ -140,11 +128,7 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  ]</span></span>
 <span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
 <p>このように修正したら、また<code>main.dart</code>ファイルに移動して、<code>cmd + shift + d</code>を押して<code>debug restart</code>を再び実行します。そしたら下記のように<code>DEBUG CONSOLE</code>に私たちが作成した<code>Hello world</code>が表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/dart/hello_world.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/dart/hello_world.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/dart/hello_world.jpg" alt="VSCode - Dart Hello world">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/dart/hello_world.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/dart/hello_world.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/dart/hello_world.jpg" alt="VSCode - Dart Hello world" width="1280" height="602" loading="lazy" decoding="async"></picture></p>
 <p>コードの詳しい説明は省略します。</p>
 <h2 id="変数">変数</h2>
 <p>Dartで使える変数を説明します。</p>
@@ -159,11 +143,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>宣言と同時に変数を割り当てた場合、Dartは変数のタイプを固定します。上の例では<code>value1</code>は<code>String</code>タイプになり、<code>value2</code>は<code>int</code>タイプになります。</p>
 <p>このようにタイプが固定された後、他のタイプを入れるとエラーが発生します。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/dart/wrong_type_error.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/dart/wrong_type_error.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/dart/wrong_type_error.jpg" alt="VSCode - Dart wrong type error">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/dart/wrong_type_error.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/dart/wrong_type_error.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/dart/wrong_type_error.jpg" alt="VSCode - Dart wrong type error" width="1280" height="169" loading="lazy" decoding="async"></picture></p>
 <p>しかし、宣言と同時に割り当てないと、どのタイプも入れることができる<code>Dynamic Type</code>の変数になります。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#C792EA">void</span><span style="color:#82AAFF"> main</span><span style="color:#EEFFFF">() {</span></span>
 <span class="line"><span style="color:#C792EA">  var</span><span style="color:#EEFFFF"> value1</span><span style="color:#89DDFF">;</span></span>

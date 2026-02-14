@@ -64,37 +64,17 @@ Github Sponsor
 <li><a href="https://www.npmjs.com/" rel="nofollow noreferrer" target="_blank">https://www.npmjs.com/</a></li>
 </ul>
 <p>로그인한 후, 오른쪽 상단의 프로필 이미지를 선택하고 <code>Access Tokens</code>를 눌러 <code>Access Tokens</code> 페이지로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.png" alt="NPM access token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/access_token.png" alt="NPM access token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p><code>Access Tokens</code> 페이지에서 오른쪽 상단의 <code>Generate New Token</code> > <code>Classic Token</code> 버튼을 눌러 새로운 토큰을 생성하는 페이지로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p><code>New Access Token</code> 페이지에서 <code>Automation</code>을 선택하고, <code>Name</code>을 입력하여 새로운 토큰을 생성합니다. 저는 <code>For GitHub</code>이라는 이름으로 새로운 토큰을 생성하였습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/generate_new_token.png" alt="NPM generate new classic token" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>새로운 토큰이 생성되면 토큰을 복사할 수 있는 화면이 나옵니다. 해당 토큰을 <code>GitHub Actions</code>에서 사용할 예정이므로 잘 복사해둡니다.</p>
 <h2 id="github-actions-variables">GitHub Actions variables</h2>
 <p><code>GitHub Actions</code>로 <code>NPM</code> 패키지의 배포 자동화를 하고자 하는 저장소(Repository)로 이동 한 후, <code>Settings</code> > <code>Secrets and variables</code> > <code>Actions</code> 메뉴를 선택하면 다음과 같은 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.png" alt="Set NPM token to GitHub Actions variables">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/npm_token.png" alt="Set NPM token to GitHub Actions variables" width="1280" height="598" loading="lazy" decoding="async"></picture></p>
 <p>여기서 오른쪽 상단의 <code>New repository secret</code> 버튼을 누르면 다음과 같은 화면을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.png" alt="Add NPM token to GitHub Actions new secret">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/github_actions_new_secret.png" alt="Add NPM token to GitHub Actions new secret" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p><code>Name</code>에는 <code>NPM_TOKEN</code>을 입력하고 <code>Secret</code>은 앞서 <code>NPM</code> 사이트에서 복사한 <code>Access token</code>을 입력합니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -195,11 +175,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> tag</span><span style="color:#C3E88D"> v0.1.0</span></span>
 <span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> push</span><span style="color:#C3E88D"> origin</span><span style="color:#C3E88D"> v0.1.0</span></span></code></pre>
 <p><code>GitHub Actions</code>로 자동으로 배포된 후, <code>NPM</code> 사이트로 이동하면 다음과 같이 패키지가 잘 배포된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.avif" type="image/avif">
-  <source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.webp" type="image/webp">
-  <img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.png" alt="package is deployed to NPM">
-</picture>
+<p><picture><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.avif" type="image/avif"><source srcset="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.webp" type="image/webp"><img src="/assets/images/category/share/2023/github-actions/deploy-npm-library/package_deployed_to_npm.png" alt="package is deployed to NPM" width="1280" height="693" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이것으로 자신이 개발한 JavaScript 라이브러리를 <code>GitHub Actions</code>를 통해 <code>NPM</code>에 자동으로 배포하는 방법에 대해서 알아보았습니다. 여러분도 <code>NPM</code>에 패키지를 배포하고 관리하고 있는 경우, <code>GitHub Actions</code>를 사용하여 <code>NPM</code> 패키지 배포를 자동화해 보시기 바랍니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

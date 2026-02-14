@@ -60,11 +60,7 @@ Github Sponsor
 <p>git 저장소(Repository)의 현재 상태를 확인하기 위해 아래에 <code>git status</code> 명령어를 실행시킵니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> status</span></span></code></pre>
 <p>위와 같이 <code>git status</code> 명령어를 실행하면 아래와 같은 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-status.jpg" alt="git status">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-status.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-status.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-status.jpg" alt="git status" width="627" height="217" loading="lazy" decoding="async"></picture></p>
 <ul>
 <li>On branch master: 현재 해당하는 브랜치(branch)는 마스터(master)입니다. git 브랜치(branch)에 관해서는 이후에 다른 블로그 포스트에서 설명합니다.</li>
 <li>No commits yet: 아직 커밋(commit)을 하지 않은 상태입니다. 커밋(commit)은 버전(변경 이력)을 의미합니다. 아직 버전(변경 이력)을 만들지 않은 상태를 의미합니다.</li>
@@ -94,11 +90,7 @@ Github Sponsor
 <p>아래와 같이 <code>git status</code> 명령어로 git이 새롭게 추가된 파일을 잘 인식하는지 확인합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> status</span></span></code></pre>
 <p>아래와 같이 <code>git status</code> 명령어를 실행하면 아까와는 다른 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-after-add.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-after-add.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-status-after-add.jpg" alt="git status after executing git add command">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-status-after-add.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-status-after-add.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-status-after-add.jpg" alt="git status after executing git add command" width="627" height="191" loading="lazy" decoding="async"></picture></p>
 <ul>
 <li>Changes to be committed: git이 다음에 버전(변경 이력) 관리를 하기 위한 파일 리스트입니다. 우리는 파일을 새롭게 추가했기 때문에 <code>new file</code>에 <code>text.txt</code>가 추가된 것을 볼 수 있습니다.</li>
 </ul>
@@ -107,23 +99,11 @@ Github Sponsor
 <p>우리는 git에게 버전(변경 이력)에 추가하고 싶은 파일을 <code>git add</code> 명령어로 알려줬습니다. 하지만 실제 버전(변경 이력) 관리는 이뤄지지 않았습니다. 단지 git에게 새로운 파일이 있음을 알려준 것입니다. 이제 실제 버전(변경 이력) 관리를 위해 <code>git commit</code>을 이용하여 버전(변경 이력)을 생성합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> commit</span></span></code></pre>
 <p>이렇게 <code>git commit</code>명령어를 실행하면 버전(변경 이력)을 생성할 수 있는 화면이 실행됩니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-commit.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-commit.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-commit.jpg" alt="git commit">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-commit.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-commit.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-commit.jpg" alt="git commit" width="627" height="300" loading="lazy" decoding="async"></picture></p>
 <p>이 화면은 <code>vim</code>이라는 문서 편집 툴이 실행된 화면입니다. 문서를 편집하기 위해 키보드에서 <code>i</code>(insert)를 입력하고 이 변경 이력에 내용이 무엇인지 작성합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-commit-with-message.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-commit-with-message.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-commit-with-message.jpg" alt="git commit with message">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-commit-with-message.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-commit-with-message.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-commit-with-message.jpg" alt="git commit with message" width="625" height="322" loading="lazy" decoding="async"></picture></p>
 <p>작성이 완료되면 키보드의 <code>esc</code> 버튼을 누르고 <code>:wq</code>(write-quit)을 입력하여 변경 이력을 작성합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-complete-commit.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-complete-commit.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-complete-commit.jpg" alt="git completed commit">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-complete-commit.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-complete-commit.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-complete-commit.jpg" alt="git completed commit" width="677" height="67" loading="lazy" decoding="async"></picture></p>
 <p>변경 이력 작성이 완료되면 위와 같은 메세지를 볼 수 있습니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -139,11 +119,7 @@ Github Sponsor
 <p>버전(변경 이력)이 잘 생성되었는지 확인하기 위해 <code>git log</code>명령어를 실행시킵니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> log</span></span></code></pre>
 <p>위와 같이 <code>git log</code>를 실행하면 현재 작성한 버전(변경 이력)을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-log.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-log.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-log.jpg" alt="git log">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-log.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-log.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-log.jpg" alt="git log" width="669" height="106" loading="lazy" decoding="async"></picture></p>
 <ul>
 <li>Author: 버전(변경 이력) 작성자 및 작성자 이메일(git config로 등록한 사용자명과 이메일)</li>
 <li>Date: 버전(변경 이력)의 생성일자</li>
@@ -153,39 +129,23 @@ Github Sponsor
 <p>파일을 수정한 경우도 위와 동일한 방식을 취합니다. 아래와 같이 <code>git status</code> 명령어로 현재 상태를 확인합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> status</span></span></code></pre>
 <p>아직 아무 변경도 하지 않았기 때문에 변경 사항이 없다고 git이 알려줍니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-no-change.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-no-change.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-status-no-change.jpg" alt="git status no change">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-status-no-change.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-status-no-change.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-status-no-change.jpg" alt="git status no change" width="682" height="42" loading="lazy" decoding="async"></picture></p>
 <p>이제 <code>test.txt</code> 파일의 내용을 <code>test text</code>에서 <code>test string</code>으로 수정한 후 <code>git status</code>를 실행 시킵니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> status</span></span></code></pre>
 <p>이번에는 수정 사항이 있기 때문에 아래와 같은 화면을 볼 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-with-modification.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-with-modification.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-status-with-modification.jpg" alt="git status with modification">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-status-with-modification.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-status-with-modification.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-status-with-modification.jpg" alt="git status with modification" width="682" height="168" loading="lazy" decoding="async"></picture></p>
 <ul>
 <li>modified: 수정된 파일을 나타냅니다.</li>
 </ul>
 <p>이제 <code>git add</code>를 통해 git에게 변경된 이력이 있음 알려줍니다. 다른 말로 버전(변경 이력)에 기록할 파일을 추가합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> add</span><span style="color:#C3E88D"> test.txt</span></span></code></pre>
 <p>다시 <code>git status</code>로 상태를 확인합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-after-commit.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-status-after-commit.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-status-after-commit.jpg" alt="git status after commit">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-status-after-commit.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-status-after-commit.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-status-after-commit.jpg" alt="git status after commit" width="682" height="132" loading="lazy" decoding="async"></picture></p>
 <p>아까와는 다르게 글자도 녹색으로 변경 되었으며 <code>no changes added to commit (use "git add" and/or "git commit -a")</code> 메세지도 없는 것을 확인 할 수 있습니다. git이 버전(변경 이력)에 <code>test.txt</code> 파일을 잘 추가하였음을 알 수 있습니다. <code>git commit</code>을 이용하여 버전(변경 이력)을 생성합니다. 버전 메세지(변경 이력 메세지)에는 <code>edit 'text' to 'string'</code>을 입력했습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> commit</span></span></code></pre>
 <p>그리고 <code>git log</code>를 사용하여 버전(변경 이력)이 잘 생성되었는지 확인합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">git</span><span style="color:#C3E88D"> log</span></span></code></pre>
-<picture>
-  <source srcset="/assets/images/category/git/2018/create-stage/git-log-with-new-version.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2018/create-stage/git-log-with-new-version.webp" type="image/webp">
-  <img src="/assets/images/category/git/2018/create-stage/git-log-with-new-version.jpg" alt="git log with new version">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2018/create-stage/git-log-with-new-version.avif" type="image/avif"><source srcset="/assets/images/category/git/2018/create-stage/git-log-with-new-version.webp" type="image/webp"><img src="/assets/images/category/git/2018/create-stage/git-log-with-new-version.jpg" alt="git log with new version" width="688" height="235" loading="lazy" decoding="async"></picture></p>
 <p>위와 같이 버전(변경 이력)이 잘 생성 된 것을 확인할 수 있습니다.</p>
 <h2 id="변경-사항-확인">변경 사항 확인</h2>
 <p>다음 명령어를 실행하여 변경 사항을 확인할 수 있습니다.</p>

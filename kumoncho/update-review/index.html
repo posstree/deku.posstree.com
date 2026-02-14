@@ -51,10 +51,18 @@ Github Sponsor
 <p>下記はアプリのダウンロードリンクです。</p>
 <div class="download_link_container">
     <a class="download_link_ios" href="https://apps.apple.com/app/kumoncho/id1450902241" target="_blank">
-        <img src="/assets/images/apple_download.png" alt="子供向け絵本アプリくもんちょiOSダウンロード">
+        <picture>
+  <source srcset="/assets/images/apple_download.avif" type="image/avif">
+  <source srcset="/assets/images/apple_download.webp" type="image/webp">
+  <img src="/assets/images/apple_download.png" alt="子供向け絵本アプリくもんちょiOSダウンロード" width="280" height="96" loading="lazy" decoding="async">
+</picture>
     </a>
     <a class="download_link_android" href="https://play.google.com/store/apps/details?id=io.github.dev.yakuza.kumoncho" target="_blank">
-        <img src="/assets/images/google play_download.png" alt="子供向け絵本アプリくもんちょアンドロイドダウンロード">
+        <picture>
+  <source srcset="/assets/images/google play_download.avif" type="image/avif">
+  <source srcset="/assets/images/google play_download.webp" type="image/webp">
+  <img src="/assets/images/google play_download.png" alt="子供向け絵本アプリくもんちょアンドロイドダウンロード" width="280" height="95" loading="lazy" decoding="async">
+</picture>
     </a>
 </div>
 <h2 id="問題点">問題点</h2>
@@ -87,11 +95,7 @@ Github Sponsor
 <h3 id="タブレット対応">タブレット対応</h3>
 <p>RN(React Native)はCross Platformを対応してるので、スマホやタブレットを対応するUniversal Appを簡単に作れます。もちろん画面のサイズが色々あるのでそれそれ画面に合せてコーディングする必要はあります。RN(React Native)は基本的に<code>flexbox</code>を使ってるので簡単にresponsiveアプリを作ることができます。</p>
 <p>しかし、Kumonchoは子供向け絵本アプリです。それで全体の絵をレイヤー(Layer)で分けってその中にイメージを固定して表示しています。最初からタブレットを考えなかったので簡単にResponsiveアプリに展開ができませんでした。</p>
-<picture>
-  <source srcset="/assets/images/category/kumoncho/update-review/kumoncho_layer.avif" type="image/avif">
-  <source srcset="/assets/images/category/kumoncho/update-review/kumoncho_layer.webp" type="image/webp">
-  <img src="/assets/images/category/kumoncho/update-review/kumoncho_layer.jpg" alt="子供向け絵本アプリKumonchoレイヤー">
-</picture>
+<p><picture><source srcset="/assets/images/category/kumoncho/update-review/kumoncho_layer.avif" type="image/avif"><source srcset="/assets/images/category/kumoncho/update-review/kumoncho_layer.webp" type="image/webp"><img src="/assets/images/category/kumoncho/update-review/kumoncho_layer.jpg" alt="子供向け絵本アプリKumonchoレイヤー" width="1280" height="687" loading="lazy" decoding="async"></picture></p>
 <p>Kumonchoは上のように背景レイヤー、メインイメージレイヤー、その他イメージレイヤー、説明(Description)レイヤーで分けって管理しています。このように分けったレイヤーを<code>object</code>で各ページを管理してReactのコンポーネントを使って簡単に実現しています。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#89DDFF">{</span></span>
 <span class="line"><span style="color:#FFCB6B">    key</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">page1</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span></span>
@@ -182,7 +186,10 @@ Github Sponsor
 <h3 id="アニメーション">アニメーション</h3>
 <p>Kumonchoは子供向け絵本<code>アプリ</code>です。シダがって、一般的な紙の本では表現出来ない機能を提供することが出来ます。それの一つがアニメーションの機能です。ユーザ（子供）がもっと絵本を面白く見るようにマイクロインタラクションを入れて見ました。</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/kumoncho/update-review/kumoncho_animation.gif" alt="子供向け絵本アプリKumonchoアニメーション">
+    <picture>
+  <source srcset="/assets/images/category/kumoncho/update-review/kumoncho_animation.webp" type="image/webp">
+  <img src="/assets/images/category/kumoncho/update-review/kumoncho_animation.gif" alt="子供向け絵本アプリKumonchoアニメーション" width="600" height="1067" loading="lazy" decoding="async">
+</picture>
 </div>
 <p>各ページにアニメーションを追加しました。それでもっと面白く絵本を見ることができましたのでぜひ一回見てください。アニメーションは<code>lottie</code>を使いました。これに関するブログが下記になります。</p>
 <ul>
@@ -191,13 +198,20 @@ Github Sponsor
 <h3 id="ページ移動">ページ移動</h3>
 <p>以前のブログ(<a href="/kumoncho/development-journal/">Kumonchoアプリ開発日誌(RN, React Native)</a>)でも説明しましたが、今回のプロジェクトはUXの部分で失敗作です。アプリで絵本を見て途中でアプリを終了したら、また最初から絵本を見なければならないです。今回のアップデートではこの部分を解決して、ページ移動の機能を追加しました。</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/kumoncho/update-review/kumoncho_page_change.gif" alt="子供向け絵本アプリくもんちょスクロール">
+    <picture>
+  <source srcset="/assets/images/category/kumoncho/update-review/kumoncho_page_change.webp" type="image/webp">
+  <img src="/assets/images/category/kumoncho/update-review/kumoncho_page_change.gif" alt="子供向け絵本アプリくもんちょスクロール" width="600" height="1067" loading="lazy" decoding="async">
+</picture>
 </div>
 <p>画面をダブルタッチしたら、ページリストが見えてそこで見たいページを選べたらそこのページに移動する機能を追加しました。</p>
 <h3 id="チュートリアル">チュートリアル</h3>
 <p>現在は画面スワイプと画面ダブルタッチでページを移動しています。この部分をユーザがよく分からないかもしれないと思って、アプリを最初実行したらチュートリアル画面が見えるように追加しました。</p>
 <div class="half_image_container">
-    <img class="half_image" src="/assets/images/category/kumoncho/update-review/kumoncho_tutorial.jpg" alt="子供向け絵本アプリくもんちょチュートリアル">
+    <picture>
+  <source srcset="/assets/images/category/kumoncho/update-review/kumoncho_tutorial.avif" type="image/avif">
+  <source srcset="/assets/images/category/kumoncho/update-review/kumoncho_tutorial.webp" type="image/webp">
+  <img src="/assets/images/category/kumoncho/update-review/kumoncho_tutorial.jpg" alt="子供向け絵本アプリくもんちょチュートリアル" width="1242" height="2208" loading="lazy" decoding="async">
+</picture>
 </div>
 <h3 id="statusbar">StatusBar</h3>
 <p>iOSを中心にして開発してるのでアンドロイドをあまり気にしませんでした。iOSはStatusBarが透明なのでもんだいありませんでしたがアプリをリリースしてアンドロイドの方でStatusBarを透明にして欲しいの意見がありました。それでアンドロイドのStatusBarを透明にして、Splashが表示する時はStatusBarを非表示するように修正しました。下記のリンクはこれの説明ブログです。</p>
@@ -212,10 +226,18 @@ Github Sponsor
 <p>今回のアップデートで完全に失敗したUXの部分を少しよくなるように作ったと思います。また、アニメーションを使ってもっと面白く絵本を見るようにしました。今回作ったアプリをベースにして次の絵本アプリも作る要諦です。もっとこうして欲しいなとかの意見があったら、下にコメントください。</p>
 <div class="download_link_container">
     <a class="download_link_ios" href="https://apps.apple.com/app/kumoncho/id1450902241" target="_blank">
-        <img src="/assets/images/apple_download.png" alt="子供向け絵本アプリくもんちょiOSダウンロード">
+        <picture>
+  <source srcset="/assets/images/apple_download.avif" type="image/avif">
+  <source srcset="/assets/images/apple_download.webp" type="image/webp">
+  <img src="/assets/images/apple_download.png" alt="子供向け絵本アプリくもんちょiOSダウンロード" width="280" height="96" loading="lazy" decoding="async">
+</picture>
     </a>
     <a class="download_link_android" href="https://play.google.com/store/apps/details?id=io.github.dev.yakuza.kumoncho" target="_blank">
-        <img src="/assets/images/google play_download.png" alt="子供向け絵本アプリくもんちょアンドロイドダウンロード">
+        <picture>
+  <source srcset="/assets/images/google play_download.avif" type="image/avif">
+  <source srcset="/assets/images/google play_download.webp" type="image/webp">
+  <img src="/assets/images/google play_download.png" alt="子供向け絵本アプリくもんちょアンドロイドダウンロード" width="280" height="95" loading="lazy" decoding="async">
+</picture>
     </a>
 </div>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

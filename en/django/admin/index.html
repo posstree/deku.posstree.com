@@ -92,17 +92,9 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#545454;font-style:italic"># python manage.py runserver</span></span>
 <span class="line"><span style="color:#FFCB6B">http://127.0.0.1:8000/admin</span></span></code></pre>
 <p>if you’ve done well, you can see the page like below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/login.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/login.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/login.jpg" alt="django administrator page - login">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/login.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/login.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/login.jpg" alt="django administrator page - login" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <p>and then, insert the user information created above, and login. you can see the screen like below after sign-in</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/main.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/main.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/main.jpg" alt="django administrator page - main page">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/main.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/main.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/main.jpg" alt="django administrator page - main page" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <h2 id="register-models-to-administrator-page">Register Models To Administrator Page</h2>
 <p>we need to register our Models to manage it on the django administrator page. open <code>blog/admin.py</code> file and modify it like below to register our <code>Post</code> Models. if you want to know how to make django Models, see the previous blog post.(<a href="/django/models/">Use Models in django</a>)</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> django</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">contrib </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> admin</span></span>
@@ -110,36 +102,16 @@ Github Sponsor
 <span class="line"></span>
 <span class="line"><span style="color:#EEFFFF">admin</span><span style="color:#89DDFF">.</span><span style="color:#F07178">site</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">register</span><span style="color:#89DDFF">(</span><span style="color:#82AAFF">Post</span><span style="color:#89DDFF">)</span></span></code></pre>
 <p>and then, refresh the administrator page. you can see the Models we created in there like below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="django administrator page - display the Models on the administrator page">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="django administrator page - display the Models on the administrator page" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <h2 id="write-blog-post-via-administrator-page">Write Blog Post via Administrator Page</h2>
 <p>let’s try to write a blog post via the django administrator page. click <code>Add</code> button on the left of <code>Posts</code> in the bottom of <code>BLOG</code> like below</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="register data via django administrator page - select the models on the administrator page">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/main-with-models.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/main-with-models.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/main-with-models.jpg" alt="register data via django administrator page - select the models on the administrator page" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <p>write a test data like below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/add-test-data.jpg" alt="register data via django administrator - register a test data">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/add-test-data.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/add-test-data.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/add-test-data.jpg" alt="register data via django administrator - register a test data" width="1280" height="576" loading="lazy" decoding="async"></picture></p>
 <p>and then, click <code>Save and add another</code> to add an additional data for testing. at this time, insert <code>published_at</code> data, too.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/add-test-data-with-published.jpg" alt="register data via django administrator - add test data">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/add-test-data-with-published.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/add-test-data-with-published.jpg" alt="register data via django administrator - add test data" width="1280" height="610" loading="lazy" decoding="async"></picture></p>
 <p>at this time, click <code>Save</code> button to go to the data list screen.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/data-list.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/data-list.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/data-list.jpg" alt="register data via django administrator - test data list">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/data-list.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/data-list.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/data-list.jpg" alt="register data via django administrator - test data list" width="1280" height="391" loading="lazy" decoding="async"></picture></p>
 <p>you can see the data stored well like above.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -153,11 +125,7 @@ Github Sponsor
 </div>
 <h2 id="check">Check</h2>
 <p>one more time, we’ll use a database tool for checking the data is really stored well.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/admin/data-in-database.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/admin/data-in-database.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/admin/data-in-database.jpg" alt="register data via django administrator page - check the data via database tool">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/admin/data-in-database.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/data-in-database.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/data-in-database.jpg" alt="register data via django administrator page - check the data via database tool" width="1280" height="235" loading="lazy" decoding="async"></picture></p>
 <p>we can see the data that we created via django administrator stored well.</p>
 <h2 id="completed">Completed</h2>
 <p>we’ve seen how to use django administrator page, and also we’ve seen how to display the models we’ve created before. now, we can manage the data without database tools.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

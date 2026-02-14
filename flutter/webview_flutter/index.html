@@ -91,11 +91,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>このコードを実行してみると次のような画面が表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.jpg" alt="Flutter - webview_flutter example">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_example.jpg" alt="Flutter - webview_flutter example" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <h2 id="safearea">SafeArea</h2>
 <p>例題コードを実行してみると、上のステータスバーと下のホームバーの下にウェブページが表示されることが確認できます。<code>SafeArea</code>ウィジェットを使うとウェブページをステータスバーとホームバーと重ねないように表示することができます。また、<code>./lib/main.dart</code>ファイルを開いて下記のように修正します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">...</span></span>
@@ -115,11 +111,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>これを実行すると次のようにウェブページがうまく表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.jpg" alt="Flutter - webview_flutter SafeArea">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_safearea.jpg" alt="Flutter - webview_flutter SafeArea" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -150,18 +142,10 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>また、アプリを再実行して、次のページに移動した後、スワイプをすると次のように以前のページに戻れることができます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.jpg" alt="Flutter - webview_flutter swipe back">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_swipe_back.jpg" alt="Flutter - webview_flutter swipe back" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <h2 id="useragent">userAgent</h2>
 <p>ウェブページでグーグルログインを使う場合、次のように<code>403: disallowed_useragent</code>エラーが発生します。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.jpg" alt="Flutter - webview_flutter disallowed_useragent">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_disallowed_useragent.jpg" alt="Flutter - webview_flutter disallowed_useragent" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <p>これを解決するためには<code>WebView</code>に<code>userAgent</code>を設定する必要があります。<code>./lib/main.dart</code>ファイルを開いて下記のように修正します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">class</span><span style="color:#FFCB6B"> MyHomePage</span><span style="color:#89DDFF"> extends</span><span style="color:#FFCB6B"> StatelessWidget</span><span style="color:#EEFFFF"> {</span></span>
 <span class="line"><span style="color:#C792EA">  const</span><span style="color:#FFCB6B"> MyHomePage</span><span style="color:#EEFFFF">({</span><span style="color:#FFCB6B">Key</span><span style="color:#89DDFF">?</span><span style="color:#EEFFFF"> key}) </span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> super(key</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> key)</span><span style="color:#89DDFF">;</span></span>
@@ -181,11 +165,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>またアプリを再実行してグーグルログインを実行すると、次のようにグーグルのログイン画面がうまく表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.jpg" alt="Flutter - webview_flutter Google Login">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/webview_flutter/webview_flutter_google_login.jpg" alt="Flutter - webview_flutter Google Login" width="1280" height="822" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでFlutterで<code>webview_flutter</code>を使ってアプリ内でウェブページを表示する方法についてみてみました。また、<code>webview_flutter</code>を使ったら発生する問題を解決する方法も確認しました。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

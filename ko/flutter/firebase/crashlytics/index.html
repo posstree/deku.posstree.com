@@ -74,11 +74,7 @@ Github Sponsor
 </ul>
 <h2 id="firebase-프로젝트-설정">Firebase 프로젝트 설정</h2>
 <p>다음은 구글의 파이어베이스(Google Firebase)에서 프로젝트에 Crashlytics를 설정할 필요가 있습니다. Firebase의 Console로 이동한 후, 왼쪽 메뉴에서 <code>Crashlytics</code>를 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.jpg" alt="crashlytics add sdk">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-firebase-v6-crashlytics/crashlytics-add-sdk.jpg" alt="crashlytics add sdk" width="1280" height="476" loading="lazy" decoding="async"></picture></p>
 <p>상단에 있는 <code>Add SDK</code> 버튼을 눌러서 SDK를 추가합니다. 또한 상단에 <code>Crashlytics</code> 타이틀 옆에 있는 프로젝트를 선택하여 iOS/안드로이드로 변경한 후, <code>Add SDK</code>를 눌러 iOS, 안드로이드 모두 SDK를 추가해 줍니다.</p>
 <h2 id="firebase_crashlytics-설치">firebase_crashlytics 설치</h2>
 <p>Flutter 프로젝트에서 Firebase Crashlytics를 사용하기 위해서는 <code>firebase_crashlytics</code> 패키지를 설치할 필요가 있습니다. 다음 명령어를 실행하여 <code>firebase_crashlytics</code> 패키지를 설치합니다.</p>
@@ -128,17 +124,9 @@ Github Sponsor
 <p>해당 코드를 버튼, 화면 이동 등과 같은 이벤트에 연결을 하고, 앱을 강제 종료 시킵니다. 앱이 강제 종료되었다면, 다시 앱을 실행시켜 Firebase Crashlytics에 보고하도록 합니다.</p>
 <p>앱 강제 종료 테스트는 단말기에서 실행해야 하며, 강제 종료후, Firebase Crashlytics에 보고할 수 있도록 꼭 다시 앱을 실행해야 합니다.</p>
 <p>이렇게 강제 종료를 통해 Firebase Crashlytics에 보고하였다면, Firebase의 Crashlytics 화면이 다음과 같이 변경된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/crashlytics/message_list.jpg" alt="crashlytics error message list">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/crashlytics/message_list.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/crashlytics/message_list.jpg" alt="crashlytics error message list" width="1280" height="631" loading="lazy" decoding="async"></picture></p>
 <p>또한, Crashlytics의 에러 메시지를 선택하면 다음과 같이 <code>This is a test crash caused by calling .crash() in Dart</code>라는 테스트 메시지를 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2021/crashlytics/result_test.jpg" alt="crashlytics error message list">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2021/crashlytics/result_test.webp" type="image/webp"><img src="/assets/images/category/flutter/2021/crashlytics/result_test.jpg" alt="crashlytics error message list" width="1271" height="272" loading="lazy" decoding="async"></picture></p>
 <h2 id="안드로이드-multidexenabled">안드로이드 multiDexEnabled</h2>
 <p><code>firebase_crashlytics</code>를 설치하고 Flutter 프로젝트를 안드로이드에서 실행했을 때, <code>Debug Console</code>에 다음과 같은 에러가 발생하였습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">Note:</span><span style="color:#C3E88D"> .pub-cache/hosted/pub.dartlang.org/firebase_core-1.0.4/android/src/main/java/io/flutter/plugins/firebase/core/FlutterFirebaseCorePlugin.java</span><span style="color:#C3E88D"> uses</span><span style="color:#C3E88D"> or</span><span style="color:#C3E88D"> overrides</span><span style="color:#C3E88D"> a</span><span style="color:#C3E88D"> deprecated</span><span style="color:#C3E88D"> API.</span></span>

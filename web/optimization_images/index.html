@@ -42,11 +42,7 @@ Github Sponsor
 </div>
 <h2 id="概要">概要</h2>
 <p><code>Google</code>の<code>Chrome</code>ブラウザでは、ウェブページのパフォーマンスを測定できる<code>Lighthouse</code>という機能を提供しています。この機能を使用すると、ウェブページの全体的なパフォーマンスを確認でき、次のように問題点も確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.avif" type="image/avif">
-  <source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.webp" type="image/webp">
-  <img src="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.png" alt="Optimization images - Lighthouse serve images in next-gen formats issue of images">
-</picture>
+<p><picture><source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.avif" type="image/avif"><source srcset="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.webp" type="image/webp"><img src="/assets/images/category/web/2023/optimization_images/serve_images_in_next_gen_formats.png" alt="Optimization images - Lighthouse serve images in next-gen formats issue of images" width="1280" height="580" loading="lazy" decoding="async"></picture></p>
 <p>このブログ記事では、ウェブページで画像フォーマットを最適化して<code>Serve images in next-gen formats</code>問題を解決する方法について説明します。</p>
 <h2 id="avifとwebpフォーマット">avifとwebpフォーマット</h2>
 <p><code>Serve images in next-gen formats</code>問題を解決するには、<code>avif</code>フォーマットまたは<code>webp</code>フォーマットの画像を提供する必要があります。<code>avif</code>と<code>webp</code>フォーマットの画像は、<code>IE</code>を除くほとんどのモダンブラウザでサポートされている画像フォーマットです。</p>
@@ -154,11 +150,7 @@ Github Sponsor
 <span class="line"><span style="color:#FFCB6B">./assets/images/category/flutter/2023/find_child_and_parent_widget/basic_app.png</span></span></code></pre>
 <h2 id="とタグ"><picture>と<source>タグ</picture></h2>
 <p>では生成した<code>avif</code>と<code>webp</code>フォーマットファイルをウェブページで使用する方法について説明します。ウェブページで複数のフォーマットの画像を使用するには、<code>&#x3C;picture /></code>タグと<code>&#x3C;source /></code>タグを使用する必要があります。次のように<code>&#x3C;picture /></code>タグと<code>&#x3C;source /></code>タグを使用して<code>avif</code>と<code>webp</code>フォーマットを読み込むように設定します。</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">picture</span><span style="color:#89DDFF">></span></span>
-<span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">source</span><span style="color:#C792EA"> srcset</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example.avif</span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">image/avif</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
-<span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">source</span><span style="color:#C792EA"> srcset</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example.webp</span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">image/webp</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
-<span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">img</span><span style="color:#C792EA"> src</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example.png</span><span style="color:#89DDFF">"</span><span style="color:#C792EA"> alt</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">example file</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF"> /></span></span>
-<span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">picture</span><span style="color:#89DDFF">></span></span></code></pre>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#EEFFFF">![example file](example.png)</span></span></code></pre>
 <p>このように<code>&#x3C;picture /></code>と<code>&#x3C;source /></code>タグを使用すると、ブラウザがサポートするフォーマットの画像をダウンロードして表示するようになります。</p>
 <h2 id="完了">完了</h2>
 <p>これでウェブページのパフォーマンス向上のために新しい画像フォーマットである<code>avif</code>と<code>webp</code>ファイルを生成し、<code>&#x3C;picture /></code>と<code>&#x3C;source /></code>タグを使用して画像読み込みを最適化する方法について説明しました。<code>Lighthouse</code>でよく指摘される事項なので、この機会に覚えておくと良いでしょう。もしブラウザではなくローカルや<code>CI</code>環境で<code>Lighthouse</code>を実行する方法について知りたい方は、下のリンクを参考にしてください。</p>

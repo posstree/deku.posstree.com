@@ -82,17 +82,9 @@ Github Sponsor
 <p><code>concurrency</code> 옵션을 사용하면 <code>8초</code> 정도 테스트 코드를 실행하는데 걸리는 시간이 단축되는 것을 확인할 수 있습니다.</p>
 <h2 id="github-actions에서-테스트-실행-속도-비교">GitHub Actions에서 테스트 실행 속도 비교</h2>
 <p>제 경우는 로컬 머신의 성능(12 cores)이 워낙 좋아서 큰 효과를 확인할 수 없지만, <code>CI/CD</code> 환경에서는 좀 더 큰 효과를 확인할 수 있습니다. <code>GitHub Actions</code>에서 <code>concurrency</code> 옵션을 사용하지 않고 테스트 코드를 실행한 경우, 다음과 같이 <code>7분</code> 정도 걸리는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2024/test-concurrency/time_without_concurrency_option.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2024/test-concurrency/time_without_concurrency_option.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2024/test-concurrency/time_without_concurrency_option.png" alt="Flutter - test without concurrency option">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2024/test-concurrency/time_without_concurrency_option.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2024/test-concurrency/time_without_concurrency_option.webp" type="image/webp"><img src="/assets/images/category/flutter/2024/test-concurrency/time_without_concurrency_option.png" alt="Flutter - test without concurrency option" width="1280" height="79" loading="lazy" decoding="async"></picture></p>
 <p><code>GitHub Actions</code>에서 <code>concurrency</code> 옵션을 사용하여 테스트 코드를 실행한 경우, 다음과 같이 <code>4분</code> 정도 걸리는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2024/test-concurrency/time_with_concurrency_option.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2024/test-concurrency/time_with_concurrency_option.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2024/test-concurrency/time_with_concurrency_option.png" alt="Flutter - test with concurrency option">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2024/test-concurrency/time_with_concurrency_option.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2024/test-concurrency/time_with_concurrency_option.webp" type="image/webp"><img src="/assets/images/category/flutter/2024/test-concurrency/time_with_concurrency_option.png" alt="Flutter - test with concurrency option" width="1280" height="79" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이것으로 <code>Flutter</code>의 테스트에서 <code>concurrency</code> 옵션을 사용하여 테스트 속도를 개선하는 방법에 대해서 알아보았습니다. 아직 <code>concurrency</code> 옵션을 사용하고 있지 않다면, <code>concurrency</code> 옵션을 추가하여 테스트 속도를 개선해 보시기 바랍니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

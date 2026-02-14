@@ -366,11 +366,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">python manage</span><span style="color:#89DDFF">.</span><span style="color:#F07178">py</span><span style="color:#EEFFFF"> migrate</span></span></code></pre>
 <h2 id="check">Check</h2>
 <p>let’s see our Custom User Model is applied well. first, check the tables we’ve created above via database tool.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/custom-user-model/check-tables.jpg" alt="django Custom User Model - check tables via database tool">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/custom-user-model/check-tables.webp" type="image/webp"><img src="/assets/images/category/django/2019/custom-user-model/check-tables.jpg" alt="django Custom User Model - check tables via database tool" width="1138" height="474" loading="lazy" decoding="async"></picture></p>
 <p>we can see there is no <code>auth_user</code> table. execute the command below to create django <code>superuser</code>.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> createsuperuser</span></span></code></pre>
 <p>and then, we can see new process to create <code>superuser</code> like below.</p>
@@ -382,17 +378,9 @@ Github Sponsor
 <p>execute the command below to start django test server and open django admin page(<code>http://127.0.0.1:8000/admin</code>).</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">python manage</span><span style="color:#89DDFF">.</span><span style="color:#F07178">py</span><span style="color:#EEFFFF"> runserver</span></span></code></pre>
 <p>you can see <code>email</code> is required when we login.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/custom-user-model/check-django-admin.jpg" alt="django Custom User Model - django admin page email login">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/custom-user-model/check-django-admin.webp" type="image/webp"><img src="/assets/images/category/django/2019/custom-user-model/check-django-admin.jpg" alt="django Custom User Model - django admin page email login" width="1216" height="724" loading="lazy" decoding="async"></picture></p>
 <p>lastly, when we add new user or modify user information, we can see the forms like below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.jpg" alt="django Custom User Model - django admin page create new user ">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.webp" type="image/webp"><img src="/assets/images/category/django/2019/custom-user-model/django-admin-create-user.jpg" alt="django Custom User Model - django admin page create new user " width="1280" height="700" loading="lazy" decoding="async"></picture></p>
 <h2 id="completed">Completed</h2>
 <p>we’ve seen how to create and use Custom User Model in django. now, we can use Custom User Model instead of basic user model to store more user information for our service!</p>
 <h2 id="reference">Reference</h2>

@@ -62,46 +62,26 @@ Github Sponsor
 <p>In web development, cache plays an important role. By using cache, you can improve the performance of web services and enhance user experience. In this blog post, I will introduce what cache is in web development and how to apply cache when providing web services with static files using AWS S3.</p>
 <h2 id="background-of-web-cache">Background of Web Cache</h2>
 <p>To get data from the server, clients (PCs, smartphones) use the Internet.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.png" alt="Web cache and S3 - server and client with internet">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/server-client-internet.png" alt="Web cache and S3 - server and client with internet" width="709" height="423" loading="lazy" decoding="async"></picture></p>
 <p>The Internet that connects clients and servers is physically connected, and the global Internet is connected by submarine cables.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.jpg" alt="Web cache and S3 - internet submarine cable">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/submarine-cable.jpg" alt="Web cache and S3 - internet submarine cable" width="628" height="314" loading="lazy" decoding="async"></picture></p>
 <p>Clients and servers are physically connected, so it takes time to send and receive data as the distance increases.</p>
 <h2 id="web-cache">Web Cache</h2>
 <p>Web cache is a technology that reduces data transmission delays by copying and placing content, that changes less frequently (static content: HTML, CSS, JS, Image, Video, etc.), from a server that is physically far away to a server that is physically close.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" alt="Web cache and S3 - web cache">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.avif" type="image/avif"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache.webp" alt="Web cache and S3 - web cache" width="1000" height="500" loading="lazy" decoding="async"></picture></p>
 <p>In web development, there are three main caches.</p>
 <ol>
 <li>CDN(Contents Delivery Network)</li>
 <li>Browser cache</li>
 <li>Database cache</li>
 </ol>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache with browser">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache with browser" width="1110" height="578" loading="lazy" decoding="async"></picture></p>
 <p>In this blog post, I will introduce CDN and browser cache.</p>
 <h3 id="cdncontents-delivery-network">CDN(Contents Delivery Network)</h3>
 <p>CDN is a service that provides content by copying less frequently changing content to servers in various parts of the world.</p>
 <p>This reduces the distance between the client and the server, reducing the data transmission and reception delay.</p>
 <p>For example, the world-famous CDN service <code>Cloudflare</code> has servers around the world as follows.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.png" alt="Web cache and S3 - cloudflare server list">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/cloudflare-server-list.png" alt="Web cache and S3 - cloudflare server list" width="1280" height="542" loading="lazy" decoding="async"></picture></p>
 <p>If you use <code>Cloudflare</code>, you can copy static files to the server provided by <code>Cloudflare</code> and provide content from a server close to the client.</p>
 <h3 id="browser-cache">Browser cache</h3>
 <p>On the client’s side, the nearest server is the client itself. The browser provides a browser cache that stores some content in client storage from a site once accessed and allows this stored content to be used when re-accessed.</p>
@@ -122,11 +102,7 @@ Github Sponsor
 </div>
 <h2 id="how-web-cache-works">How web cache works</h2>
 <p>Let’s take a look at how web cache works.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache process">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/web-cache-with-browser.png" alt="Web cache and S3 - web cache process" width="1110" height="578" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>The user accesses the service from the browser.</li>
 <li>The browser checks if there is anything cached in the browser and displays it if there is a cache.</li>
@@ -200,11 +176,7 @@ Github Sponsor
 </ul>
 <p>AWS S3 is a storage service, but it also provides server functions that can serve web services with static files.</p>
 <p>Typically, static web pages developed with HTML, CSS, JavaScript or web applications developed with frontend frameworks such as React, Vue, Angular, etc., are uploaded to S3 and served through CloudFront.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.png" alt="Web cache and S3 - AWS S3 and CloudFront cache">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/aws-s3-cloudfront-cache.png" alt="Web cache and S3 - AWS S3 and CloudFront cache" width="1024" height="798" loading="lazy" decoding="async"></picture></p>
 <p>At this time, you can configure the uploaded files settings to set browser cache and CDN(CloudFront) cache.</p>
 <h2 id="aws-s3-cache-settings">AWS S3 Cache Settings</h2>
 <p>The cache is set by setting <code>Expires</code> or <code>Cache-Control</code> in the HTTP response header, so basically, it cannot be set on the frontend side.</p>
@@ -240,11 +212,7 @@ Github Sponsor
 <li><a href="https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/" rel="nofollow noreferrer" target="_blank">https://aws.amazon.com/jp/blogs/news/networking-and-content-delivery-host-single-page-applications-spa-with-tiered-ttls-on-cloudfront-and-s3/</a></li>
 </ul>
 <p>You can update the service version without interruption by using <code>stale-while-revalidate</code>.</p>
-<picture>
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.avif" type="image/avif">
-  <source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.webp" type="image/webp">
-  <img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.png" alt="Web cache and S3 - stale-while-revalidate option for no downtime deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.avif" type="image/avif"><source srcset="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.webp" type="image/webp"><img src="/assets/images/category/environment/2024/cache-and-aws-s3-cloudfront/stale-while-revalidate.png" alt="Web cache and S3 - stale-while-revalidate option for no downtime deployment" width="941" height="710" loading="lazy" decoding="async"></picture></p>
 <ol>
 <li>The user runs the service in the browser.</li>
 <li>If the user is already using the service in V1 and has a cache of V1 with stale-while-revalidate in the browser, it will be used first.</li>

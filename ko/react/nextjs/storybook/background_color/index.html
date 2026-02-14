@@ -85,24 +85,12 @@ Github Sponsor
 <p>이전 블로그를 참고하여 설정한 <code>Storybook</code>을 실행하여, <code>Storybook</code>이 잘 설치되었는지 확인해 봅시다. 다음 명령어를 실행하여 <code>Storybook</code>을 실행합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">npm</span><span style="color:#C3E88D"> run</span><span style="color:#C3E88D"> storybook</span></span></code></pre>
 <p>그럼 브라우저에 <code>http://localhost:6006/</code>이 자동으로 열리며, 다음과 같은 화면을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/nextjs/start/storybook.avif" type="image/avif"><source srcset="/assets/images/category/storybook/nextjs/start/storybook.webp" type="image/webp"><img src="/assets/images/category/storybook/nextjs/start/storybook.jpg" alt="Storybook first screen" width="1280" height="590" loading="lazy" decoding="async"></picture></p>
 <h2 id="기본-배경색">기본 배경색</h2>
 <p><code>Storybook</code>은 다음과 같이 기본적으로 <code>light</code>와 <code>dark</code> 색상을 지원합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/default_colors.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/default_colors.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/default_colors.jpg" alt="Storybook default background color">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/default_colors.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/default_colors.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/default_colors.jpg" alt="Storybook default background color" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <p>메뉴의 색상을 선택하면 다음과 같이 색상이 변경되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/dark_color.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/dark_color.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/dark_color.jpg" alt="Storybook default background color">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/dark_color.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/dark_color.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/dark_color.jpg" alt="Storybook default background color" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <h2 id="배경색-설정-및-변경">배경색 설정 및 변경</h2>
 <p><code>Storybook</code>이 제공하는 기본적인 배경색만을 가지고도 충분할 수 있지만, 우리가 서비스로 제공하는 기본 배경색과는 달라 컴포넌트가 실제 화면과 다르게 보일 때가 있습니다. 이처럼 실제 서비스에서 사용하는 배경색을 기본 배경색으로 설정하거나, 원하는 다른 색상을 추가하는 방법에 대해서 알아보겠습니다.</p>
 <p><code>Storybook</code>의 배경색을 설정하거나 기본 배경색을 변경하기 위해서는 <code>.storybook/preview.js</code> 파일을 수정할 필요가 있습니다. <code>.storybook/preview.js</code> 파일을 열고 다음과 같이 수정합니다.</p>
@@ -135,23 +123,11 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">};</span></span></code></pre>
 <h2 id="확인">확인</h2>
 <p>앞에서와 같이 <code>Storybook</code>의 배경색을 설정하였다면, 이제 브라우저의 <code>http://localhost:6006/</code> 페이지로 이동해 봅니다. 그럼 이전과는 다르게 기본 배경색이 변경된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/change_default_color.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/change_default_color.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/change_default_color.jpg" alt="Storybook default background color is changed">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/change_default_color.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/change_default_color.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/change_default_color.jpg" alt="Storybook default background color is changed" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <p>또한, 배경색 변경 아이콘을 클릭하면, 이전과는 다르게 우리가 설정한 색상이 표시되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/color_list.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/color_list.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/color_list.jpg" alt="Storybook default background color list are changed">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/color_list.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/color_list.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/color_list.jpg" alt="Storybook default background color list are changed" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <p>마지막으로, 메뉴에서 원하는 색상을 누르면, 해당 색상으로 배경색이 변경되는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/storybook/background-color/change_color.avif" type="image/avif">
-  <source srcset="/assets/images/category/storybook/background-color/change_color.webp" type="image/webp">
-  <img src="/assets/images/category/storybook/background-color/change_color.jpg" alt="Storybook change background color">
-</picture>
+<p><picture><source srcset="/assets/images/category/storybook/background-color/change_color.avif" type="image/avif"><source srcset="/assets/images/category/storybook/background-color/change_color.webp" type="image/webp"><img src="/assets/images/category/storybook/background-color/change_color.jpg" alt="Storybook change background color" width="1199" height="331" loading="lazy" decoding="async"></picture></p>
 <h2 id="완료">완료</h2>
 <p>이것으로 <code>TypeScript</code>를 기반으로 한 <code>Next.js</code> 프로젝트에 적용한 <code>Storybook</code>의 배경색을 변경하는 방법에 대해서 알아보았습니다. 여러분도 <code>Storybook</code>의 배경색을 서비스의 배경색으로 변경하여 각 컴포넌트들이 제대로 표시되는지 확인해 보시기 바랍니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

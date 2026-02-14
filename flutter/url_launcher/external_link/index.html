@@ -161,17 +161,9 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  }</span></span>
 <span class="line"><span style="color:#EEFFFF">}</span></span></code></pre>
 <p>これを実行すると、次のように<code>Open</code>ボタンが真ん中に表示される画面が確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_example.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_example.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_example.jpg" alt="Flutter - url_launcher external link example">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_example.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_example.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_example.jpg" alt="Flutter - url_launcher external link example" width="1280" height="857" loading="lazy" decoding="async"></picture></p>
 <p>次は<code>Open</code>ボタンを押すと、次のようにアプリ内でウェブページで移動されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_browser_in_app.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_browser_in_app.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_browser_in_app.jpg" alt="Flutter - url_launcher external link browser in app">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_browser_in_app.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_browser_in_app.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_browser_in_app.jpg" alt="Flutter - url_launcher external link browser in app" width="1280" height="857" loading="lazy" decoding="async"></picture></p>
 <p>これを修正するため、次のように<code>lib/main.dart</code>ファイルを修正します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#89DDFF">...</span></span>
 <span class="line"><span style="color:#EEFFFF">onPressed</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> () </span><span style="color:#89DDFF;font-style:italic">async</span><span style="color:#EEFFFF"> {</span></span>
@@ -182,11 +174,7 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">...</span></span></code></pre>
 <p><code>launchUrl</code>関数でリンクを開く時、<code>mode</code>オプションに<code>LaunchMode.externalApplication</code>を設定すると、アプリのブラウザではなくアプリの外部の基本ブラウザでウェブページを開くことができます。</p>
 <p>アプリを再び実行して<code>Open</code>ボタンを押すと、以前と違って次のようにアプリ外部のブラウザが開くことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_default_browser.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_default_browser.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_default_browser.jpg" alt="Flutter - url_launcher external link default browser">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_default_browser.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_default_browser.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/url_launcher_external_link/url_launcher_external_link_default_browser.jpg" alt="Flutter - url_launcher external link default browser" width="1280" height="857" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでurl_launcherを使ってリンクをアプリ内部のブラウザではなくアプリ外部の基本ブラウザで開く方法についてみてみました。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

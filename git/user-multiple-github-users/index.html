@@ -70,11 +70,7 @@ Github Sponsor
 <p>次のコマンドを実行すると、SSHキーを確認できます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">cat</span><span style="color:#C3E88D"> ~/.ssh/id_rsa_personal.pub</span></span></code></pre>
 <p>表示されたSSHキーをコピーし、GitHubのウェブサイトにアクセスして<code>Settings</code> -> <code>SSH and GPG keys</code> -> <code>New SSH key</code>をクリックしてSSHキーを登録します。この時、GitHubのウェブサイトには個人アカウントでログインしている必要があります。</p>
-<picture>
-  <source srcset="/assets/images/category/git/2024/user-multiple-github-users/github_register_new_ssh_key.avif" type="image/avif">
-  <source srcset="/assets/images/category/git/2024/user-multiple-github-users/github_register_new_ssh_key.webp" type="image/webp">
-  <img src="/assets/images/category/git/2024/user-multiple-github-users/github_register_new_ssh_key.png" alt="Use multiple GitHub users in local machine: Register new SSH key">
-</picture>
+<p><picture><source srcset="/assets/images/category/git/2024/user-multiple-github-users/github_register_new_ssh_key.avif" type="image/avif"><source srcset="/assets/images/category/git/2024/user-multiple-github-users/github_register_new_ssh_key.webp" type="image/webp"><img src="/assets/images/category/git/2024/user-multiple-github-users/github_register_new_ssh_key.png" alt="Use multiple GitHub users in local machine: Register new SSH key" width="1280" height="614" loading="lazy" decoding="async"></picture></p>
 <p>これと同様の方法で会社アカウントにSSHキーを登録します。この時、GitHubのウェブサイトには会社アカウントでログインしている必要があります。</p>
 <h2 id="configの設定">configの設定</h2>
 <p>このように設定したSSHキーを使ってGitHubのアカウントを区別するために、<code>~/.ssh/config</code>ファイルを次のように編集します。</p>

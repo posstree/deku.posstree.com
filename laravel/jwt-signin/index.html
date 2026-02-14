@@ -195,17 +195,9 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="php"><code><span class="line"><span style="color:#FFCB6B">Route</span><span style="color:#89DDFF">::</span><span style="color:#82AAFF">post</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">login</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">JWTAuthController@login</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)-></span><span style="color:#82AAFF">name</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">api.jwt.login</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">);</span></span></code></pre>
 <h2 id="テスト">テスト</h2>
 <p>今まで開発したjwt認証システムのログイン機能を<code>Postman</code>を使って確認します。<code>localhost/api/login</code>のURLに<code>email</code>と<code>password</code>を入力して<code>POST</code>でリクエスト(Request)を送ったら下記のような結果を確認することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/laravel/jwt-signin/login.avif" type="image/avif">
-  <source srcset="/assets/images/category/laravel/jwt-signin/login.webp" type="image/webp">
-  <img src="/assets/images/category/laravel/jwt-signin/login.jpg" alt="postman login api test">
-</picture>
+<p><picture><source srcset="/assets/images/category/laravel/jwt-signin/login.avif" type="image/avif"><source srcset="/assets/images/category/laravel/jwt-signin/login.webp" type="image/webp"><img src="/assets/images/category/laravel/jwt-signin/login.jpg" alt="postman login api test" width="1124" height="660" loading="lazy" decoding="async"></picture></p>
 <p>応答(Response)で貰った<code>access_token</code>キーを<a href="https://jwt.io/" rel="nofollow noreferrer" target="_blank">https://jwt.io/</a>で確認すると下記のような結果を見ることができます。</p>
-<picture>
-  <source srcset="/assets/images/category/laravel/jwt-signin/check_access_key.avif" type="image/avif">
-  <source srcset="/assets/images/category/laravel/jwt-signin/check_access_key.webp" type="image/webp">
-  <img src="/assets/images/category/laravel/jwt-signin/check_access_key.jpg" alt="check access_key">
-</picture>
+<p><picture><source srcset="/assets/images/category/laravel/jwt-signin/check_access_key.avif" type="image/avif"><source srcset="/assets/images/category/laravel/jwt-signin/check_access_key.webp" type="image/webp"><img src="/assets/images/category/laravel/jwt-signin/check_access_key.jpg" alt="check access_key" width="1124" height="620" loading="lazy" decoding="async"></picture></p>
 <h2 id="完了">完了</h2>
 <p>これでjwt認証システムを利用してログイン機能を実装して見ました。次のブログでは<code>access token</code>を使ってユーザの情報を取得する方法に関して見てみます。</p>
 <h2 id="参考">参考</h2>

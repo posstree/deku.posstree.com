@@ -109,11 +109,7 @@ Github Sponsor
 <li><code>&#x3C;p>{{ post.content | linebreaksbr }}&#x3C;/p></code>: display <code>content</code> field value in post data with changing linebreak(<code>\n</code>) to linebreak tag(<code>&#x3C;br/></code>).</li>
 </ul>
 <p>after editing, when you open <code>http://127.0.0.1:8000/</code> on the browser, you can see the data is displayed on the screen like below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/show-data.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/show-data.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/show-data.jpg" alt="display data in django View">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/show-data.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/show-data.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/show-data.jpg" alt="display data in django View" width="1280" height="173" loading="lazy" decoding="async"></picture></p>
 <p>let’s make the detail page for the practice. modify <code>blog/templates/blog/posts.html</code> file we created above like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">html</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">head</span><span style="color:#89DDFF">>&#x3C;</span><span style="color:#F07178">title</span><span style="color:#89DDFF">></span><span style="color:#EEFFFF">Hello World</span><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">title</span><span style="color:#89DDFF">>&#x3C;/</span><span style="color:#F07178">head</span><span style="color:#89DDFF">></span></span>
@@ -183,17 +179,9 @@ Github Sponsor
 <li><code>def post_detail(request, id):</code>: new function mapped with new URL. the function can get <code>id</code> parameter.</li>
 </ul>
 <p>done! we’ve created the detail page. open <code>http://127.0.0.1:8000</code> on the browser. you can see the screen lik below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-link.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-link.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/main-page-with-link.jpg" alt="django Models - detail page link">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/main-page-with-link.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/main-page-with-link.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/main-page-with-link.jpg" alt="django Models - detail page link" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <p>when you click the detail page lik, you’ll go to the detail page URL(<code>http://127.0.0.1:8000/post/2/</code>) and you can see the detail page like below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/post-detail-page.jpg" alt="django Models - detail page">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/post-detail-page.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/post-detail-page.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/post-detail-page.jpg" alt="django Models - detail page" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -273,17 +261,9 @@ Github Sponsor
 </div>
 <h2 id="check">Check</h2>
 <p>let’s connect <code>http://127.0.0.1:8000/</code> via the browser. you can see the screen applied <code>css</code> file we made like below.(if you couldn’t see the screen applied <code>css</code> file, try to restart the test server.)</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-static.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/main-page-with-static.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/main-page-with-static.jpg" alt="use django Template - main page">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/main-page-with-static.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/main-page-with-static.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/main-page-with-static.jpg" alt="use django Template - main page" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <p>click the detail page link to go to the URL(<code>http://127.0.0.1:8000/post/2/</code>). you can see the screen applied <code>css</code> file like below.</p>
-<picture>
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.avif" type="image/avif">
-  <source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.webp" type="image/webp">
-  <img src="/assets/images/category/django/2019/view/post-detail-page-with-static.jpg" alt="use django Template - detail page">
-</picture>
+<p><picture><source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/view/post-detail-page-with-static.webp" type="image/webp"><img src="/assets/images/category/django/2019/view/post-detail-page-with-static.jpg" alt="use django Template - detail page" width="1280" height="247" loading="lazy" decoding="async"></picture></p>
 <p>done! we’ve seen how to use django Template file to reduce duplicate codes and how to insert static files(css, js, etc) to the Template.</p>
 <h2 id="completed">Completed</h2>
 <p>in this blog post, we’ve seen how to use django View briefly. and we’ve seen how to use django Template to manage the code and display the data in the page. also, we’ve seen how to insert static files like css, js. now we can ready to make normal web service site!</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

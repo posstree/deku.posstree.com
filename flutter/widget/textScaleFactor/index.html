@@ -50,34 +50,18 @@ Github Sponsor
 </div>
 <h2 id="概要">概要</h2>
 <p>アプリを開発してサービスを提供する場合、ユーザの端末環境による色んな問題が発生します。今回のブログポストでは次のようにユーザがフォントサイズを拡大した使う場合、予期せずデザインが崩れる問題を解決する方法についてみてみようかと思います。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>ここで紹介するソースコードは<code>GitHub</code>で確認することができます。</p>
 <ul>
 <li>GitHub: <a href="https://github.com/dev-yakuza/study-flutter/tree/main/widget/textscalefactor" rel="nofollow noreferrer" target="_blank">https://github.com/dev-yakuza/study-flutter/tree/main/widget/textscalefactor</a></li>
 </ul>
 <h2 id="端末設定でフォントのサイズ変更">端末設定でフォントのサイズ変更</h2>
 <p>次のようにユーザは端末の設定を使ってフォントサイズを変更することができます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/larger_text.png" alt="Flutter textScaleFactor - Larger text setting">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/larger_text.png" alt="Flutter textScaleFactor - Larger text setting" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>私たちは時々次のように幅を固定してボタンなどを作る場合があります。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - fixed width button">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - fixed width button" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>しかし、ユーザが端末の設定でフォントのサイズを拡大した場合、次のように意図せずボタンの文字が改行されて表示されることがあります。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>今回のブログポストではユーザが端末の設定を使ってフォントのサイズを調節した場合も、同じフォントサイズが見えるように修正する方法について説明します。</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -109,11 +93,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  textScaleFactor</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 1.0</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">,</span></span></code></pre>
 <p>このように<code>textScaleFactor</code>を設定してアプリを実行してみると次のようにボタンの文字サイズが基本サイズで表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -126,11 +106,7 @@ Github Sponsor
 </div>
 <h2 id="mediaquery의-textscalefactor">MediaQuery의 textScaleFactor</h2>
 <p>しかし、全ての<code>Text</code>ウィジェットことこれを設定することが難しいです。したがって、下記のようにボタンのフォントサイズのみ基本サイズで変更され、<code>textScaleFactor</code>を設定してない<code>AppBar</code>ウィジェットの<code>title</code>は相変わらず大きい文字が表示されることが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>もし、アプリの全ての<code>Text</code>ウィジェットに<code>textScaleFactor</code>を適用したい場合、<code>MaterialApp</code>ウィジェットの<code>builder</code>に次のように<code>MediaQuery</code>を設定する必要があります。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#FFCB6B">MaterialApp</span><span style="color:#EEFFFF">(</span></span>
 <span class="line"><span style="color:#EEFFFF">  builder</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> (context</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> child) {</span></span>
@@ -143,11 +119,7 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  ...</span></span>
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span></code></pre>
 <p>このように<code>MediaQuery</code>の<code>data</code>に<code>textScaleFactor</code>の値を変更すると、次のように<code>textScaleFactor</code>を設定してない<code>Text</code>ウィジェットでも<code>textScaleFactor</code>がうまく適用されたことが確認できます。</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - apply textScaleFactor to all text widget">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - apply textScaleFactor to all text widget" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <h2 id="テストコード">テストコード</h2>
 <p><code>MediaQuery</code>で<code>textScaleFactor</code>を設定した場合、下記のようにテストコードを作成するして<code>textScaleFactor</code>がうまく設定されたことを確認することができます。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#82AAFF">testWidgets</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'textScaleFactor is 1.0'</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> (</span><span style="color:#FFCB6B">WidgetTester</span><span style="color:#EEFFFF"> tester) </span><span style="color:#89DDFF;font-style:italic">async</span><span style="color:#EEFFFF"> {</span></span>

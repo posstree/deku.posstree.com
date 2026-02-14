@@ -97,11 +97,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">            exit 1</span></span>
 <span class="line"><span style="color:#C3E88D">          fi</span></span></code></pre>
 <p>When a <code>PR</code> is created, the <code>Prettier</code>, <code>CSpell</code>, <code>ESLint</code>, <code>Stylelint</code>, <code>Test</code>, <code>Build</code>, and <code>Build SCSS</code> are executed. This Action takes about 25 minutes like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Improve Jest test performance">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Improve Jest test performance" width="1280" height="89" loading="lazy" decoding="async"></picture></p>
 <h2 id="performance-improvement">Performance Improvement</h2>
 <p>GitHub Actions that take 25 minutes every time a PR is created are very inefficient. In this blog post, I will introduce how to improve the performance of the Action that runs <code>Jest</code>.</p>
 <h3 id="cache-dependencies">Cache Dependencies</h3>
@@ -156,19 +152,11 @@ Github Sponsor
 <ul>
 <li>Before: 1m 25s</li>
 </ul>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.png" alt="GitHub Actions - Before using actions/cache for dependencies">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/before-cache-actions.png" alt="GitHub Actions - Before using actions/cache for dependencies" width="1280" height="322" loading="lazy" decoding="async"></picture></p>
 <ul>
 <li>After: 9s</li>
 </ul>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.png" alt="GitHub Actions - After using actions/cache for dependencies">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/after-cache-actions.png" alt="GitHub Actions - After using actions/cache for dependencies" width="1280" height="322" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -268,17 +256,9 @@ Github Sponsor
 <span class="line"><span style="color:#F07178">        run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn test:ci:service_1</span></span></code></pre>
 <p>Since we are using a monorepo, <code>GitHub Actions</code> like this exist for each service, and I used an <code>if</code> statement to run only the service.</p>
 <p>Before separating the <code>Actions</code>, this <code>Action</code> took about 25 minutes.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Before separating actions">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/check-code-actions.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/check-code-actions.png" alt="GitHub Actions - Before separating actions" width="1280" height="89" loading="lazy" decoding="async"></picture></p>
 <p>After separating the <code>Actions</code>, this <code>Action</code> took about 13 minutes.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating actions">
-</picture>
+<p><img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating actions"></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -327,17 +307,9 @@ Github Sponsor
 </ul>
 <p>The <code>Action</code> that runs <code>yarn test:ci:service_1</code> in the <code>Action</code> is executed by running the <code>turbo test:ci --parallel --filter=service_1</code> command. So I used <code>--</code> to pass the option to use the <code>--shard</code> option of <code>Jest</code>. So, to pass the <code>shard</code> option, I used <code>--</code>.</p>
 <p>Before using the <code>shard</code> option, the test took about 13 minutes.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating action">
-</picture>
+<p><img src="/assets/images/category/github_actions/improve-test-performance/after-separating-actions" alt="GitHub Actions - After separating action"></p>
 <p>After using the <code>shard</code> option, the test took about 2~3 minutes.</p>
-<picture>
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.avif" type="image/avif">
-  <source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.webp" type="image/webp">
-  <img src="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.png" alt="GitHub Actions - Use Jest shard option">
-</picture>
+<p><picture><source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.avif" type="image/avif"><source srcset="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.webp" type="image/webp"><img src="/assets/images/category/github_actions/improve-test-performance/jest-shard-option.png" alt="GitHub Actions - Use Jest shard option" width="821" height="225" loading="lazy" decoding="async"></picture></p>
 <h2 id="completed">Completed</h2>
 <p>Done! We’ve seen how to improve the performance of the Action that runs <code>Jest</code>. Before the performance improvement, it took about 25 minutes, but after the performance improvement, it took about 2~3 minutes.</p>
 <p>If you have a similar problem, I hope you can improve the performance of the Action that runs <code>Jest</code> by caching <code>Dependencies</code>, separating <code>Actions</code>, and using the <code>shard</code> option.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>

@@ -93,41 +93,21 @@ Github Sponsor
 </ul>
 <h2 id="확인">확인</h2>
 <p>이렇게 <code>.github/dependabot.yml</code> 파일을 생성하고 설정하였다면, 해당 파일을 <code>GitHub</code>에 올립니다. (<code>main</code> 브랜치에 <code>merge</code>합니다) 그럼 일정 주기에 따라 다음과 같이 <code>Dependabot</code>이 새로운 버전으로 <code>Pull request</code>을 만들어 주는 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/dependabot-pull-request.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/dependabot-pull-request.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/github-dependabot/dependabot-pull-request.jpg" alt="Flutter - Dependabot pull request">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/github-dependabot/dependabot-pull-request.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/github-dependabot/dependabot-pull-request.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/github-dependabot/dependabot-pull-request.jpg" alt="Flutter - Dependabot pull request" width="1280" height="395" loading="lazy" decoding="async"></picture></p>
 <p>해당 <code>Pull request</code>를 열어보면, 다음과 같이 <code>Release notes</code>와 <code>Commits</code>을 확인할 수 있습니다</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes-and-commits.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes-and-commits.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/github-dependabot/release-notes-and-commits.jpg" alt="Flutter - Dependabot details: release notes and commits">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes-and-commits.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes-and-commits.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/github-dependabot/release-notes-and-commits.jpg" alt="Flutter - Dependabot details: release notes and commits" width="1266" height="532" loading="lazy" decoding="async"></picture></p>
 <p>각 항목을 열어보면, 자세한 수정 사항을 확인할 수 있습니다.</p>
 <ul>
 <li>Release notes</li>
 </ul>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/github-dependabot/release-notes.jpg" alt="Flutter - Dependabot release notes detail">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/github-dependabot/release-notes.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/github-dependabot/release-notes.jpg" alt="Flutter - Dependabot release notes detail" width="1266" height="765" loading="lazy" decoding="async"></picture></p>
 <ul>
 <li>commits</li>
 </ul>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/commits.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/commits.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/github-dependabot/commits.jpg" alt="Flutter - Dependabot commits detail">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/github-dependabot/commits.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/github-dependabot/commits.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/github-dependabot/commits.jpg" alt="Flutter - Dependabot commits detail" width="1266" height="765" loading="lazy" decoding="async"></picture></p>
 <p>이를 통해 새 버전의 변경 사항을 확인할 수 있으며, 현재 프로젝트의 영향 범위를 확인할 수 있습니다.</p>
 <p><code>File changed</code> 탭을 열어보면 <code>pubspec.yaml</code>와 <code>pubspec.lock</code> 파일이 변경된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/file-changed.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2022/github-dependabot/file-changed.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2022/github-dependabot/file-changed.jpg" alt="Flutter - Dependabot file changed detail">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2022/github-dependabot/file-changed.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2022/github-dependabot/file-changed.webp" type="image/webp"><img src="/assets/images/category/flutter/2022/github-dependabot/file-changed.jpg" alt="Flutter - Dependabot file changed detail" width="1280" height="535" loading="lazy" decoding="async"></picture></p>
 <h2 id="github-actions">GitHub Actions</h2>
 <p>이제 <code>GitHub</code>의 <code>Dependabot</code>이 여러분이 사용하고 있는 패키지의 업데이트가 있는 경우, 자동으로 <code>Pull request</code>를 생성하게 되었습니다. 이렇게 생성한 <code>Pull request</code>를 적용해도 될지 말지 고민하게 되는데, <code>Flutter</code>의 <code>Linter</code> 설정과 테스트 코드를 잘 작성해 두었다면, <code>GitHub Actions</code>를 사용하여 해당 <code>Pull request</code>를 검사할 수 있습니다.</p>
 <ul>

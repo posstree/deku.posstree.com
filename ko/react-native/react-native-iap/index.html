@@ -108,52 +108,24 @@ Github Sponsor
 <h3 id="ios-인앱-상품-생성">iOS 인앱 상품 생성</h3>
 <h4 id="계약-세금-및-금융거래-설정">계약, 세금 및 금융거래 설정</h4>
 <p>iOS에서 인앱 상품을 생성하기 위해서는 우선 <code>계약, 세금 및 금융거래</code>를 설정할 필요가 있습니다. <code>계약, 세금 및 금융 거래</code>를 설정하기 위해서 App Store Connect로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/appstoreconnect.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/appstoreconnect.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/appstoreconnect.jpg" alt="App Store connect">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/appstoreconnect.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/appstoreconnect.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/appstoreconnect.jpg" alt="App Store connect" width="1280" height="565" loading="lazy" decoding="async"></picture></p>
 <p>하단에 있는 <code>계약, 세금 및 금융거래</code>(Agreements, Tax, and Banking)을 선택하여 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/paid-apps.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/paid-apps.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/paid-apps.jpg" alt="Paid apps">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/paid-apps.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/paid-apps.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/paid-apps.jpg" alt="Paid apps" width="1280" height="254" loading="lazy" decoding="async"></picture></p>
 <p>저는 이미 설정을 하였기 때문에 위와 같은 화면이지만, 여러분은 <code>유료 앱</code>(Paid Apps)을 설정할 필요가 있습니다. 필요한 항목을 잘 입력하시면 큰 문제 없이 설정하실 수 있습니다.</p>
 <h4 id="앱-내-구입-항목-생성">앱 내 구입 항목 생성</h4>
 <p>이제 앱 내에 구입 항목을 생성할 필요가 있습니다. 인앱 결제를 구현하고자 하는 앱을 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/manage-in-app-purchases.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/manage-in-app-purchases.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/manage-in-app-purchases.jpg" alt="manage in-app purchases">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/manage-in-app-purchases.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/manage-in-app-purchases.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/manage-in-app-purchases.jpg" alt="manage in-app purchases" width="1280" height="737" loading="lazy" decoding="async"></picture></p>
 <p>왼쪽 하단의 <code>앱 내 구입</code>(In-App Purchases)의 <code>관리</code>(Manage)를 선택하고 플러스 버튼(<code>+</code>)을 누르면, 위와 같이 추가하고자 하는 상품을 선택할 수 있습니다.</p>
 <p>저는 제 앱에 <code>자동 갱신 구독</code>(Auto-Renewable Subscription)을 추가하였으므로, <code>자동 갱신 구독</code>을 중심으로 설명합니다. 다른 상품을 추가하게 되면, 블로그를 수정하도록 하겠습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-reference-name-product-id.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-reference-name-product-id.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-reference-name-product-id.jpg" alt="in-app purchases reference name and product id">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-reference-name-product-id.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-reference-name-product-id.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-reference-name-product-id.jpg" alt="in-app purchases reference name and product id" width="1280" height="737" loading="lazy" decoding="async"></picture></p>
 <p>여기서 <code>식별 정보</code>(Reference Name)는 App store connect에만 표시되는 이름이므로 자신이 알아보기 쉬운 이름으로 설정합니다. <code>제품 ID</code>(Product ID)는 앱에서 인앱 상품을 가져올 때 사용됩니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-group-name.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-group-name.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-group-name.jpg" alt="in-app purchases group name">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-group-name.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-group-name.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-group-name.jpg" alt="in-app purchases group name" width="1280" height="737" loading="lazy" decoding="async"></picture></p>
 <p>그 다음 <code>구독 그룹 식별 정보</code>(Subscription Group Reference Name)를 입력합니다. <code>식별 정보</code>(Reference Name)와 마찬가지로, App store connect에만 표시되므로, 자신이 쉽게 알아볼 수 있는 이름으로 설정합니다.</p>
 <h4 id="앱-내-구입-메타데이터-입력">앱 내 구입 메타데이터 입력</h4>
 <p>위와 같이 앱 내 구입 항목을 생성하였다면 이제 앱 내 구입 항목의 메타데이터를 입력할 필요가 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-metadata.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-metadata.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-metadata.jpg" alt="in-app purchases metadata">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-metadata.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-metadata.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-metadata.jpg" alt="in-app purchases metadata" width="1280" height="580" loading="lazy" decoding="async"></picture></p>
 <p>왼쪽 메뉴에서 다시 <code>앱 내 구입</code>(In-App Purchases)의 <code>관리</code>(Manage)를 누르면 위와 같이 메타데이터(Metadata)가 누락된 것을 확인할 수 있습니다. 이제 식별 정보의 이름을 선택하여 해당 항목의 상세 페이지로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-insert-metadata.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-insert-metadata.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-insert-metadata.jpg" alt="in-app purchases insert metadata">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-insert-metadata.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-insert-metadata.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-insert-metadata.jpg" alt="in-app purchases insert metadata" width="1280" height="580" loading="lazy" decoding="async"></picture></p>
 <p>위와 같이 상세 페이지로 이동하면 앱 내 구입 항목에 필요한 정보를 입력해야 합니다.</p>
 <ul>
 <li>구독 기간(Subscription Duration)</li>
@@ -177,11 +149,7 @@ Github Sponsor
 <p>위에 내용으로 리젝(Reject)이 되므로 위에 내용을 포함하고 있고, 어디서 확인이 가능한지 스크린 샷과 설명을 통해 설명하였습니다.</p>
 <h4 id="ios-앱-권한-설정">iOS 앱 권한 설정</h4>
 <p>이제 앱내에서 앱 내 구입을 사용하기 위해서는 권한을 설정할 필요가 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/xcode-in-app-purchase.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/xcode-in-app-purchase.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/xcode-in-app-purchase.jpg" alt="in-app purchases insert metadata">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/xcode-in-app-purchase.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/xcode-in-app-purchase.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/xcode-in-app-purchase.jpg" alt="in-app purchases insert metadata" width="1280" height="633" loading="lazy" decoding="async"></picture></p>
 <p>Xcode로 프로젝트를 열고 <code>Signing &#x26; Capabilities</code>에 <code>In-App Purchase</code> 권한을 추가합니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -196,19 +164,11 @@ Github Sponsor
 <h3 id="안드로이드-인앱-상품-생성">안드로이드 인앱 상품 생성</h3>
 <h4 id="payments-설정">Payments 설정</h4>
 <p>인앱 상품으로 수익이 발생하면, 해당 수익을 입금받을 <code>Payments</code> 정보를 설정해야 합니다. Google Play Console에서 <code>설정</code>(Settings) > <code>개발자 계정</code>(Developer account) > <code>Payments 설정</code>(Payments settings)를 선택하여 <code>Payments</code> 정보를 설정합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-payments-settings.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-payments-settings.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/android-payments-settings.jpg" alt="Android Payments settings">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-payments-settings.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-payments-settings.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/android-payments-settings.jpg" alt="Android Payments settings" width="1280" height="791" loading="lazy" decoding="async"></picture></p>
 <p>저는 Google Adsense를 연동하고 있었기 때문에, 특별한 설정없이, 사용중인 Payments 정보를 설정할 수 있었습니다.</p>
 <h4 id="안드로이드-앱-권한-설정">안드로이드 앱 권한 설정</h4>
 <p>안드로이드에 인앱 상품을 생성하기 위해 Google Play Console로 이동하고 설정하고자 하는 앱을 선택한 후, 왼쪽의 <code>구독</code>(Subscriptions) 메뉴를 선택하면 다음과 같은 화면을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-subscription-menu.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-subscription-menu.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/android-subscription-menu.jpg" alt="android subscription">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-subscription-menu.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-subscription-menu.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/android-subscription-menu.jpg" alt="android subscription" width="1073" height="639" loading="lazy" decoding="async"></picture></p>
 <p>안드로이드에 인앱 상품을 생성하기 위해서는 <code>BILLING</code> 권한이 설정된 앱이 Google Play에 업로드해야 합니다. 우선 <code>android/app/src/main/AndroidManifest.xml</code> 파일을 열고 아래와 같이 <code>BILLING</code> 권한을 추가합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="xml"><code><span class="line"><span style="color:#89DDFF">&#x3C;</span><span style="color:#F07178">manifest</span><span style="color:#C792EA"> xmlns</span><span style="color:#89DDFF">:</span><span style="color:#C792EA">android</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">http://schemas.android.com/apk/res/android</span><span style="color:#89DDFF">"</span></span>
 <span class="line"><span style="color:#C792EA">  package</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">io.github.dev.yakuza.toeicwords</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span></span>
@@ -218,19 +178,11 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  &#x3C;</span><span style="color:#F07178">application</span></span>
 <span class="line"><span style="color:#C792EA">      android</span><span style="color:#89DDFF">:</span><span style="color:#C792EA">name</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">.MainApplication</span><span style="color:#89DDFF">"</span></span></code></pre>
 <p>이렇게 권한을 설정하였다면, 일단 빌드하여 Google Play에 업로드 합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.jpg" alt="android subscription">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.jpg" alt="android subscription" width="1280" height="401" loading="lazy" decoding="async"></picture></p>
 <p>업로드를 완료하면 위와 같이 <code>구독</code>(Subscriptions) 메뉴가 바뀐 것을 확인할 수 있습니다.</p>
 <h4 id="안드로이드-앱-내-구입-항목-생성">안드로이드 앱 내 구입 항목 생성</h4>
 <p>이제 <code>구독</code>(Subscriptions) 메뉴에서 <code>구독 만들기</code>(Create subscription) 버튼을 눌러 구독 항목을 생성합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.jpg" alt="android subscription">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/android-after-uploading.jpg" alt="android subscription" width="1280" height="401" loading="lazy" decoding="async"></picture></p>
 <p>그리고 구독 항목에 필요한 정보를 입력하여 구독 항목을 생성합니다.</p>
 <ul>
 <li>제품 ID / Product ID</li>
@@ -858,17 +810,9 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">};</span></span></code></pre>
 <p>위와 같이 <code>validateReceiptIos</code>을 통해 영수증을 검증할때, <code>password</code>가 필요합니다. 이 <code>password</code>는 <code>App store connect</code>의 <code>공유 암호(Shared secret)</code>입니다.</p>
 <p>공유 암호(Shared secret)를 발급받기 위해서는 App store connect로 이동한 후 <code>사용자 및 액세스</code>(Users and Access)로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-shared-secret.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-shared-secret.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/ios-shared-secret.jpg" alt="ios shared secret">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-shared-secret.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-shared-secret.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/ios-shared-secret.jpg" alt="ios shared secret" width="1280" height="256" loading="lazy" decoding="async"></picture></p>
 <p>상단에 <code>공유 암호(Shared secret)</code>를 선택하고 공유 암호를 생성합니다. 여기서 발급한 공유 암호는 모든 앱에서 사용이 가능합니다. 특정 앱에만 한정한 공유 암호를 생성할 수도 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-app-shared-secret.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-app-shared-secret.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/ios-app-shared-secret.jpg" alt="ios app shared secret">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-app-shared-secret.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-app-shared-secret.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/ios-app-shared-secret.jpg" alt="ios app shared secret" width="1280" height="459" loading="lazy" decoding="async"></picture></p>
 <p>특정 앱에서만 사용 가능한 공유 암호를 생성하기 위해서는 공유 암호를 생성하고자 하는 앱으로 이동 한 후, <code>앱 내 구입</code>(In-App Purchases)의 <code>관리</code>(Manage)로 이동합니다. 그럼 오른쪽에 <code>앱 공유 암호</code>(App-Specific Shared Secret)을 통해 특정 앱에서만 사용 가능한 공유 암호를 생성할 수 있습니다.</p>
 <p>안드로이드는 <a href="https://github.com/dooboolab/react-native-iap#with-google-play" rel="nofollow noreferrer" target="_blank">validateReceiptAndroid</a>을 통해 확인이 가능합니다. 하지만 <code>accessToken</code>을 발급받기 위해서는 서버가 필요합니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> checkReceiptAndroid </span><span style="color:#89DDFF">=</span><span style="color:#C792EA"> async</span><span style="color:#89DDFF"> ()</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
@@ -940,11 +884,7 @@ Github Sponsor
 <h3 id="ios">iOS</h3>
 <h4 id="ios-테스트-계정-등록">iOS 테스트 계정 등록</h4>
 <p>iOS에서 테스트를 위해서는 <code>애플 계정으로 사용한 적이 없는 Email</code>이 필요합니다. 그리고 App store connect로 이동한 후, <code>사용자 및 액세스</code>(Users and Access)로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-sandbox-testers.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-sandbox-testers.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/ios-sandbox-testers.jpg" alt="ios sandbox tester">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-sandbox-testers.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/ios-sandbox-testers.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/ios-sandbox-testers.jpg" alt="ios sandbox tester" width="1280" height="602" loading="lazy" decoding="async"></picture></p>
 <p>그리고 왼쪽 하단에 있는 <code>Sandbox</code>의 <code>테스터</code>(Testers)를 선택하고 준비한 email로 Sandbox 계정을 생성합니다.</p>
 <h4 id="ios-테스트">iOS 테스트</h4>
 <p>시뮬레이터에서는 인앱 결제 테스트를 할 수 없습니다. 개발한 앱을 디바이스에서 테스트해야 합니다.</p>
@@ -963,11 +903,7 @@ Github Sponsor
 <h3 id="안드로이드">안드로이드</h3>
 <h4 id="안드로이드-테스트-계정-등록">안드로이드 테스트 계정 등록</h4>
 <p>안드로이드는 iOS와 달리 구글에서 사용하는 계정을 그대로 사용할 수 있습니다. Google Play Console로 이동한 후, <code>설정</code>(Settings) > <code>라이선스 테스트</code>(License testing)을 선택합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-license-testing.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/android-license-testing.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/android-license-testing.jpg" alt="android license testing">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-license-testing.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/android-license-testing.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/android-license-testing.jpg" alt="android license testing" width="1280" height="791" loading="lazy" decoding="async"></picture></p>
 <p>그리고 사용하고 있는 구글 계정을 입력하여 추가합니다.</p>
 <h4 id="안드로이드-테스트">안드로이드 테스트</h4>
 <p>안드로이드도 iOS와 마찬가지로 에뮬레이터에서 테스트를 할 수 없습니다. iOS와는 다르게 실제 사용하는 계정으로 테스트 할 수 있으므로 특별히 로그아웃을 할 필요는 없습니다.</p>
@@ -988,11 +924,7 @@ Github Sponsor
 <h2 id="배포">배포</h2>
 <h3 id="ios-배포">iOS 배포</h3>
 <p>인앱 결제를 포함한 앱을 배포하기 위해서는 앱을 배포할 때 <code>앱 내 구입</code>(In-App Purchases) 항목을 설정해야 합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-deployment.avif" type="image/avif">
-  <source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-deployment.webp" type="image/webp">
-  <img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-deployment.jpg" alt="in-app purchases deployment">
-</picture>
+<p><picture><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-deployment.avif" type="image/avif"><source srcset="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-deployment.webp" type="image/webp"><img src="/assets/images/category/react-native/2020/react-native-iap/in-app-purchases-deployment.jpg" alt="in-app purchases deployment" width="1280" height="455" loading="lazy" decoding="async"></picture></p>
 <h3 id="안드로이드-배포">안드로이드 배포</h3>
 <p>안드로이드는 iOS와 다르게 특별한 설정없이 앱을 배포하시면 됩니다.</p>
 <h2 id="완료">완료</h2>

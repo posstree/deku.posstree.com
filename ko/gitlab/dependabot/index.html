@@ -84,29 +84,17 @@ Github Sponsor
 </ul>
 <h2 id="gitlab-token-생성">GitLab token 생성</h2>
 <p><code>dependabot-script</code> 리포지토리에서 다른 리포지토리의 라이브러리의 버전을 검사하고, 새로운 버전이 있는 경우 <code>Merge request</code>를 자동으로 만듭니다. 따라서 다른 리포지토리에 접근하고 <code>Merge request</code>를 만들기 위한 <code>Personal Access Tokens</code>이 필요합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/personal_access_tokens.png" alt="GitLab Dependabot - personal access tokens">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/personal_access_tokens.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/personal_access_tokens.png" alt="GitLab Dependabot - personal access tokens" width="1280" height="594" loading="lazy" decoding="async"></picture></p>
 <p><code>api</code> 권한을 가진 <code>Personal Access Token</code>을 생성합니다.</p>
 <h2 id="github-token-생성">GitHub token 생성</h2>
 <p><code>dependabot-script</code> 리포지토리는 <code>GitHub</code>의 <code>API</code>를 사용하여 라이브러리의 버전을 검사합니다. 따라서 <code>GitHub</code>의 <code>API</code>를 사용하기 위해 <code>GitHub</code>의 <code>Personal access token</code>을 생성할 필요가 있습니다.</p>
 <p><code>GitHub</code>에 로그인 한 후, 오른쪽 상단에 프로필 이미지를 선택합니다. 그 다음 <code>Settings</code>를 선택하여 설정 화면으로 이동합니다.</p>
 <p>설정 화면에서 왼쪽 메뉴 리스트의 제일 하단의 <code>Developer settings</code>을 선택합니다. 그 다음 <code>Personal access tokens</code> > <code>Token (classic)</code>을 눌러 <code>Token</code> 생성 화면으로 이동합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/github_personal_access_token.png" alt="GitLab Dependabot - GitHub personal access tokens">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/github_personal_access_token.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/github_personal_access_token.png" alt="GitLab Dependabot - GitHub personal access tokens" width="1169" height="865" loading="lazy" decoding="async"></picture></p>
 <p><code>Token</code>은 <code>repo</code>의 <code>public_repo</code> 권한을 설정한 후, 생성합니다.</p>
 <h2 id="cicd-변수-설정">CI/CD 변수 설정</h2>
 <p>이렇게 생성한 <code>Personal Access Token</code>을 <code>dependabot-script</code>의 <code>CI/CD</code> 변수에 설정할 필요가 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/ci_cd_variables.png" alt="GitLab Dependabot - add token to CI/CD variables">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/ci_cd_variables.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/ci_cd_variables.png" alt="GitLab Dependabot - add token to CI/CD variables" width="1280" height="544" loading="lazy" decoding="async"></picture></p>
 <p><code>dependabot-script</code> 리포지토리에서 <code>Settings</code> > <code>CI/CD</code> > <code>Variables</code>의 <code>Expand</code>를 클릭합니다.</p>
 <p>그리고 앞서 만든 <code>GitLab</code>의 <code>Personal Access Token</code>을 <code>GITLAB_ACCESS_TOKEN</code>을 <code>key</code>로 추가합니다.</p>
 <ul>
@@ -135,19 +123,11 @@ Github Sponsor
 </div>
 <h2 id="gitlab-ciyml-파일">.gitlab-ci.yml 파일</h2>
 <p><code>dependabot-script</code> 리포지토리를 보면 <code>.gitlab-ci.example.yml</code> 파일이 있습니다. 이 파일의 이름을 <code>.gitlab-ci.yml</code>으로 변경합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.png" alt="GitLab Dependabot - rename .gitlab-ci.example.yml to .gitlab-ci.yml">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/gitlab_ci_yml.png" alt="GitLab Dependabot - rename .gitlab-ci.example.yml to .gitlab-ci.yml" width="1280" height="594" loading="lazy" decoding="async"></picture></p>
 <h2 id="schedule-생성">Schedule 생성</h2>
 <p>이제 <code>Dependabot</code>을 일정 주기로 실행하여 사용하여 특정 프로젝트에서 사용하는 라이브러리의 버전을 확인하고, 새 버전이 있는 경우 <code>Merge request</code>를 생성하도록 만들어야 합니다.</p>
 <p>그럼 다음과 같이 <code>dependabot-script</code> 리포지토리에 새로운 <code>Schedule</code>을 추가합니다.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/schedule_pipeline.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline" width="1280" height="608" loading="lazy" decoding="async"></picture></p>
 <p>이때, <code>Variables</code>에 특정 프로젝트의 <code>Path</code>와 해당 프로젝트에서 사용하는 <code>Package manager</code>를 설정할 필요가 있습니다.</p>
 <ul>
 <li>PROJECT_PATH: <namespace>/<project> (ex> dev-yakuza/deku-nextjs-boilerplate)</project></namespace></li>
@@ -177,17 +157,9 @@ Github Sponsor
 </ul>
 <h2 id="schedule-실행">Schedule 실행</h2>
 <p>그럼 <code>Schedule</code>을 실행하여 실제로 <code>Dependabot</code>이 잘 작동하는지 확인해 봅시다.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/start_schedule_pipeline.png" alt="GitLab Dependabot - create a new schedule of pipeline" width="1280" height="464" loading="lazy" decoding="async"></picture></p>
 <p>문제가 없다면 <code>PROJECT_PATH</code>에 설정한 리포지토리에 다음과 같이 <code>Merge request</code>가 생성된 것을 확인할 수 있습니다.</p>
-<picture>
-  <source srcset="/assets/images/category/gitlab/dependabot/merge_request.avif" type="image/avif">
-  <source srcset="/assets/images/category/gitlab/dependabot/merge_request.webp" type="image/webp">
-  <img src="/assets/images/category/gitlab/dependabot/merge_request.png" alt="GitLab Dependabot - merge request">
-</picture>
+<p><picture><source srcset="/assets/images/category/gitlab/dependabot/merge_request.avif" type="image/avif"><source srcset="/assets/images/category/gitlab/dependabot/merge_request.webp" type="image/webp"><img src="/assets/images/category/gitlab/dependabot/merge_request.png" alt="GitLab Dependabot - merge request" width="1280" height="407" loading="lazy" decoding="async"></picture></p>
 <h2 id="error-job-failed-failed-to-pull-image-dependabotdependabot-script">ERROR: Job failed: failed to pull image dependabot/dependabot-script</h2>
 <p>기본적으로 <code>.gitlab-ci.yml</code> 파일의 내용은 변경할 필요가 없습니다. 하지만, <code>GitLab</code> 서버 설정에 따라 다음과 같은 에러가 발생할 수 있습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ERROR: Job failed: failed to pull image "dependabot/dependabot-script" with specified policies [always]: Error response from daemon: pull access denied for dependabot/dependabot-script, repository does not exist or may require 'docker login': denied: requested access to the resource is denied (manager.go: 237:2s)</span></span></code></pre>

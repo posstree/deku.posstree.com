@@ -50,34 +50,18 @@ Github Sponsor
 </div>
 <h2 id="outline">Outline</h2>
 <p>When we provide the app service, we fall into various problems due to the user device environments. In this blog post, I will introduce how to fix a design broken like the following due to the user changing the font bigger.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>You can see the full source code of this blog post in the following link.</p>
 <ul>
 <li>GitHub: <a href="https://github.com/dev-yakuza/study-flutter/tree/main/widget/textscalefactor" rel="nofollow noreferrer" target="_blank">https://github.com/dev-yakuza/study-flutter/tree/main/widget/textscalefactor</a></li>
 </ul>
 <h2 id="change-font-size-by-device-setting">Change font size by device setting</h2>
 <p>The user can change the font size by the device configuration like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/larger_text.png" alt="Flutter textScaleFactor - Larger text setting">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/larger_text.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/larger_text.png" alt="Flutter textScaleFactor - Larger text setting" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>Sometimes, we fix the width of the button, etc like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - fixed width button">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - fixed width button" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>However, if the user changes the font size bigger, the text of the button is unintentionally shown on multiple lines like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/design_broken.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/design_broken.png" alt="Flutter textScaleFactor - design broken" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>In this blog post, I will show you how to fix the font size even if the user changes the font size by the device setting.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -109,11 +93,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">  textScaleFactor</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 1.0</span><span style="color:#89DDFF">,</span></span>
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">,</span></span></code></pre>
 <p>After setting <code>textScaleFactor</code>, when you check the app, you can see the font size is shown by the default like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -126,11 +106,7 @@ Github Sponsor
 </div>
 <h2 id="textscalefactor-in-mediaquery">textScaleFactor in MediaQuery</h2>
 <p>However, it’s too difficult and annoying to set it to all <code>Text</code> widgets. So like the following, the font size of the button is the default size, but the <code>title</code> of the <code>AppBar</code> widget, that <code>textScaleFactor</code> is not configured on, is still bigger.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/only_button_font_size_normal.png" alt="Flutter textScaleFactor - only button font size is normal" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <p>If you want to set <code>textScaleFactor</code> to all <code>Text</code> widget, you can configure <code>MediaQuery</code> in the <code>builder</code> of the <code>MaterialApp</code> widget.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#FFCB6B">MaterialApp</span><span style="color:#EEFFFF">(</span></span>
 <span class="line"><span style="color:#EEFFFF">  builder</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> (context</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> child) {</span></span>
@@ -143,11 +119,7 @@ Github Sponsor
 <span class="line"><span style="color:#89DDFF">  ...</span></span>
 <span class="line"><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span></code></pre>
 <p>If you change <code>textScaleFactor</code> in <code>data</code> of <code>MediaQuery</code> like this, you can see <code>textScaleFactor</code> works on the <code>Text</code> widget which <code>textScaleFactor</code> is not configured on like the following.</p>
-<picture>
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif">
-  <source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp">
-  <img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - apply textScaleFactor to all text widget">
-</picture>
+<p><picture><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.avif" type="image/avif"><source srcset="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.webp" type="image/webp"><img src="/assets/images/category/flutter/2023/textScaleFactor/fixed_width_button.png" alt="Flutter textScaleFactor - apply textScaleFactor to all text widget" width="1280" height="945" loading="lazy" decoding="async"></picture></p>
 <h2 id="test-code">Test code</h2>
 <p>If you configure <code>textScaleFactor</code> in <code>MediaQuery</code>, you can write the test code to check <code>textScaleFactor</code> is configured well like the following.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="dart"><code><span class="line"><span style="color:#82AAFF">testWidgets</span><span style="color:#EEFFFF">(</span><span style="color:#C3E88D">'textScaleFactor is 1.0'</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> (</span><span style="color:#FFCB6B">WidgetTester</span><span style="color:#EEFFFF"> tester) </span><span style="color:#89DDFF;font-style:italic">async</span><span style="color:#EEFFFF"> {</span></span>
