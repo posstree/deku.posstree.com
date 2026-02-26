@@ -63,10 +63,10 @@ Github Sponsor
 <span class="line"><span>└── ...</span></span></code></pre>
 <p>모노레포에서는 각 서비스 팀은 <code>feature/service-a/...</code>, <code>feature/service-b/...</code>처럼 브랜치명에 서비스 이름을 포함하는 컨벤션을 만들어 사용할 수 있습니다. 이런 컨벤션에 관해서는 이전 블로그 포스트를 참고해 주세요.</p>
 <ul>
-<li><a href="/github_actions/check-branch-name/">브랜치명 검사 워크플로우</a></li>
+<li><a href="/ko/github_actions/check-branch-name/">브랜치명 검사 워크플로우</a></li>
 </ul>
 <p>브랜치명을 검사하는 워크플로우를 통해 네이밍 컨벤션을 강제할 수는 있지만, 브랜치명 컨벤션만으로는 다른 서비스 코드를 수정하는 실수를 완전히 방지할 수 없습니다. 예를 들어 <code>service-a</code> 브랜치에서 작업하다가 실수로 <code>service-b</code> 디렉토리의 파일을 수정해도 브랜치명 검사 워크플로우는 이를 검출해 낼 수 없습니다.</p>
-<p>이 문제를 해결하기 위해 <strong>PR에서 변경된 파일이 브랜치에 해당하는 서비스 디렉토리 내의 파일인지 자동으로 검증하는 워크플로우</strong>를 만들었습니다. <a href="/github_actions/action-check-pr-title/">PR 제목 검사</a>와 함께 사용하면 PR의 메타데이터와 변경 내용 모두를 자동으로 검증할 수 있습니다.</p>
+<p>이 문제를 해결하기 위해 <strong>PR에서 변경된 파일이 브랜치에 해당하는 서비스 디렉토리 내의 파일인지 자동으로 검증하는 워크플로우</strong>를 만들었습니다. <a href="/ko/github_actions/action-check-pr-title/">PR 제목 검사</a>와 함께 사용하면 PR의 메타데이터와 변경 내용 모두를 자동으로 검증할 수 있습니다.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -87,7 +87,7 @@ Github Sponsor
 <h3 id="step-1-브랜치명에서-서비스명-추출">Step 1: 브랜치명에서 서비스명 추출</h3>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>feature/service-a/some-feature  →  SERVICE_NAME = "service-a"</span></span>
 <span class="line"><span>fix/service-b/bug-fix           →  SERVICE_NAME = "service-b"</span></span></code></pre>
-<p><a href="/github_actions/composite-action/">Composite Action</a>으로 만든 커스텀 액션 <code>extract_branch_and_service_name</code>이 브랜치명을 <code>/</code>로 분리하여 두 번째 부분을 서비스명으로 추출합니다.</p>
+<p><a href="/ko/github_actions/composite-action/">Composite Action</a>으로 만든 커스텀 액션 <code>extract_branch_and_service_name</code>이 브랜치명을 <code>/</code>로 분리하여 두 번째 부분을 서비스명으로 추출합니다.</p>
 <p><code>.github/actions/extract_branch_and_service_name/action.yml</code> 파일을 만들고 다음과 같이 작성해서 사용하고 있습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Extract branch and service name</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#F07178">description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Extract branch and service name from branch</span><span style="color:#89DDFF">'</span></span>
@@ -141,7 +141,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">      **</span></span>
 <span class="line"><span style="color:#F07178">    write_output_files</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
 <span class="line"><span style="color:#F07178">    output_dir</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> /tmp</span></span></code></pre>
-<p><code>tj-actions/changed-files</code> 액션으로 PR에서 변경된 파일 목록을 가져옵니다. 이 액션은 <a href="/github_actions/eslint-changed-files-ci/">ESLint를 변경된 파일에만 적용하는 워크플로우</a>에서도 활용한 바 있습니다.</p>
+<p><code>tj-actions/changed-files</code> 액션으로 PR에서 변경된 파일 목록을 가져옵니다. 이 액션은 <a href="/ko/github_actions/eslint-changed-files-ci/">ESLint를 변경된 파일에만 적용하는 워크플로우</a>에서도 활용한 바 있습니다.</p>
 <p>여기서 핵심은 <code>write_output_files: true</code> 옵션입니다. 변경 파일 목록을 환경 변수가 아닌 <code>/tmp/all_changed_files.txt</code> 파일로 저장합니다. 이렇게 파일로 저장하는 이유는 변경 파일이 많은 경우 환경 변수의 길이 제한(<code>ARG_MAX</code>)에 걸릴 수 있기 때문입니다.</p>
 <h3 id="step-3-서비스명과-디렉토리-매핑">Step 3: 서비스명과 디렉토리 매핑</h3>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> serviceDirectoryMap </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> {</span></span>

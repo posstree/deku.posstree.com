@@ -63,10 +63,10 @@ Github Sponsor
 <span class="line"><span>└── ...</span></span></code></pre>
 <p>In a monorepo, each service team can adopt a convention of including the service name in their branch names, such as <code>feature/service-a/...</code> or <code>feature/service-b/...</code>. For more details on such conventions, please refer to the following blog post:</p>
 <ul>
-<li><a href="/github_actions/check-branch-name/">Branch Name Validation Workflow</a></li>
+<li><a href="/en/github_actions/check-branch-name/">Branch Name Validation Workflow</a></li>
 </ul>
 <p>While a branch name validation workflow can enforce naming conventions, branch naming alone cannot fully prevent accidental modifications to other services’ code. For example, even if you’re working on a <code>service-a</code> branch, you could accidentally modify files in the <code>service-b</code> directory, and the branch name validation workflow would not catch this.</p>
-<p>To solve this problem, we created <strong>a workflow that automatically validates whether changed files in a PR belong to the service directory corresponding to the branch</strong>. When used together with <a href="/github_actions/action-check-pr-title/">PR title validation</a>, you can automatically verify both PR metadata and change scope.</p>
+<p>To solve this problem, we created <strong>a workflow that automatically validates whether changed files in a PR belong to the service directory corresponding to the branch</strong>. When used together with <a href="/en/github_actions/action-check-pr-title/">PR title validation</a>, you can automatically verify both PR metadata and change scope.</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -87,7 +87,7 @@ Github Sponsor
 <h3 id="step-1-extract-service-name-from-branch-name">Step 1: Extract Service Name from Branch Name</h3>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>feature/service-a/some-feature  →  SERVICE_NAME = "service-a"</span></span>
 <span class="line"><span>fix/service-b/bug-fix           →  SERVICE_NAME = "service-b"</span></span></code></pre>
-<p>A custom action <code>extract_branch_and_service_name</code>, built as a <a href="/github_actions/composite-action/">Composite Action</a>, splits the branch name by <code>/</code> and extracts the second part as the service name.</p>
+<p>A custom action <code>extract_branch_and_service_name</code>, built as a <a href="/en/github_actions/composite-action/">Composite Action</a>, splits the branch name by <code>/</code> and extracts the second part as the service name.</p>
 <p>We created a <code>.github/actions/extract_branch_and_service_name/action.yml</code> file with the following content:</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#F07178">name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Extract branch and service name</span><span style="color:#89DDFF">'</span></span>
 <span class="line"><span style="color:#F07178">description</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Extract branch and service name from branch</span><span style="color:#89DDFF">'</span></span>
@@ -141,7 +141,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">      **</span></span>
 <span class="line"><span style="color:#F07178">    write_output_files</span><span style="color:#89DDFF">:</span><span style="color:#FF9CAC"> true</span></span>
 <span class="line"><span style="color:#F07178">    output_dir</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> /tmp</span></span></code></pre>
-<p>The <code>tj-actions/changed-files</code> action retrieves the list of changed files in the PR. This action was also used in the <a href="/github_actions/eslint-changed-files-ci/">workflow for running ESLint only on changed files</a>.</p>
+<p>The <code>tj-actions/changed-files</code> action retrieves the list of changed files in the PR. This action was also used in the <a href="/en/github_actions/eslint-changed-files-ci/">workflow for running ESLint only on changed files</a>.</p>
 <p>The key here is the <code>write_output_files: true</code> option. It saves the list of changed files to <code>/tmp/all_changed_files.txt</code> instead of environment variables. This is because when there are many changed files, you may hit the environment variable length limit (<code>ARG_MAX</code>).</p>
 <h3 id="step-3-map-service-name-to-directory">Step 3: Map Service Name to Directory</h3>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> serviceDirectoryMap </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> {</span></span>
