@@ -1,0 +1,618 @@
+<!DOCTYPE html><html lang="ja"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="word-break: break-wordはCSS仕様で非推奨(deprecated)となったレガシー値です。代替の overflow-wrap: break-wordもintrinsic sizing要素では動作しない落とし穴があります。正しい 代替の組み合わせ(overflow-wrap: anywhere + "><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/web/css-overflow-wrap/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/web/css-overflow-wrap/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/web/css-overflow-wrap/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/web/css-overflow-wrap/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/web/css-overflow-wrap/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由"><meta name="twitter:description" content="word-break: break-wordはCSS仕様で非推奨(deprecated)となったレガシー値です。代替の overflow-wrap: break-wordもintrinsic sizing要素では動作しない落とし穴があります。正しい 代替の組み合わせ(overflow-wrap: anywhere + "><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/web/background.jpg"><meta name="twitter:image:alt" content="word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由"><!-- Open Graph --><meta property="og:title" content="word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由"><meta property="og:description" content="word-break: break-wordはCSS仕様で非推奨(deprecated)となったレガシー値です。代替の overflow-wrap: break-wordもintrinsic sizing要素では動作しない落とし穴があります。正しい 代替の組み合わせ(overflow-wrap: anywhere + "><meta property="og:image" content="https://deku.posstree.com/assets/images/category/web/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由"><meta property="og:url" content="https://deku.posstree.com/web/css-overflow-wrap/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2026-03-18T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="ウェブに関する情報"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><link rel="preconnect" href="https://utteranc.es"><!-- LCP image preload --><link rel="preload" as="image" href="/assets/images/category/web/background.jpg" fetchpriority="high"><!-- Google Fonts (async) --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap"></noscript><!-- Bootstrap Grid CSS --><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap-grid.min.css"><!-- Font Awesome CSS (async) --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"></noscript><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由","description":"word-break: break-wordはCSS仕様で非推奨(deprecated)となったレガシー値です。代替の overflow-wrap: break-wordもintrinsic sizing要素では動作しない落とし穴があります。正しい 代替の組み合わせ(overflow-wrap: anywhere + ","datePublished":"2026-03-18T00:00:00.000Z","dateModified":"2026-03-18T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/web/css-overflow-wrap/"},"image":"https://deku.posstree.com/assets/images/category/web/background.jpg","url":"https://deku.posstree.com/web/css-overflow-wrap/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/web/css-overflow-wrap/","name":"word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/web/lodash-tree-shaking/","name":"[最適化] lodash Tree Shakingでバンドルサイズを82%削減：547KBから97KBへ"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/web/lighthouse_optimization/","name":"[Web] Lighthouseパフォーマンス最適化総合ガイド"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/web/optimization_images/","name":"[Web] avifとwebpフォーマットを使用して画像を最適化する"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/web/optimization_load_google_font/","name":"[Web] Google Web Fontのロードの最適化"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><style>body{font-size:20px;color:#212529;font-family:Lora,Times New Roman,serif}p{line-height:1.5;margin:30px 0}p a{text-decoration:underline}h1,h2,h3,h4,h5,h6{font-weight:800;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}a{color:#212529;-webkit-transition:all .2s;-moz-transition:all .2s;transition:all .2s}a:focus,a:hover{color:#0085a1}blockquote{font-style:italic;color:#868e96}.section-heading{font-size:36px;font-weight:700;margin-top:60px}.caption{font-size:14px;font-style:italic;display:block;margin:0;padding:10px;text-align:center;border-bottom-right-radius:5px;border-bottom-left-radius:5px}::-moz-selection{color:#fff;background:#0085a1;text-shadow:none}::selection{color:#fff;background:#0085a1;text-shadow:none}img::selection{color:#fff;background:transparent}img::-moz-selection{color:#fff;background:transparent}#mainNav{position:absolute;border-bottom:1px solid #e9ecef;background-color:#ffffffe6;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}#mainNav .navbar-brand{font-weight:800;color:#343a40}#mainNav .navbar-toggler{font-size:12px;font-weight:800;padding:13px;text-transform:uppercase;color:#343a40}#mainNav .navbar-nav>li.nav-item>a{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}@media only screen and (min-width:992px){#mainNav{-webkit-transition:background-color .2s;-moz-transition:background-color .2s;transition:background-color .2s;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translateZ(0);-webkit-backface-visibility:hidden}#mainNav.is-fixed{position:fixed;top:-67px;-webkit-transition:-webkit-transform .2s;-moz-transition:-moz-transform .2s;transition:transform .2s;border-bottom:1px solid rgb(254.8725,254.8725,254.8725);background-color:#ffffffe6}#mainNav.is-fixed .navbar-brand{color:#212529}#mainNav.is-fixed .navbar-brand:focus,#mainNav.is-fixed .navbar-brand:hover{color:#0085a1}#mainNav.is-fixed .navbar-nav>li.nav-item>a{color:#212529}#mainNav.is-fixed .navbar-nav>li.nav-item>a:focus,#mainNav.is-fixed .navbar-nav>li.nav-item>a:hover{color:#0085a1}#mainNav.is-visible{-webkit-transform:translate3d(0,100%,0);-moz-transform:translate3d(0,100%,0);-ms-transform:translate3d(0,100%,0);-o-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0)}}header.masthead{margin-bottom:50px;background:no-repeat center center;background-color:#868e96;background-attachment:scroll;position:relative;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover}header.masthead .overlay{position:absolute;top:0;left:0;height:100%;width:100%;background-color:#212529;opacity:.5}header.masthead .page-heading,header.masthead .post-heading,header.masthead .site-heading{padding:200px 0 150px;color:#fff}@media only screen and (min-width:768px){header.masthead .page-heading,header.masthead .post-heading,header.masthead .site-heading{padding:200px 0}}header.masthead .page-heading,header.masthead .site-heading{text-align:center}header.masthead .page-heading h1,header.masthead .site-heading h1{font-size:50px;margin-top:0}header.masthead .page-heading .subheading,header.masthead .site-heading .subheading{font-size:24px;font-weight:300;line-height:1.1;display:block;margin:10px 0 0;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}@media only screen and (min-width:768px){header.masthead .page-heading h1,header.masthead .site-heading h1{font-size:80px}}header.masthead .post-heading h1{font-size:35px}header.masthead .post-heading .meta,header.masthead .post-heading .subheading{line-height:1.1;display:block}header.masthead .post-heading .subheading{font-size:24px;font-weight:600;margin:10px 0 30px;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}header.masthead .post-heading .meta{font-size:20px;font-weight:300;font-style:italic;font-family:Lora,Times New Roman,serif}header.masthead .post-heading .meta a{color:#fff}@media only screen and (min-width:768px){header.masthead .post-heading h1{font-size:55px}header.masthead .post-heading .subheading{font-size:30px}}.post-preview>a{color:#212529}.post-preview>a:focus,.post-preview>a:hover{text-decoration:none;color:#0085a1}.post-preview>a>.post-title{font-size:30px;margin-top:30px;margin-bottom:10px}.post-preview>a>.post-subtitle{font-weight:300;margin:0 0 10px}.post-preview>.post-meta{font-size:18px;font-style:italic;margin-top:0;color:#868e96}.post-preview>.post-meta>a{text-decoration:none;color:#212529}.post-preview>.post-meta>a:focus,.post-preview>.post-meta>a:hover{text-decoration:underline;color:#0085a1}@media only screen and (min-width:768px){.post-preview>a>.post-title{font-size:36px}}.floating-label-form-group{font-size:14px;position:relative;margin-bottom:0;padding-bottom:.5em;border-bottom:1px solid #dee2e6}.floating-label-form-group input,.floating-label-form-group textarea{font-size:1.5em;position:relative;z-index:1;padding:0;resize:none;border:none;border-radius:0;background:none;box-shadow:none!important;font-family:Lora,Times New Roman,serif}.floating-label-form-group input::-webkit-input-placeholder,.floating-label-form-group textarea::-webkit-input-placeholder{color:#868e96;font-family:Lora,Times New Roman,serif}.floating-label-form-group label{font-size:.85em;line-height:1.764705882em;position:relative;z-index:0;top:2em;display:block;margin:0;-webkit-transition:top .3s ease,opacity .3s ease;-moz-transition:top .3s ease,opacity .3s ease;-ms-transition:top .3s ease,opacity .3s ease;transition:top .3s ease,opacity .3s ease;vertical-align:middle;vertical-align:baseline;opacity:0}.floating-label-form-group .help-block{margin:15px 0}.floating-label-form-group-with-value label{top:0;opacity:1}.floating-label-form-group-with-focus label{color:#0085a1}form .form-group:first-child .floating-label-form-group{border-top:1px solid #dee2e6}footer{padding:50px 0 65px}footer .list-inline{margin:0;padding:0}footer .copyright{font-size:14px;margin-bottom:0;text-align:center}.btn{font-size:14px;font-weight:800;padding:15px 25px;letter-spacing:1px;text-transform:uppercase;border-radius:0;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}.btn-primary{background-color:#0085a1;border-color:#0085a1}.btn-primary:hover,.btn-primary:focus,.btn-primary:active{color:#fff;background-color:#00657b!important;border-color:#00657b!important}.btn-lg{font-size:16px;padding:25px 35px}.d-flex{display:flex!important}.d-none{display:none!important}.d-block{display:block!important}@media(min-width:992px){.d-lg-block{display:block!important}}.justify-content-between{justify-content:space-between!important}.justify-content-center{justify-content:center!important}.w-100{width:100%!important}.mx-auto{margin-left:auto!important;margin-right:auto!important}.ml-auto{margin-left:auto!important}.text-center{text-align:center!important}.sticky-top{position:sticky;top:0;z-index:1020}.fixed-top{position:fixed;top:0;right:0;left:0;z-index:1030}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.navbar{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:.5rem 1rem}.navbar>.container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between}.navbar-nav{display:flex;flex-direction:column;padding-left:0;margin-bottom:0;list-style:none}.nav-link{display:block;padding:.5rem 1rem}.navbar-toggler{padding:.25rem .75rem;font-size:1.25rem;line-height:1;background-color:transparent;border:1px solid transparent;border-radius:.25rem;cursor:pointer}.navbar-collapse{flex-basis:100%;flex-grow:1;align-items:center}.collapse:not(.show){display:none}@media(min-width:992px){.navbar-expand-lg{flex-flow:row nowrap;justify-content:flex-start}.navbar-expand-lg .navbar-nav{flex-direction:row}.navbar-expand-lg .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-lg .navbar-collapse{display:flex!important;flex-basis:auto}.navbar-expand-lg .navbar-toggler{display:none}}.dropdown{position:relative}.dropdown-toggle:after{display:inline-block;margin-left:.255em;vertical-align:.255em;content:"";border-top:.3em solid;border-right:.3em solid transparent;border-bottom:0;border-left:.3em solid transparent}.dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:10rem;padding:.5rem 0;margin:.125rem 0 0;font-size:1rem;color:#212529;text-align:left;list-style:none;background-color:#fff;background-clip:padding-box;border:1px solid rgba(0,0,0,.15);border-radius:.25rem}.dropdown-menu.show{display:block}.dropdown-item{display:block;width:100%;padding:.25rem 1.5rem;clear:both;font-weight:400;color:#212529;text-align:inherit;white-space:nowrap;background-color:transparent;border:0;text-decoration:none}.dropdown-item:hover,.dropdown-item:focus{color:#16181b;background-color:#f8f9fa;text-decoration:none}.btn{display:inline-block;font-weight:400;color:#212529;text-align:center;vertical-align:middle;cursor:pointer;user-select:none;background-color:transparent;border:1px solid transparent;padding:.375rem .75rem;font-size:1rem;line-height:1.5;border-radius:.25rem;transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;text-decoration:none}.btn:hover{text-decoration:none}.btn-primary{color:#fff;background-color:#0085a1;border-color:#0085a1}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.pagination{display:flex;padding-left:0;list-style:none;border-radius:.25rem}.page-link{position:relative;display:block;padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#0085a1;background-color:#fff;border:1px solid #dee2e6}.page-item.active .page-link{z-index:3;color:#fff}.breadcrumb{display:flex;flex-wrap:wrap;padding:.75rem 1rem;margin-bottom:1rem;list-style:none;border-radius:.25rem}.breadcrumb-item+.breadcrumb-item{padding-left:.5rem}.breadcrumb-item+.breadcrumb-item:before{display:inline-block;padding-right:.5rem;color:#6c757d;content:"/"}.list-group{display:flex;flex-direction:column;padding-left:0;margin-bottom:0}.list-group-item{position:relative;display:block;padding:.75rem 1.25rem;background-color:#fff;border:1px solid rgba(0,0,0,.125);text-decoration:none;color:#212529}.list-group-item.active{z-index:2;color:#fff}.form-group{margin-bottom:1rem}.form-control{display:block;width:100%;height:calc(1.5em + .75rem + 2px);padding:.375rem .75rem;font-size:1rem;font-weight:400;line-height:1.5;color:#495057;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}.form-control:focus{color:#495057;background-color:#fff;border-color:#80bdff;outline:0;box-shadow:0 0 0 .2rem #007bff40}textarea.form-control{height:auto}.list-inline{padding-left:0;list-style:none}body{margin:0;overflow-x:hidden;word-break:break-word;letter-spacing:.8px;background-color:#f6f8fa}:lang(ja) body{word-break:break-all}body,h1,h2,h3,h4,h5,h6,header.masthead .page-heading .subheading,header.masthead .site-heading .subheading,header.masthead .post-heading .subheading,#mainNav,.btn,code,kbd,pre,samp{font-family:Noto Sans,Noto Sans KR,Noto Sans JP,sans-serif}h3{padding-left:8px;border-left:6px solid #d42872}header.masthead{margin-bottom:0}.logo{height:16px;margin-right:8px}img{width:100%}.container-contents img{height:auto;max-width:100%}pre{padding:16px;border-radius:4px}pre code{border-radius:4px}code{color:#c21868}.container-contents{background-color:#fff;padding-bottom:30px}.container h2{border-bottom:1px solid lightgray;padding-bottom:8px;margin-bottom:8px;margin-top:56px}.container h2.subheading{border:0}.container .heading-date{margin-top:16px;border-bottom:1px solid #fff}.container h3,.container h4,.container h5,.container h6{margin-top:24px}.container p,.container ul{margin:0}.container p,.container li{font-size:13pt;line-height:21pt;font-weight:100}.container p{margin-bottom:16px;line-height:24pt}.container p:first-letter{margin-left:16px}.card-container{margin-bottom:16px}@media(max-width:768px){.card-container h2{text-align:center}}.card-container .card-content-container{position:relative;display:flex;border:1px solid lightgray;border-radius:8px;overflow:hidden;max-width:300px;margin-top:16px;margin-bottom:16px;background-size:cover;background-repeat:no-repeat;background-size:100%}.card-container .card-content-container .overlay{position:absolute;top:0;left:0;height:100%;width:100%;background-color:#212529;opacity:.5}.card-container .card-content-container .card-content{position:relative;width:100%}.card-container .card-content-container .card-content .card-header{height:136px;display:flex;flex-direction:column;justify-content:center}.card-container .card-content-container .card-content .card-header .card-logo{padding-top:32px;text-align:center}.card-container .card-content-container .card-content .card-header .card-logo object{height:40px}.card-container .card-content-container .card-content .card-header .card-title{margin:20px 0;padding:0 8px;overflow:hidden}.card-container .card-content-container .card-content .card-header .card-title h3{padding-left:0;border-left:0;margin:0;text-align:center;color:#fff;letter-spacing:-1px;line-height:inherit;font-size:24px}.card-container .card-content-container .card-content .card-body{background-color:#fff;font-size:16px;padding:16px;height:156px;overflow:hidden;display:flex;flex-direction:column}.card-container .card-content-container .card-content .card-body .card-body-content{font-size:12pt;line-height:18pt;font-weight:100;overflow:hidden}.card-container .card-content-container .card-content .card-body .card-body-content:first-letter{margin-left:8px}.card-container .card-content-container .card-content .card-body .date{color:#d42872;font-size:14px;border-bottom:1px solid lightgray;padding-left:8px;margin-bottom:8px}.card-container .card-content-container .card-content .card-footer{background-color:#fff;border-top:1px solid lightgray;padding:0;display:block}.card-container .card-content-container .card-content .card-footer:hover{text-decoration:none}.card-container .card-content-container .card-content .card-footer div{text-align:right;color:#d42872;font-size:14px;width:100%;display:block;padding:8px 16px}@media only screen and (min-width:768px){.site-heading h1{font-size:72px}}.dropdown-menu{background-color:#ffffffe6;top:calc(100% + 10px);border-top-left-radius:0;border-top-right-radius:0;border-top:0}@media(max-width:992px){.dropdown-menu{background-color:initial;border-radius:0;border:1px solid rgba(0,0,0,.15);border-left:0;border-right:0}}.dropdown-menu .dropdown-item{color:#00000080;font-size:12px;font-weight:800}.dropdown-menu .dropdown-item:hover{color:#000000b3;background-color:initial}@media(min-width:992px){#navbarResponsive{display:none!important}}.navbar-menu-container{display:flex;flex-direction:row;align-items:center}.navbar-menu-container .btn-translate-group{margin:0 8px;position:relative}@media(max-width:992px){.navbar-menu-container .btn-translate-group .dropdown-menu{background-color:#ffffffe6;border:1px solid rgba(0,0,0,.15);top:auto;border-radius:4px}}.floating-label-form-group{border:0;padding-bottom:0}.floating-label-form-group input,.floating-label-form-group textarea{font-size:16px;border:1px solid lightgrey;padding:8px 16px}.form-group .help-block{margin:8px 0}.form-group .help-block ul{list-style:none;padding-left:16px}.form-group.error input,.form-group.error textarea{border:1px solid red}.form-group.error label{color:red}#sendMessageButton{border-radius:8px;padding:8px 32px;font-size:16px}.page-item .page-link{color:#d42872;text-decoration:none;cursor:pointer}.page-item.active .page-link{background-color:#d42872;border-color:#d42872}.post-list-container{border:1px solid lightgray;border-radius:4px;padding:16px;margin-top:40px;display:none}.post-list-container .list-group-item{text-decoration:none;padding:8px 16px}.post-list-container .list-group-item.active{background-color:#d42872;border-color:#d42872}.post-list-container .body{font-size:16px;margin-bottom:8px}.post-list-container .body-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}.post-list-container .body-text:first-letter{margin-left:0}.post-list-container .body .page{display:none}.post-list-container .body .page.active{display:block}.post-list-container .footer{justify-content:center;font-size:16px;display:none}.share-title{text-align:center;font-weight:600;font-size:22px;border-bottom:1px solid lightgray;padding-bottom:4px;margin-bottom:8px}a,a:hover{color:#d42872;text-decoration:underline}#mainNav a{text-decoration:none;color:inherit}.card-footer{text-decoration:none}.navbar-expand-lg .navbar-nav .dropdown-menu{margin-top:0}table{table-layout:fixed;width:100%}table th,table td{border:1px solid #333;padding:8px 16px;font-size:13pt;line-height:21pt}table th{background-color:#e0e0e0}table th:first-child{width:150px}table td{text-align:left;vertical-align:top}.breadcrumb{background-color:initial}.breadcrumb .breadcrumb-item{font-size:12pt}.breadcrumb .breadcrumb-item a,.breadcrumb .breadcrumb-item a:hover{text-decoration:none}.navbar-brand{position:relative;margin-left:40px}.navbar-brand img{width:auto;height:35px;position:absolute;left:-44px;top:0}.navbar-brand .name{color:#212529;position:relative;top:6px;left:6px}.brand-icon{width:200px;display:inherit;margin:auto}.narrow-image{width:auto;display:inherit;margin:auto}a{cursor:pointer}ul li:last-child{margin-bottom:16px}.navbar-nav :last-child{margin-bottom:0}.half_image_container{text-align:center;margin-bottom:16px}.half_image{width:50%}.download_link_container{text-align:center;margin-bottom:16px}.download_link_container a{text-decoration:none}.download_link_container img{width:150px}@media(max-width:768px){.download_link_container img{width:120px}}.download_link_ios{margin-right:5%}.sponsor_container{text-align:center;margin:40px 0}.container p,.container li{font-weight:initial}.left-ads{padding-left:0}.left-ads .sticky-top{width:175px;margin-left:-175px}@media(max-width:1490px){.left-ads .sticky-top{margin-left:0}}.right-ads{padding-right:0}.right-ads .sticky-top{width:175px;margin-left:175px;margin-right:-175px}@media(max-width:1490px){.right-ads .sticky-top{margin-left:0;margin-right:0}}.ads-container{display:flex;justify-content:center}.ads-block{width:336px;height:280px;min-height:280px}.ads-container .ads-center{display:none}@media(min-width:700px){.ads-container .ads-center{display:initial;margin-left:10px}}.ads-container .ads-right{display:none}@media(min-width:1046px){.ads-container .ads-right{display:initial;margin-left:10px}}.in-feed-ads{margin:80px 0;min-height:280px}.container p,.container li{color:#555}.container p{margin:16px 0}.card-container .card-content-container .card-content .card-body .card-body-content{font-weight:initial}#contents_list{background-color:#f1f3f5;padding:16px;border-radius:8px}#contents_list h2{margin:0;font-size:18px}#contents_list li{font-size:14px;line-height:24px}#contents_list a{color:#555}#contents_list ul li:last-child{margin-bottom:0}#contents_list ol{margin-bottom:0}.book-greeting{font-size:13pt;line-height:24pt}.book-image-container{text-align:center;padding:15px 0}.book-image-container img{width:80%}footer{background-color:#343434;color:#fff}footer .text-muted{color:#adb5bd!important}.half_banner{display:inline-block!important;width:calc(50% - 10px);height:280px}.half_banner--right{margin-left:10px}@media(max-width:679px){.half_banner{width:100%}.half_banner--right{display:none!important}a{padding:12px 4px}.breadcrumb-item+.breadcrumb-item:before{line-height:48px}}#search-bar{margin:32px auto;border:1px solid #ccc;border-radius:20px;padding:0 20px}#search-bar #search{width:calc(100% - 30px);border:none;line-height:44px;outline:none;border-style:none}.search-page{padding:40px 0}.search-page__input-wrapper{border:2px solid #ccc;border-radius:28px;padding:0 24px;display:flex;align-items:center;transition:border-color .2s}.search-page__input-wrapper:focus-within{border-color:#d42872}.search-page__input-wrapper i{color:#999;font-size:18px}.search-page__input-wrapper--hero{background:#fffffff2;border-color:transparent;margin-top:24px;max-width:600px;margin-left:auto;margin-right:auto}.search-page__input-wrapper--hero:focus-within{border-color:#d42872}.search-page__input{width:100%;border:none;outline:none;line-height:52px;font-size:18px;padding-left:12px;background:transparent}.search-page__filters{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.search-page__chip{display:inline-block;padding:6px 16px;border:1px solid #ccc;border-radius:20px;background:#fff;color:#555;font-size:14px;cursor:pointer;transition:all .2s}.search-page__chip:focus{outline:none;box-shadow:none}.search-page__chip:hover{border-color:#d42872;color:#d42872}.search-page__chip.active{background-color:#d42872;border-color:#d42872;color:#fff}.search-page__status{color:#757575;font-size:14px;margin-bottom:16px}.search-page__results{display:flex;flex-direction:column;gap:0}.search-page__result-item{display:block;padding:16px;border-bottom:1px solid #eee;text-decoration:none;transition:background-color .15s}.search-page__result-item:hover{background-color:#f9f9f9;text-decoration:none}.search-page__result-title{color:#212529;font-size:18px;font-weight:600;margin-bottom:0}.search-page__result-category{display:inline-block;font-size:12px;font-weight:400;color:#fff;background-color:#888;border-radius:4px;padding:1px 8px;margin-left:8px;vertical-align:middle}.search-page__result-excerpt{color:#555;font-size:14px;line-height:1.6}.search-page__result-excerpt mark{background-color:#d4287226;color:#d42872;padding:0 2px;border-radius:2px}.search-page__no-result{text-align:center;color:#999;padding:40px 0;font-size:16px}.search-page__pagination{margin-top:24px}.in-feed-left-ads{width:calc(100% - 300px)}@media(max-width:576px){.in-feed-left-ads{width:100%}}.app_container{display:flex;justify-content:center;align-items:center;text-decoration:none}.app_container:hover{text-decoration:none}.app_container .app_logo_image{width:60px;margin-right:10px;border-radius:8px}.app_container .app_description{color:#757575;line-height:14px;font-size:14px;letter-spacing:-1px}.app_container .app_title{color:#212121;font-weight:700}blockquote{border-left:4px solid lightgray;padding-left:8px}.callout{padding:12px 16px;margin-top:16px;margin-bottom:16px;border-left:4px solid;border-radius:4px}.callout .callout-title{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:4px}.callout .callout-title .callout-title-icon{display:flex;align-items:center}.callout .callout-title .callout-title-icon svg{width:16px;height:16px;fill:currentColor}.callout .callout-content p:last-child{margin-bottom:0}.callout[data-callout=note]{border-left-color:#0969da;background-color:#0969da14}.callout[data-callout=note] .callout-title{color:#0969da}.callout[data-callout=tip]{border-left-color:#1a7f37;background-color:#1a7f3714}.callout[data-callout=tip] .callout-title{color:#1a7f37}.callout[data-callout=important]{border-left-color:#8250df;background-color:#8250df14}.callout[data-callout=important] .callout-title{color:#8250df}.callout[data-callout=warning]{border-left-color:#9a6700;background-color:#9a670014}.callout[data-callout=warning] .callout-title{color:#9a6700}.callout[data-callout=caution]{border-left-color:#cf222e;background-color:#cf222e14}.callout[data-callout=caution] .callout-title{color:#cf222e}pre.astro-code span[style*="color:#545454"]{color:#888!important}
+.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#bf4a17!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item"> <a class="nav-link" href="/latest/">Latest</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/development_process/"> 開発プロセス </a><a class="dropdown-item" href="/generative_ai/"> 生成AI </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> <li class="nav-item"> <a class="nav-link" href="/search/" aria-label="Search"> <i class="fa fa-search" aria-hidden="true"></i> </a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menu">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/">Home</a> </li> <li class="nav-item"> <a class="nav-link" href="/latest/">Latest</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/react-native/"> React Native </a><a class="dropdown-item" href="/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/books/"> 本の執筆 </a><a class="dropdown-item" href="/clog/"> Clog </a><a class="dropdown-item" href="/django/"> ジャンゴ(django) </a><a class="dropdown-item" href="/environment/"> 開発環境 </a><a class="dropdown-item" href="/essay/"> エッセイ </a><a class="dropdown-item" href="/flutter/"> Flutter </a><a class="dropdown-item" href="/development_process/"> 開発プロセス </a><a class="dropdown-item" href="/generative_ai/"> 生成AI </a><a class="dropdown-item" href="/git/"> git </a><a class="dropdown-item" href="/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/golang/"> Golang </a><a class="dropdown-item" href="/ildangongbu/"> 일단공부（イルタンゴンブ） </a><a class="dropdown-item" href="/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/kubernetes/"> クバネティス </a><a class="dropdown-item" href="/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/laravel/"> Laravel </a><a class="dropdown-item" href="/code_quality/"> Code Quality </a><a class="dropdown-item" href="/react/"> React </a><a class="dropdown-item" href="/ruby/"> Ruby </a><a class="dropdown-item" href="/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/share/"> 共有 </a><a class="dropdown-item" href="/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/web/"> ウェブに関する情報 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/contact/">Contact</a> </li> <li class="nav-item"> <a class="nav-link" href="/search/" aria-label="Search"> <i class="fa fa-search" aria-hidden="true"></i> Search
+</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/web/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2026-03-18 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fweb%2Fcss-overflow-wrap%2F?color=red&label=hits&size=medium" alt="hit count image" width="80" height="20"> </div> <h2 class="subheading">word-break: break-wordはCSS仕様で非推奨(deprecated)となったレガシー値です。代替の overflow-wrap: break-wordもintrinsic sizing要素では動作しない落とし穴があります。正しい 代替の組み合わせ(overflow-wrap: anywhere + word-break: normal + line-break: strict)と Stylelintカスタムプラグインによる自動化方法を共有します。</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" width="27" height="28" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/web/" itemprop="item"> <span itemprop="name">ウェブに関する情報</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto" data-pagefind-body> <span data-pagefind-filter="category" style="display:none;">web</span>  <div id="contents_list" markdown="1">
+<h2 id="目次">目次</h2>
+<ul>
+<li><a href="#%E7%9B%AE%E6%AC%A1">目次</a></li>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#overflow-wrap%E3%81%A8%E3%81%AF">overflow-wrapとは？</a>
+<ul>
+<li><a href="#%E8%8B%B1%E8%AA%9E%E3%81%AE%E5%A0%B4%E5%90%88">英語の場合</a></li>
+</ul>
+</li>
+<li><a href="#break-word%E3%81%A8anywhere%E3%81%AE%E9%81%95%E3%81%84">break-wordとanywhereの違い</a></li>
+<li><a href="#break-word%E3%81%8C%E5%8B%95%E4%BD%9C%E3%81%97%E3%81%AA%E3%81%84%E5%8E%9F%E5%9B%A0">break-wordが動作しない原因</a>
+<ul>
+<li><a href="#%E5%90%8C%E3%81%98%E5%95%8F%E9%A1%8C%E3%81%8C%E7%99%BA%E7%94%9F%E3%81%99%E3%82%8Bcss%E5%B1%9E%E6%80%A7">同じ問題が発生するCSS属性</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8E%A8%E5%A5%A8%E3%81%99%E3%82%8Bcss%E3%81%AE%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B">推奨するCSSの組み合わせ</a>
+<ul>
+<li><a href="#%E5%90%84%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%81%AE%E5%BD%B9%E5%89%B2">各プロパティの役割</a></li>
+<li><a href="#3%E3%81%A4%E3%81%AE%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%81%AE%E7%B5%90%E5%90%88%E5%8A%B9%E6%9E%9C">3つのプロパティの結合効果</a></li>
+</ul>
+</li>
+<li><a href="#anywhere%E3%81%AB%E7%B5%B1%E4%B8%80%E3%81%97%E3%81%A6%E3%82%82%E5%95%8F%E9%A1%8C%E3%81%AA%E3%81%84%E3%81%8B">anywhereに統一しても問題ないか？</a>
+<ul>
+<li><a href="#word-break-break-word%E3%81%AF%E3%81%AA%E3%81%9C%E9%9D%9E%E6%8E%A8%E5%A5%A8%E3%81%AA%E3%81%AE%E3%81%8B">word-break: break-wordはなぜ非推奨なのか？</a></li>
+</ul>
+</li>
+<li><a href="#stylelint%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%A7%E8%87%AA%E5%8B%95%E5%8C%96">Stylelintカスタムプラグインで自動化</a>
+<ul>
+<li><a href="#%E6%A4%9C%E7%9F%A5%E3%83%AB%E3%83%BC%E3%83%AB">検知ルール</a></li>
+<li><a href="#%E3%83%97%E3%83%A9%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%89">プラグインコード</a></li>
+<li><a href="#stylelint%E8%A8%AD%E5%AE%9A">Stylelint設定</a></li>
+<li><a href="#%E5%AE%9F%E8%A1%8C%E7%B5%90%E6%9E%9C">実行結果</a></li>
+</ul>
+</li>
+<li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</div>
+<h2 id="概要">概要</h2>
+<p>これまで長い文字列がコンテナをはみ出す問題を解決するために<code>word-break: break-word</code>を適用していました。しかし最近、この値が非推奨（deprecated）であることがわかりました。<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-break" rel="nofollow noreferrer" target="_blank">MDN公式ドキュメント</a>によると、<code>word-break: break-word</code>は<code>overflow-wrap: anywhere</code>と<code>word-break: normal</code>を組み合わせたものと同じ効果を持つレガシー値であり、<code>deprecated</code>と明記されています。</p>
+<p>そこで<code>overflow-wrap: break-word</code>に変更したところ、特定の要素で折り返しが動作しない現象が発生しました。</p>
+<p>原因を調査した結果、<code>overflow-wrap: break-word</code>と<code>overflow-wrap: anywhere</code>の微妙だが重要な違いを発見しました。この記事では、その原因分析と解決方法、そしてStylelintカスタムプラグインによる検査と修正方法の推奨の自動化について共有します。</p>
+<p>Stylelintの設定については、以下の記事を参考にしてください。</p>
+<ul>
+<li><a href="/ja/code_quality/stylelint/v15/">[Code Quality] Stylelint V15</a></li>
+</ul>
+<h2 id="overflow-wrapとは">overflow-wrapとは？</h2>
+<p><code>overflow-wrap</code>はコンテナをはみ出す長い文字列を強制的に折り返す<strong>安全装置</strong>です。通常は何もせず、<strong>はみ出す時だけ</strong>作動します。</p>
+<h3 id="英語の場合">英語の場合</h3>
+<p>一般的な英語の文章は、以下のように<code>overflow-wrap</code>に関係なくスペースで自然に折り返されます。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>This is a sample</span></span>
+<span class="line"><span>text for testing</span></span>
+<span class="line"><span>word wrap behavior.</span></span></code></pre>
+<p>しかし、URLやシリアルナンバーのようにスペースなしで続く長い文字列ははみ出しが発生します。この時<code>overflow-wrap</code>が設定されている場合、はみ出す地点で強制的に折り返します。</p>
+<ul>
+<li>overflow-wrapなし</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>https://example.com/very/long/path/to/resource  ← はみ出し！</span></span></code></pre>
+<ul>
+<li>overflow-wrapあり</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>https://example.co</span></span>
+<span class="line"><span>m/very/long/path/t</span></span>
+<span class="line"><span>o/resource</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="break-wordとanywhereの違い">break-wordとanywhereの違い</h2>
+<p><code>overflow-wrap</code>の2つの値である<code>break-word</code>と<code>anywhere</code>は、<strong>見た目の折り返し結果は同一</strong>です。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// break-word</span></span>
+<span class="line"><span>Password:</span></span>
+<span class="line"><span>aB3$kL9mNpQrStUvWx</span></span>
+<span class="line"><span>Yz1234567890abcdef</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// anywhere</span></span>
+<span class="line"><span>Password:</span></span>
+<span class="line"><span>aB3$kL9mNpQrStUvWx</span></span>
+<span class="line"><span>Yz1234567890abcdef</span></span></code></pre>
+<p>違いは**レイアウト計算（min-content）**で発生します。</p>
+<ul>
+<li><strong><code>break-word</code></strong>: min-content計算時に折り返し機会を考慮<strong>しません</strong>。つまり、単語全体の幅が最小幅になります。</li>
+<li><strong><code>anywhere</code></strong>: min-content計算時に折り返し機会を<strong>考慮します</strong>。つまり、1文字幅まで縮小できます。</li>
+</ul>
+<p>MDN公式ドキュメントでもこの違いを明確に説明しています：</p>
+<blockquote><ul>
+<li><code>anywhere</code>: “Soft wrap opportunities introduced by the word break are <strong>considered</strong> when calculating min-content intrinsic sizes.”</li>
+<li><code>break-word</code>: “Soft wrap opportunities introduced by the word break are <strong>NOT considered</strong> when calculating min-content intrinsic sizes.”</li>
+</ul><p>出典: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" rel="nofollow noreferrer" target="_blank">MDN - overflow-wrap</a></p></blockquote>
+<p>この違いこそが、<code>break-word</code>が特定の要素で動作しない原因です。</p>
+<h2 id="break-wordが動作しない原因">break-wordが動作しない原因</h2>
+<p>問題の要素には<code>display: inline-block</code>が適用されていました。</p>
+<p><code>inline-block</code>はコンテンツに合わせてサイズが決定される<strong>intrinsic sizing</strong>要素です。</p>
+<blockquote><ul>
+<li>参考: <a href="https://developer.mozilla.org/en-US/docs/Glossary/Intrinsic_Size" rel="nofollow noreferrer" target="_blank">MDN - Intrinsic Size</a></li>
+</ul></blockquote>
+<p>この要素の幅はmin-contentを基に決定されます。先ほど説明したmin-content計算の違いがここで問題を引き起こします。</p>
+<ul>
+<li>inline-block + break-wordの場合</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>min-content = 単語全体の幅 (260px)</span></span>
+<span class="line"><span>→ 要素が260pxに広がる</span></span>
+<span class="line"><span>→ はみ出しが発生しない</span></span>
+<span class="line"><span>→ break-wordがトリガーされない</span></span>
+<span class="line"><span>→ 折り返しなし！</span></span></code></pre>
+<ul>
+<li>inline-block + anywhereの場合</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>min-content = 1文字幅 (~8px)</span></span>
+<span class="line"><span>→ 親に合わせて幅が制限される</span></span>
+<span class="line"><span>→ はみ出し発生</span></span>
+<span class="line"><span>→ 折り返し発生！</span></span></code></pre>
+<p>まとめると、<code>break-word</code>は「はみ出した時だけ折り返す」のですが、intrinsic sizing要素のmin-content計算に折り返し機会を含めないため、要素自体が広がって<strong>はみ出し自体が発生しなくなります</strong>。結果として折り返しがトリガーされないのです。</p>
+<h3 id="同じ問題が発生するcss属性">同じ問題が発生するCSS属性</h3>
+<p><code>inline-block</code>以外にもintrinsic sizingを使用するCSS属性はすべて同じ問題が発生します。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>CSS属性</th><th>理由</th></tr></thead><tbody><tr><td><code>display: inline-block</code></td><td>コンテンツに合わせて幅決定</td></tr><tr><td><code>display: inline-flex</code></td><td>inline-level flexコンテナ</td></tr><tr><td><code>display: inline-grid</code></td><td>inline-level gridコンテナ</td></tr><tr><td><code>display: table-cell</code></td><td>コンテンツベースの幅</td></tr><tr><td><code>float: left / right</code></td><td>shrink-to-fit</td></tr><tr><td><code>position: absolute / fixed</code>（width未指定）</td><td>shrink-to-fit</td></tr><tr><td><code>width: min-content / fit-content</code></td><td>明示的intrinsic sizing</td></tr></tbody></table>
+<p>これらの属性はすべてコンテンツに合わせて幅が決定されるため、<code>break-word</code>のmin-content計算方式により折り返しが動作しなくなります。</p>
+<blockquote><ul>
+<li>参考: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display/Block_formatting_context" rel="nofollow noreferrer" target="_blank">MDN - Block formatting context</a></li>
+</ul></blockquote>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="推奨するcssの組み合わせ">推奨するCSSの組み合わせ</h2>
+<p>この問題を解決するために、以下の3つのCSSプロパティを合わせて使用することを推奨します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#FFCB6B">overflow-wrap</span><span style="color:#EEFFFF">: anywhere;</span></span>
+<span class="line"><span style="color:#FFCB6B">word-break</span><span style="color:#EEFFFF">: normal;</span></span>
+<span class="line"><span style="color:#FFCB6B">line-break</span><span style="color:#EEFFFF">: strict;</span></span></code></pre>
+<h3 id="各プロパティの役割">各プロパティの役割</h3>
+<p><strong><code>overflow-wrap: anywhere</code></strong></p>
+<p>長い文字列がコンテナをはみ出さないように強制的に折り返します。<code>break-word</code>とは異なり、min-content計算に折り返し機会を含めるため、intrinsic sizing要素でも正常に動作します。</p>
+<p><strong><code>word-break: normal</code></strong></p>
+<p>デフォルトの単語分割ルールを使用します。英語はスペースで、日本語・中国語（CJK）は文字単位で折り返します。デフォルト値なので省略可能ですが、以前<code>word-break: break-word</code>が適用されていた箇所では明示的に追加して意図を明確にすることが望ましいです。</p>
+<p><code>word-break</code>の各値による動作の違いは以下の通りです：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>値</th><th>英語</th><th>日本語・中国語（CJK）</th></tr></thead><tbody><tr><td><code>normal</code></td><td>単語単位の折り返し</td><td>文字単位の折り返し</td></tr><tr><td><code>break-all</code></td><td>文字単位の折り返し</td><td>normalと同じ</td></tr><tr><td><code>keep-all</code></td><td>normalと同じ</td><td>単語単位の折り返し（はみ出し危険）</td></tr></tbody></table>
+<p><strong><code>line-break: strict</code></strong></p>
+<p>日本語の禁則処理を厳格に適用します。行頭に来てはいけない文字（<code>、</code> <code>。</code> <code>ぁ</code> <code>っ</code> <code>々</code> <code>ー</code> など）を制御して、より自然なテキストにします。</p>
+<ul>
+<li>strictなし → 「々」が行頭に来る（不自然）</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>そこは湖のほ</span></span>
+<span class="line"><span>とりで木</span></span>
+<span class="line"><span>々が輝いてい</span></span></code></pre>
+<ul>
+<li>strictあり → 「木々」をまとめて維持（自然）</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>そこは湖の</span></span>
+<span class="line"><span>ほとりで</span></span>
+<span class="line"><span>木々が輝い</span></span></code></pre>
+<p>英語には実質的な影響がないため、一緒に適用しても副作用はありません。</p>
+<blockquote><p>参考:</p><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-break" rel="nofollow noreferrer" target="_blank">MDN - word-break</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-break" rel="nofollow noreferrer" target="_blank">MDN - line-break</a></li>
+</ul></blockquote>
+<h3 id="3つのプロパティの結合効果">3つのプロパティの結合効果</h3>
+<p>英語テキストの場合：</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 入力: "Visit this link: https://example.com/very/long/path/to/resource"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Visit this link:      ← word-break: normal（スペースで折り返し）</span></span>
+<span class="line"><span>https://example.co    ← overflow-wrap: anywhere（はみ出し地点で強制折り返し）</span></span>
+<span class="line"><span>m/very/long/path/t</span></span>
+<span class="line"><span>o/resource</span></span></code></pre>
+<p>日本語テキストの場合：</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 入力: "デバイスID: ABCDEFGHIJKLMNOPQRSTUVWXYZ を確認してください。"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>デバイスID:           ← word-break: normal（CJK文字単位の折り返し）</span></span>
+<span class="line"><span>ABCDEFGHIJKLMNOPQR   ← overflow-wrap: anywhere（英文の強制折り返し）</span></span>
+<span class="line"><span>STUVWXYZを確認し</span></span>
+<span class="line"><span>てください。          ← line-break: strict（「。」が行頭に来ない）</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="anywhereに統一しても問題ないか">anywhereに統一しても問題ないか？</h2>
+<p><code>break-word</code>と<code>anywhere</code>の視覚的な折り返し結果は同一で、違いはmin-content計算のみです。</p>
+<p><code>anywhere</code>に統一した場合、理論的にはflex/grid/tableレイアウトで空間配分が変わる可能性があります。<code>anywhere</code>はmin-contentが1文字幅まで縮小できるため、flex itemが予想より小さく縮小したり、gridトラックが狭くなる場合があり得ます。</p>
+<p>しかし、実務でこれが問題になることはほとんどありません。その理由は以下の通りです：</p>
+<ul>
+<li><strong>min-contentは下限値に過ぎません。</strong> 実際のレンダリング幅は<code>flex-basis</code>、<code>width</code>、<code>grid-template-columns</code>などの他のプロパティによって決定されます。min-contentが小さくなったからといって、要素がすぐにそのサイズに縮小するわけではありません。</li>
+<li><strong>flexレイアウトでは<code>flex-grow</code>/<code>flex-shrink</code>が空間を配分します。</strong> ほとんどのflex itemは<code>flex: 1</code>や固定の<code>flex-basis</code>を持っているため、min-contentの違いは最終的な幅に影響しません。min-contentが関与するのは、itemがこれ以上縮小できない<strong>最小限界</strong>を決定する時だけです。</li>
+<li><strong>gridレイアウトでもトラックサイズは明示的に指定されます。</strong> <code>grid-template-columns: 1fr 2fr</code>や<code>minmax(200px, 1fr)</code>のような宣言が一般的なので、min-contentが変わってもトラックサイズに影響しません。<code>min-content</code>キーワードをトラックサイズとして直接使用する場合にのみ違いが生じますが、これはまれなパターンです。</li>
+<li><strong>テーブルでは<code>table-layout: fixed</code>が一般的です。</strong> 固定レイアウトではセル内容ではなく列幅宣言に基づいてサイズが決定されるため、min-contentの違いは無視されます。<code>table-layout: auto</code>（デフォルト）でのみ影響がある可能性がありますが、その場合でもテキストがはみ出す問題より適切に折り返される方がより良い結果になります。</li>
+</ul>
+<p>むしろ<code>break-word</code>を使用すると、先ほど見たようにintrinsic sizing要素で折り返しが動作しない<strong>実質的なバグ</strong>が発生します。したがって、<strong><code>anywhere</code>に統一するのが安全です。</strong></p>
+<h3 id="word-break-break-wordはなぜ非推奨なのか">word-break: break-wordはなぜ非推奨なのか？</h3>
+<p><code>word-break: break-word</code>はCSS3仕様で正式に定義された値ではありません。もともと<code>overflow-wrap: break-word</code>のレガシーエイリアス（legacy alias）としてブラウザが後方互換性のためにサポートしてきました。<a href="https://drafts.csswg.org/css-text-3/#word-break-property" rel="nofollow noreferrer" target="_blank">CSS Text Level 3仕様</a>でもこの値を非推奨と明記しており、代わりに<code>overflow-wrap: anywhere</code>の使用を推奨しています。</p>
+<h2 id="stylelintカスタムプラグインで自動化">Stylelintカスタムプラグインで自動化</h2>
+<p>このルールを開発者が毎回覚えるのは難しいです。そこでStylelintのカスタムプラグインを作成し、自動で検知してエラーメッセージとともに正しい代替の組み合わせを案内するように設定しました。</p>
+<p>Stylelintの設定については、以下の記事を参考にしてください。</p>
+<ul>
+<li><a href="/ja/code_quality/stylelint/v15/">Stylelint</a></li>
+</ul>
+<h3 id="検知ルール">検知ルール</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>検知対象</th><th>エラーメッセージ</th></tr></thead><tbody><tr><td><code>overflow-wrap: break-word</code></td><td>期待通りに折り返されないケースがあるため非推奨 → 3つのセットを案内</td></tr><tr><td><code>word-break: break-word</code></td><td>非推奨（deprecated） → 3つのセットを案内</td></tr><tr><td><code>overflow-wrap: anywhere</code> + <code>line-break: strict</code>なし</td><td>「<code>line-break: strict</code>を追加してください」と案内</td></tr></tbody></table>
+<h3 id="プラグインコード">プラグインコード</h3>
+<p>プロジェクトルートに<code>plugins/require-strict-wrap-rules.js</code>ファイルを作成し、以下のように記述します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#89DDFF">'</span><span style="color:#C3E88D">use strict</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> stylelint </span><span style="color:#89DDFF">=</span><span style="color:#82AAFF"> require</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">stylelint</span><span style="color:#89DDFF">'</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> ruleName </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">custom/require-strict-wrap-rules</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> REPLACEMENT </span><span style="color:#89DDFF">=</span></span>
+<span class="line"><span style="color:#89DDFF">  '</span><span style="color:#C3E88D">代わりに "overflow-wrap: anywhere; word-break: normal; line-break: strict;" を使用してください。</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> messages </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> stylelint</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">utils</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">ruleMessages</span><span style="color:#EEFFFF">(ruleName</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#F07178">  rejectedOverflowWrapBreakWord</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">    '</span><span style="color:#C3E88D">"overflow-wrap: break-word" は期待通りに折り返されないケースがあるため非推奨です。</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> +</span></span>
+<span class="line"><span style="color:#EEFFFF">    REPLACEMENT</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#F07178">  rejectedWordBreakBreakWord</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">    '</span><span style="color:#C3E88D">"word-break: break-word" は非推奨です。</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> +</span><span style="color:#EEFFFF"> REPLACEMENT</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#F07178">  rejectedLineBreak</span><span style="color:#89DDFF">:</span></span>
+<span class="line"><span style="color:#89DDFF">    '</span><span style="color:#C3E88D">overflow-wrap: anywhere を使用する場合は "line-break: strict" も指定してください</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> +</span></span>
+<span class="line"><span style="color:#89DDFF">    '</span><span style="color:#C3E88D">（日本語の禁則処理のため）。</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">}</span><span style="color:#EEFFFF">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C792EA">const</span><span style="color:#EEFFFF"> ruleFunction </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">primary</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">  return</span><span style="color:#89DDFF"> (</span><span style="color:#EEFFFF;font-style:italic">root</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF;font-style:italic"> result</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#C792EA">    const</span><span style="color:#EEFFFF"> validOptions</span><span style="color:#89DDFF"> =</span><span style="color:#EEFFFF"> stylelint</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">utils</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">validateOptions</span><span style="color:#F07178">(</span><span style="color:#EEFFFF">result</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> ruleName</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#F07178">      actual</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> primary</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#F07178">      possible</span><span style="color:#89DDFF">:</span><span style="color:#F07178"> [</span><span style="color:#FF9CAC">true</span><span style="color:#F07178">]</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">    }</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">    if</span><span style="color:#F07178"> (</span><span style="color:#89DDFF">!</span><span style="color:#EEFFFF">validOptions</span><span style="color:#F07178">) </span><span style="color:#89DDFF;font-style:italic">return</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">    root</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">walkRules</span><span style="color:#F07178">(</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">rule</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#C792EA">      let</span><span style="color:#EEFFFF"> anywhereNode</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> null;</span></span>
+<span class="line"><span style="color:#C792EA">      let</span><span style="color:#EEFFFF"> hasLineBreakStrict</span><span style="color:#89DDFF"> =</span><span style="color:#FF9CAC"> false</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">      rule</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">walkDecls</span><span style="color:#F07178">(</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">decl</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">        if</span><span style="color:#F07178"> (</span><span style="color:#EEFFFF">decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">prop</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">overflow-wrap</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> &#x26;&#x26;</span><span style="color:#EEFFFF"> decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">value</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">break-word</span><span style="color:#89DDFF">'</span><span style="color:#F07178">) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">          stylelint</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">utils</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">report</span><span style="color:#F07178">(</span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#F07178">            message</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> messages</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">rejectedOverflowWrapBreakWord</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#F07178">            node</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> decl</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#EEFFFF">            result</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#EEFFFF">            ruleName</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">          }</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">        }</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">        if</span><span style="color:#F07178"> (</span><span style="color:#EEFFFF">decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">prop</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">word-break</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> &#x26;&#x26;</span><span style="color:#EEFFFF"> decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">value</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">break-word</span><span style="color:#89DDFF">'</span><span style="color:#F07178">) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">          stylelint</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">utils</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">report</span><span style="color:#F07178">(</span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#F07178">            message</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> messages</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">rejectedWordBreakBreakWord</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#F07178">            node</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> decl</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#EEFFFF">            result</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#EEFFFF">            ruleName</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">          }</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">        }</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">        if</span><span style="color:#F07178"> (</span><span style="color:#EEFFFF">decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">prop</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">overflow-wrap</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> &#x26;&#x26;</span><span style="color:#EEFFFF"> decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">value</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">anywhere</span><span style="color:#89DDFF">'</span><span style="color:#F07178">) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">          anywhereNode</span><span style="color:#89DDFF"> =</span><span style="color:#EEFFFF"> decl</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">        }</span></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">        if</span><span style="color:#F07178"> (</span><span style="color:#EEFFFF">decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">prop</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">line-break</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF"> &#x26;&#x26;</span><span style="color:#EEFFFF"> decl</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">value</span><span style="color:#89DDFF"> ===</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">strict</span><span style="color:#89DDFF">'</span><span style="color:#F07178">) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">          hasLineBreakStrict</span><span style="color:#89DDFF"> =</span><span style="color:#FF9CAC"> true</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">        }</span></span>
+<span class="line"><span style="color:#89DDFF">      }</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF;font-style:italic">      if</span><span style="color:#F07178"> (</span><span style="color:#EEFFFF">anywhereNode</span><span style="color:#89DDFF"> &#x26;&#x26;</span><span style="color:#89DDFF"> !</span><span style="color:#EEFFFF">hasLineBreakStrict</span><span style="color:#F07178">) </span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#EEFFFF">        stylelint</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">utils</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">report</span><span style="color:#F07178">(</span><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#F07178">          message</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> messages</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">rejectedLineBreak</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#F07178">          node</span><span style="color:#89DDFF">:</span><span style="color:#EEFFFF"> anywhereNode</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#EEFFFF">          result</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#EEFFFF">          ruleName</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#89DDFF">        }</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">      }</span></span>
+<span class="line"><span style="color:#89DDFF">    }</span><span style="color:#F07178">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#89DDFF">  };</span></span>
+<span class="line"><span style="color:#89DDFF">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EEFFFF">ruleFunction</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">ruleName </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> ruleName</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#EEFFFF">ruleFunction</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">messages </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> messages</span><span style="color:#89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#89DDFF">module.exports</span><span style="color:#89DDFF"> =</span><span style="color:#EEFFFF"> stylelint</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">createPlugin</span><span style="color:#EEFFFF">(ruleName</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> ruleFunction)</span><span style="color:#89DDFF">;</span></span></code></pre>
+<h3 id="stylelint設定">Stylelint設定</h3>
+<p>プロジェクトルートの<code>.stylelintrc.json</code>ファイルにプラグインとルールを追加します。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#89DDFF">{</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">plugins</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">./plugins/require-strict-wrap-rules.js</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">],</span></span>
+<span class="line"><span style="color:#89DDFF">  "</span><span style="color:#C792EA">rules</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> {</span></span>
+<span class="line"><span style="color:#89DDFF">    "</span><span style="color:#FFCB6B">custom/require-strict-wrap-rules</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> true</span></span>
+<span class="line"><span style="color:#89DDFF">  }</span></span>
+<span class="line"><span style="color:#89DDFF">}</span></span></code></pre>
+<h3 id="実行結果">実行結果</h3>
+<p>このルールを適用してStylelintを実行すると、以下のようなエラーメッセージが出力されます。</p>
+<ul>
+<li>overflow-wrap: break-word使用時</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">✖</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">overflow-wrap: break-word</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D"> は期待通りに折り返されないケースがあるため非推奨です。</span></span>
+<span class="line"><span style="color:#FFCB6B">  代わりに</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">overflow-wrap: anywhere; word-break: normal; line-break: strict;</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D"> を使用してください。</span></span></code></pre>
+<ul>
+<li>word-break: break-word使用時</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">✖</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">word-break: break-word</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D"> は非推奨です。</span></span>
+<span class="line"><span style="color:#FFCB6B">  代わりに</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">overflow-wrap: anywhere; word-break: normal; line-break: strict;</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D"> を使用してください。</span></span></code></pre>
+<ul>
+<li>overflow-wrap: anywhereでline-break: strict欠落時</li>
+</ul>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">✖</span><span style="color:#C3E88D"> overflow-wrap:</span><span style="color:#C3E88D"> anywhere</span><span style="color:#C3E88D"> を使用する場合は</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">line-break: strict</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D"> も指定してください</span></span>
+<span class="line"><span style="color:#FFCB6B">  （日本語の禁則処理のため）。</span></span></code></pre>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="まとめ">まとめ</h2>
+<p>CSSの折り返しプロパティは似ているように見えますが、微妙な違いがあり意図通りに動作しない場合があります。この記事で取り上げた内容をまとめると以下の通りです。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>非推奨</th><th>推奨</th></tr></thead><tbody><tr><td><code>word-break: break-word</code></td><td><code>overflow-wrap: anywhere</code></td></tr><tr><td><code>overflow-wrap: break-word</code></td><td><code>word-break: normal</code><br><code>line-break: strict</code></td></tr></tbody></table>
+<ul>
+<li><code>overflow-wrap: anywhere</code>は<code>break-word</code>とは異なり、intrinsic sizing要素（<code>inline-block</code>、<code>inline-flex</code>、<code>float</code>など）でも正常に動作します。</li>
+<li><code>word-break: normal</code>は英語と日本語（CJK）の両方で最も自然な折り返しを提供します。</li>
+<li><code>line-break: strict</code>は日本語の禁則処理を厳格に適用してテキスト品質を高めます。</li>
+<li>Stylelintカスタムプラグインでこのルールを自動化すれば、開発者が毎回覚える必要がなくなります。</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" rel="nofollow noreferrer" target="_blank">MDN - overflow-wrap</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-break" rel="nofollow noreferrer" target="_blank">MDN - word-break</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-break" rel="nofollow noreferrer" target="_blank">MDN - line-break</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/Intrinsic_Size" rel="nofollow noreferrer" target="_blank">MDN - Intrinsic Size</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display/Block_formatting_context" rel="nofollow noreferrer" target="_blank">MDN - Block Formatting Context</a></li>
+<li><a href="https://drafts.csswg.org/css-text-3/#overflow-wrap-property" rel="nofollow noreferrer" target="_blank">W3C - CSS Text Level 3: overflow-wrap</a></li>
+</ul>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" width="27" height="28" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 私のブログが役に立ちましたか？下にコメントを残してください。それは私にとって大きな大きな力になります！ </code> </p>  <h2>アプリ広報</h2> <div class="book-greeting"> 今見てるブログを作成た<code class="highlighter-rouge">Deku</code>が開発したアプリを使ってみてください。<br /><code class="highlighter-rouge">Deku</code>が開発したアプリはFlutterで開発されています。<br /><br />興味がある方はアプリをダウンロードしてアプリを使ってくれると本当に助かります。 <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="子供向け単語勉強アプリ, ブラブー" width="60" height="60"> <div> <div class="app_description">子供向け単語勉強アプリ</div> <div class="app_title">ブラブー</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik12/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik12.png" alt="TOPIK試験向け単語アプリ, TOPIK単語1/2" width="60" height="60"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語1/2</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik34/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik34.png" alt="TOPIK試験向け単語アプリ, TOPIK単語3/4" width="60" height="60"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語3/4</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/topik56/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/topik56.png" alt="TOPIK試験向け単語アプリ, TOPIK単語5/6" width="60" height="60"> <div> <div class="app_description">TOPIK試験向け単語アプリ</div> <div class="app_title">TOPIK単語5/6</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/kantanbenkyo/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/kantanbenkyo.png" alt="韓国語単語アプリ, カンタン勉強" width="60" height="60"> <div> <div class="app_description">韓国語単語アプリ</div> <div class="app_title">カンタン勉強</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwordsjp/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwordsjp.png" alt="TOEIC試験向け単語アプリ, TOEIC英語単語帳" width="60" height="60"> <div> <div class="app_description">TOEIC試験向け単語アプリ</div> <div class="app_title">TOEIC英語単語帳</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/centerenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/centerenglish.png" alt="センター試験向け単語アプリ, センター英語単語" width="60" height="60"> <div> <div class="app_description">センター試験向け単語アプリ</div> <div class="app_title">センター英語単語</div> </div> </a> </div> </div> </div>  </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"word-break: break-wordは非推奨です — overflow-wrap: anywhereに切り替えるべき理由\",\"description\":\"word-break: break-wordはCSS仕様で非推奨(deprecated)となったレガシー値です。代替の overflow-wrap: break-wordもintrinsic sizing要素では動作しない落とし穴があります。正しい 代替の組み合わせ(overflow-wrap: anywhere + word-break: normal + line-break: strict)と Stylelintカスタムプラグインによる自動化方法を共有します。\",\"url\":\"/web/css-overflow-wrap/\",\"date\":\"2026-03-18\",\"category\":\"web\"},{\"title\":\"[最適化] lodash Tree Shakingでバンドルサイズを82%削減：547KBから97KBへ\",\"description\":\"モノレポ環境でlodashのimport方式を変更し、バンドルサイズを547KBから97KBへ約82% 削減した経験を共有します。バンドル分析環境の構築からESLintルールによる再発防止までの プロセスを紹介します。\",\"url\":\"/web/lodash-tree-shaking/\",\"date\":\"2026-02-28\",\"category\":\"web\"},{\"title\":\"[Web] Lighthouseパフォーマンス最適化総合ガイド\",\"description\":\"Astroブログの Lighthouse パフォーマンススコアを改善するために適用した画像最適化、CSS最適化、 ウェブフォント最適化、アクセシビリティ改善などの方法を共有します。\",\"url\":\"/web/lighthouse_optimization/\",\"date\":\"2026-02-14\",\"category\":\"web\"},{\"title\":\"[Web] avifとwebpフォーマットを使用して画像を最適化する\",\"description\":\"Pythonを使用してavifとwebpフォーマットの画像を生成し、LighthouseのServe images in next-gen formats問題を解決する方法について説明します。\",\"url\":\"/web/optimization_images/\",\"date\":\"2023-03-18\",\"category\":\"web\"},{\"title\":\"[Web] Google Web Fontのロードの最適化\",\"description\":\"ウェブページでGoogle Web Fontを使う時、フォントをロードする部分がウェブページのせいのに影響されないように最適化する方法について説明します。\",\"url\":\"/web/optimization_load_google_font/\",\"date\":\"2023-03-12\",\"category\":\"web\"}]";
+const searchPageUrl = "/search/";
+const searchCategory = "web";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+            var currentPage = 1;
+            var totalPages = 1;
+
+            function renderPagination() {
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              if (totalPages <= 1) return;
+
+              var nextBtn = paginationContainer.querySelector('.page-item--next');
+              var pages = [];
+              pages.push(1);
+              for (var p = currentPage - 2; p <= currentPage + 2; p++) {
+                if (p > 1 && p < totalPages) pages.push(p);
+              }
+              pages.push(totalPages);
+
+              var prev = 0;
+              for (var i = 0; i < pages.length; i++) {
+                if (pages[i] - prev > 1) {
+                  var dots = document.createElement('li');
+                  dots.className = 'page-item page-item--link disabled';
+                  dots.innerHTML = '<div class="page-link">\u2026</div>';
+                  paginationContainer.insertBefore(dots, nextBtn);
+                }
+                var li = document.createElement('li');
+                li.className = 'page-item page-item--link' + (pages[i] === currentPage ? ' active' : '');
+                li.innerHTML = '<div class="page-link" data-page="' + pages[i] + '">' + pages[i] + '</div>';
+                paginationContainer.insertBefore(li, nextBtn);
+                prev = pages[i];
+              }
+            }
+
+            function makePostList(data) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + active;
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                if (active === 'active') {
+                  currentPage = pageNum;
+                }
+              });
+
+              totalPages = Math.ceil(data.length / 8) || 1;
+              if (totalPages > 1) {
+                document.querySelector('.post-list-container .footer').style.display = 'flex';
+              }
+              renderPagination();
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+              if (link.closest('.disabled')) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+
+              if (link.closest('.page-item--previous')) {
+                if (currentPage > 1) currentPage--;
+              } else if (link.closest('.page-item--next')) {
+                if (currentPage < totalPages) currentPage++;
+              } else {
+                currentPage = parseInt(link.getAttribute('data-page')) || 1;
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + currentPage);
+              if (targetPage) targetPage.classList.add('active');
+
+              renderPagination();
+            });
+
+            // Redirect search to dedicated search page
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  var query = this.value.trim();
+                  var params = [];
+                  if (query) params.push('q=' + encodeURIComponent(query));
+                  if (searchCategory) params.push('category=' + encodeURIComponent(searchCategory));
+                  window.location.href = searchPageUrl + (params.length ? '?' + params.join('&') : '');
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=word-break%3A%20break-word%E3%81%AF%E9%9D%9E%E6%8E%A8%E5%A5%A8%E3%81%A7%E3%81%99%20%E2%80%94%20overflow-wrap%3A%20anywhere%E3%81%AB%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%82%8B%E3%81%B9%E3%81%8D%E7%90%86%E7%94%B1&url=https%3A%2F%2Fdeku.posstree.com%2Fweb%2Fcss-overflow-wrap%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fweb%2Fcss-overflow-wrap%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script> <script>
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          var path = window.location.pathname;
+          var searchPath = '/search/';
+          if (path.indexOf('/ko/') >= 0) searchPath = '/ko/search/';
+          else if (path.indexOf('/en/') >= 0) searchPath = '/en/search/';
+          window.location.href = searchPath;
+        }
+      });
+    </script> </body> </html>
