@@ -125,3 +125,36 @@ h6,
 .app-stores img {
   height: 45px;
 }
+
+/* Support Section */
+.support-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.support-card:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.support-card-inner {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.support-card-inner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.support-card-inner .text-primary {
+  color: #ec174f !important;
+}
+
+.support-card-inner p {
+  color: #666;
+  margin-bottom: 0;
+}
