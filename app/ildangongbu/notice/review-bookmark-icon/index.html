@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>v6.11.2 즐겨찾기 아이콘 표시 방식 개선 - JLPT 일본어 단어 공부, 일단 공부</title>
-    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.11.2 업데이트 안내. 즐겨찾기 아이콘이 추가된 카테고리 수에 따라 직관적으로 변경되도록 개선되었습니다." />
+    <title>v6.11.3 복습 화면 즐겨찾기 아이콘 표시 방식 통일 - JLPT 일본어 단어 공부, 일단 공부</title>
+    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.11.3 업데이트 안내. 복습(퀴즈) 화면에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다." />
     <meta name="author" content="dev.yakuza@gmail.com" />
-    <link rel="canonical" href="/app/ildangongbu/notice/bookmark-icon-improvement/" />
-    <meta property="og:url" content="/app/ildangongbu/notice/bookmark-icon-improvement/" />
+    <link rel="canonical" href="/app/ildangongbu/notice/review-bookmark-icon/" />
+    <meta property="og:url" content="/app/ildangongbu/notice/review-bookmark-icon/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="v6.11.2 즐겨찾기 아이콘 표시 방식 개선 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta property="og:title" content="v6.11.3 복습 화면 즐겨찾기 아이콘 표시 방식 통일 - JLPT 일본어 단어 공부, 일단 공부" />
     <meta property="og:locale" content="ko_KR" />
-    <meta property="og:description" content="즐겨찾기 아이콘이 추가된 카테고리 수에 따라 직관적으로 변경되도록 개선되었습니다." />
+    <meta property="og:description" content="복습(퀴즈) 화면에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다." />
     <meta property="og:site_name" content="JLPT 일본어 단어 공부, 일단 공부" />
     <meta property="og:image" content="/app/ildangongbu/assets/images/share.png" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="v6.11.2 즐겨찾기 아이콘 표시 방식 개선 - JLPT 일본어 단어 공부, 일단 공부" />
-    <meta name="twitter:description" content="즐겨찾기 아이콘이 추가된 카테고리 수에 따라 직관적으로 변경되도록 개선되었습니다." />
+    <meta name="twitter:title" content="v6.11.3 복습 화면 즐겨찾기 아이콘 표시 방식 통일 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta name="twitter:description" content="복습(퀴즈) 화면에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다." />
     <meta name="twitter:image" content="/app/ildangongbu/assets/images/share.png" />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125408913-1"></script>
@@ -47,17 +47,17 @@
       .notice-detail .notice-title { font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem; }
       .notice-detail .notice-body { color: #555; font-size: 1rem; line-height: 1.9; }
       .notice-detail .notice-body h5 { font-weight: 700; color: #333; margin-top: 2rem; margin-bottom: 1rem; }
-      .icon-guide { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0; }
-      .icon-guide-item { flex: 1; min-width: 200px; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 1.5rem; text-align: center; }
-      .icon-guide-item .icon-preview { margin-bottom: 1rem; }
-      .icon-guide-item .icon-preview img { width: 40px; height: 40px; }
-      .icon-guide-item .icon-label { font-weight: 700; color: #333; font-size: 0.95rem; margin-bottom: 0.5rem; }
-      .icon-guide-item .icon-desc { color: #888; font-size: 0.85rem; line-height: 1.5; }
+      .notice-detail .notice-body a { color: #ec174f; text-decoration: underline; }
+      .notice-detail .notice-body a:hover { color: #c01040; }
+      .screen-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+      .screen-table th { background-color: #eee; padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: #333; border: 1px solid #ddd; }
+      .screen-table td { padding: 0.75rem 1rem; border: 1px solid #ddd; }
+      .check-icon { color: #2e7d32; }
       .notice-nav { max-width: 800px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; }
       .notice-nav a { color: #ec174f; text-decoration: none; font-weight: 600; }
       .notice-nav a:hover { text-decoration: underline; }
     </style>
-  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/bookmark-icon-improvement/">
+  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/review-bookmark-icon/">
 </head>
 
   <body>
@@ -88,41 +88,39 @@
         <div class="notice-detail">
           <div class="notice-meta">
             <span class="notice-badge update">업데이트</span>
-            2026.03.27
+            2026.03.28
           </div>
-          <h3 class="notice-title">v6.11.2 - 즐겨찾기 아이콘 표시 방식 개선</h3>
+          <h3 class="notice-title">v6.11.3 - 복습 화면 즐겨찾기 아이콘 표시 방식 통일</h3>
           <div class="notice-body">
             <p>안녕하세요, 「JLPT 일본어 단어 공부, 일단 공부」 개발자 Deku입니다.</p>
-            <p>v6.11.2 업데이트를 통해 단어 학습 화면의 <strong>즐겨찾기 아이콘 표시 방식</strong>이 개선되었습니다.</p>
+            <p>v6.11.3 업데이트를 통해 <strong>복습(퀴즈) 화면</strong>에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다.</p>
 
-            <h5>변경 이유</h5>
-            <p>기존에는 즐겨찾기/카테고리에 추가된 수를 숫자 badge로 표시하고 있었습니다. 하지만 학습 중에 숫자가 눈에 들어와 <strong>공부에 방해가 된다</strong>는 피드백을 받았습니다. 이번 업데이트에서는 숫자 badge를 제거하고, 아이콘 형태만으로 상태를 <strong>직관적으로 표현</strong>하도록 변경하였습니다.</p>
+            <h5>변경 내용</h5>
+            <p><a href="/app/ildangongbu/notice/bookmark-icon-improvement/">v6.11.2</a>에서 단어 학습 화면의 즐겨찾기 아이콘을 숫자 badge 대신 아이콘 형태로 개선하였으나, 복습(퀴즈) 화면에는 기존의 숫자 badge 방식이 그대로 남아있었습니다.</p>
+            <p>이번 업데이트를 통해 복습 화면에서도 동일한 아이콘 표시 방식과 조작 방식이 적용되어, 앱 전체에서 <strong>일관된 사용 경험</strong>을 제공합니다.</p>
 
-            <h5>아이콘 안내</h5>
-
-            <div class="icon-guide">
-              <div class="icon-guide-item">
-                <div class="icon-preview">
-                  <img src="images/bookmark_border.svg" alt="빈 북마크 아이콘" />
-                </div>
-                <div class="icon-label">빈 북마크</div>
-                <div class="icon-desc">즐겨찾기 / 카테고리에<br />추가된 단어가 없는 경우</div>
-              </div>
-              <div class="icon-guide-item">
-                <div class="icon-preview">
-                  <img src="images/bookmark.svg" alt="채워진 북마크 아이콘" />
-                </div>
-                <div class="icon-label">채워진 북마크</div>
-                <div class="icon-desc">즐겨찾기 / 카테고리에<br />추가된 단어가 1개인 경우</div>
-              </div>
-              <div class="icon-guide-item">
-                <div class="icon-preview">
-                  <img src="images/bookmarks.svg" alt="겹친 북마크 아이콘" />
-                </div>
-                <div class="icon-label">겹친 북마크</div>
-                <div class="icon-desc">즐겨찾기 / 카테고리에<br />추가된 단어가 2개 이상인 경우</div>
-              </div>
-            </div>
+            <table class="screen-table">
+              <tr>
+                <th>기능</th>
+                <th>단어 학습 화면</th>
+                <th>복습(퀴즈) 화면</th>
+              </tr>
+              <tr>
+                <td>아이콘 표시 방식 (빈/채워진/겹친 북마크)</td>
+                <td class="check-icon"><i class="fas fa-check"></i> v6.11.2 적용</td>
+                <td class="check-icon"><i class="fas fa-check"></i> v6.11.3 적용</td>
+              </tr>
+              <tr>
+                <td>탭 → 즐겨찾기 추가/해제</td>
+                <td class="check-icon"><i class="fas fa-check"></i> v6.11.1 적용</td>
+                <td class="check-icon"><i class="fas fa-check"></i> v6.11.3 적용</td>
+              </tr>
+              <tr>
+                <td>길게 누르기 → 카테고리에 추가</td>
+                <td class="check-icon"><i class="fas fa-check"></i> v6.11.1 적용</td>
+                <td class="check-icon"><i class="fas fa-check"></i> v6.11.3 적용</td>
+              </tr>
+            </table>
 
             <h5>그 외 변경 사항</h5>
             <ul>
@@ -135,8 +133,8 @@
         </div>
 
         <div class="notice-nav">
-          <a href="../review-bookmark-icon/">이전 글<i class="fas fa-chevron-left ml-1"></i></a>
-          <a href="../bookmark-long-press/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
+          <span></span>
+          <a href="../bookmark-icon-improvement/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
         </div>
 
       </div>
