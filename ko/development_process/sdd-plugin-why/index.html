@@ -47,7 +47,14 @@ Github Sponsor
 <li><a href="#claude%EB%A1%9C-%EC%96%B4%EB%94%94%EA%B9%8C%EC%A7%80-%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C">Claude로 어디까지 할 수 있을까</a></li>
 <li><a href="#%EC%BD%94%EB%93%9C-%EC%9E%90%EB%8F%99%EC%83%9D%EC%84%B1-%EB%8F%84%EA%B5%AC%EC%97%90%EC%84%9C-sdd%EB%A1%9C">코드 자동생성 도구에서 SDD로</a></li>
 <li><a href="#%ED%95%B4%EA%B2%B0-%EB%B0%A9%ED%96%A5">해결 방향</a></li>
-<li><a href="#%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EC%84%A4%EA%B3%84">프로세스 설계</a></li>
+<li><a href="#%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EC%84%A4%EA%B3%84">프로세스 설계</a>
+<ul>
+<li><a href="#1-%EA%B0%9C%EB%B0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%B6%84%EC%84%9D">1. 개발 프로세스 분석</a></li>
+<li><a href="#2-input%EA%B3%BC-output-%EC%A0%95%EC%9D%98">2. Input과 Output 정의</a></li>
+<li><a href="#3-ai%EC%99%80-%EC%82%AC%EB%9E%8C%EC%9D%98-%EA%B0%9C%EB%B0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EC%B6%94%EA%B0%80">3. AI와 사람의 개발 프로세스 추가</a></li>
+<li><a href="#4-input%EA%B3%BC-output-%EA%B4%80%EB%A6%AC">4. Input과 Output 관리</a></li>
+</ul>
+</li>
 <li><a href="#%EC%99%84%EB%A3%8C">완료</a></li>
 </ul>
 </div>
@@ -121,26 +128,364 @@ Github Sponsor
 <li><strong>팀 전체가 동일한 프로세스</strong>를 따를 수 있습니다. 플러그인을 설치하기만 하면 됩니다.</li>
 </ul>
 <h2 id="프로세스-설계">프로세스 설계</h2>
-<p>구체적인 프로세스를 설계하기 위해, 먼저 일반적인 개발 프로세스를 분석했습니다.</p>
+<h3 id="1-개발-프로세스-분석">1. 개발 프로세스 분석</h3>
+<p>구체적인 프로세스를 설계하기 위해, 먼저 우리가 개발할 때 거치는 단계를 분석할 필요가 있다고 생각했습니다. 그래서 일반적인 개발 프로세스를 Claude에게 물어보았습니다.</p>
 <ol>
-<li>요구사항 분석</li>
-<li>설계</li>
-<li>구현</li>
-<li>코드 리뷰</li>
-<li>테스트</li>
-<li>배포</li>
-<li>모니터링</li>
+<li>요구사항 분석 (Requirements Analysis)</li>
+<li>설계 (Design)</li>
+<li>구현 (Implementation)</li>
+<li>코드 리뷰 (Code Review)</li>
+<li>테스트 (Testing)</li>
+<li>배포 (Merge &#x26; Deploy)</li>
+<li>모니터링 (Monitoring)</li>
 </ol>
-<p>이 중 배포와 모니터링은 AI와 함께하는 작업이 아니므로 제외하고, 나머지 단계를 AI와 사람이 협업하는 구조로 만들기로 했습니다. 또한 코드 리뷰는 구현 단계에 통합하여, 최종적으로 <strong>4단계 프로세스</strong>로 정리했습니다.</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>1. 요구사항 분석 (What/Why)</span></span>
-<span class="line"><span>2. 설계 (How)</span></span>
-<span class="line"><span>3. 구현 (TDD + 코드 리뷰)</span></span>
-<span class="line"><span>4. 테스트 (E2E/QA)</span></span></code></pre>
-<p>각 단계에서 AI가 작업하고, AI가 자체 리뷰하고, 사람이 최종 확인하는 <strong>이중 검증 구조</strong>를 기본 패턴으로 잡았습니다.</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>① 입력 → ② AI 작업 → ③ AI 자체 리뷰 → ④ 사용자 확인 → 다음 단계</span></span></code></pre>
+<p>이 중 배포와 모니터링은 AI와 함께하는 작업이 아니라고 판단하여, 이 두 단계를 제외한 나머지 프로세스를 생성 AI와 함께 작업할 수 있도록 만들고자 했습니다.</p>
+<h3 id="2-input과-output-정의">2. Input과 Output 정의</h3>
+<p>다음으로 각 프로세스에서 생성 AI가 작업하기 좋은 Input과 Output을 정의했습니다. 구현 단계에서는 코드의 정확도와 품질을 위해 TDD(Test Driven Development)로 진행하기로 했습니다.</p>
+<ol>
+<li><strong>요구사항 분석</strong> (Requirements Analysis)
+<ul>
+<li>Input: 요구사항 정의서</li>
+<li>Output: 요구사항 분석 결과</li>
+</ul>
+</li>
+<li><strong>설계</strong> (Design)
+<ul>
+<li>Input: 요구사항 분석 결과</li>
+<li>Output: 설계서</li>
+</ul>
+</li>
+<li><strong>구현</strong> (Implementation: TDD)
+<ul>
+<li>Input: 설계서</li>
+<li>Output: 코드</li>
+</ul>
+</li>
+<li><strong>코드 리뷰</strong> (Code Review)
+<ul>
+<li>Input: 코드</li>
+<li>Output: Pull Request</li>
+</ul>
+</li>
+<li><strong>테스트</strong> (Testing)
+<ul>
+<li>Input: 요구사항 분석 결과, 설계서, 코드</li>
+<li>Output: E2E 테스트 코드, QA 체크리스트</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-ai와-사람의-개발-프로세스-추가">3. AI와 사람의 개발 프로세스 추가</h3>
+<p>Input에서 Output까지 수행해야 하는 AI와 사람의 세부 프로세스를 추가했습니다.</p>
+<p><strong>1) 요구사항 분석</strong> (Requirements Analysis)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>순서</th><th>주체</th><th>작업</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>요구사항 정의서</td></tr><tr><td>1</td><td>AI</td><td>요구사항 분석</td></tr><tr><td>2</td><td>AI(Self)</td><td>분석 결과 자체 리뷰</td></tr><tr><td>3</td><td>AI(Agent)</td><td>분석 결과 에이전트 리뷰</td></tr><tr><td>4</td><td>사람</td><td>분석 결과 검토</td></tr><tr><td>Output</td><td>-</td><td>요구사항 분석 결과</td></tr></tbody></table>
+<p><strong>2) 설계</strong> (Design)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>순서</th><th>주체</th><th>작업</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>요구사항 분석 결과</td></tr><tr><td>1</td><td>AI</td><td>설계</td></tr><tr><td>2</td><td>AI(Self)</td><td>설계 자체 리뷰</td></tr><tr><td>3</td><td>AI(Agent)</td><td>설계 에이전트 리뷰</td></tr><tr><td>4</td><td>사람</td><td>설계 검토</td></tr><tr><td>Output</td><td>-</td><td>설계서</td></tr></tbody></table>
+<p><strong>3) 구현</strong> (Implementation: TDD)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>순서</th><th>주체</th><th>작업</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>설계서</td></tr><tr><td><strong>테스트 및 구현 계획</strong></td><td></td><td></td></tr><tr><td>1</td><td>AI</td><td>테스트 및 구현 계획 작성</td></tr><tr><td>2</td><td>AI(Self)</td><td>계획 자체 리뷰</td></tr><tr><td>3</td><td>AI(Agent)</td><td>계획 에이전트 리뷰</td></tr><tr><td>4</td><td>사람</td><td>계획 검토</td></tr><tr><td><strong>RED: 실패하는 테스트 작성</strong></td><td></td><td></td></tr><tr><td>5</td><td>AI</td><td>테스트 코드 작성</td></tr><tr><td>6</td><td>AI(Self)</td><td>테스트 코드 자체 리뷰</td></tr><tr><td>7</td><td>AI(Agent)</td><td>테스트 코드 에이전트 리뷰</td></tr><tr><td>8</td><td>사람</td><td>테스트 코드 검토</td></tr><tr><td><strong>GREEN: 테스트를 통과하는 코드 작성</strong></td><td></td><td></td></tr><tr><td>9</td><td>AI</td><td>구현 코드 작성</td></tr><tr><td>10</td><td>AI(Self)</td><td>코드 자체 리뷰</td></tr><tr><td>11</td><td>AI(Agent)</td><td>코드 에이전트 리뷰</td></tr><tr><td>12</td><td>사람</td><td>코드 검토</td></tr><tr><td><strong>REFACTOR: 리팩토링</strong></td><td></td><td></td></tr><tr><td>13</td><td>AI</td><td>리팩토링 수행</td></tr><tr><td>14</td><td>AI(Self)</td><td>코드 자체 리뷰</td></tr><tr><td>15</td><td>AI(Agent)</td><td>코드 에이전트 리뷰</td></tr><tr><td>16</td><td>사람</td><td>코드 검토</td></tr><tr><td>Output</td><td>-</td><td>코드</td></tr></tbody></table>
+<p><strong>4) 코드 리뷰</strong> (Code Review)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>순서</th><th>주체</th><th>작업</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>코드</td></tr><tr><td>1</td><td>AI(Self)</td><td>코드 자체 리뷰</td></tr><tr><td>2</td><td>AI(Agent)</td><td>코드 에이전트 리뷰</td></tr><tr><td>3</td><td>사람</td><td>코드 리뷰</td></tr><tr><td>4</td><td>사람</td><td>PR 생성 &#x26; Merge</td></tr><tr><td>Output</td><td>-</td><td>Merged Pull Request</td></tr></tbody></table>
+<p><strong>5) 테스트</strong> (Testing)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>순서</th><th>주체</th><th>작업</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>요구사항 분석 결과, 설계서, 코드</td></tr><tr><td>1</td><td>AI</td><td>요구사항과 설계서, 코드를 기반으로 E2E 테스트 코드 작성</td></tr><tr><td>2</td><td>AI</td><td>수동 테스트 체크리스트 작성</td></tr><tr><td>3</td><td>AI</td><td>작성 내용 리뷰</td></tr><tr><td>4</td><td>사람</td><td>작성 내용 검토</td></tr><tr><td>5</td><td>사람</td><td>수동 테스트 실행</td></tr><tr><td>Output</td><td>-</td><td>E2E 테스트 코드, QA 체크리스트</td></tr></tbody></table>
+<p>각 단계에서 공통적으로 적용된 패턴은 <strong>AI가 작업하고, AI가 스스로 리뷰하고, 별도 AI 에이전트가 리뷰하고, 사람이 최종 확인하는 다중 검증 구조</strong>입니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>① Input → ② AI 작업 → ③ AI 자체 리뷰 → ④ AI 에이전트 리뷰 → ⑤ 사용자 확인 → Output</span></span></code></pre>
+<h3 id="4-input과-output-관리">4. Input과 Output 관리</h3>
+<p>Input과 Output을 어떻게 관리할지 고민했습니다.</p>
+<p>Claude는 대화가 길어지면 컨텍스트를 압축하기 때문에, 정확도가 떨어지는 문제가 있습니다. 그래서 각 단계의 산출물을 문서로 확실하게 관리할 필요가 있었습니다.</p>
+<p>처음에는 Markdown 파일로 Git 레포지토리에서 관리하는 것을 고려했지만, <strong>GitHub Issue로 관리하는 방식</strong>을 선택했습니다. 이유는 다음과 같습니다.</p>
+<ul>
+<li>파일로 관리하면 작은 수정에도 매번 커밋이 필요합니다.</li>
+<li>일시적인 대응이나 버그 수정 등, 작업이 끝난 후에도 파일이 레포지토리에 계속 남게 됩니다.</li>
+<li>Issue는 작업이 끝나면 닫을 수 있어, 완료된 작업과 진행 중인 작업을 명확하게 구분할 수 있습니다.</li>
+</ul>
 <h2 id="완료">완료</h2>
 <p>이번 포스트에서는 AI 코딩 도구의 함정, 기존 프로세스의 한계, 그리고 직접 AI와 협업해본 경험을 바탕으로 SDD Plugin을 만들게 된 배경을 정리했습니다.</p>
 <p>핵심은 “AI가 빠르게 코드를 작성하는 것”이 아니라, **“AI가 올바른 방향으로 작업하도록 프로세스를 설계하는 것”**이었습니다.</p>
+<p>이번 포스트에서 정리한 개발 프로세스 분석과 설계를 바탕으로, 실제로 Claude Code용 SDD Plugin을 제작했습니다. 다음 포스트에서는 완성된 플러그인의 전체 구조와 사용법을 소개합니다.</p>
 <p>다음 포스트: <a href="/development_process/sdd-plugin-overview/">SDD Plugin의 전체 구조와 사용법</a></p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>

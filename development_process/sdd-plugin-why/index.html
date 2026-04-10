@@ -47,7 +47,14 @@ Github Sponsor
 <li><a href="#claude%E3%81%A7%E3%81%A9%E3%81%93%E3%81%BE%E3%81%A7%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%8B">Claudeでどこまでできるか</a></li>
 <li><a href="#%E3%82%B3%E3%83%BC%E3%83%89%E8%87%AA%E5%8B%95%E7%94%9F%E6%88%90%E3%83%84%E3%83%BC%E3%83%AB%E3%81%8B%E3%82%89sdd%E3%81%B8">コード自動生成ツールからSDDへ</a></li>
 <li><a href="#%E8%A7%A3%E6%B1%BA%E3%81%AE%E6%96%B9%E5%90%91%E6%80%A7">解決の方向性</a></li>
-<li><a href="#%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E8%A8%AD%E8%A8%88">プロセス設計</a></li>
+<li><a href="#%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E8%A8%AD%E8%A8%88">プロセス設計</a>
+<ul>
+<li><a href="#1-%E9%96%8B%E7%99%BA%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E5%88%86%E6%9E%90">1. 開発プロセス分析</a></li>
+<li><a href="#2-input%E3%81%A8output%E3%81%AE%E5%AE%9A%E7%BE%A9">2. InputとOutputの定義</a></li>
+<li><a href="#3-ai%E3%81%A8%E4%BA%BA%E3%81%AE%E9%96%8B%E7%99%BA%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E8%BF%BD%E5%8A%A0">3. AIと人の開発プロセス追加</a></li>
+<li><a href="#4-input%E3%81%A8output%E3%81%AE%E7%AE%A1%E7%90%86">4. InputとOutputの管理</a></li>
+</ul>
+</li>
 <li><a href="#%E3%81%BE%E3%81%A8%E3%82%81">まとめ</a></li>
 </ul>
 </div>
@@ -121,26 +128,364 @@ Github Sponsor
 <li><strong>チーム全体が同じプロセス</strong>に従える。プラグインをインストールするだけ。</li>
 </ul>
 <h2 id="プロセス設計">プロセス設計</h2>
-<p>具体的なプロセスを設計するために、まず一般的な開発プロセスを分析しました。</p>
+<h3 id="1-開発プロセス分析">1. 開発プロセス分析</h3>
+<p>具体的なプロセスを設計するために、まず私たちが開発する時に経る段階を分析する必要があると思いました。そこで、一般的な開発プロセスをClaudeに聞いてみました。</p>
 <ol>
-<li>要件分析</li>
-<li>設計</li>
-<li>実装</li>
-<li>コードレビュー</li>
-<li>テスト</li>
-<li>デプロイ</li>
-<li>モニタリング</li>
+<li>要件分析（Requirements Analysis）</li>
+<li>設計（Design）</li>
+<li>実装（Implementation）</li>
+<li>コードレビュー（Code Review）</li>
+<li>テスト（Testing）</li>
+<li>デプロイ（Merge &#x26; Deploy）</li>
+<li>モニタリング（Monitoring）</li>
 </ol>
-<p>このうちデプロイとモニタリングはAIと一緒にする作業ではないため除外し、残りの段階をAIと人が協力する構造にすることにしました。またコードレビューは実装段階に統合して、最終的に<strong>4段階プロセス</strong>に整理しました。</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>1. 要件分析（What/Why）</span></span>
-<span class="line"><span>2. 設計（How）</span></span>
-<span class="line"><span>3. 実装（TDD + コードレビュー）</span></span>
-<span class="line"><span>4. テスト（E2E/QA）</span></span></code></pre>
-<p>各段階でAIが作業し、AIが自己レビューし、人が最終確認する<strong>二重検証構造</strong>を基本パターンにしました。</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>① インプット → ② AI作業 → ③ AI自己レビュー → ④ ユーザー確認 → 次の段階</span></span></code></pre>
+<p>このうちデプロイとモニタリングはAIと一緒にする作業ではないと判断したため、この2つ以外のプロセスを生成AIと一緒に作業できるようにしたいと思いました。</p>
+<h3 id="2-inputとoutputの定義">2. InputとOutputの定義</h3>
+<p>次に、各プロセスで生成AIが作業しやすいInputとOutputを定義しました。実装段階ではコードの精度と品質のためにTDD（Test Driven Development）で進めることにしました。</p>
+<ol>
+<li><strong>要件分析</strong>（Requirements Analysis）
+<ul>
+<li>Input: 要求定義書</li>
+<li>Output: 要求定義書の分析結果</li>
+</ul>
+</li>
+<li><strong>設計</strong>（Design）
+<ul>
+<li>Input: 要求定義書の分析結果</li>
+<li>Output: 設計書</li>
+</ul>
+</li>
+<li><strong>実装</strong>（Implementation: TDD）
+<ul>
+<li>Input: 設計書</li>
+<li>Output: コード</li>
+</ul>
+</li>
+<li><strong>コードレビュー</strong>（Code Review）
+<ul>
+<li>Input: コード</li>
+<li>Output: Pull Request</li>
+</ul>
+</li>
+<li><strong>テスト</strong>（Testing）
+<ul>
+<li>Input: 要求定義書の分析結果、設計書、コード</li>
+<li>Output: E2Eテストコード、QAチェックリスト</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-aiと人の開発プロセス追加">3. AIと人の開発プロセス追加</h3>
+<p>InputからOutputまで行う必要があるAIと人の詳細な開発プロセスを追加しました。</p>
+<p><strong>1）要件分析</strong>（Requirements Analysis）</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>順序</th><th>主体</th><th>作業</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>要求定義書</td></tr><tr><td>1</td><td>AI</td><td>要求定義書分析</td></tr><tr><td>2</td><td>AI(Self)</td><td>分析結果セルフレビュー</td></tr><tr><td>3</td><td>AI(Agent)</td><td>分析結果エージェントレビュー</td></tr><tr><td>4</td><td>人</td><td>分析結果確認</td></tr><tr><td>Output</td><td>-</td><td>要求定義書の分析結果</td></tr></tbody></table>
+<p><strong>2）設計</strong>（Design）</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>順序</th><th>主体</th><th>作業</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>要求定義書の分析結果</td></tr><tr><td>1</td><td>AI</td><td>設計</td></tr><tr><td>2</td><td>AI(Self)</td><td>設計セルフレビュー</td></tr><tr><td>3</td><td>AI(Agent)</td><td>設計エージェントレビュー</td></tr><tr><td>4</td><td>人</td><td>設計確認</td></tr><tr><td>Output</td><td>-</td><td>設計書</td></tr></tbody></table>
+<p><strong>3）実装</strong>（Implementation: TDD）</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>順序</th><th>主体</th><th>作業</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>設計書</td></tr><tr><td><strong>テストと実装計画</strong></td><td></td><td></td></tr><tr><td>1</td><td>AI</td><td>テストと実装計画作成</td></tr><tr><td>2</td><td>AI(Self)</td><td>計画セルフレビュー</td></tr><tr><td>3</td><td>AI(Agent)</td><td>計画エージェントレビュー</td></tr><tr><td>4</td><td>人</td><td>計画確認</td></tr><tr><td><strong>RED：失敗するテスト作成</strong></td><td></td><td></td></tr><tr><td>5</td><td>AI</td><td>テストコード作成</td></tr><tr><td>6</td><td>AI(Self)</td><td>テストコードセルフレビュー</td></tr><tr><td>7</td><td>AI(Agent)</td><td>テストコードエージェントレビュー</td></tr><tr><td>8</td><td>人</td><td>テストコード確認</td></tr><tr><td><strong>GREEN：テストを通過するコード作成</strong></td><td></td><td></td></tr><tr><td>9</td><td>AI</td><td>実装コード作成</td></tr><tr><td>10</td><td>AI(Self)</td><td>コードセルフレビュー</td></tr><tr><td>11</td><td>AI(Agent)</td><td>コードエージェントレビュー</td></tr><tr><td>12</td><td>人</td><td>コード確認</td></tr><tr><td><strong>REFACTOR：リファクタリング</strong></td><td></td><td></td></tr><tr><td>13</td><td>AI</td><td>リファクタリング実施</td></tr><tr><td>14</td><td>AI(Self)</td><td>コードセルフレビュー</td></tr><tr><td>15</td><td>AI(Agent)</td><td>コードエージェントレビュー</td></tr><tr><td>16</td><td>人</td><td>コード確認</td></tr><tr><td>Output</td><td>-</td><td>コード</td></tr></tbody></table>
+<p><strong>4）コードレビュー</strong>（Code Review）</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>順序</th><th>主体</th><th>作業</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>コード</td></tr><tr><td>1</td><td>AI(Self)</td><td>コードセルフレビュー</td></tr><tr><td>2</td><td>AI(Agent)</td><td>コードエージェントレビュー</td></tr><tr><td>3</td><td>人</td><td>コードレビュー</td></tr><tr><td>4</td><td>人</td><td>PR作成＆Merge</td></tr><tr><td>Output</td><td>-</td><td>Merged Pull Request</td></tr></tbody></table>
+<p><strong>5）テスト</strong>（Testing）</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>順序</th><th>主体</th><th>作業</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>要求定義書の分析結果、設計書、コード</td></tr><tr><td>1</td><td>AI</td><td>要求定義と設計書、コードを読んでE2Eテストコード作成</td></tr><tr><td>2</td><td>AI</td><td>手動テストチェックリスト作成</td></tr><tr><td>3</td><td>AI</td><td>作成内容レビュー</td></tr><tr><td>4</td><td>人</td><td>作成内容確認</td></tr><tr><td>5</td><td>人</td><td>手動テスト実施</td></tr><tr><td>Output</td><td>-</td><td>E2Eテストコード、QAチェックリスト</td></tr></tbody></table>
+<p>各段階で共通的に適用されたパターンは、<strong>AIが作業し、AIがセルフレビューし、別のAIエージェントがレビューし、人が最終確認する多重検証構造</strong>です。</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>① Input → ② AI作業 → ③ AIセルフレビュー → ④ AIエージェントレビュー → ⑤ ユーザー確認 → Output</span></span></code></pre>
+<h3 id="4-inputとoutputの管理">4. InputとOutputの管理</h3>
+<p>InputとOutputをどう管理するかを悩みました。</p>
+<p>Claudeは会話が長くなるとコンテキストを圧縮するため、精度が落ちる問題があります。そのため、各段階の成果物をドキュメントでしっかり管理する必要がありました。</p>
+<p>最初はMarkdownファイルでGitリポジトリで管理することも考えましたが、<strong>GitHub Issueで管理する方式</strong>を選びました。理由は以下の通りです。</p>
+<ul>
+<li>ファイルで管理すると、少しの修正でも毎回コミットが必要になります。</li>
+<li>一時的な対応やバグ修正など、作業が終わったものもファイルがリポジトリに残り続けます。</li>
+<li>Issueは作業が終わったらクローズできるので、完了した作業と進行中の作業を明確に区別できます。</li>
+</ul>
 <h2 id="まとめ">まとめ</h2>
 <p>この記事では、AIコーディングツールの落とし穴、既存プロセスの限界、そして実際にAIと協業してみた経験をもとに、SDD Pluginを作ることになった背景を整理しました。</p>
 <p>核心は「AIが素早くコードを書くこと」ではなく、**「AIが正しい方向で作業するようにプロセスを設計すること」**でした。</p>
+<p>この記事で整理した開発プロセスの分析と設計をもとに、実際にClaude Code用のSDD Pluginを制作しました。次の記事では、完成したプラグインの全体構造と使い方を紹介します。</p>
 <p>次の記事: <a href="/development_process/sdd-plugin-overview/">SDD Pluginの全体構造と使い方</a></p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>

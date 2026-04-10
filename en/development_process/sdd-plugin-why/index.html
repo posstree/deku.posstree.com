@@ -47,7 +47,14 @@ Github Sponsor
 <li><a href="#how-far-can-claude-go">How Far Can Claude Go?</a></li>
 <li><a href="#from-code-generation-tools-to-sdd">From Code Generation Tools to SDD</a></li>
 <li><a href="#the-solution">The Solution</a></li>
-<li><a href="#designing-the-process">Designing the Process</a></li>
+<li><a href="#designing-the-process">Designing the Process</a>
+<ul>
+<li><a href="#1-analyzing-the-development-process">1. Analyzing the Development Process</a></li>
+<li><a href="#2-defining-input-and-output">2. Defining Input and Output</a></li>
+<li><a href="#3-adding-ai-and-human-development-processes">3. Adding AI and Human Development Processes</a></li>
+<li><a href="#4-managing-input-and-output">4. Managing Input and Output</a></li>
+</ul>
+</li>
 <li><a href="#conclusion">Conclusion</a></li>
 </ul>
 </div>
@@ -121,26 +128,364 @@ Github Sponsor
 <li><strong>The whole team can follow the same process</strong>. Just install the plugin.</li>
 </ul>
 <h2 id="designing-the-process">Designing the Process</h2>
-<p>To design the specific process, I first analyzed a typical development workflow:</p>
+<h3 id="1-analyzing-the-development-process">1. Analyzing the Development Process</h3>
+<p>To design the specific process, I first needed to analyze the steps we typically go through when developing software. So I asked Claude about a typical development process.</p>
 <ol>
 <li>Requirements Analysis</li>
 <li>Design</li>
 <li>Implementation</li>
 <li>Code Review</li>
 <li>Testing</li>
-<li>Deployment</li>
+<li>Deployment (Merge &#x26; Deploy)</li>
 <li>Monitoring</li>
 </ol>
-<p>Deployment and monitoring aren’t tasks you do with AI, so I excluded them. I also integrated code review into the implementation stage. The result was a <strong>4-stage process</strong>:</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>1. Requirements Analysis (What/Why)</span></span>
-<span class="line"><span>2. Design (How)</span></span>
-<span class="line"><span>3. Implementation (TDD + Code Review)</span></span>
-<span class="line"><span>4. Testing (E2E/QA)</span></span></code></pre>
-<p>At each stage, AI works, AI self-reviews, and the human gives final confirmation — a <strong>dual verification structure</strong>.</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>① Input → ② AI Work → ③ AI Self-Review → ④ User Confirmation → Next Stage</span></span></code></pre>
+<p>Since deployment and monitoring aren’t tasks you do together with AI, I decided to make all the remaining processes workable with generative AI.</p>
+<h3 id="2-defining-input-and-output">2. Defining Input and Output</h3>
+<p>Next, I defined the Input and Output that generative AI needs for each process stage. For the implementation stage, I decided to use TDD (Test Driven Development) for better code accuracy and quality.</p>
+<ol>
+<li><strong>Requirements Analysis</strong>
+<ul>
+<li>Input: Requirements document</li>
+<li>Output: Requirements analysis result</li>
+</ul>
+</li>
+<li><strong>Design</strong>
+<ul>
+<li>Input: Requirements analysis result</li>
+<li>Output: Design document</li>
+</ul>
+</li>
+<li><strong>Implementation</strong> (TDD)
+<ul>
+<li>Input: Design document</li>
+<li>Output: Code</li>
+</ul>
+</li>
+<li><strong>Code Review</strong>
+<ul>
+<li>Input: Code</li>
+<li>Output: Pull Request</li>
+</ul>
+</li>
+<li><strong>Testing</strong>
+<ul>
+<li>Input: Requirements analysis result, design document, code</li>
+<li>Output: E2E test code, QA checklist</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-adding-ai-and-human-development-processes">3. Adding AI and Human Development Processes</h3>
+<p>I then added the detailed AI and human processes needed to go from Input to Output.</p>
+<p><strong>1) Requirements Analysis</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Order</th><th>Actor</th><th>Task</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>Requirements document</td></tr><tr><td>1</td><td>AI</td><td>Analyze requirements</td></tr><tr><td>2</td><td>AI(Self)</td><td>Self-review analysis result</td></tr><tr><td>3</td><td>AI(Agent)</td><td>Agent review analysis result</td></tr><tr><td>4</td><td>Human</td><td>Review analysis result</td></tr><tr><td>Output</td><td>-</td><td>Requirements analysis result</td></tr></tbody></table>
+<p><strong>2) Design</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Order</th><th>Actor</th><th>Task</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>Requirements analysis result</td></tr><tr><td>1</td><td>AI</td><td>Design</td></tr><tr><td>2</td><td>AI(Self)</td><td>Self-review design</td></tr><tr><td>3</td><td>AI(Agent)</td><td>Agent review design</td></tr><tr><td>4</td><td>Human</td><td>Review design</td></tr><tr><td>Output</td><td>-</td><td>Design document</td></tr></tbody></table>
+<p><strong>3) Implementation (TDD)</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Order</th><th>Actor</th><th>Task</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>Design document</td></tr><tr><td><strong>Test &#x26; Implementation Plan</strong></td><td></td><td></td></tr><tr><td>1</td><td>AI</td><td>Create test &#x26; implementation plan</td></tr><tr><td>2</td><td>AI(Self)</td><td>Self-review plan</td></tr><tr><td>3</td><td>AI(Agent)</td><td>Agent review plan</td></tr><tr><td>4</td><td>Human</td><td>Review plan</td></tr><tr><td><strong>RED: Write Failing Tests</strong></td><td></td><td></td></tr><tr><td>5</td><td>AI</td><td>Write test code</td></tr><tr><td>6</td><td>AI(Self)</td><td>Self-review test code</td></tr><tr><td>7</td><td>AI(Agent)</td><td>Agent review test code</td></tr><tr><td>8</td><td>Human</td><td>Review test code</td></tr><tr><td><strong>GREEN: Write Code to Pass Tests</strong></td><td></td><td></td></tr><tr><td>9</td><td>AI</td><td>Write implementation code</td></tr><tr><td>10</td><td>AI(Self)</td><td>Self-review code</td></tr><tr><td>11</td><td>AI(Agent)</td><td>Agent review code</td></tr><tr><td>12</td><td>Human</td><td>Review code</td></tr><tr><td><strong>REFACTOR: Refactoring</strong></td><td></td><td></td></tr><tr><td>13</td><td>AI</td><td>Perform refactoring</td></tr><tr><td>14</td><td>AI(Self)</td><td>Self-review code</td></tr><tr><td>15</td><td>AI(Agent)</td><td>Agent review code</td></tr><tr><td>16</td><td>Human</td><td>Review code</td></tr><tr><td>Output</td><td>-</td><td>Code</td></tr></tbody></table>
+<p><strong>4) Code Review</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Order</th><th>Actor</th><th>Task</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>Code</td></tr><tr><td>1</td><td>AI(Self)</td><td>Self-review code</td></tr><tr><td>2</td><td>AI(Agent)</td><td>Agent review code</td></tr><tr><td>3</td><td>Human</td><td>Code review</td></tr><tr><td>4</td><td>Human</td><td>Create PR &#x26; Merge</td></tr><tr><td>Output</td><td>-</td><td>Merged Pull Request</td></tr></tbody></table>
+<p><strong>5) Testing</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Order</th><th>Actor</th><th>Task</th></tr></thead><tbody><tr><td>Input</td><td>-</td><td>Requirements analysis result, design document, code</td></tr><tr><td>1</td><td>AI</td><td>Write E2E test code based on requirements, design, and code</td></tr><tr><td>2</td><td>AI</td><td>Create manual test checklist</td></tr><tr><td>3</td><td>AI</td><td>Review created content</td></tr><tr><td>4</td><td>Human</td><td>Review created content</td></tr><tr><td>5</td><td>Human</td><td>Execute manual tests</td></tr><tr><td>Output</td><td>-</td><td>E2E test code, QA checklist</td></tr></tbody></table>
+<p>The common pattern applied across all stages is a <strong>multi-layered verification structure where AI works, AI self-reviews, a separate AI agent reviews, and the human gives final confirmation</strong>.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>① Input → ② AI Work → ③ AI Self-Review → ④ AI Agent Review → ⑤ User Confirmation → Output</span></span></code></pre>
+<h3 id="4-managing-input-and-output">4. Managing Input and Output</h3>
+<p>I deliberated on how to manage Input and Output.</p>
+<p>Since Claude compresses context as conversations get longer, accuracy can degrade. So it was necessary to manage each stage’s artifacts as proper documents.</p>
+<p>Initially, I considered managing them as Markdown files in the Git repository, but I chose to <strong>manage them with GitHub Issues</strong> instead. The reasons were:</p>
+<ul>
+<li>With file management, even small changes require a commit.</li>
+<li>Temporary fixes and bug patches leave files lingering in the repository even after the work is done.</li>
+<li>Issues can be closed when work is complete, making it easy to clearly distinguish between completed and in-progress work.</li>
+</ul>
 <h2 id="conclusion">Conclusion</h2>
 <p>In this post, I covered the pitfalls of AI coding tools, the limitations of existing processes, and the hands-on experience of collaborating with AI that led to creating the SDD Plugin.</p>
 <p>The key insight was that the goal isn’t “AI writes code fast” — it’s <strong>“designing a process so AI works in the right direction.”</strong></p>
+<p>Based on the development process analysis and design covered in this post, I built the actual SDD Plugin for Claude Code. In the next post, I’ll introduce the completed plugin’s full structure and usage.</p>
 <p>Next post: <a href="/development_process/sdd-plugin-overview/">SDD Plugin: Full Structure and Usage</a></p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
