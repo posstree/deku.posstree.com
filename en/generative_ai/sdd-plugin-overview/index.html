@@ -176,7 +176,8 @@ Github Sponsor
 <p>Let’s walk through the actual flow of using SDD Plugin step by step.</p>
 <h3 id="1-installation">1. Installation</h3>
 <p>First, install the plugin in Claude Code.</p>
-<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">claude</span><span style="color:#C3E88D"> plugin</span><span style="color:#C3E88D"> add</span><span style="color:#C3E88D"> dev-yakuza/deku-claude-plugins</span></span></code></pre>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">claude</span><span style="color:#C3E88D"> /plugin</span><span style="color:#C3E88D"> marketplace</span><span style="color:#C3E88D"> add</span><span style="color:#C3E88D"> dev-yakuza/deku-claude-plugins</span></span>
+<span class="line"><span style="color:#FFCB6B">claude</span><span style="color:#C3E88D"> /plugin</span><span style="color:#C3E88D"> install</span><span style="color:#C3E88D"> deku-claude-plugins@sdd</span></span></code></pre>
 <h3 id="2-repository-initialization">2. Repository Initialization</h3>
 <p>Once installed, run initialization in your project repository. Specifying a language sets up Issue templates in that language.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">/sdd</span><span style="color:#C3E88D"> init</span><span style="color:#C3E88D"> ko</span><span style="color:#545454;font-style:italic">        # Initialize with Korean templates</span></span></code></pre>
