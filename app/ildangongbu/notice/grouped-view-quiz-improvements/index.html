@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>v6.11.3 복습 화면 즐겨찾기 아이콘 표시 방식 통일 - JLPT 일본어 단어 공부, 일단 공부</title>
-    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.11.3 업데이트 안내. 복습(퀴즈) 화면에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다." />
+    <title>v6.12.0 묶어 보기 및 복습 퀴즈 개선 - JLPT 일본어 단어 공부, 일단 공부</title>
+    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.12.0 업데이트 안내. 즐겨찾기/내 카테고리 묶어 보기 기능 추가 및 복습 퀴즈 발음 표시, 의미 감추기 옵션이 추가되었습니다." />
     <meta name="author" content="dev.yakuza@gmail.com" />
-    <link rel="canonical" href="/app/ildangongbu/notice/review-bookmark-icon/" />
-    <meta property="og:url" content="/app/ildangongbu/notice/review-bookmark-icon/" />
+    <link rel="canonical" href="/app/ildangongbu/notice/grouped-view-quiz-improvements/" />
+    <meta property="og:url" content="/app/ildangongbu/notice/grouped-view-quiz-improvements/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="v6.11.3 복습 화면 즐겨찾기 아이콘 표시 방식 통일 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta property="og:title" content="v6.12.0 묶어 보기 및 복습 퀴즈 개선 - JLPT 일본어 단어 공부, 일단 공부" />
     <meta property="og:locale" content="ko_KR" />
-    <meta property="og:description" content="복습(퀴즈) 화면에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다." />
+    <meta property="og:description" content="즐겨찾기/내 카테고리 묶어 보기 기능 추가 및 복습 퀴즈 발음 표시, 의미 감추기 옵션이 추가되었습니다." />
     <meta property="og:site_name" content="JLPT 일본어 단어 공부, 일단 공부" />
     <meta property="og:image" content="/app/ildangongbu/assets/images/share.png" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="v6.11.3 복습 화면 즐겨찾기 아이콘 표시 방식 통일 - JLPT 일본어 단어 공부, 일단 공부" />
-    <meta name="twitter:description" content="복습(퀴즈) 화면에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다." />
+    <meta name="twitter:title" content="v6.12.0 묶어 보기 및 복습 퀴즈 개선 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta name="twitter:description" content="즐겨찾기/내 카테고리 묶어 보기 기능 추가 및 복습 퀴즈 발음 표시, 의미 감추기 옵션이 추가되었습니다." />
     <meta name="twitter:image" content="/app/ildangongbu/assets/images/share.png" />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125408913-1"></script>
@@ -47,17 +47,13 @@
       .notice-detail .notice-title { font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem; }
       .notice-detail .notice-body { color: #555; font-size: 1rem; line-height: 1.9; }
       .notice-detail .notice-body h5 { font-weight: 700; color: #333; margin-top: 2rem; margin-bottom: 1rem; }
-      .notice-detail .notice-body a { color: #ec174f; text-decoration: underline; }
-      .notice-detail .notice-body a:hover { color: #c01040; }
-      .screen-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-      .screen-table th { background-color: #eee; padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: #333; border: 1px solid #ddd; }
-      .screen-table td { padding: 0.75rem 1rem; border: 1px solid #ddd; }
-      .check-icon { color: #2e7d32; }
+      .feature-card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+      .feature-card-title { font-weight: 700; color: #ec174f; margin-bottom: 0.5rem; }
       .notice-nav { max-width: 800px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; }
       .notice-nav a { color: #ec174f; text-decoration: none; font-weight: 600; }
       .notice-nav a:hover { text-decoration: underline; }
     </style>
-  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/review-bookmark-icon/">
+  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/grouped-view-quiz-improvements/">
 </head>
 
   <body>
@@ -88,44 +84,38 @@
         <div class="notice-detail">
           <div class="notice-meta">
             <span class="notice-badge update">업데이트</span>
-            2026.03.28
+            2026.04.20
           </div>
-          <h3 class="notice-title">v6.11.3 - 복습 화면 즐겨찾기 아이콘 표시 방식 통일</h3>
+          <h3 class="notice-title">v6.12.0 - 묶어 보기 및 복습 퀴즈 개선</h3>
           <div class="notice-body">
             <p>안녕하세요, 「JLPT 일본어 단어 공부, 일단 공부」 개발자 Deku입니다.</p>
-            <p>v6.11.3 업데이트를 통해 <strong>복습(퀴즈) 화면</strong>에서도 단어 학습 화면과 동일한 즐겨찾기 아이콘 표시 방식이 적용되었습니다.</p>
+            <p>v6.12.0 업데이트를 통해 <strong>묶어 보기</strong> 기능이 추가되고, 복습 퀴즈의 <strong>발음 표시</strong> 및 <strong>의미 감추기</strong> 옵션이 개선되었습니다.</p>
 
-            <h5>변경 내용</h5>
-            <p><a href="/app/ildangongbu/notice/bookmark-icon-improvement/">v6.11.2</a>에서 단어 학습 화면의 즐겨찾기 아이콘을 숫자 badge 대신 아이콘 형태로 개선하였으나, 복습(퀴즈) 화면에는 기존의 숫자 badge 방식이 그대로 남아있었습니다.</p>
-            <p>이번 업데이트를 통해 복습 화면에서도 동일한 아이콘 표시 방식과 조작 방식이 적용되어, 앱 전체에서 <strong>일관된 사용 경험</strong>을 제공합니다.</p>
+            <h5>주요 변경 사항</h5>
 
-            <table class="screen-table">
-              <tr>
-                <th>기능</th>
-                <th>단어 학습 화면</th>
-                <th>복습(퀴즈) 화면</th>
-              </tr>
-              <tr>
-                <td>아이콘 표시 방식 (빈/채워진/겹친 북마크)</td>
-                <td class="check-icon"><i class="fas fa-check"></i> v6.11.2 적용</td>
-                <td class="check-icon"><i class="fas fa-check"></i> v6.11.3 적용</td>
-              </tr>
-              <tr>
-                <td>탭 → 즐겨찾기 추가/해제</td>
-                <td class="check-icon"><i class="fas fa-check"></i> v6.11.1 적용</td>
-                <td class="check-icon"><i class="fas fa-check"></i> v6.11.3 적용</td>
-              </tr>
-              <tr>
-                <td>길게 누르기 → 카테고리에 추가</td>
-                <td class="check-icon"><i class="fas fa-check"></i> v6.11.1 적용</td>
-                <td class="check-icon"><i class="fas fa-check"></i> v6.11.3 적용</td>
-              </tr>
-            </table>
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-layer-group mr-2"></i>즐겨찾기/내 카테고리 묶어 보기</div>
+              <p style="margin-bottom:0;">즐겨찾기와 내 카테고리에 저장한 단어들을 <strong>15개씩 그룹으로 묶어서</strong> 학습할 수 있습니다. 모든 단어가 한 번에 표시되면 이전에 공부했던 곳까지 스크롤해서 찾아야 하는 불편함이 있었는데, 묶어 보기를 통해 어디까지 공부했는지 쉽게 파악할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-volume-up mr-2"></i>복습 퀴즈 발음 표시</div>
+              <p style="margin-bottom:0;">복습 퀴즈의 <strong>정답 패널</strong>과 <strong>문제 패널</strong>에서 발음이 표시되도록 개선했습니다. 퀴즈를 풀면서 발음도 함께 확인할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-font mr-2"></i>배열 맞추기 발음 옵션</div>
+              <p style="margin-bottom:0;">배열 맞추기 문제 유형의 선택지에 <strong>발음 표시 옵션</strong>이 추가되었습니다. 설정에서 발음 표시 여부를 선택할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-eye-slash mr-2"></i>예문 빈칸 채우기 의미 감추기</div>
+              <p style="margin-bottom:0;">예문 빈칸 채우기 퀴즈에서 <strong>의미 감추기 설정 옵션</strong>이 추가되었습니다. 의미를 숨기고 예문의 문맥만으로 단어를 맞추는 연습을 할 수 있습니다.</p>
+            </div>
 
             <h5>그 외 변경 사항</h5>
             <ul>
               <li>앱 안정화 작업을 했습니다.</li>
-              <li>사용자가 수정한 단어를 반영했습니다.</li>
             </ul>
 
             <p>앞으로도 더 나은 학습 경험을 제공하기 위해 노력하겠습니다. 감사합니다.</p>
@@ -133,8 +123,8 @@
         </div>
 
         <div class="notice-nav">
-          <a href="../grouped-view-quiz-improvements/">이전 글<i class="fas fa-chevron-left ml-1"></i></a>
-          <a href="../bookmark-icon-improvement/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
+          <span></span>
+          <a href="../review-bookmark-icon/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
         </div>
 
       </div>
