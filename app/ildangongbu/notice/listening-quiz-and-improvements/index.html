@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>v6.13.0 듣기 퀴즈 및 학습 편의성 개선 - JLPT 일본어 단어 공부, 일단 공부</title>
+    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.13.0 업데이트 안내. 단어 듣고 의미 맞추기 문제 유형, 사용자 지정 시간 알림, 복습 화면 프로그레스바 등 학습 편의 기능이 추가되었습니다." />
+    <meta name="author" content="dev.yakuza@gmail.com" />
+    <link rel="canonical" href="/app/ildangongbu/notice/listening-quiz-and-improvements/" />
+    <meta property="og:url" content="/app/ildangongbu/notice/listening-quiz-and-improvements/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="v6.13.0 듣기 퀴즈 및 학습 편의성 개선 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:description" content="단어 듣고 의미 맞추기 문제 유형, 사용자 지정 시간 알림, 복습 화면 프로그레스바 등 학습 편의 기능이 추가되었습니다." />
+    <meta property="og:site_name" content="JLPT 일본어 단어 공부, 일단 공부" />
+    <meta property="og:image" content="/app/ildangongbu/assets/images/share.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="v6.13.0 듣기 퀴즈 및 학습 편의성 개선 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta name="twitter:description" content="단어 듣고 의미 맞추기 문제 유형, 사용자 지정 시간 알림, 복습 화면 프로그레스바 등 학습 편의 기능이 추가되었습니다." />
+    <meta name="twitter:image" content="/app/ildangongbu/assets/images/share.png" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125408913-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-125408913-1');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700|Nunito:400,600,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet" />
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <link id="theme-style" rel="stylesheet" href="../../assets/css/theme.css" />
+    <link id="theme-style" rel="stylesheet" href="../../assets/css/custom.css" />
+
+    <style>
+      .page-header { background-color: #ec174f; padding: 2rem 0; color: #fff; }
+      .page-header h2 { margin-bottom: 0; color: #fff; }
+      .back-link { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; }
+      .back-link:hover { color: #fff; text-decoration: none; }
+      .notice-detail { max-width: 800px; margin: 0 auto; }
+      .notice-detail .notice-badge { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.5rem; }
+      .notice-badge.update { background-color: #e3f2fd; color: #1565c0; }
+      .notice-detail .notice-meta { color: #999; font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #eee; }
+      .notice-detail .notice-title { font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem; }
+      .notice-detail .notice-body { color: #555; font-size: 1rem; line-height: 1.9; }
+      .notice-detail .notice-body h5 { font-weight: 700; color: #333; margin-top: 2rem; margin-bottom: 1rem; }
+      .feature-card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+      .feature-card-title { font-weight: 700; color: #ec174f; margin-bottom: 0.5rem; }
+      .notice-nav { max-width: 800px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; }
+      .notice-nav a { color: #ec174f; text-decoration: none; font-weight: 600; }
+      .notice-nav a:hover { text-decoration: underline; }
+    </style>
+  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/listening-quiz-and-improvements/">
+</head>
+
+  <body>
+    <header class="header">
+      <div class="branding">
+        <div class="container position-relative">
+          <nav class="navbar navbar-expand-lg">
+            <h1 class="site-logo">
+              <a class="navbar-brand" href="/app/ildangongbu/">
+                <img class="logo-icon" src="../../assets/images/logo.png" alt="일단공부 로고" />
+                <span class="logo-text">일단공부</span>
+              </a>
+            </h1>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-header">
+      <div class="container">
+        <a href="/app/ildangongbu/notice/" class="back-link"><i class="fas fa-arrow-left mr-2"></i>공지사항 목록</a>
+        <h2 class="font-weight-bold mt-2">공지사항</h2>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="notice-detail">
+          <div class="notice-meta">
+            <span class="notice-badge update">업데이트</span>
+            2026.04.28
+          </div>
+          <h3 class="notice-title">v6.13.0 - 듣기 퀴즈 및 학습 편의성 개선</h3>
+          <div class="notice-body">
+            <p>안녕하세요, 「JLPT 일본어 단어 공부, 일단 공부」 개발자 Deku입니다.</p>
+            <p>v6.13.0 업데이트를 통해 <strong>단어 듣고 의미 맞추기</strong> 문제 유형이 추가되고, <strong>사용자 지정 시간 알림</strong>, <strong>복습 화면 프로그레스바</strong> 등 다양한 학습 편의 기능이 추가되었습니다.</p>
+
+            <h5>주요 변경 사항</h5>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-headphones mr-2"></i>단어 듣고 의미 맞추기 문제 유형</div>
+              <p style="margin-bottom:0;">복습 화면에 <strong>단어를 듣고 의미를 맞추는</strong> 새로운 문제 유형이 추가되었습니다. 단어를 눈으로 보지 않고 발음만으로 의미를 맞추는 연습을 통해 듣기 능력을 함께 키울 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-clock mr-2"></i>사용자 지정 시간 알림</div>
+              <p style="margin-bottom:0;">학습 알림을 <strong>사용자가 원하는 시간에 받을 수 있도록</strong> 개선했습니다. 자신의 학습 습관에 맞춰 알림 시간을 직접 지정할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-tasks mr-2"></i>복습 화면 프로그레스바 및 파트/유닛 정보</div>
+              <p style="margin-bottom:0;">복습 화면에 <strong>학습 진행률을 보여주는 프로그레스바</strong>가 추가되었고, 문제 번호 옆에 해당 단어의 <strong>파트/유닛 소속 정보</strong>를 표시하도록 개선했습니다. 어디까지 풀었는지, 지금 풀고 있는 단어가 어느 파트/유닛 소속인지 한눈에 확인할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-list-ul mr-2"></i>단어 상세 화면 표시 항목 통합 옵션</div>
+              <p style="margin-bottom:0;">단어 상세 화면의 <strong>표시 항목을 한 번에 켜고 끌 수 있는 통합 옵션</strong>이 추가되었습니다. 의미, 품사, 예문 등 표시 항목을 일일이 설정하지 않아도 한 번의 조작으로 전체를 보이거나 숨길 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-copy mr-2"></i>예문 길게 눌러 클립보드 복사</div>
+              <p style="margin-bottom:0;">단어 상세 화면이나 예문이 표시되는 곳에서 <strong>예문을 길게 누르면 클립보드에 복사</strong>됩니다. 마음에 드는 예문을 메모 앱이나 다른 곳에 손쉽게 옮길 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-sort mr-2"></i>즐겨찾기 우선 정렬 옵션</div>
+              <p style="margin-bottom:0;">학습 단어 목록에서 <strong>즐겨찾기한 단어를 우선으로 정렬</strong>하는 옵션이 추가되었습니다. 자주 보고 싶은 단어를 빠르게 확인할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-history mr-2"></i>즐겨찾기 유닛별 보기 마지막 학습 표시</div>
+              <p style="margin-bottom:0;">즐겨찾기 유닛별 보기에서 <strong>마지막으로 학습한 유닛을 표시</strong>하고 해당 위치로 <strong>자동 스크롤</strong>됩니다. 어디까지 공부했는지 다시 찾을 필요 없이 바로 이어서 학습할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-search mr-2"></i>검색 결과 북마크 카테고리 표시 및 할당</div>
+              <p style="margin-bottom:0;">검색 결과에서 단어가 <strong>어떤 즐겨찾기/카테고리에 속해 있는지 아이콘으로 확인</strong>할 수 있고, 검색 결과에서 바로 <strong>카테고리에 추가</strong>할 수도 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-language mr-2"></i>탁음/반탁음 가나 학습 데이터 추가</div>
+              <p style="margin-bottom:0;">가나 학습에 <strong>탁음(が, ざ, だ, ば...)과 반탁음(ぱ, ぴ...)</strong> 데이터가 추가되었습니다. 가나 학습 화면도 청음/탁음/반탁음 등 <strong>섹션 헤더로 구분</strong>되어 더 깔끔하게 정리되었습니다.</p>
+            </div>
+
+            <h5>그 외 변경 사항</h5>
+            <ul>
+              <li>iOS OAuth, TTS, STT 관련 크래시를 수정했습니다.</li>
+              <li>Android 인앱 결제 관련 크래시를 수정했습니다.</li>
+              <li>가나 퀴즈에서 오답 선택지가 같은 카테고리 내에서만 출제되도록 개선했습니다.</li>
+              <li>그 외 앱 안정화 작업을 진행했습니다.</li>
+            </ul>
+
+            <p>앞으로도 더 나은 학습 경험을 제공하기 위해 노력하겠습니다. 감사합니다.</p>
+          </div>
+        </div>
+
+        <div class="notice-nav">
+          <span></span>
+          <a href="../grouped-view-quiz-improvements/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta-section py-5 theme-bg-secondary text-center">
+      <div class="container">
+        <h3 class="text-white font-weight-bold mb-3">
+          일본어 단어 공부, 「일단공부」해 보세요!
+        </h3>
+        <div class="cta-btns">
+          <ul class="app-stores list-unstyled list-inline mx-auto d-inline-block">
+            <li class="list-inline-item mr-3">
+              <a href="https://apps.apple.com/app/ildangongbu/id1456091125" target="_blank">
+                <img class="ios" src="../../assets/images/appstore-apple.svg" alt="App Store에서 다운로드" />
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://play.google.com/store/apps/details?id=io.github.dev.yakuza.ildangongbu" target="_blank">
+                <img class="android" src="../../assets/images/appstore-android.svg" alt="Google Play에서 다운로드" />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-4">
+          <a href="/privacy/ko/" target="_blank" class="text-dark">개인정보 처리방침</a>
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javascript" src="../../assets/plugins/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/popper.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
