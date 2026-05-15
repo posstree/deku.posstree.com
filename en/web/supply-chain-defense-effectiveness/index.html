@@ -1,0 +1,624 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="A data-driven evaluation of how effective time-based supply chain defenses — Dependabot cooldown and package manager minimum release age — actually are, using h"><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>The Effectiveness and Limits of Cooldown as a Supply Chain Defense | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/en/web/supply-chain-defense-effectiveness/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/web/supply-chain-defense-effectiveness/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/web/supply-chain-defense-effectiveness/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/web/supply-chain-defense-effectiveness/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/web/supply-chain-defense-effectiveness/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="The Effectiveness and Limits of Cooldown as a Supply Chain Defense"><meta name="twitter:description" content="A data-driven evaluation of how effective time-based supply chain defenses — Dependabot cooldown and package manager minimum release age — actually are, using h"><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/web/background.jpg"><meta name="twitter:image:alt" content="The Effectiveness and Limits of Cooldown as a Supply Chain Defense"><!-- Open Graph --><meta property="og:title" content="The Effectiveness and Limits of Cooldown as a Supply Chain Defense"><meta property="og:description" content="A data-driven evaluation of how effective time-based supply chain defenses — Dependabot cooldown and package manager minimum release age — actually are, using h"><meta property="og:image" content="https://deku.posstree.com/assets/images/category/web/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="The Effectiveness and Limits of Cooldown as a Supply Chain Defense"><meta property="og:url" content="https://deku.posstree.com/en/web/supply-chain-defense-effectiveness/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="ja_JP"><meta property="og:locale:alternate" content="ko_KR"><meta property="article:published_time" content="2026-05-17T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="Knowledge about Web"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><link rel="preconnect" href="https://utteranc.es"><!-- LCP image preload --><link rel="preload" as="image" href="/assets/images/category/web/background.jpg" fetchpriority="high"><!-- Google Fonts (async) --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"></noscript><!-- Bootstrap Grid CSS --><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap-grid.min.css"><!-- Font Awesome CSS (async) --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"></noscript><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/en/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Effectiveness and Limits of Cooldown as a Supply Chain Defense","description":"A data-driven evaluation of how effective time-based supply chain defenses — Dependabot cooldown and package manager minimum release age — actually are, using h","datePublished":"2026-05-17T00:00:00.000Z","dateModified":"2026-05-17T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/en/web/supply-chain-defense-effectiveness/"},"image":"https://deku.posstree.com/assets/images/category/web/background.jpg","url":"https://deku.posstree.com/en/web/supply-chain-defense-effectiveness/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/en/web/subresource-integrity/","name":"Blocking CDN Tampering with Subresource Integrity (SRI): Lessons from Polyfill.io"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/en/web/github-dependency-review-action/","name":"Validating New Dependencies at the PR Stage with GitHub Dependency Review Action"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/en/web/code-scanning-codeql-npm-audit/","name":"Strengthening Security Scanning with CodeQL and yarn npm audit"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/en/web/sbom-dependency-visibility/","name":"Gaining Dependency Visibility with SBOM: Lessons from Log4Shell"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/en/web/yarn-hardened-mode/","name":"Blocking Lockfile Tampering Attacks with Yarn 4 Hardened Mode"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/en/web/supply-chain-defense-effectiveness/","name":"The Effectiveness and Limits of Cooldown as a Supply Chain Defense"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/en/web/supply-chain-defense-implementation/","name":"3 Defense Strategies Against npm Supply Chain Attacks"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/en/web/supply-chain-attack-axios/","name":"How npm Supply Chain Attacks Work: The axios Case Study"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/en/web/css-overflow-wrap/","name":"word-break: break-word is Deprecated — Why You Should Switch to overflow-wrap: anywhere"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/en/web/lodash-tree-shaking/","name":"[Optimization] Reducing Bundle Size by 82% with lodash Tree Shaking: From 547KB to 97KB"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/en/web/lighthouse_optimization/","name":"[Web] Comprehensive Lighthouse Performance Optimization Guide"},{"@type":"ListItem","position":12,"url":"https://deku.posstree.com/en/web/optimization_images/","name":"[Web] Optimize Images Using avif and webp Formats"},{"@type":"ListItem","position":13,"url":"https://deku.posstree.com/en/web/optimization_load_google_font/","name":"[Web] Optimize loading Google Web Font"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><style>body{font-size:20px;color:#212529;font-family:Lora,Times New Roman,serif}p{line-height:1.5;margin:30px 0}p a{text-decoration:underline}h1,h2,h3,h4,h5,h6{font-weight:800;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}a{color:#212529;-webkit-transition:all .2s;-moz-transition:all .2s;transition:all .2s}a:focus,a:hover{color:#0085a1}blockquote{font-style:italic;color:#868e96}.section-heading{font-size:36px;font-weight:700;margin-top:60px}.caption{font-size:14px;font-style:italic;display:block;margin:0;padding:10px;text-align:center;border-bottom-right-radius:5px;border-bottom-left-radius:5px}::-moz-selection{color:#fff;background:#0085a1;text-shadow:none}::selection{color:#fff;background:#0085a1;text-shadow:none}img::selection{color:#fff;background:transparent}img::-moz-selection{color:#fff;background:transparent}#mainNav{position:absolute;border-bottom:1px solid #e9ecef;background-color:#ffffffe6;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}#mainNav .navbar-brand{font-weight:800;color:#343a40}#mainNav .navbar-toggler{font-size:12px;font-weight:800;padding:13px;text-transform:uppercase;color:#343a40}#mainNav .navbar-nav>li.nav-item>a{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}@media only screen and (min-width:992px){#mainNav{-webkit-transition:background-color .2s;-moz-transition:background-color .2s;transition:background-color .2s;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translateZ(0);-webkit-backface-visibility:hidden}#mainNav.is-fixed{position:fixed;top:-67px;-webkit-transition:-webkit-transform .2s;-moz-transition:-moz-transform .2s;transition:transform .2s;border-bottom:1px solid rgb(254.8725,254.8725,254.8725);background-color:#ffffffe6}#mainNav.is-fixed .navbar-brand{color:#212529}#mainNav.is-fixed .navbar-brand:focus,#mainNav.is-fixed .navbar-brand:hover{color:#0085a1}#mainNav.is-fixed .navbar-nav>li.nav-item>a{color:#212529}#mainNav.is-fixed .navbar-nav>li.nav-item>a:focus,#mainNav.is-fixed .navbar-nav>li.nav-item>a:hover{color:#0085a1}#mainNav.is-visible{-webkit-transform:translate3d(0,100%,0);-moz-transform:translate3d(0,100%,0);-ms-transform:translate3d(0,100%,0);-o-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0)}}header.masthead{margin-bottom:50px;background:no-repeat center center;background-color:#868e96;background-attachment:scroll;position:relative;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover}header.masthead .overlay{position:absolute;top:0;left:0;height:100%;width:100%;background-color:#212529;opacity:.5}header.masthead .page-heading,header.masthead .post-heading,header.masthead .site-heading{padding:200px 0 150px;color:#fff}@media only screen and (min-width:768px){header.masthead .page-heading,header.masthead .post-heading,header.masthead .site-heading{padding:200px 0}}header.masthead .page-heading,header.masthead .site-heading{text-align:center}header.masthead .page-heading h1,header.masthead .site-heading h1{font-size:50px;margin-top:0}header.masthead .page-heading .subheading,header.masthead .site-heading .subheading{font-size:24px;font-weight:300;line-height:1.1;display:block;margin:10px 0 0;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}@media only screen and (min-width:768px){header.masthead .page-heading h1,header.masthead .site-heading h1{font-size:80px}}header.masthead .post-heading h1{font-size:35px}header.masthead .post-heading .meta,header.masthead .post-heading .subheading{line-height:1.1;display:block}header.masthead .post-heading .subheading{font-size:24px;font-weight:600;margin:10px 0 30px;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}header.masthead .post-heading .meta{font-size:20px;font-weight:300;font-style:italic;font-family:Lora,Times New Roman,serif}header.masthead .post-heading .meta a{color:#fff}@media only screen and (min-width:768px){header.masthead .post-heading h1{font-size:55px}header.masthead .post-heading .subheading{font-size:30px}}.post-preview>a{color:#212529}.post-preview>a:focus,.post-preview>a:hover{text-decoration:none;color:#0085a1}.post-preview>a>.post-title{font-size:30px;margin-top:30px;margin-bottom:10px}.post-preview>a>.post-subtitle{font-weight:300;margin:0 0 10px}.post-preview>.post-meta{font-size:18px;font-style:italic;margin-top:0;color:#868e96}.post-preview>.post-meta>a{text-decoration:none;color:#212529}.post-preview>.post-meta>a:focus,.post-preview>.post-meta>a:hover{text-decoration:underline;color:#0085a1}@media only screen and (min-width:768px){.post-preview>a>.post-title{font-size:36px}}.floating-label-form-group{font-size:14px;position:relative;margin-bottom:0;padding-bottom:.5em;border-bottom:1px solid #dee2e6}.floating-label-form-group input,.floating-label-form-group textarea{font-size:1.5em;position:relative;z-index:1;padding:0;resize:none;border:none;border-radius:0;background:none;box-shadow:none!important;font-family:Lora,Times New Roman,serif}.floating-label-form-group input::-webkit-input-placeholder,.floating-label-form-group textarea::-webkit-input-placeholder{color:#868e96;font-family:Lora,Times New Roman,serif}.floating-label-form-group label{font-size:.85em;line-height:1.764705882em;position:relative;z-index:0;top:2em;display:block;margin:0;-webkit-transition:top .3s ease,opacity .3s ease;-moz-transition:top .3s ease,opacity .3s ease;-ms-transition:top .3s ease,opacity .3s ease;transition:top .3s ease,opacity .3s ease;vertical-align:middle;vertical-align:baseline;opacity:0}.floating-label-form-group .help-block{margin:15px 0}.floating-label-form-group-with-value label{top:0;opacity:1}.floating-label-form-group-with-focus label{color:#0085a1}form .form-group:first-child .floating-label-form-group{border-top:1px solid #dee2e6}footer{padding:50px 0 65px}footer .list-inline{margin:0;padding:0}footer .copyright{font-size:14px;margin-bottom:0;text-align:center}.btn{font-size:14px;font-weight:800;padding:15px 25px;letter-spacing:1px;text-transform:uppercase;border-radius:0;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}.btn-primary{background-color:#0085a1;border-color:#0085a1}.btn-primary:hover,.btn-primary:focus,.btn-primary:active{color:#fff;background-color:#00657b!important;border-color:#00657b!important}.btn-lg{font-size:16px;padding:25px 35px}.d-flex{display:flex!important}.d-none{display:none!important}.d-block{display:block!important}@media(min-width:992px){.d-lg-block{display:block!important}}.justify-content-between{justify-content:space-between!important}.justify-content-center{justify-content:center!important}.w-100{width:100%!important}.mx-auto{margin-left:auto!important;margin-right:auto!important}.ml-auto{margin-left:auto!important}.text-center{text-align:center!important}.sticky-top{position:sticky;top:0;z-index:1020}.fixed-top{position:fixed;top:0;right:0;left:0;z-index:1030}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.navbar{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:.5rem 1rem}.navbar>.container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between}.navbar-nav{display:flex;flex-direction:column;padding-left:0;margin-bottom:0;list-style:none}.nav-link{display:block;padding:.5rem 1rem}.navbar-toggler{padding:.25rem .75rem;font-size:1.25rem;line-height:1;background-color:transparent;border:1px solid transparent;border-radius:.25rem;cursor:pointer}.navbar-collapse{flex-basis:100%;flex-grow:1;align-items:center}.collapse:not(.show){display:none}@media(min-width:992px){.navbar-expand-lg{flex-flow:row nowrap;justify-content:flex-start}.navbar-expand-lg .navbar-nav{flex-direction:row}.navbar-expand-lg .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-lg .navbar-collapse{display:flex!important;flex-basis:auto}.navbar-expand-lg .navbar-toggler{display:none}}.dropdown{position:relative}.dropdown-toggle:after{display:inline-block;margin-left:.255em;vertical-align:.255em;content:"";border-top:.3em solid;border-right:.3em solid transparent;border-bottom:0;border-left:.3em solid transparent}.dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:10rem;padding:.5rem 0;margin:.125rem 0 0;font-size:1rem;color:#212529;text-align:left;list-style:none;background-color:#fff;background-clip:padding-box;border:1px solid rgba(0,0,0,.15);border-radius:.25rem}.dropdown-menu.show{display:block}.dropdown-item{display:block;width:100%;padding:.25rem 1.5rem;clear:both;font-weight:400;color:#212529;text-align:inherit;white-space:nowrap;background-color:transparent;border:0;text-decoration:none}.dropdown-item:hover,.dropdown-item:focus{color:#16181b;background-color:#f8f9fa;text-decoration:none}.btn{display:inline-block;font-weight:400;color:#212529;text-align:center;vertical-align:middle;cursor:pointer;user-select:none;background-color:transparent;border:1px solid transparent;padding:.375rem .75rem;font-size:1rem;line-height:1.5;border-radius:.25rem;transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;text-decoration:none}.btn:hover{text-decoration:none}.btn-primary{color:#fff;background-color:#0085a1;border-color:#0085a1}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.pagination{display:flex;padding-left:0;list-style:none;border-radius:.25rem}.page-link{position:relative;display:block;padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#0085a1;background-color:#fff;border:1px solid #dee2e6}.page-item.active .page-link{z-index:3;color:#fff}.breadcrumb{display:flex;flex-wrap:wrap;padding:.75rem 1rem;margin-bottom:1rem;list-style:none;border-radius:.25rem}.breadcrumb-item+.breadcrumb-item{padding-left:.5rem}.breadcrumb-item+.breadcrumb-item:before{display:inline-block;padding-right:.5rem;color:#6c757d;content:"/"}.list-group{display:flex;flex-direction:column;padding-left:0;margin-bottom:0}.list-group-item{position:relative;display:block;padding:.75rem 1.25rem;background-color:#fff;border:1px solid rgba(0,0,0,.125);text-decoration:none;color:#212529}.list-group-item.active{z-index:2;color:#fff}.form-group{margin-bottom:1rem}.form-control{display:block;width:100%;height:calc(1.5em + .75rem + 2px);padding:.375rem .75rem;font-size:1rem;font-weight:400;line-height:1.5;color:#495057;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}.form-control:focus{color:#495057;background-color:#fff;border-color:#80bdff;outline:0;box-shadow:0 0 0 .2rem #007bff40}textarea.form-control{height:auto}.list-inline{padding-left:0;list-style:none}html{overflow-x:hidden}body{margin:0;overflow-x:hidden;word-break:break-word;letter-spacing:.8px;background-color:#f6f8fa}:lang(ja) body{word-break:break-all}body,h1,h2,h3,h4,h5,h6,header.masthead .page-heading .subheading,header.masthead .site-heading .subheading,header.masthead .post-heading .subheading,#mainNav,.btn,code,kbd,pre,samp{font-family:Noto Sans,Noto Sans KR,Noto Sans JP,sans-serif}h3{padding-left:8px;border-left:6px solid #d42872}header.masthead{margin-bottom:0}.logo{height:16px;margin-right:8px}img{width:100%}.container-contents img{height:auto;max-width:100%}pre{padding:16px;border-radius:4px}pre code{border-radius:4px}code{color:#c21868}.container-contents{background-color:#fff;padding-bottom:30px}.container h2{border-bottom:1px solid lightgray;padding-bottom:8px;margin-bottom:8px;margin-top:56px}.container h2.subheading{border:0}.container .heading-date{margin-top:16px;border-bottom:1px solid #fff}.container h3,.container h4,.container h5,.container h6{margin-top:24px}.container p,.container ul{margin:0}.container p,.container li{font-size:13pt;line-height:21pt;font-weight:100}.container p{margin-bottom:16px;line-height:24pt}.container p:first-letter{margin-left:16px}.card-container{margin-bottom:16px}@media(max-width:768px){.card-container h2{text-align:center}}.card-container .card-content-container{position:relative;display:flex;border:1px solid lightgray;border-radius:8px;overflow:hidden;max-width:300px;margin-top:16px;margin-bottom:16px;background-size:cover;background-repeat:no-repeat;background-size:100%}.card-container .card-content-container .overlay{position:absolute;top:0;left:0;height:100%;width:100%;background-color:#212529;opacity:.5}.card-container .card-content-container .card-content{position:relative;width:100%}.card-container .card-content-container .card-content .card-header{height:136px;display:flex;flex-direction:column;justify-content:center}.card-container .card-content-container .card-content .card-header .card-logo{padding-top:32px;text-align:center}.card-container .card-content-container .card-content .card-header .card-logo object{height:40px}.card-container .card-content-container .card-content .card-header .card-title{margin:20px 0;padding:0 8px;overflow:hidden}.card-container .card-content-container .card-content .card-header .card-title h3{padding-left:0;border-left:0;margin:0;text-align:center;color:#fff;letter-spacing:-1px;line-height:inherit;font-size:24px}.card-container .card-content-container .card-content .card-body{background-color:#fff;font-size:16px;padding:16px;height:156px;overflow:hidden;display:flex;flex-direction:column}.card-container .card-content-container .card-content .card-body .card-body-content{font-size:12pt;line-height:18pt;font-weight:100;overflow:hidden}.card-container .card-content-container .card-content .card-body .card-body-content:first-letter{margin-left:8px}.card-container .card-content-container .card-content .card-body .date{color:#d42872;font-size:14px;border-bottom:1px solid lightgray;padding-left:8px;margin-bottom:8px}.card-container .card-content-container .card-content .card-footer{background-color:#fff;border-top:1px solid lightgray;padding:0;display:block}.card-container .card-content-container .card-content .card-footer:hover{text-decoration:none}.card-container .card-content-container .card-content .card-footer div{text-align:right;color:#d42872;font-size:14px;width:100%;display:block;padding:8px 16px}@media only screen and (min-width:768px){.site-heading h1{font-size:72px}}.dropdown-menu{background-color:#ffffffe6;top:calc(100% + 10px);border-top-left-radius:0;border-top-right-radius:0;border-top:0}@media(max-width:992px){.dropdown-menu{background-color:initial;border-radius:0;border:1px solid rgba(0,0,0,.15);border-left:0;border-right:0}}.dropdown-menu .dropdown-item{color:#00000080;font-size:12px;font-weight:800}.dropdown-menu .dropdown-item:hover{color:#000000b3;background-color:initial}@media(min-width:992px){#navbarResponsive{display:none!important}}.navbar-menu-container{display:flex;flex-direction:row;align-items:center}.navbar-menu-container .btn-translate-group{margin:0 8px;position:relative}@media(max-width:992px){.navbar-menu-container .btn-translate-group .dropdown-menu{background-color:#ffffffe6;border:1px solid rgba(0,0,0,.15);top:auto;border-radius:4px}}.floating-label-form-group{border:0;padding-bottom:0}.floating-label-form-group input,.floating-label-form-group textarea{font-size:16px;border:1px solid lightgrey;padding:8px 16px}.form-group .help-block{margin:8px 0}.form-group .help-block ul{list-style:none;padding-left:16px}.form-group.error input,.form-group.error textarea{border:1px solid red}.form-group.error label{color:red}#sendMessageButton{border-radius:8px;padding:8px 32px;font-size:16px}.page-item .page-link{color:#d42872;text-decoration:none;cursor:pointer}.page-item.active .page-link{background-color:#d42872;border-color:#d42872}.post-list-container{border:1px solid lightgray;border-radius:4px;padding:16px;margin-top:40px;display:none}.post-list-container .list-group-item{text-decoration:none;padding:8px 16px}.post-list-container .list-group-item.active{background-color:#d42872;border-color:#d42872}.post-list-container .body{font-size:16px;margin-bottom:8px}.post-list-container .body-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}.post-list-container .body-text:first-letter{margin-left:0}.post-list-container .body .page{display:none}.post-list-container .body .page.active{display:block}.post-list-container .footer{justify-content:center;font-size:16px;display:none}.share-title{text-align:center;font-weight:600;font-size:22px;border-bottom:1px solid lightgray;padding-bottom:4px;margin-bottom:8px}a,a:hover{color:#d42872;text-decoration:underline}#mainNav a{text-decoration:none;color:inherit}.card-footer{text-decoration:none}.navbar-expand-lg .navbar-nav .dropdown-menu{margin-top:0}table{table-layout:fixed;width:100%}table th,table td{border:1px solid #333;padding:8px 16px;font-size:13pt;line-height:21pt}table th{background-color:#e0e0e0}table th:first-child{width:150px}table td{text-align:left;vertical-align:top}.breadcrumb{background-color:initial}.breadcrumb .breadcrumb-item{font-size:12pt}.breadcrumb .breadcrumb-item a,.breadcrumb .breadcrumb-item a:hover{text-decoration:none}.navbar-brand{position:relative;margin-left:40px}.navbar-brand img{width:auto;height:35px;position:absolute;left:-44px;top:0}.navbar-brand .name{color:#212529;position:relative;top:6px;left:6px}.brand-icon{width:200px;display:inherit;margin:auto}.narrow-image{width:auto;display:inherit;margin:auto}a{cursor:pointer}ul li:last-child{margin-bottom:16px}.navbar-nav :last-child{margin-bottom:0}.half_image_container{text-align:center;margin-bottom:16px}.half_image{width:50%}.download_link_container{text-align:center;margin-bottom:16px}.download_link_container a{text-decoration:none}.download_link_container img{width:150px}@media(max-width:768px){.download_link_container img{width:120px}}.download_link_ios{margin-right:5%}.sponsor_container{text-align:center;margin:40px 0}.container p,.container li{font-weight:initial}.left-ads{padding-left:0}.left-ads .sticky-top{width:175px;margin-left:-175px}@media(max-width:1490px){.left-ads .sticky-top{margin-left:0}}.right-ads{padding-right:0}.right-ads .sticky-top{width:175px;margin-left:175px;margin-right:-175px}@media(max-width:1490px){.right-ads .sticky-top{margin-left:0;margin-right:0}}.ads-container{display:flex;justify-content:center}.ads-block{width:336px;height:280px;min-height:280px}.ads-container .ads-center{display:none}@media(min-width:700px){.ads-container .ads-center{display:initial;margin-left:10px}}.ads-container .ads-right{display:none}@media(min-width:1046px){.ads-container .ads-right{display:initial;margin-left:10px}}.in-feed-ads{margin:80px 0;min-height:280px}.container p,.container li{color:#555}.container p{margin:16px 0}.card-container .card-content-container .card-content .card-body .card-body-content{font-weight:initial}#contents_list{background-color:#f1f3f5;padding:16px;border-radius:8px}#contents_list h2{margin:0;font-size:18px}#contents_list li{font-size:14px;line-height:24px}#contents_list a{color:#555}#contents_list ul li:last-child{margin-bottom:0}#contents_list ol{margin-bottom:0}.book-greeting{font-size:13pt;line-height:24pt}.book-image-container{text-align:center;padding:15px 0}.book-image-container img{width:80%}footer{background-color:#343434;color:#fff}footer .text-muted{color:#adb5bd!important}.half_banner{display:inline-block!important;width:calc(50% - 10px);height:280px}.half_banner--right{margin-left:10px}@media(max-width:679px){.half_banner{width:100%}.half_banner--right{display:none!important}a{padding:12px 4px}.breadcrumb-item+.breadcrumb-item:before{line-height:48px}}#search-bar{margin:32px auto;border:1px solid #ccc;border-radius:20px;padding:0 20px}#search-bar #search{width:calc(100% - 30px);border:none;line-height:44px;outline:none;border-style:none}.search-page{padding:40px 0}.search-page__input-wrapper{border:2px solid #ccc;border-radius:28px;padding:0 24px;display:flex;align-items:center;transition:border-color .2s}.search-page__input-wrapper:focus-within{border-color:#d42872}.search-page__input-wrapper i{color:#999;font-size:18px}.search-page__input-wrapper--hero{background:#fffffff2;border-color:transparent;margin-top:24px;max-width:600px;margin-left:auto;margin-right:auto}.search-page__input-wrapper--hero:focus-within{border-color:#d42872}.search-page__input{width:100%;border:none;outline:none;line-height:52px;font-size:18px;padding-left:12px;background:transparent}.search-page__filters{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.search-page__chip{display:inline-block;padding:6px 16px;border:1px solid #ccc;border-radius:20px;background:#fff;color:#555;font-size:14px;cursor:pointer;transition:all .2s}.search-page__chip:focus{outline:none;box-shadow:none}.search-page__chip:hover{border-color:#d42872;color:#d42872}.search-page__chip.active{background-color:#d42872;border-color:#d42872;color:#fff}.search-page__status{color:#757575;font-size:14px;margin-bottom:16px}.search-page__results{display:flex;flex-direction:column;gap:0}.search-page__result-item{display:block;padding:16px;border-bottom:1px solid #eee;text-decoration:none;transition:background-color .15s}.search-page__result-item:hover{background-color:#f9f9f9;text-decoration:none}.search-page__result-title{color:#212529;font-size:18px;font-weight:600;margin-bottom:0}.search-page__result-category{display:inline-block;font-size:12px;font-weight:400;color:#fff;background-color:#888;border-radius:4px;padding:1px 8px;margin-left:8px;vertical-align:middle}.search-page__result-excerpt{color:#555;font-size:14px;line-height:1.6}.search-page__result-excerpt mark{background-color:#d4287226;color:#d42872;padding:0 2px;border-radius:2px}.search-page__no-result{text-align:center;color:#999;padding:40px 0;font-size:16px}.search-page__pagination{margin-top:24px}.in-feed-left-ads{width:calc(100% - 300px)}@media(max-width:576px){.in-feed-left-ads{width:100%}}.app_container{display:flex;justify-content:center;align-items:center;text-decoration:none}.app_container:hover{text-decoration:none}.app_container .app_logo_image{width:60px;margin-right:10px;border-radius:8px}.app_container .app_description{color:#757575;line-height:14px;font-size:14px;letter-spacing:-1px}.app_container .app_title{color:#212121;font-weight:700}blockquote{border-left:4px solid lightgray;padding-left:8px}.callout{padding:12px 16px;margin-top:16px;margin-bottom:16px;border-left:4px solid;border-radius:4px}.callout .callout-title{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:4px}.callout .callout-title .callout-title-icon{display:flex;align-items:center}.callout .callout-title .callout-title-icon svg{width:16px;height:16px;fill:currentColor}.callout .callout-content p:last-child{margin-bottom:0}.callout[data-callout=note]{border-left-color:#0969da;background-color:#0969da14}.callout[data-callout=note] .callout-title{color:#0969da}.callout[data-callout=tip]{border-left-color:#1a7f37;background-color:#1a7f3714}.callout[data-callout=tip] .callout-title{color:#1a7f37}.callout[data-callout=important]{border-left-color:#8250df;background-color:#8250df14}.callout[data-callout=important] .callout-title{color:#8250df}.callout[data-callout=warning]{border-left-color:#9a6700;background-color:#9a670014}.callout[data-callout=warning] .callout-title{color:#9a6700}.callout[data-callout=caution]{border-left-color:#cf222e;background-color:#cf222e14}.callout[data-callout=caution] .callout-title{color:#cf222e}pre.astro-code span[style*="color:#545454"]{color:#888!important}
+.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#bf4a17!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/en/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/en/">Home</a> </li> <li class="nav-item"> <a class="nav-link" href="/en/latest/">Latest</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/en/react-native/"> React Native </a><a class="dropdown-item" href="/en/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/en/books/"> Writing Books </a><a class="dropdown-item" href="/en/clog/"> Clog </a><a class="dropdown-item" href="/en/django/"> django </a><a class="dropdown-item" href="/en/environment/"> dev environment </a><a class="dropdown-item" href="/en/essay/"> Essay </a><a class="dropdown-item" href="/en/flutter/"> Flutter </a><a class="dropdown-item" href="/en/development_process/"> Development Process </a><a class="dropdown-item" href="/en/generative_ai/"> Generative AI </a><a class="dropdown-item" href="/en/git/"> git </a><a class="dropdown-item" href="/en/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/en/golang/"> Golang </a><a class="dropdown-item" href="/en/ildangongbu/"> 일단공부(Il-Dan-Gong-Bu) </a><a class="dropdown-item" href="/en/astro/"> Astro </a><a class="dropdown-item" href="/en/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/en/kubernetes/"> Kubernetes </a><a class="dropdown-item" href="/en/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/en/laravel/"> Laravel </a><a class="dropdown-item" href="/en/code_quality/"> Code Quality </a><a class="dropdown-item" href="/en/react/"> React </a><a class="dropdown-item" href="/en/ruby/"> Ruby </a><a class="dropdown-item" href="/en/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/en/share/"> Share </a><a class="dropdown-item" href="/en/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/en/web/"> Knowledge about Web </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/en/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/en/contact/">Contact</a> </li> <li class="nav-item"> <a class="nav-link" href="/en/search/" aria-label="Search"> <i class="fa fa-search" aria-hidden="true"></i> </a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menu">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/en/">Home</a> </li> <li class="nav-item"> <a class="nav-link" href="/en/latest/">Latest</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/en/react-native/"> React Native </a><a class="dropdown-item" href="/en/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/en/books/"> Writing Books </a><a class="dropdown-item" href="/en/clog/"> Clog </a><a class="dropdown-item" href="/en/django/"> django </a><a class="dropdown-item" href="/en/environment/"> dev environment </a><a class="dropdown-item" href="/en/essay/"> Essay </a><a class="dropdown-item" href="/en/flutter/"> Flutter </a><a class="dropdown-item" href="/en/development_process/"> Development Process </a><a class="dropdown-item" href="/en/generative_ai/"> Generative AI </a><a class="dropdown-item" href="/en/git/"> git </a><a class="dropdown-item" href="/en/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/en/golang/"> Golang </a><a class="dropdown-item" href="/en/ildangongbu/"> 일단공부(Il-Dan-Gong-Bu) </a><a class="dropdown-item" href="/en/astro/"> Astro </a><a class="dropdown-item" href="/en/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/en/kubernetes/"> Kubernetes </a><a class="dropdown-item" href="/en/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/en/laravel/"> Laravel </a><a class="dropdown-item" href="/en/code_quality/"> Code Quality </a><a class="dropdown-item" href="/en/react/"> React </a><a class="dropdown-item" href="/en/ruby/"> Ruby </a><a class="dropdown-item" href="/en/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/en/share/"> Share </a><a class="dropdown-item" href="/en/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/en/web/"> Knowledge about Web </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/en/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/en/contact/">Contact</a> </li> <li class="nav-item"> <a class="nav-link" href="/en/search/" aria-label="Search"> <i class="fa fa-search" aria-hidden="true"></i> Search
+</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/web/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>The Effectiveness and Limits of Cooldown as a Supply Chain Defense</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2026-05-17 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fen%2Fweb%2Fsupply-chain-defense-effectiveness%2F?color=red&label=hits&size=medium" alt="hit count image" width="80" height="20"> </div> <h2 class="subheading">A data-driven evaluation of how effective time-based supply chain defenses — Dependabot cooldown and package manager minimum release age — actually are, using historical incident data.</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" width="27" height="28" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/en/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/en/web/" itemprop="item"> <span itemprop="name">Knowledge about Web</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">The Effectiveness and Limits of Cooldown as a Supply Chain Defense</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto" data-pagefind-body> <span data-pagefind-filter="category" style="display:none;">web</span>  <div id="contents_list" markdown="1">
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#the-time-pattern-of-attacks">The Time Pattern of Attacks</a></li>
+<li><a href="#the-cooldown-period-in-supply-chain-defense">The Cooldown Period in Supply Chain Defense</a></li>
+<li><a href="#what-attacks-can-it-block">What Attacks Can It Block?</a></li>
+<li><a href="#what-attacks-can-it-not-block">What Attacks Can It Not Block?</a></li>
+<li><a href="#the-cost-of-the-defense">The Cost of the Defense</a></li>
+<li><a href="#as-one-layer-in-defense-in-depth">As One Layer in Defense-in-Depth</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p><a href="/en/web/supply-chain-attack-axios/">Part 1</a> showed how supply chain attacks work through the <code>axios</code> case, and <a href="/en/web/supply-chain-defense-implementation/">Part 2</a> covered three defense strategies applied to a real-world project. The common principle behind all three can be summarized in a single sentence:</p>
+<blockquote><p><strong>Do not immediately accept newly published versions.</strong></p></blockquote>
+<p>This article sets out to answer two questions:</p>
+<ol>
+<li>How effective is this simple principle in practice?</li>
+<li>And what does it fail to stop?</li>
+</ol>
+<h2 id="the-time-pattern-of-attacks">The Time Pattern of Attacks</h2>
+<p>The argument that supply chain attacks can be stopped by a time-based defense starts from the following observation:</p>
+<blockquote><p>The time between a malicious package being published and its detection and removal is almost always a matter of hours to days.</p></blockquote>
+<p>This pattern holds because:</p>
+<ul>
+<li>Popular packages are analyzed immediately by automated security scanners (<a href="https://socket.dev/" rel="nofollow noreferrer" target="_blank">Socket</a>, <a href="https://snyk.io/" rel="nofollow noreferrer" target="_blank">Snyk</a>, <a href="https://github.com/advisories" rel="nofollow noreferrer" target="_blank">GitHub Advisory</a>, etc.)</li>
+<li>Developers who notice suspicious behavior file issues right away</li>
+<li>The maintainer or npm staff unpublishes the package as soon as it is discovered</li>
+</ul>
+<p>In other words, an attacker’s opportunity is limited to the <strong>window of exposure</strong> — the brief period from when the malicious version is live until it is detected and removed. In supply chain attacks, this window is typically very short. Within a few days, the malicious version is gone from the registry and a clean new version has taken its place. Anyone who decided to wait a few days before accepting new versions naturally sidesteps this window entirely.</p>
+<h3 id="window-of-exposure-in-known-incidents">Window of Exposure in Known Incidents</h3>
+<p>Looking at representative npm supply chain incidents:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Incident</th><th>Year</th><th>Window of exposure (publish → removal)</th></tr></thead><tbody><tr><td>ua-parser-js</td><td>2021</td><td>~4 hours</td></tr><tr><td>Ledger Connect Kit</td><td>2023</td><td>~5 hours</td></tr><tr><td>Solana web3.js</td><td>2024</td><td>~5 hours</td></tr><tr><td>axios</td><td>2026</td><td>~4 hours</td></tr></tbody></table>
+<p>Not one of them lasted more than 24 hours. <strong>Waiting even a single day</strong> would have been enough to avoid having any of these malicious versions reach a production environment.</p>
+<h2 id="the-cooldown-period-in-supply-chain-defense">The Cooldown Period in Supply Chain Defense</h2>
+<p>Since supply chain attack windows are typically very short, a simple gate that delays acceptance of new versions by a few days yields significant defensive value. But how many days should that gate be?</p>
+<p>The name for this waiting period varies by tool:</p>
+<ul>
+<li><strong>Dependabot</strong>: <code>cooldown</code></li>
+<li><strong>pnpm · Renovate · Yarn</strong>: <code>minimumReleaseAge</code> (or <code>npmMinimalAgeGate</code>)</li>
+<li><strong>bun · uv</strong>: <code>minimumReleaseAge</code> and <code>exclude-newer</code>, respectively</li>
+</ul>
+<p>Different names, same idea: “Exclude any version published less than N days ago from installation and PR creation.” And the industry’s recommended value for N converges consistently on <strong>7 days</strong>.</p>
+<p>This section examines that 7-day figure from three angles: rationale, recommendation, and trade-offs.</p>
+<h3 id="1-rationale-where-major-tools-and-security-research-converge">1. Rationale: Where Major Tools and Security Research Converge</h3>
+<p>Seven days is not arbitrary — it is the value that multiple package managers and security research tools have independently adopted or recommended.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Source</th><th>Recommended / default</th><th>Notes</th></tr></thead><tbody><tr><td><a href="https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference#cooldown-" rel="nofollow noreferrer" target="_blank">GitHub Dependabot <code>cooldown</code> official docs</a></td><td>7 days in example config</td><td>Official reference recommendation</td></tr><tr><td><a href="https://pnpm.io/blog/releases/11.0" rel="nofollow noreferrer" target="_blank">pnpm <code>minimumReleaseAge</code> (v11)</a></td><td>Default: 1 day</td><td>Conservative default for backward compatibility; guide recommends longer</td></tr><tr><td><a href="https://pnpm.io/supply-chain-security" rel="nofollow noreferrer" target="_blank">pnpm supply chain security guide</a></td><td>7 days</td><td>Strongly discourages installing versions less than 7 days old</td></tr><tr><td><a href="https://docs.renovatebot.com/key-concepts/minimum-release-age/" rel="nofollow noreferrer" target="_blank">Renovate minimum-release-age</a></td><td>Documentation provided</td><td>Listed as an official key concept</td></tr><tr><td><a href="https://socket.dev/" rel="nofollow noreferrer" target="_blank">Socket</a></td><td>7-day flag</td><td>Automatically flags versions published less than 7 days ago as a risk signal</td></tr></tbody></table>
+<p>The key observation is that GitHub’s official documentation, major package managers (pnpm, Renovate), and supply chain security SaaS (Socket) all treat 7 days as “enough time to filter short-lived malicious publishes.”</p>
+<h3 id="2-recommendation-start-with-7-days">2. Recommendation: Start with 7 Days</h3>
+<p>In summary:</p>
+<blockquote><p><strong>For new projects, set 7 days as your starting point.</strong></p></blockquote>
+<p>The reason 7 days has become the standard recommendation is clear when compared to 1 day or 30 days.</p>
+<ul>
+<li><strong>1 day is not enough.</strong> Packages with fewer users, weekend/holiday publishes, and maintainers on vacation can all delay detection. 1 day only filters the critical 4–5 hour incidents.</li>
+<li><strong>30 days is excessive.</strong> It blocks marginally more attacks, but delays adoption of new features and improvements. It also lets lockfiles grow stale, creating other operational overhead.</li>
+<li><strong>7 days is the consensus sweet spot.</strong> It filters almost all short-lived malicious publishes while letting legitimate new versions through within a week.</li>
+</ul>
+<p>Validating this against real incident data: of 21 well-known supply chain incidents, <strong>11 could have been blocked by a 7-day gate</strong>. More than half of known incidents can be prevented with a single line of configuration.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Incident</th><th>Year</th><th>Ecosystem</th><th>Window of exposure</th><th>7-day gate</th></tr></thead><tbody><tr><td><a href="https://www.cisa.gov/news-events/alerts/2026/04/20/supply-chain-compromise-impacts-axios-node-package-manager" rel="nofollow noreferrer" target="_blank">axios</a></td><td>2026</td><td>npm</td><td>~4 hours</td><td>Blocked</td></tr><tr><td><a href="https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23" rel="nofollow noreferrer" target="_blank">Trivy-Action</a></td><td>2026</td><td>GitHub Actions</td><td>~12 hours</td><td>Blocked</td></tr><tr><td><a href="https://nx.dev/blog/s1ngularity-postmortem" rel="nofollow noreferrer" target="_blank">Nx / S1ngularity</a></td><td>2025</td><td>npm</td><td>~1 day</td><td>Blocked</td></tr><tr><td><a href="https://gluestack.io/blogs/public-incident-report" rel="nofollow noreferrer" target="_blank">Gluestack / React Native ARIA</a></td><td>2025</td><td>npm</td><td>A few days</td><td>Blocked</td></tr><tr><td><a href="https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-github-action-cve-2025-30066" rel="nofollow noreferrer" target="_blank">tj-actions/changed-files</a></td><td>2025</td><td>GitHub Actions</td><td>~3 days</td><td>Blocked</td></tr><tr><td><a href="https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-github-action-cve-2025-30066" rel="nofollow noreferrer" target="_blank">reviewdog/action-setup</a></td><td>2025</td><td>GitHub Actions</td><td>~2 hours</td><td>Blocked</td></tr><tr><td><a href="https://blog.pypi.org/posts/2024-12-11-ultralytics-attack-analysis/" rel="nofollow noreferrer" target="_blank">Ultralytics YOLO</a></td><td>2024</td><td>PyPI</td><td>~1–2 days</td><td>Blocked</td></tr><tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-54134" rel="nofollow noreferrer" target="_blank">Solana web3.js</a></td><td>2024</td><td>npm</td><td>~5 hours</td><td>Blocked</td></tr><tr><td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-38526" rel="nofollow noreferrer" target="_blank">Polyfill.io</a></td><td>2024</td><td>CDN</td><td>~4 months</td><td>Not blocked</td></tr><tr><td><a href="https://www.cisa.gov/news-events/alerts/2024/03/29/reported-supply-chain-compromise-affecting-xz-utils-data-compression-library-cve-2024-3094" rel="nofollow noreferrer" target="_blank">XZ Utils</a></td><td>2024</td><td>OS packages</td><td>2+ years</td><td>Not blocked</td></tr><tr><td><a href="https://www.ledger.com/blog/security-incident-report" rel="nofollow noreferrer" target="_blank">Ledger Connect Kit</a></td><td>2023</td><td>npm</td><td>~5 hours</td><td>Blocked</td></tr><tr><td><a href="https://www.cisa.gov/news-events/alerts/2023/03/30/supply-chain-attack-against-3cxdesktopapp" rel="nofollow noreferrer" target="_blank">3CX</a></td><td>2023</td><td>Desktop app</td><td>Several weeks</td><td>Not blocked</td></tr><tr><td><a href="https://pytorch.org/blog/compromised-nightly-dependency/" rel="nofollow noreferrer" target="_blank">PyTorch torchtriton</a></td><td>2022</td><td>PyPI</td><td>~5 days</td><td>Blocked</td></tr><tr><td><a href="https://github.com/advisories/GHSA-97m3-w2cp-4xx6" rel="nofollow noreferrer" target="_blank">node-ipc</a></td><td>2022</td><td>npm</td><td>Weeks+</td><td>Not blocked</td></tr><tr><td><a href="https://www.sonatype.com/blog/npm-libraries-colors-and-faker-sabotaged-in-protest-by-their-maintainer-what-to-do-now" rel="nofollow noreferrer" target="_blank">colors / faker</a></td><td>2022</td><td>npm</td><td>Days to weeks</td><td>Partially blocked</td></tr><tr><td><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-356a" rel="nofollow noreferrer" target="_blank">Log4Shell</a></td><td>2021</td><td>Java</td><td>N/A</td><td>Not blocked</td></tr><tr><td><a href="https://www.cisa.gov/news-events/alerts/2021/10/22/malware-discovered-popular-npm-package-ua-parser-js" rel="nofollow noreferrer" target="_blank">ua-parser-js</a></td><td>2021</td><td>npm</td><td>~4 hours</td><td>Blocked</td></tr><tr><td><a href="https://about.codecov.io/apr-2021-post-mortem/" rel="nofollow noreferrer" target="_blank">Codecov</a></td><td>2021</td><td>SaaS</td><td>~2 months</td><td>Not blocked</td></tr><tr><td><a href="https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610" rel="nofollow noreferrer" target="_blank">Dependency Confusion (Alex Birsan)</a></td><td>2021</td><td>Multiple</td><td>Varies</td><td>Partially blocked</td></tr><tr><td><a href="https://www.cisa.gov/news-events/alerts/2020/12/13/active-exploitation-solarwinds-software" rel="nofollow noreferrer" target="_blank">SolarWinds</a></td><td>2020</td><td>Build system</td><td>~9 months</td><td>Not blocked</td></tr><tr><td><a href="https://blog.npmjs.org/post/180565383195/details-about-the-event-stream-incident" rel="nofollow noreferrer" target="_blank">event-stream</a></td><td>2018</td><td>npm</td><td>~2 months</td><td>Not blocked</td></tr></tbody></table>
+<p><strong>Partially blocked</strong> means only some stages of the attack can be prevented (for example, exposure in the first few days is blocked but subsequent stages are not). A simple count gives: <strong>11 blocked / 8 not blocked / 2 partially blocked</strong>.</p>
+<p>One more observation from the table: <strong>every “not blocked” incident directly reflects a fundamental limitation of the 7-day gate</strong>. Long-term infiltrations like XZ Utils, SolarWinds, and event-stream with windows lasting months or years; attacks outside the npm registry like Polyfill.io and Codecov; vulnerabilities in otherwise legitimate code like Log4Shell — all of these fall outside what cooldown can address. These limitations are covered in detail below.</p>
+<p>Extending to 14 or 30 days blocks a few more incidents, but comes at the cost of <strong>delaying legitimate security patches</strong>. The current industry consensus is that 7 days strikes a reasonable balance.</p>
+<h2 id="what-attacks-can-it-block">What Attacks Can It Block?</h2>
+<p>The 7-day gate is effective against:</p>
+<h3 id="1-maintainer-account-hijacks">1. Maintainer Account Hijacks</h3>
+<p>The most common type, and the fastest to be detected. The <code>axios</code> case from <a href="/en/web/supply-chain-attack-axios/">Part 1</a> is a prime example. The cycle from hijack to malicious publish to detection to removal typically completes within 24 hours, so the 7-day gate blocks nearly all of them.</p>
+<h3 id="2-typosquatting">2. Typosquatting</h3>
+<p>Fake packages with names similar to popular ones — like <code>react-doom</code> — designed to be installed by accident. These are caught by automated scanners shortly after publication and taken down within a few days.</p>
+<h3 id="3-dependency-confusion">3. Dependency Confusion</h3>
+<p>Uploading a package with the same name as an internal private package to the public registry, tricking the build system into fetching the wrong one. These also follow the pattern of being discovered and removed quickly.</p>
+<h3 id="4-fast-dependency-injection">4. Fast Dependency Injection</h3>
+<p>Like <code>plain-crypto-js</code> in the <code>axios</code> case — a compromised package adding a newly published malicious package as a new dependency. The key detail is that the injected dependency is itself a brand-new package. The 7-day gate blocks both the new version of the compromised main package and the new dependency it pulls in.</p>
+<h2 id="what-attacks-can-it-not-block">What Attacks Can It Not Block?</h2>
+<p>When evaluating a defense strategy, the more important question is “what does it fail to stop?” The 7-day gate is ineffective against:</p>
+<h3 id="1-long-term-infiltration--the-xz-utils-pattern">1. Long-Term Infiltration — The XZ Utils Pattern</h3>
+<p>The XZ Utils backdoor discovered in 2024 was the result of an attacker spending <strong>two years</strong> building trust as a maintainer before inserting a backdoor. The backdoor was delivered through a normal official release and went undetected for months.</p>
+<p>The 7-day gate blocks “just-published” versions, but it is powerless against a version that has been in the registry for months and is considered legitimate.</p>
+<h3 id="2-deliberate-maintainer-sabotage">2. Deliberate Maintainer Sabotage</h3>
+<p>As with <code>colors.js</code> (2022) and <code>node-ipc</code> (2022), a maintainer can intentionally insert malicious code. In those cases, the code goes through a normal release process. The 7-day gate provides some protection in the first few days, but if a maintainer deliberately moves slowly, the attack passes through the gate after it opens.</p>
+<h3 id="3-build-system-compromise">3. Build System Compromise</h3>
+<p>Incidents like SolarWinds (2020) and 3CX (2023) involved the <strong>build system itself</strong> being compromised, not the package registry. Backdoors were embedded in build artifacts while normal version numbers and normal release procedures were used. Package manager-level defenses cannot reach this.</p>
+<h3 id="4-attacks-outside-the-registry">4. Attacks Outside the Registry</h3>
+<p>Codecov (2021) involved a shell script downloaded in CI being tampered with. Polyfill.io (2024) was a CDN attack where a domain acquisition led to malicious JavaScript being served. Neither entered through the npm gate.</p>
+<h3 id="5-vulnerabilities-in-legitimate-code">5. Vulnerabilities in Legitimate Code</h3>
+<p>Like Log4Shell: a security flaw in code written without malicious intent. This is not a supply chain attack — it is a conventional vulnerability. The correct response here is actually to <strong>patch quickly</strong>. The 7-day gate is a disadvantage in this case.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Attack type</th><th align="center">7-day gate effectiveness</th></tr></thead><tbody><tr><td>Maintainer account hijack</td><td align="center">Very effective</td></tr><tr><td>Typosquatting</td><td align="center">Very effective</td></tr><tr><td>Dependency confusion</td><td align="center">Very effective</td></tr><tr><td>Fast dependency injection</td><td align="center">Very effective</td></tr><tr><td>Long-term infiltration (XZ Utils pattern)</td><td align="center">Ineffective</td></tr><tr><td>Maintainer sabotage</td><td align="center">Limited</td></tr><tr><td>Build system compromise</td><td align="center">Ineffective</td></tr><tr><td>Outside the registry (CDN, scripts)</td><td align="center">Ineffective</td></tr><tr><td>Vulnerabilities in legitimate libraries</td><td align="center">Counter-productive</td></tr></tbody></table>
+<h2 id="the-cost-of-the-defense">The Cost of the Defense</h2>
+<p>The reason this defense is described as “simple and effective” is that it costs almost nothing.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Cost item</th><th>Level</th></tr></thead><tbody><tr><td>Configuration changes</td><td>A few lines in config files</td></tr><tr><td>Learning curve</td><td>Virtually none</td></tr><tr><td>CI/CD pipeline changes</td><td>Replacing <code>--frozen-lockfile</code> with <code>--immutable</code> for Yarn 4</td></tr><tr><td>Delay in receiving legitimate patches</td><td>Average 7 days (security alerts are immediate)</td></tr><tr><td>Operational overhead</td><td>Minimal (Dependabot handles it automatically)</td></tr></tbody></table>
+<p>The largest cost is “receiving legitimate new versions 7 days later.” Even that is minimal in practice, since security alerts bypass the cooldown entirely.</p>
+<h2 id="as-one-layer-in-defense-in-depth">As One Layer in Defense-in-Depth</h2>
+<p>The core point is that this strategy is <strong>not a silver bullet — and should not be expected to be one</strong>. The 7-day gate is a time-based filter designed around the fast-detection/removal pattern. As shown above, long-term infiltrations, build system compromises, and off-registry attacks all require different defensive tools.</p>
+<p><strong>Defense-in-depth</strong> means not relying on any single strong defense, but <strong>layering multiple defenses with different characteristics</strong>. When one layer fails to stop an attack, the next layer catches it. Cooldown is just one layer in that stack.</p>
+<p>Other defenses that pair well with cooldown:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Defense</th><th>Attacks it covers</th></tr></thead><tbody><tr><td><code>enableScripts: false</code></td><td>Immediate RCE via postinstall</td></tr><tr><td>GitHub Actions SHA pinning</td><td>Tampering with Actions themselves</td></tr><tr><td>Hardened Mode (Yarn 4)</td><td>Lockfile tampering</td></tr><tr><td>OIDC / signed publish</td><td>Unofficial publication paths</td></tr><tr><td>SBOM management</td><td>Dependency visibility</td></tr><tr><td>Automated security scanners</td><td>Known CVEs and malicious patterns</td></tr><tr><td>Code review</td><td>Deliberate sabotage (attention to dependency changes)</td></tr><tr><td>CDN integrity (SRI)</td><td>External asset tampering outside the registry</td></tr></tbody></table>
+<p>The three strategies from <a href="/en/web/supply-chain-defense-implementation/">Part 2</a> cover a portion of this table. The rest can be introduced incrementally based on each project’s needs.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>To summarize the series:</p>
+<ul>
+<li><a href="/en/web/supply-chain-attack-axios/">Part 1</a>: npm’s trust model is structurally exposed to attack, and the <code>axios</code> case showed that malicious versions do exist — even if their window is very short.</li>
+<li><a href="/en/web/supply-chain-defense-implementation/">Part 2</a>: GitHub Actions SHA pinning, Dependabot cooldown, and Yarn’s <code>npmMinimalAgeGate</code> let you naturally sidestep that exposure window in a real-world project.</li>
+<li>Part 3 (this article): A simple time-based gate can block a significant fraction of known supply chain incidents, but it is not comprehensive — it must be combined with other defenses.</li>
+</ul>
+<p>Supply chain security is inherently a domain where <strong>there is no single definitive solution</strong>. You cannot audit every dependency yourself, and you cannot verify the intentions of every maintainer. That is precisely why “simple defenses with almost no cost” shine so brightly. Setting one number — 7 days — in a few lines of configuration can block more than half of known supply chain attacks. In the security domain, that kind of return on investment is remarkably rare.</p>
+<p>If your project does not yet have a cooldown or minimum release age gate, now is the best time to add one.</p>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://socket.dev/blog" rel="nofollow noreferrer" target="_blank">Socket Security Blog</a></li>
+</ul>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" width="27" height="28" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> Was my blog helpful? Please leave a comment at the bottom. it will be a great help to me! </code> </p>   <h2>App promotion</h2> <div class="book-greeting"> You can use the applications that are created by this blog writer <code class="highlighter-rouge">Deku</code>.<br /><code class="highlighter-rouge">Deku</code> created the applications with Flutter.<br /><br />If you have interested, please try to download them for free. <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/en/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="word learning app for kids, BlaBoo" width="60" height="60"> <div> <div class="app_description">word learning app for kids</div> <div class="app_title">BlaBoo</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/koreanwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/koreanwords.png" alt="Korean TOPIK vocabulary app, TOPIK words" width="60" height="60"> <div> <div class="app_description">Korean TOPIK vocabulary app</div> <div class="app_title">TOPIK words</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/japanesewords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/japanesewords.png" alt="Japanese vocabulary app, Japanese words" width="60" height="60"> <div> <div class="app_description">Japanese vocabulary app</div> <div class="app_title">Japanese words</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/chinesewords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/hskwordsen.png" alt="Chinese HSK vocabulary app, HSK words" width="60" height="60"> <div> <div class="app_description">Chinese HSK vocabulary app</div> <div class="app_title">HSK words</div> </div> </a> </div> </div> </div> </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"Blocking CDN Tampering with Subresource Integrity (SRI): Lessons from Polyfill.io\",\"description\":\"The 2024 Polyfill.io incident showed how a single CDN-hosted script can infect over 100,000 sites at once. This article covers how Subresource Integrity (SRI) works, how to apply it, and how to handle dynamic CSS like Google Fonts where SRI cannot be used directly.\",\"url\":\"/en/web/subresource-integrity/\",\"date\":\"2026-05-22\",\"category\":\"web\"},{\"title\":\"Validating New Dependencies at the PR Stage with GitHub Dependency Review Action\",\"description\":\"How to use GitHub's dependency-review-action to prevent PRs from introducing packages with known CVEs, license violations, or risky maintainer changes — with real incident examples.\",\"url\":\"/en/web/github-dependency-review-action/\",\"date\":\"2026-05-21\",\"category\":\"web\"},{\"title\":\"Strengthening Security Scanning with CodeQL and yarn npm audit\",\"description\":\"Two threats that supply chain cooldown alone cannot stop — newly discovered CVEs in already-installed dependencies, and vulnerabilities in your own code — and how to address them with yarn npm audit and GitHub CodeQL, illustrated with real incident examples.\",\"url\":\"/en/web/code-scanning-codeql-npm-audit/\",\"date\":\"2026-05-20\",\"category\":\"web\"},{\"title\":\"Gaining Dependency Visibility with SBOM: Lessons from Log4Shell\",\"description\":\"If your team cannot immediately answer \\\"are we affected?\\\" when a new vulnerability is disclosed, your dependency visibility is insufficient. Using Log4Shell as a case study, this article explains why SBOM (Software Bill of Materials) matters and how to automate it with GitHub Dependency Submission.\",\"url\":\"/en/web/sbom-dependency-visibility/\",\"date\":\"2026-05-19\",\"category\":\"web\"},{\"title\":\"Blocking Lockfile Tampering Attacks with Yarn 4 Hardened Mode\",\"description\":\"Covers lockfile tampering — a gap in supply chain defenses — and explains how Yarn 4's Hardened Mode closes it by verifying resolutions and integrity hashes on every install. Includes how to enable it with a single line of configuration.\",\"url\":\"/en/web/yarn-hardened-mode/\",\"date\":\"2026-05-18\",\"category\":\"web\"},{\"title\":\"The Effectiveness and Limits of Cooldown as a Supply Chain Defense\",\"description\":\"A data-driven evaluation of how effective time-based supply chain defenses — Dependabot cooldown and package manager minimum release age — actually are, using historical incident data.\",\"url\":\"/en/web/supply-chain-defense-effectiveness/\",\"date\":\"2026-05-17\",\"category\":\"web\"},{\"title\":\"3 Defense Strategies Against npm Supply Chain Attacks\",\"description\":\"Three concrete strategies for defending against npm supply chain attacks. Covers GitHub Actions SHA pinning, Dependabot cooldown, and Yarn 4's npmMinimalAgeGate — step by step, with code.\",\"url\":\"/en/web/supply-chain-defense-implementation/\",\"date\":\"2026-05-16\",\"category\":\"web\"},{\"title\":\"How npm Supply Chain Attacks Work: The axios Case Study\",\"description\":\"An analysis of the axios supply chain attack that hit the npm ecosystem in March 2026. Covers the full attack chain — maintainer account hijack, malicious dependency injection, and RAT deployment via a postinstall script — along with the structural weaknesses in npm's trust model.\",\"url\":\"/en/web/supply-chain-attack-axios/\",\"date\":\"2026-05-15\",\"category\":\"web\"},{\"title\":\"word-break: break-word is Deprecated — Why You Should Switch to overflow-wrap: anywhere\",\"description\":\"word-break: break-word is a deprecated legacy value in the CSS spec. Its alternative, overflow-wrap: break-word, also has a pitfall where it fails on intrinsic sizing elements. Learn the recommended CSS combination (overflow-wrap: anywhere + word-break: normal + line-break: strict) and how to automate enforcement with a Stylelint custom plugin.\",\"url\":\"/en/web/css-overflow-wrap/\",\"date\":\"2026-03-18\",\"category\":\"web\"},{\"title\":\"[Optimization] Reducing Bundle Size by 82% with lodash Tree Shaking: From 547KB to 97KB\",\"description\":\"Sharing the experience of reducing bundle size from 547KB to 97KB (approximately 82%) by changing the lodash import method in a monorepo environment. Covers the entire process from setting up bundle analysis to preventing recurrence with ESLint rules.\",\"url\":\"/en/web/lodash-tree-shaking/\",\"date\":\"2026-02-28\",\"category\":\"web\"},{\"title\":\"[Web] Comprehensive Lighthouse Performance Optimization Guide\",\"description\":\"Sharing the methods applied to improve Lighthouse performance scores on an Astro blog, including image optimization, CSS optimization, web font optimization, and accessibility improvements.\",\"url\":\"/en/web/lighthouse_optimization/\",\"date\":\"2026-02-14\",\"category\":\"web\"},{\"title\":\"[Web] Optimize Images Using avif and webp Formats\",\"description\":\"Let's learn how to solve Lighthouse's Serve images in next-gen formats issue by generating images in avif and webp formats using Python.\",\"url\":\"/en/web/optimization_images/\",\"date\":\"2023-03-18\",\"category\":\"web\"},{\"title\":\"[Web] Optimize loading Google Web Font\",\"description\":\"When using Google Web Fonts on a web page, let's see how to optimize loading Google Web Font so that it doesn't affect the performance of the web page.\",\"url\":\"/en/web/optimization_load_google_font/\",\"date\":\"2023-03-12\",\"category\":\"web\"}]";
+const searchPageUrl = "/en/search/";
+const searchCategory = "web";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+            var currentPage = 1;
+            var totalPages = 1;
+
+            function renderPagination() {
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              if (totalPages <= 1) return;
+
+              var nextBtn = paginationContainer.querySelector('.page-item--next');
+              var pages = [];
+              pages.push(1);
+              for (var p = currentPage - 2; p <= currentPage + 2; p++) {
+                if (p > 1 && p < totalPages) pages.push(p);
+              }
+              pages.push(totalPages);
+
+              var prev = 0;
+              for (var i = 0; i < pages.length; i++) {
+                if (pages[i] - prev > 1) {
+                  var dots = document.createElement('li');
+                  dots.className = 'page-item page-item--link disabled';
+                  dots.innerHTML = '<div class="page-link">\u2026</div>';
+                  paginationContainer.insertBefore(dots, nextBtn);
+                }
+                var li = document.createElement('li');
+                li.className = 'page-item page-item--link' + (pages[i] === currentPage ? ' active' : '');
+                li.innerHTML = '<div class="page-link" data-page="' + pages[i] + '">' + pages[i] + '</div>';
+                paginationContainer.insertBefore(li, nextBtn);
+                prev = pages[i];
+              }
+            }
+
+            function makePostList(data) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + active;
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                if (active === 'active') {
+                  currentPage = pageNum;
+                }
+              });
+
+              totalPages = Math.ceil(data.length / 8) || 1;
+              if (totalPages > 1) {
+                document.querySelector('.post-list-container .footer').style.display = 'flex';
+              }
+              renderPagination();
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+              if (link.closest('.disabled')) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+
+              if (link.closest('.page-item--previous')) {
+                if (currentPage > 1) currentPage--;
+              } else if (link.closest('.page-item--next')) {
+                if (currentPage < totalPages) currentPage++;
+              } else {
+                currentPage = parseInt(link.getAttribute('data-page')) || 1;
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + currentPage);
+              if (targetPage) targetPage.classList.add('active');
+
+              renderPagination();
+            });
+
+            // Redirect search to dedicated search page
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  var query = this.value.trim();
+                  var params = [];
+                  if (query) params.push('q=' + encodeURIComponent(query));
+                  if (searchCategory) params.push('category=' + encodeURIComponent(searchCategory));
+                  window.location.href = searchPageUrl + (params.length ? '?' + params.join('&') : '');
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=The%20Effectiveness%20and%20Limits%20of%20Cooldown%20as%20a%20Supply%20Chain%20Defense&url=https%3A%2F%2Fdeku.posstree.com%2Fen%2Fweb%2Fsupply-chain-defense-effectiveness%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fen%2Fweb%2Fsupply-chain-defense-effectiveness%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/en/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script> <script>
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          var path = window.location.pathname;
+          var searchPath = '/search/';
+          if (path.indexOf('/ko/') >= 0) searchPath = '/ko/search/';
+          else if (path.indexOf('/en/') >= 0) searchPath = '/en/search/';
+          window.location.href = searchPath;
+        }
+      });
+    </script> </body> </html>
