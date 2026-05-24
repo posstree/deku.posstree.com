@@ -84,13 +84,13 @@ Github Sponsor
 <p>GitHub Actionsのワークフローは通常、次のように書かれています。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/checkout@v6</span></span>
 <span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> actions/setup-node@v6</span></span></code></pre>
-<p><code>@v6</code>のようなタグ参照は可読性が高いですが、**タグは変更可能（mutable）**という問題があります。メンテナーが<code>v6</code>タグが指すコミットを別のコミットに移動させることができます。メンテナーアカウントが乗っ取られれば、攻撃者も同様にタグが指すコミットを変更できます。</p>
+<p><code>@v6</code>のようなタグ参照は可読性が高いですが、<strong>タグは変更可能（mutable）</strong>という問題があります。メンテナーが<code>v6</code>タグが指すコミットを別のコミットに移動させることができます。メンテナーアカウントが乗っ取られれば、攻撃者も同様にタグが指すコミットを変更できます。</p>
 <p>実際に2025年には、ダウンロード数の多い<a href="https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-github-action-cve-2025-30066" rel="nofollow noreferrer" target="_blank"><code>tj-actions/changed-files</code>のタグが悪意あるコミットに書き換えられ、多数のワークフローがシークレットを漏洩したインシデント</a>がありました（CVE-2025-30066）。</p>
 <p>もう少し具体的に説明すると、ワークフローファイルに記述した</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> uses</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> tj-actions/changed-files@v45</span></span></code></pre>
-<p>という<strong>たった1行のタグ参照</strong>が、攻撃者が私たちのCI環境で任意のコマンドを実行できる**RCE（Remote Code Execution、リモートコード実行）**の入り口になったのです。私たちのコードは変わっていないにもかかわらず、その1行が指すコミットが攻撃者の悪意あるコミットに置き換わった瞬間から、次のCI実行でその悪意あるコードがワークフローの権限で実行されます。ワークフローは通常、デプロイトークン、クラウド認証情報、npmトークン、GitHub PATなどの環境変数にアクセスできるため、この1行の改ざんだけでそれらすべてのシークレットが攻撃者の手に渡る可能性があります。</p>
+<p>という<strong>たった1行のタグ参照</strong>が、攻撃者が私たちのCI環境で任意のコマンドを実行できる<strong>RCE（Remote Code Execution、リモートコード実行）</strong>の入り口になったのです。私たちのコードは変わっていないにもかかわらず、その1行が指すコミットが攻撃者の悪意あるコミットに置き換わった瞬間から、次のCI実行でその悪意あるコードがワークフローの権限で実行されます。ワークフローは通常、デプロイトークン、クラウド認証情報、npmトークン、GitHub PATなどの環境変数にアクセスできるため、この1行の改ざんだけでそれらすべてのシークレットが攻撃者の手に渡る可能性があります。</p>
 <h3 id="解決策-shaで固定する">解決策: SHAで固定する</h3>
-<p>解決策はシンプルです。タグの代わりに**不変（immutable）**なコミットSHAで参照すればよいのです。</p>
+<p>解決策はシンプルです。タグの代わりに<strong>不変（immutable）</strong>なコミットSHAで参照すればよいのです。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="diff"><code><span class="line"><span style="color:#89DDFF"><span style="user-select: none;">-</span></span><span style="color:#F07178"> - uses: actions/checkout@v6</span></span>
 <span class="line"><span style="color:#89DDFF"><span style="user-select: none;">+</span></span><span style="color:#C3E88D"> - uses: actions/checkout@&#x3C;コミットSHA>   # v6</span></span></code></pre>
 <p>SHAはコミット内容のハッシュなので、一度決めたSHAが指すコードは絶対に変わりません。メンテナーがタグを移動させても、私たちのワークフローは私たちが検証したその時点のコミットを使い続けます。</p>

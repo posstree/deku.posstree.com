@@ -98,7 +98,7 @@ Github Sponsor
   </div>
 </div>
 <h2 id="해결-방법-비교">해결 방법 비교</h2>
-<p>이 문제를 해결하려면 <code>GITHUB_TOKEN</code> 대신 다른 인증 수단을 사용해야 합니다. 대표적으로 **PAT(Personal Access Token)**과 <strong>GitHub Apps</strong>가 있습니다.</p>
+<p>이 문제를 해결하려면 <code>GITHUB_TOKEN</code> 대신 다른 인증 수단을 사용해야 합니다. 대표적으로 <strong>PAT(Personal Access Token)</strong>과 <strong>GitHub Apps</strong>가 있습니다.</p>
 
 
 
@@ -365,7 +365,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">      git push</span></span></code></pre>
 <p>핵심 포인트는 다음과 같습니다.</p>
 <ul>
-<li><code>actions/create-github-app-token@v1</code>이 App ID와 Private Key로 **설치 토큰(installation token)**을 발급</li>
+<li><code>actions/create-github-app-token@v1</code>이 App ID와 Private Key로 <strong>설치 토큰(installation token)</strong>을 발급</li>
 <li>이 토큰은 약 1시간 동안 유효하며, 워크플로우 실행마다 새로 발급됨</li>
 <li>이 토큰으로 push하면 <strong>다른 워크플로우가 정상적으로 트리거됨</strong></li>
 <li>git commit의 author는 <code>&#x3C;app-name>[bot]</code> 형식을 사용</li>

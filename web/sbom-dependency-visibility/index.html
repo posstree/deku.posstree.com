@@ -52,7 +52,7 @@ Github Sponsor
 <h2 id="はじめに">はじめに</h2>
 <p><a href="/web/supply-chain-defense-effectiveness/">供給チェーン攻撃シリーズ</a>では、cooldownは「新しく公開された悪意あるバージョンを受け取らない」という時間ベースの防御であることを解説しました。しかし供給チェーンセキュリティには、その前段階の問いがあります。</p>
 <blockquote><p><strong>新しい脆弱性が公開されたとき、私たちのプロジェクトは影響を受けるか?</strong></p></blockquote>
-<p>この問いに即答できなければ、どれだけ精巧な防御を整えていても、インシデント発生時の対応速度が決定的に遅くなります。この記事では、その問題を解決する**SBOM（Software Bill of Materials）**とGitHubによる自動化の方法を解説します。</p>
+<p>この問いに即答できなければ、どれだけ精巧な防御を整えていても、インシデント発生時の対応速度が決定的に遅くなります。この記事では、その問題を解決する<strong>SBOM（Software Bill of Materials）</strong>とGitHubによる自動化の方法を解説します。</p>
 <h2 id="どんなリスクがあるか-私たちは影響を受けるかに答えられない">どんなリスクがあるか: 「私たちは影響を受けるか?」に答えられない</h2>
 <p>現代のフロントエンドプロジェクトは数百〜数千個の依存関係を取り込みます。<code>package.json</code>に直接記載した依存関係が50個だとすると、それらが引き込む間接依存関係（transitive dependency）まで合わせると1,000個を超えることも珍しくありません。</p>
 <p>この状況で新しいCVEが公開されると、次のようなことが起きます。</p>
@@ -66,7 +66,7 @@ Github Sponsor
 <p>このプロセスが速ければ1〜2時間、遅ければ数日かかります。そしてその時間の間、<strong>すでに私たちのシステムが攻撃されている可能性があります</strong>。</p>
 <h2 id="log4shellが示した可視性不足の代償">Log4Shellが示した可視性不足の代償</h2>
 <p>2021年12月に公開された<a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-356a" rel="nofollow noreferrer" target="_blank">Log4Shell（CVE-2021-44228）</a>は、Apache Log4jの任意コード実行の脆弱性でした。CVSSスコア10点、事実上すべてのJavaアプリケーションが直接・間接的に影響を受けていました。</p>
-<p>このインシデントが世界中のセキュリティチームに残した最大の教訓は、脆弱性そのものではなく、**「私たちの組織のどこにLog4jがあるか、誰も分からない」**という事実でした。</p>
+<p>このインシデントが世界中のセキュリティチームに残した最大の教訓は、脆弱性そのものではなく、<strong>「私たちの組織のどこにLog4jがあるか、誰も分からない」</strong>という事実でした。</p>
 <ul>
 <li>直接依存関係として記載したことはなくても、別のライブラリが依存しているために入り込んでいるケース</li>
 <li>ビルドされたJARファイルの中にfat jarとして含まれており、コード検索では見えないケース</li>
@@ -75,7 +75,7 @@ Github Sponsor
 <p>CISAの<a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-356a" rel="nofollow noreferrer" target="_blank">公式アドバイザリ</a>でも、最初に求められる行動として明記されているのは_「Log4jの使用状況を特定する（Identify the use of Log4j）」_でした。パッチより先に特定が来ていたのです。</p>
 <p>米国政府はこのインシデント直後にExecutive Order 14028を通じて、連邦政府にソフトウェアを納品するすべてのサプライヤーに<strong>SBOMの提出を義務化</strong>しました（<a href="https://www.cisa.gov/sbom" rel="nofollow noreferrer" target="_blank">CISAのSBOMポリシーページ</a>）。可視性自体がセキュリティの前提条件であることが政策として確認された瞬間です。</p>
 <h2 id="sbomとは何か">SBOMとは何か</h2>
-<p>SBOM（Software Bill of Materials）は文字通り**「ソフトウェア部品表」**です。どのライブラリが、どのバージョンで、どのような依存関係として私たちのビルド成果物に入り込んでいるかを、機械が読み取れる形式で記録したものです。</p>
+<p>SBOM（Software Bill of Materials）は文字通り<strong>「ソフトウェア部品表」</strong>です。どのライブラリが、どのバージョンで、どのような依存関係として私たちのビルド成果物に入り込んでいるかを、機械が読み取れる形式で記録したものです。</p>
 <p>SBOMがあれば、先の5ステップが次のように変わります。</p>
 <ol>
 <li>セキュリティニュースにCVEが出る</li>

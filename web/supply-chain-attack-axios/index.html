@@ -143,7 +143,7 @@ Github Sponsor
 <p>つまり、<code>yarn install</code>または<code>npm install</code>を実行した瞬間に — コードを実行する前から — 開発者のPCやCIサーバーにはすでにバックドアが仕込まれた状態になります。</p>
 <h2 id="なぜこの攻撃が危険なのか">なぜこの攻撃が危険なのか</h2>
 <h3 id="影響範囲が広大">影響範囲が広大</h3>
-<p><code>axios</code>はReact、Vue、Node.jsバックエンドなどJavaScriptエコシステム全体で使われている事実上の標準HTTPクライアントです。直接依存していなくても、他のライブラリが依存しているため**間接依存（transitive dependency）**として入り込んでいるケースが圧倒的に多いです。</p>
+<p><code>axios</code>はReact、Vue、Node.jsバックエンドなどJavaScriptエコシステム全体で使われている事実上の標準HTTPクライアントです。直接依存していなくても、他のライブラリが依存しているため<strong>間接依存（transitive dependency）</strong>として入り込んでいるケースが圧倒的に多いです。</p>
 <p><code>yarn install</code>を1回実行したときに取得する数百〜数千個のパッケージのうち、たった1つでもこのような形で侵害されれば、即座に影響を受けます。</p>
 <h3 id="postinstallがサイレント実行のトリガーになる">postinstallがサイレント実行のトリガーになる</h3>
 <p><code>postinstall</code>は本来ネイティブモジュールのビルドなど正当な用途で使われるnpmフックですが、<strong>開発者の明示的な許可なしに任意のコードを実行できる</strong>という性質のため、供給チェーン攻撃において最も魅力的な侵入口となります。</p>

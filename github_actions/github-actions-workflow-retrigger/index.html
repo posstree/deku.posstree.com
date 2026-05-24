@@ -98,7 +98,7 @@ Github Sponsor
   </div>
 </div>
 <h2 id="解決方法の比較">解決方法の比較</h2>
-<p>この問題を解決するには、<code>GITHUB_TOKEN</code>の代わりに別の認証手段を使用する必要があります。代表的なものとして<strong>PAT（Personal Access Token）<strong>と</strong>GitHub Apps</strong>があります。</p>
+<p>この問題を解決するには、<code>GITHUB_TOKEN</code>の代わりに別の認証手段を使用する必要があります。代表的なものとして<strong>PAT（Personal Access Token）</strong>と<strong>GitHub Apps</strong>があります。</p>
 
 
 
@@ -365,7 +365,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">      git push</span></span></code></pre>
 <p>重要なポイントは以下の通りです。</p>
 <ul>
-<li><code>actions/create-github-app-token@v1</code>がApp IDとPrivate Keyで**インストールトークン（installation token）**を発行</li>
+<li><code>actions/create-github-app-token@v1</code>がApp IDとPrivate Keyで<strong>インストールトークン（installation token）</strong>を発行</li>
 <li>このトークンは約1時間有効で、ワークフロー実行ごとに新しく発行される</li>
 <li>このトークンでpushすると<strong>他のワークフローが正常にトリガーされる</strong></li>
 <li>git commitのauthorは<code>&#x3C;app-name>[bot]</code>形式を使用</li>

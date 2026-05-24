@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>v6.15.0 복습 화면 개선 및 안정성 강화 - JLPT 일본어 단어 공부, 일단 공부</title>
+    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.15.0 업데이트 안내. 복습 화면 문제 유형별 설명문, 정답 단어의 한자 상세 진입, 듣기 문제 발음 숨김 옵션과 함께 iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우 등 안정성 문제를 개선했습니다." />
+    <meta name="author" content="dev.yakuza@gmail.com" />
+    <link rel="canonical" href="/app/ildangongbu/notice/review-improvements-and-stability/" />
+    <meta property="og:url" content="/app/ildangongbu/notice/review-improvements-and-stability/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="v6.15.0 복습 화면 개선 및 안정성 강화 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:description" content="복습 화면 문제 유형별 설명문, 정답 단어의 한자 상세 진입, 듣기 발음 숨김 옵션과 함께 iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우 등 안정성 문제를 개선했습니다." />
+    <meta property="og:site_name" content="JLPT 일본어 단어 공부, 일단 공부" />
+    <meta property="og:image" content="/app/ildangongbu/assets/images/share.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="v6.15.0 복습 화면 개선 및 안정성 강화 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta name="twitter:description" content="복습 화면 문제 유형별 설명문, 정답 단어의 한자 상세 진입, 듣기 발음 숨김 옵션과 함께 iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우 등 안정성 문제를 개선했습니다." />
+    <meta name="twitter:image" content="/app/ildangongbu/assets/images/share.png" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125408913-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'UA-125408913-1');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700|Nunito:400,600,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet" />
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <link id="theme-style" rel="stylesheet" href="../../assets/css/theme.css" />
+    <link id="theme-style" rel="stylesheet" href="../../assets/css/custom.css" />
+
+    <style>
+      .page-header { background-color: #ec174f; padding: 2rem 0; color: #fff; }
+      .page-header h2 { margin-bottom: 0; color: #fff; }
+      .back-link { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; }
+      .back-link:hover { color: #fff; text-decoration: none; }
+      .notice-detail { max-width: 800px; margin: 0 auto; }
+      .notice-detail .notice-badge { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.5rem; }
+      .notice-badge.update { background-color: #e3f2fd; color: #1565c0; }
+      .notice-detail .notice-meta { color: #999; font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #eee; }
+      .notice-detail .notice-title { font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1rem; }
+      .notice-detail .notice-body { color: #555; font-size: 1rem; line-height: 1.9; }
+      .notice-detail .notice-body h5 { font-weight: 700; color: #333; margin-top: 2rem; margin-bottom: 1rem; }
+      .feature-card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+      .feature-card-title { font-weight: 700; color: #ec174f; margin-bottom: 0.5rem; }
+      .notice-nav { max-width: 800px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; }
+      .notice-nav a { color: #ec174f; text-decoration: none; font-weight: 600; }
+      .notice-nav a:hover { text-decoration: underline; }
+    </style>
+  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/review-improvements-and-stability/">
+</head>
+
+  <body>
+    <header class="header">
+      <div class="branding">
+        <div class="container position-relative">
+          <nav class="navbar navbar-expand-lg">
+            <h1 class="site-logo">
+              <a class="navbar-brand" href="/app/ildangongbu/">
+                <img class="logo-icon" src="../../assets/images/logo.png" alt="일단공부 로고" />
+                <span class="logo-text">일단공부</span>
+              </a>
+            </h1>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-header">
+      <div class="container">
+        <a href="/app/ildangongbu/notice/" class="back-link"><i class="fas fa-arrow-left mr-2"></i>공지사항 목록</a>
+        <h2 class="font-weight-bold mt-2">공지사항</h2>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="notice-detail">
+          <div class="notice-meta">
+            <span class="notice-badge update">업데이트</span>
+            2026.05.24
+          </div>
+          <h3 class="notice-title">v6.15.0 - 복습 화면 개선 및 안정성 강화</h3>
+          <div class="notice-body">
+            <p>안녕하세요, 「JLPT 일본어 단어 공부, 일단 공부」 개발자 Deku입니다.</p>
+            <p>v6.15.0 업데이트로 복습 화면이 한층 더 편리해졌습니다. <strong>문제 유형별 설명문과 표시 옵션</strong>, <strong>정답 단어의 한자 상세 진입</strong>, <strong>듣기 문제 발음 숨김 옵션</strong> 등 학습 경험을 다듬는 변화와 함께, iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우, 갤럭시 S26 호환성 등 <strong>여러 안정성 문제</strong>를 함께 해결했습니다.</p>
+
+            <h5>주요 변경 사항</h5>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-info-circle mr-2"></i>복습 문제 유형별 설명문 및 표시 옵션</div>
+              <p style="margin-bottom:0;">복습 화면에 <strong>각 문제 유형의 설명문</strong>이 표시되어 어떤 방식으로 풀어야 하는지 한눈에 확인할 수 있습니다. 설명문 표시 여부는 설정에서 켜고 끌 수 있어, 익숙해진 뒤에는 더 깔끔한 화면으로 학습할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-font mr-2"></i>정답 단어의 한자 상세 진입</div>
+              <p style="margin-bottom:0;">복습 결과 화면에서 <strong>정답 단어를 탭하면 한자 상세 모달</strong>로 바로 진입할 수 있도록 개선했습니다. 모르는 한자는 그 자리에서 확인하고 다음 문제로 부드럽게 이어 갈 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-volume-mute mr-2"></i>듣기 문제 발음 숨김 옵션</div>
+              <p style="margin-bottom:0;">듣기 문제에서 <strong>스피커 하단의 발음을 숨길 수 있는 옵션</strong>을 설정에 추가했습니다. 발음을 보지 않고 소리만으로 단어를 맞히는, 더 도전적인 학습이 가능합니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-sync-alt mr-2"></i>자동 동기화 개선</div>
+              <p style="margin-bottom:0;">앱을 새로 실행한 직후 <strong>자동 동기화가 작동하지 않던 문제</strong>를 수정했습니다. 자동 동기화 충돌 시 표시되는 안내 메시지도 <strong>더 알기 쉬운 표현</strong>으로 다듬었습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fab fa-apple mr-2"></i>iOS 음성 재생 안정성</div>
+              <p style="margin-bottom:0;">iOS에서 <strong>자동 반복 재생 도중 음성이 끊기는 문제</strong>를 수정했습니다. 또한 사용 가능한 시스템 음성을 더 폭넓게 인식하도록 <strong>음성 필터를 개선</strong>해, 선택할 수 있는 음성의 폭이 넓어졌습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-ad mr-2"></i>광고 음성이 앱 음성을 차단하는 문제 수정</div>
+              <p style="margin-bottom:0;"><strong>음성이 포함된 광고가 앱의 발음 재생을 가로채던 문제</strong>를 수정했습니다. 광고 노출 이후에도 정상적으로 단어와 예문 발음을 들을 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fab fa-android mr-2"></i>특수 문자 Android 크래시 수정</div>
+              <p style="margin-bottom:0;">일부 보충 평면 문자(이모지·확장 한자 등)에서 발생하던 <strong>Android 크래시</strong>를 수정했습니다. 어떤 단어를 학습하더라도 앱이 갑자기 종료되지 않습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-mobile-alt mr-2"></i>갤럭시 S26(16KB 페이지) 호환성</div>
+              <p style="margin-bottom:0;">16KB 페이지 크기를 사용하는 <strong>갤럭시 S26 등 최신 단말과의 호환성 문제</strong>를 해결했습니다. 해당 단말에서도 정상적으로 앱을 실행할 수 있습니다.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-title"><i class="fas fa-tablet-alt mr-2"></i>iPad 멀티 윈도우 UI 수정</div>
+              <p style="margin-bottom:0;">iPad 멀티 윈도우 환경에서 <strong>뒤로가기 버튼이 시스템 컨트롤과 겹치던 문제</strong>를 수정했습니다. 분할 화면에서도 버튼을 정확하게 탭할 수 있습니다.</p>
+            </div>
+
+            <h5>그 외 변경 사항</h5>
+            <ul>
+              <li>한국어 문제 유형 라벨의 표기 형식을 통일했습니다.</li>
+              <li>Flutter 및 라이브러리 버전을 최신으로 업데이트했습니다.</li>
+              <li>그 외 앱 안정화 작업을 진행했습니다.</li>
+            </ul>
+
+            <p>앞으로도 더 나은 학습 경험을 제공하기 위해 노력하겠습니다. 감사합니다.</p>
+          </div>
+        </div>
+
+        <div class="notice-nav">
+          <span></span>
+          <a href="../google-drive-auto-sync/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta-section py-5 theme-bg-secondary text-center">
+      <div class="container">
+        <h3 class="text-white font-weight-bold mb-3">
+          일본어 단어 공부, 「일단공부」해 보세요!
+        </h3>
+        <div class="cta-btns">
+          <ul class="app-stores list-unstyled list-inline mx-auto d-inline-block">
+            <li class="list-inline-item mr-3">
+              <a href="https://apps.apple.com/app/ildangongbu/id1456091125" target="_blank">
+                <img class="ios" src="../../assets/images/appstore-apple.svg" alt="App Store에서 다운로드" />
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://play.google.com/store/apps/details?id=io.github.dev.yakuza.ildangongbu" target="_blank">
+                <img class="android" src="../../assets/images/appstore-android.svg" alt="Google Play에서 다운로드" />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-4">
+          <a href="/privacy/ko/" target="_blank" class="text-dark">개인정보 처리방침</a>
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javascript" src="../../assets/plugins/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/popper.min.js"></script>
+    <script type="text/javascript" src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

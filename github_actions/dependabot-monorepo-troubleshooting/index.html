@@ -164,7 +164,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">  }</span><span style="color:#89DDFF">'</span></span></code></pre>
 <h4 id="代替案-rulesetsの使用">代替案: Rulesetsの使用</h4>
 <p>GitHubの新しい<strong>Rulesets</strong>機能を使用すると、excludeパターンを指定できます。<code>~ALL</code>（全ブランチ）をincludeし、<code>refs/heads/dependabot/**/*</code>をexcludeする方式です。</p>
-<p>ただし、RulesetsとBranch Protection Rulesは**独立して動作（additive）**します。Rulesetsを追加しても既存のBranch Protection Rulesはそのまま適用されるため、必ず既存の<code>**/**</code>ルールを削除する必要があります。</p>
+<p>ただし、RulesetsとBranch Protection Rulesは<strong>独立して動作（additive）</strong>します。Rulesetsを追加しても既存のBranch Protection Rulesはそのまま適用されるため、必ず既存の<code>**/**</code>ルールを削除する必要があります。</p>
 <p>また、RulesetsのBypass listは個別ユーザーを直接追加できず、<strong>Repository Role</strong>、<strong>Team</strong>、<strong>GitHub App</strong>単位でのみ設定できる点も注意が必要です。</p>
 <h3 id="検証">検証</h3>
 <p>変更後、Dependabotブランチの保護状態を確認します。</p>
