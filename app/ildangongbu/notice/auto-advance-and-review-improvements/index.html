@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>v6.15.0 복습 화면 개선 및 안정성 강화 - JLPT 일본어 단어 공부, 일단 공부</title>
-    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.15.0 업데이트 안내. 복습 화면 문제 유형별 설명문, 정답 단어의 한자 상세 진입, 듣기 문제 발음 숨김 옵션과 함께 iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우 등 안정성 문제를 개선했습니다." />
+    <title>v6.16.0 자동 넘어가기 옵션 세분화 및 복습 흐름 개선 - JLPT 일본어 단어 공부, 일단 공부</title>
+    <meta name="description" content="JLPT 일본어 단어 공부 앱 「일단 공부」 v6.16.0 업데이트 안내. 자동 넘어가기 옵션을 끔/항상/정답만의 3단계로 세분화하고, 복습 자동 재생 정책을 정비했습니다. 동기화 적용 시 파트 학습률 즉시 갱신, iOS 외부 음악 정지, iPad 헤더 정렬 등도 함께 다듬었습니다." />
     <meta name="author" content="dev.yakuza@gmail.com" />
-    <link rel="canonical" href="/app/ildangongbu/notice/review-improvements-and-stability/" />
-    <meta property="og:url" content="/app/ildangongbu/notice/review-improvements-and-stability/" />
+    <link rel="canonical" href="/app/ildangongbu/notice/auto-advance-and-review-improvements/" />
+    <meta property="og:url" content="/app/ildangongbu/notice/auto-advance-and-review-improvements/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="v6.15.0 복습 화면 개선 및 안정성 강화 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta property="og:title" content="v6.16.0 자동 넘어가기 옵션 세분화 및 복습 흐름 개선 - JLPT 일본어 단어 공부, 일단 공부" />
     <meta property="og:locale" content="ko_KR" />
-    <meta property="og:description" content="복습 화면 문제 유형별 설명문, 정답 단어의 한자 상세 진입, 듣기 발음 숨김 옵션과 함께 iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우 등 안정성 문제를 개선했습니다." />
+    <meta property="og:description" content="자동 넘어가기 옵션을 끔/항상/정답만 3단계로 세분화하고 복습 자동 재생 정책을 정비했습니다. 동기화 파트 학습률 즉시 갱신, iOS 외부 음악 정지, iPad 헤더 정렬도 함께 다듬었습니다." />
     <meta property="og:site_name" content="JLPT 일본어 단어 공부, 일단 공부" />
     <meta property="og:image" content="/app/ildangongbu/assets/images/share.png" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="v6.15.0 복습 화면 개선 및 안정성 강화 - JLPT 일본어 단어 공부, 일단 공부" />
-    <meta name="twitter:description" content="복습 화면 문제 유형별 설명문, 정답 단어의 한자 상세 진입, 듣기 발음 숨김 옵션과 함께 iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우 등 안정성 문제를 개선했습니다." />
+    <meta name="twitter:title" content="v6.16.0 자동 넘어가기 옵션 세분화 및 복습 흐름 개선 - JLPT 일본어 단어 공부, 일단 공부" />
+    <meta name="twitter:description" content="자동 넘어가기 옵션을 끔/항상/정답만 3단계로 세분화하고 복습 자동 재생 정책을 정비했습니다. 동기화 파트 학습률 즉시 갱신, iOS 외부 음악 정지, iPad 헤더 정렬도 함께 다듬었습니다." />
     <meta name="twitter:image" content="/app/ildangongbu/assets/images/share.png" />
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125408913-1"></script>
@@ -53,7 +53,7 @@
       .notice-nav a { color: #ec174f; text-decoration: none; font-weight: 600; }
       .notice-nav a:hover { text-decoration: underline; }
     </style>
-  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/review-improvements-and-stability/">
+  <link rel="canonical" href="https://deku.posstree.com/app/ildangongbu/notice/auto-advance-and-review-improvements/">
 </head>
 
   <body>
@@ -84,63 +84,43 @@
         <div class="notice-detail">
           <div class="notice-meta">
             <span class="notice-badge update">업데이트</span>
-            2026.05.24
+            2026.06.01
           </div>
-          <h3 class="notice-title">v6.15.0 - 복습 화면 개선 및 안정성 강화</h3>
+          <h3 class="notice-title">v6.16.0 - 자동 넘어가기 옵션 세분화 및 복습 흐름 개선</h3>
           <div class="notice-body">
             <p>안녕하세요, 「JLPT 일본어 단어 공부, 일단 공부」 개발자 Deku입니다.</p>
-            <p>v6.15.0 업데이트로 복습 화면이 한층 더 편리해졌습니다. <strong>문제 유형별 설명문과 표시 옵션</strong>, <strong>정답 단어의 한자 상세 진입</strong>, <strong>듣기 문제 발음 숨김 옵션</strong> 등 학습 경험을 다듬는 변화와 함께, iOS 음성 끊김, Android 크래시, iPad 멀티 윈도우, 갤럭시 S26 호환성 등 <strong>여러 안정성 문제</strong>를 함께 해결했습니다.</p>
+            <p>v6.16.0 업데이트에서는 복습 흐름을 더 세밀하게 다듬었습니다. <strong>자동 넘어가기 옵션을 끔/항상/정답만의 3단계</strong>로 세분화하고, <strong>복습 자동 재생 정책</strong>을 듣기·읽기 유형에 맞게 정비했습니다. 또한 동기화 적용 시 <strong>파트 학습률이 즉시 갱신</strong>되도록 수정하고, iOS 외부 음악 정지, iPad 헤더 정렬 등 자잘한 문제도 함께 정리했습니다.</p>
 
             <h5>주요 변경 사항</h5>
 
             <div class="feature-card">
-              <div class="feature-card-title"><i class="fas fa-info-circle mr-2"></i>복습 문제 유형별 설명문 및 표시 옵션</div>
-              <p style="margin-bottom:0;">복습 화면에 <strong>각 문제 유형의 설명문</strong>이 표시되어 어떤 방식으로 풀어야 하는지 한눈에 확인할 수 있습니다. 설명문 표시 여부는 설정에서 켜고 끌 수 있어, 익숙해진 뒤에는 더 깔끔한 화면으로 학습할 수 있습니다.</p>
+              <div class="feature-card-title"><i class="fas fa-forward mr-2"></i>자동 넘어가기 옵션 3단계 세분화</div>
+              <p style="margin-bottom:0;">기존의 켜기/끄기 두 단계였던 자동 넘어가기 옵션을 <strong>끔 / 항상 / 정답만</strong>의 3단계로 세분화했습니다. <strong>'정답만'</strong> 옵션을 선택하면 정답을 맞혔을 때만 다음 문제로 자동 진행되고, 오답일 때는 화면에 머물러 해설을 충분히 확인할 수 있습니다. 학습 스타일에 맞춰 더 세밀하게 조정해 보세요.</p>
             </div>
 
             <div class="feature-card">
-              <div class="feature-card-title"><i class="fas fa-font mr-2"></i>정답 단어의 한자 상세 진입</div>
-              <p style="margin-bottom:0;">복습 결과 화면에서 <strong>정답 단어를 탭하면 한자 상세 모달</strong>로 바로 진입할 수 있도록 개선했습니다. 모르는 한자는 그 자리에서 확인하고 다음 문제로 부드럽게 이어 갈 수 있습니다.</p>
+              <div class="feature-card-title"><i class="fas fa-volume-up mr-2"></i>복습 자동 재생 정책 정비</div>
+              <p style="margin-bottom:0;">듣기 계열 복습 문제에 진입하면 <strong>음성을 자동으로 재생</strong>해 별도 조작 없이 바로 학습을 시작할 수 있습니다. 반대로 <strong>예문 읽기 복습 문제</strong>에서는 자동 재생이 학습 흐름을 방해할 수 있어 자동 재생을 제외했습니다.</p>
             </div>
 
             <div class="feature-card">
-              <div class="feature-card-title"><i class="fas fa-volume-mute mr-2"></i>듣기 문제 발음 숨김 옵션</div>
-              <p style="margin-bottom:0;">듣기 문제에서 <strong>스피커 하단의 발음을 숨길 수 있는 옵션</strong>을 설정에 추가했습니다. 발음을 보지 않고 소리만으로 단어를 맞히는, 더 도전적인 학습이 가능합니다.</p>
+              <div class="feature-card-title"><i class="fas fa-sync-alt mr-2"></i>파트 학습률 즉시 갱신</div>
+              <p style="margin-bottom:0;">자동 동기화 다운로드를 적용한 직후에도 <strong>파트 리스트의 학습률이 이전 값에 머물러 있던 문제</strong>를 수정했습니다. 이제 다른 기기에서 학습한 진행 상황이 즉시 화면에 반영됩니다.</p>
             </div>
 
             <div class="feature-card">
-              <div class="feature-card-title"><i class="fas fa-sync-alt mr-2"></i>자동 동기화 개선</div>
-              <p style="margin-bottom:0;">앱을 새로 실행한 직후 <strong>자동 동기화가 작동하지 않던 문제</strong>를 수정했습니다. 자동 동기화 충돌 시 표시되는 안내 메시지도 <strong>더 알기 쉬운 표현</strong>으로 다듬었습니다.</p>
+              <div class="feature-card-title"><i class="fab fa-apple mr-2"></i>iOS 외부 음악 정지 문제 재수정</div>
+              <p style="margin-bottom:0;">iOS에서 단어 발음을 재생할 때 <strong>다른 앱의 음악이 함께 멈추던 문제</strong>가 다시 발생하여 재수정했습니다. 음악을 들으면서 학습하는 흐름이 끊기지 않습니다.</p>
             </div>
 
             <div class="feature-card">
-              <div class="feature-card-title"><i class="fab fa-apple mr-2"></i>iOS 음성 재생 안정성</div>
-              <p style="margin-bottom:0;">iOS에서 <strong>자동 반복 재생 도중 음성이 끊기는 문제</strong>를 수정했습니다. 또한 사용 가능한 시스템 음성을 더 폭넓게 인식하도록 <strong>음성 필터를 개선</strong>해, 선택할 수 있는 음성의 폭이 넓어졌습니다.</p>
-            </div>
-
-            <div class="feature-card">
-              <div class="feature-card-title"><i class="fas fa-ad mr-2"></i>광고 음성이 앱 음성을 차단하는 문제 수정</div>
-              <p style="margin-bottom:0;"><strong>음성이 포함된 광고가 앱의 발음 재생을 가로채던 문제</strong>를 수정했습니다. 광고 노출 이후에도 정상적으로 단어와 예문 발음을 들을 수 있습니다.</p>
-            </div>
-
-            <div class="feature-card">
-              <div class="feature-card-title"><i class="fab fa-android mr-2"></i>특수 문자 Android 크래시 수정</div>
-              <p style="margin-bottom:0;">일부 보충 평면 문자(이모지·확장 한자 등)에서 발생하던 <strong>Android 크래시</strong>를 수정했습니다. 어떤 단어를 학습하더라도 앱이 갑자기 종료되지 않습니다.</p>
-            </div>
-
-            <div class="feature-card">
-              <div class="feature-card-title"><i class="fas fa-mobile-alt mr-2"></i>갤럭시 S26(16KB 페이지) 호환성</div>
-              <p style="margin-bottom:0;">16KB 페이지 크기를 사용하는 <strong>갤럭시 S26 등 최신 단말과의 호환성 문제</strong>를 해결했습니다. 해당 단말에서도 정상적으로 앱을 실행할 수 있습니다.</p>
-            </div>
-
-            <div class="feature-card">
-              <div class="feature-card-title"><i class="fas fa-tablet-alt mr-2"></i>iPad 멀티 윈도우 UI 수정</div>
-              <p style="margin-bottom:0;">iPad 멀티 윈도우 환경에서 <strong>뒤로가기 버튼이 시스템 컨트롤과 겹치던 문제</strong>를 수정했습니다. 분할 화면에서도 버튼을 정확하게 탭할 수 있습니다.</p>
+              <div class="feature-card-title"><i class="fas fa-tablet-alt mr-2"></i>iPad 헤더 정렬 미세 조정</div>
+              <p style="margin-bottom:0;">iPad 환경에서 <strong>헤더의 안전 영역 오프셋</strong>을 미세 조정해 좌상단 컨트롤이 시스템 UI와 자연스럽게 정렬되도록 다듬었습니다.</p>
             </div>
 
             <h5>그 외 변경 사항</h5>
             <ul>
-              <li>한국어 문제 유형 라벨의 표기 형식을 통일했습니다.</li>
+              <li>출처가 표기되지 않은 알림 명언 항목을 정리했습니다.</li>
               <li>그 외 앱 안정화 작업을 진행했습니다.</li>
             </ul>
 
@@ -149,8 +129,8 @@
         </div>
 
         <div class="notice-nav">
-          <a href="../auto-advance-and-review-improvements/">이전 글<i class="fas fa-chevron-left ml-1"></i></a>
-          <a href="../google-drive-auto-sync/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
+          <span></span>
+          <a href="../review-improvements-and-stability/"><i class="fas fa-chevron-right mr-1"></i>다음 글</a>
         </div>
 
       </div>
