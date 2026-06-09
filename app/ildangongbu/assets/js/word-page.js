@@ -24,8 +24,18 @@
     updateButtons();
   }
 
+  // 각 초기화는 독립 try/catch — 한 init이 throw해도 다른 init 동작 보장.
+  function safeInit(name, selector, handler) {
+    try {
+      document.querySelectorAll(selector).forEach(handler);
+    } catch (e) {
+      // 콘솔만 남기고 페이지 동작은 계속
+      console.warn('[word-page] ' + name + ' init skipped:', e && e.message);
+    }
+  }
+
   function init() {
-    document.querySelectorAll('.cta-slider').forEach(initCtaSlider);
+    safeInit('cta-slider', '.cta-slider', initCtaSlider);
   }
 
   if (document.readyState === 'loading') {
