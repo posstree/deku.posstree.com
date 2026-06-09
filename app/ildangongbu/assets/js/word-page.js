@@ -25,7 +25,6 @@
   }
 
   function init() {
-    document.querySelectorAll('.kanji-stroke-viewer').forEach(initKanjiViewer);
     document.querySelectorAll('.cta-slider').forEach(initCtaSlider);
   }
 
