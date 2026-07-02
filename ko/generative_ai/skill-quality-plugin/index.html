@@ -1,0 +1,694 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="Claude Code 스킬 파일을 38개 항목으로 평가하는 skill-quality-plugin을 만들면서 정리한 설계 원칙과 구현 과정을 공유합니다. 규칙으로 잡는 결정적 문제, 모델로 판단하는 의미론적 문제, 그리고 서브에이전트 격리 패턴까지 다룹니다."><meta name="author" content="dev-yakuza"><meta name="google-site-verification" content="rHTd8BRbOeSqAskkyVusn529XiwZ2eHbv1tnB1IDnjA"><title>[Claude Code] Skill 품질 관리 플러그인 만들기 | DeKu</title><!-- Favicon --><link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png"><link rel="manifest" href="/assets/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="DeKu blog"><link rel="apple-touch-icon" href="/assets/favicon/android-icon-144x144.png"><!-- Canonical --><link rel="canonical" href="https://deku.posstree.com/ko/generative_ai/skill-quality-plugin/"><!-- hreflang --><link rel="alternate" hreflang="ja" href="https://deku.posstree.com/generative_ai/skill-quality-plugin/"><link rel="alternate" hreflang="ko" href="https://deku.posstree.com/ko/generative_ai/skill-quality-plugin/"><link rel="alternate" hreflang="en" href="https://deku.posstree.com/en/generative_ai/skill-quality-plugin/"><link rel="alternate" hreflang="x-default" href="https://deku.posstree.com/generative_ai/skill-quality-plugin/"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@DevYakuza"><meta name="twitter:creator" content="@DevYakuza"><meta name="twitter:title" content="[Claude Code] Skill 품질 관리 플러그인 만들기"><meta name="twitter:description" content="Claude Code 스킬 파일을 38개 항목으로 평가하는 skill-quality-plugin을 만들면서 정리한 설계 원칙과 구현 과정을 공유합니다. 규칙으로 잡는 결정적 문제, 모델로 판단하는 의미론적 문제, 그리고 서브에이전트 격리 패턴까지 다룹니다."><meta name="twitter:image" content="https://deku.posstree.com/assets/images/category/generative_ai/background.jpg"><meta name="twitter:image:alt" content="[Claude Code] Skill 품질 관리 플러그인 만들기"><!-- Open Graph --><meta property="og:title" content="[Claude Code] Skill 품질 관리 플러그인 만들기"><meta property="og:description" content="Claude Code 스킬 파일을 38개 항목으로 평가하는 skill-quality-plugin을 만들면서 정리한 설계 원칙과 구현 과정을 공유합니다. 규칙으로 잡는 결정적 문제, 모델로 판단하는 의미론적 문제, 그리고 서브에이전트 격리 패턴까지 다룹니다."><meta property="og:image" content="https://deku.posstree.com/assets/images/category/generative_ai/background.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="[Claude Code] Skill 품질 관리 플러그인 만들기"><meta property="og:url" content="https://deku.posstree.com/ko/generative_ai/skill-quality-plugin/"><meta property="og:type" content="article"><meta property="og:site_name" content="DeKu"><meta property="og:locale" content="ko_KR"><meta property="og:locale:alternate" content="ja_JP"><meta property="og:locale:alternate" content="en_US"><meta property="article:published_time" content="2026-07-02T00:00:00.000Z"><meta property="article:author" content="dev-yakuza"><meta property="article:section" content="생성AI"><!-- Preconnect --><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://pagead2.googlesyndication.com"><link rel="preconnect" href="https://utteranc.es"><!-- LCP image preload --><link rel="preload" as="image" href="/assets/images/category/generative_ai/background.jpg" fetchpriority="high"><!-- Google Fonts (async) --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"></noscript><!-- Bootstrap Grid CSS --><link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap-grid.min.css"><!-- Font Awesome CSS (async) --><link rel="preload" as="style" href="/assets/vendor/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css"></noscript><!-- Global SCSS --><!-- RSS --><link rel="alternate" type="application/rss+xml" title="DeKu RSS Feed" href="/ko/feed.xml"><!-- Lazysizes --><script async src="/assets/vendor/lazysizes/lazysizes.min.js"></script><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-FR62E3SBVX"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FR62E3SBVX');
+  </script><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7987914246691031" crossorigin="anonymous"></script><!-- JSON-LD: Person --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com","sameAs":["https://github.com/dev-yakuza","https://www.facebook.com/yakuza.dev.54","https://www.instagram.com/dev_yakuza/","https://twitter.com/DevYakuza"]}</script><!-- JSON-LD: Organization --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"DeKu","url":"https://deku.posstree.com","logo":"https://deku.posstree.com/assets/images/icon.jpg"}</script><!-- JSON-LD: BlogPosting (post only) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"[Claude Code] Skill 품질 관리 플러그인 만들기","description":"Claude Code 스킬 파일을 38개 항목으로 평가하는 skill-quality-plugin을 만들면서 정리한 설계 원칙과 구현 과정을 공유합니다. 규칙으로 잡는 결정적 문제, 모델로 판단하는 의미론적 문제, 그리고 서브에이전트 격리 패턴까지 다룹니다.","datePublished":"2026-07-02T00:00:00.000Z","dateModified":"2026-07-02T00:00:00.000Z","author":{"@type":"Person","name":"dev-yakuza","url":"https://deku.posstree.com"},"publisher":{"@type":"Organization","name":"DeKu","logo":{"@type":"ImageObject","url":"https://deku.posstree.com/assets/images/icon.jpg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://deku.posstree.com/ko/generative_ai/skill-quality-plugin/"},"image":"https://deku.posstree.com/assets/images/category/generative_ai/background.jpg","url":"https://deku.posstree.com/ko/generative_ai/skill-quality-plugin/"}</script><!-- JSON-LD: ItemList (category post list) --><script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"url":"https://deku.posstree.com/ko/generative_ai/skill-quality-plugin/","name":"[Claude Code] Skill 품질 관리 플러그인 만들기"},{"@type":"ListItem","position":2,"url":"https://deku.posstree.com/ko/generative_ai/claude-code-multi-account/","name":"[Claude Code] 한 PC에서 여러 계정 사용하기 (디렉터리별 자동 전환)"},{"@type":"ListItem","position":3,"url":"https://deku.posstree.com/ko/generative_ai/claude-code-attribution/","name":"[Claude Code] 커밋과 PR의 Co-Authored-By 표기 숨기기 (attribution 설정)"},{"@type":"ListItem","position":4,"url":"https://deku.posstree.com/ko/generative_ai/sdd-plugin-engineering/","name":"[SDD Plugin] 적용한 엔지니어링 — AI 엔지니어링 4가지 패러다임으로 분석"},{"@type":"ListItem","position":5,"url":"https://deku.posstree.com/ko/generative_ai/sdd-plugin-development/","name":"[SDD Plugin] 개발 과정 — 프로토타입에서 완성까지"},{"@type":"ListItem","position":6,"url":"https://deku.posstree.com/ko/generative_ai/sdd-plugin-overview/","name":"[SDD Plugin] SDD Plugin의 전체 구조와 사용법"},{"@type":"ListItem","position":7,"url":"https://deku.posstree.com/ko/generative_ai/sdd-plugin-why/","name":"[SDD Plugin] AI 코딩의 함정과 해결 방향"},{"@type":"ListItem","position":8,"url":"https://deku.posstree.com/ko/generative_ai/ai-engineering-paradigms/","name":"[생성AI] AI 엔지니어링 4가지 패러다임 — Prompt, Context, Agentic, Harness"},{"@type":"ListItem","position":9,"url":"https://deku.posstree.com/ko/generative_ai/claude-code-settings/","name":"[Claude Code] terminal-notifier로 작업 완료 알림 받기"},{"@type":"ListItem","position":10,"url":"https://deku.posstree.com/ko/generative_ai/claude-code-update/","name":"[Claude Code] Homebrew로 설치한 Claude Code 업데이트 방법"},{"@type":"ListItem","position":11,"url":"https://deku.posstree.com/ko/generative_ai/claude-code/","name":"[Claude Code] 기초 지식과 기본 사용법"}]}</script><!-- JSON-LD: WebSite (home only) --><!-- JSON-LD: CollectionPage (category only) --><style>body{font-size:20px;color:#212529;font-family:Lora,Times New Roman,serif}p{line-height:1.5;margin:30px 0}p a{text-decoration:underline}h1,h2,h3,h4,h5,h6{font-weight:800;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}a{color:#212529;-webkit-transition:all .2s;-moz-transition:all .2s;transition:all .2s}a:focus,a:hover{color:#0085a1}blockquote{font-style:italic;color:#868e96}.section-heading{font-size:36px;font-weight:700;margin-top:60px}.caption{font-size:14px;font-style:italic;display:block;margin:0;padding:10px;text-align:center;border-bottom-right-radius:5px;border-bottom-left-radius:5px}::-moz-selection{color:#fff;background:#0085a1;text-shadow:none}::selection{color:#fff;background:#0085a1;text-shadow:none}img::selection{color:#fff;background:transparent}img::-moz-selection{color:#fff;background:transparent}#mainNav{position:absolute;border-bottom:1px solid #e9ecef;background-color:#ffffffe6;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}#mainNav .navbar-brand{font-weight:800;color:#343a40}#mainNav .navbar-toggler{font-size:12px;font-weight:800;padding:13px;text-transform:uppercase;color:#343a40}#mainNav .navbar-nav>li.nav-item>a{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}@media only screen and (min-width:992px){#mainNav{-webkit-transition:background-color .2s;-moz-transition:background-color .2s;transition:background-color .2s;-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translateZ(0);-webkit-backface-visibility:hidden}#mainNav.is-fixed{position:fixed;top:-67px;-webkit-transition:-webkit-transform .2s;-moz-transition:-moz-transform .2s;transition:transform .2s;border-bottom:1px solid rgb(254.8725,254.8725,254.8725);background-color:#ffffffe6}#mainNav.is-fixed .navbar-brand{color:#212529}#mainNav.is-fixed .navbar-brand:focus,#mainNav.is-fixed .navbar-brand:hover{color:#0085a1}#mainNav.is-fixed .navbar-nav>li.nav-item>a{color:#212529}#mainNav.is-fixed .navbar-nav>li.nav-item>a:focus,#mainNav.is-fixed .navbar-nav>li.nav-item>a:hover{color:#0085a1}#mainNav.is-visible{-webkit-transform:translate3d(0,100%,0);-moz-transform:translate3d(0,100%,0);-ms-transform:translate3d(0,100%,0);-o-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0)}}header.masthead{margin-bottom:50px;background:no-repeat center center;background-color:#868e96;background-attachment:scroll;position:relative;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover}header.masthead .overlay{position:absolute;top:0;left:0;height:100%;width:100%;background-color:#212529;opacity:.5}header.masthead .page-heading,header.masthead .post-heading,header.masthead .site-heading{padding:200px 0 150px;color:#fff}@media only screen and (min-width:768px){header.masthead .page-heading,header.masthead .post-heading,header.masthead .site-heading{padding:200px 0}}header.masthead .page-heading,header.masthead .site-heading{text-align:center}header.masthead .page-heading h1,header.masthead .site-heading h1{font-size:50px;margin-top:0}header.masthead .page-heading .subheading,header.masthead .site-heading .subheading{font-size:24px;font-weight:300;line-height:1.1;display:block;margin:10px 0 0;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}@media only screen and (min-width:768px){header.masthead .page-heading h1,header.masthead .site-heading h1{font-size:80px}}header.masthead .post-heading h1{font-size:35px}header.masthead .post-heading .meta,header.masthead .post-heading .subheading{line-height:1.1;display:block}header.masthead .post-heading .subheading{font-size:24px;font-weight:600;margin:10px 0 30px;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}header.masthead .post-heading .meta{font-size:20px;font-weight:300;font-style:italic;font-family:Lora,Times New Roman,serif}header.masthead .post-heading .meta a{color:#fff}@media only screen and (min-width:768px){header.masthead .post-heading h1{font-size:55px}header.masthead .post-heading .subheading{font-size:30px}}.post-preview>a{color:#212529}.post-preview>a:focus,.post-preview>a:hover{text-decoration:none;color:#0085a1}.post-preview>a>.post-title{font-size:30px;margin-top:30px;margin-bottom:10px}.post-preview>a>.post-subtitle{font-weight:300;margin:0 0 10px}.post-preview>.post-meta{font-size:18px;font-style:italic;margin-top:0;color:#868e96}.post-preview>.post-meta>a{text-decoration:none;color:#212529}.post-preview>.post-meta>a:focus,.post-preview>.post-meta>a:hover{text-decoration:underline;color:#0085a1}@media only screen and (min-width:768px){.post-preview>a>.post-title{font-size:36px}}.floating-label-form-group{font-size:14px;position:relative;margin-bottom:0;padding-bottom:.5em;border-bottom:1px solid #dee2e6}.floating-label-form-group input,.floating-label-form-group textarea{font-size:1.5em;position:relative;z-index:1;padding:0;resize:none;border:none;border-radius:0;background:none;box-shadow:none!important;font-family:Lora,Times New Roman,serif}.floating-label-form-group input::-webkit-input-placeholder,.floating-label-form-group textarea::-webkit-input-placeholder{color:#868e96;font-family:Lora,Times New Roman,serif}.floating-label-form-group label{font-size:.85em;line-height:1.764705882em;position:relative;z-index:0;top:2em;display:block;margin:0;-webkit-transition:top .3s ease,opacity .3s ease;-moz-transition:top .3s ease,opacity .3s ease;-ms-transition:top .3s ease,opacity .3s ease;transition:top .3s ease,opacity .3s ease;vertical-align:middle;vertical-align:baseline;opacity:0}.floating-label-form-group .help-block{margin:15px 0}.floating-label-form-group-with-value label{top:0;opacity:1}.floating-label-form-group-with-focus label{color:#0085a1}form .form-group:first-child .floating-label-form-group{border-top:1px solid #dee2e6}footer{padding:50px 0 65px}footer .list-inline{margin:0;padding:0}footer .copyright{font-size:14px;margin-bottom:0;text-align:center}.btn{font-size:14px;font-weight:800;padding:15px 25px;letter-spacing:1px;text-transform:uppercase;border-radius:0;font-family:Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif}.btn-primary{background-color:#0085a1;border-color:#0085a1}.btn-primary:hover,.btn-primary:focus,.btn-primary:active{color:#fff;background-color:#00657b!important;border-color:#00657b!important}.btn-lg{font-size:16px;padding:25px 35px}.d-flex{display:flex!important}.d-none{display:none!important}.d-block{display:block!important}@media(min-width:992px){.d-lg-block{display:block!important}}.justify-content-between{justify-content:space-between!important}.justify-content-center{justify-content:center!important}.w-100{width:100%!important}.mx-auto{margin-left:auto!important;margin-right:auto!important}.ml-auto{margin-left:auto!important}.text-center{text-align:center!important}.sticky-top{position:sticky;top:0;z-index:1020}.fixed-top{position:fixed;top:0;right:0;left:0;z-index:1030}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.navbar{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:.5rem 1rem}.navbar>.container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between}.navbar-nav{display:flex;flex-direction:column;padding-left:0;margin-bottom:0;list-style:none}.nav-link{display:block;padding:.5rem 1rem}.navbar-toggler{padding:.25rem .75rem;font-size:1.25rem;line-height:1;background-color:transparent;border:1px solid transparent;border-radius:.25rem;cursor:pointer}.navbar-collapse{flex-basis:100%;flex-grow:1;align-items:center}.collapse:not(.show){display:none}@media(min-width:992px){.navbar-expand-lg{flex-flow:row nowrap;justify-content:flex-start}.navbar-expand-lg .navbar-nav{flex-direction:row}.navbar-expand-lg .navbar-nav .nav-link{padding-right:.5rem;padding-left:.5rem}.navbar-expand-lg .navbar-collapse{display:flex!important;flex-basis:auto}.navbar-expand-lg .navbar-toggler{display:none}}.dropdown{position:relative}.dropdown-toggle:after{display:inline-block;margin-left:.255em;vertical-align:.255em;content:"";border-top:.3em solid;border-right:.3em solid transparent;border-bottom:0;border-left:.3em solid transparent}.dropdown-menu{position:absolute;top:100%;left:0;z-index:1000;display:none;float:left;min-width:10rem;padding:.5rem 0;margin:.125rem 0 0;font-size:1rem;color:#212529;text-align:left;list-style:none;background-color:#fff;background-clip:padding-box;border:1px solid rgba(0,0,0,.15);border-radius:.25rem}.dropdown-menu.show{display:block}.dropdown-item{display:block;width:100%;padding:.25rem 1.5rem;clear:both;font-weight:400;color:#212529;text-align:inherit;white-space:nowrap;background-color:transparent;border:0;text-decoration:none}.dropdown-item:hover,.dropdown-item:focus{color:#16181b;background-color:#f8f9fa;text-decoration:none}.btn{display:inline-block;font-weight:400;color:#212529;text-align:center;vertical-align:middle;cursor:pointer;user-select:none;background-color:transparent;border:1px solid transparent;padding:.375rem .75rem;font-size:1rem;line-height:1.5;border-radius:.25rem;transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;text-decoration:none}.btn:hover{text-decoration:none}.btn-primary{color:#fff;background-color:#0085a1;border-color:#0085a1}.btn-default{color:#333;background-color:#fff;border-color:#ccc}.pagination{display:flex;padding-left:0;list-style:none;border-radius:.25rem}.page-link{position:relative;display:block;padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#0085a1;background-color:#fff;border:1px solid #dee2e6}.page-item.active .page-link{z-index:3;color:#fff}.breadcrumb{display:flex;flex-wrap:wrap;padding:.75rem 1rem;margin-bottom:1rem;list-style:none;border-radius:.25rem}.breadcrumb-item+.breadcrumb-item{padding-left:.5rem}.breadcrumb-item+.breadcrumb-item:before{display:inline-block;padding-right:.5rem;color:#6c757d;content:"/"}.list-group{display:flex;flex-direction:column;padding-left:0;margin-bottom:0}.list-group-item{position:relative;display:block;padding:.75rem 1.25rem;background-color:#fff;border:1px solid rgba(0,0,0,.125);text-decoration:none;color:#212529}.list-group-item.active{z-index:2;color:#fff}.form-group{margin-bottom:1rem}.form-control{display:block;width:100%;height:calc(1.5em + .75rem + 2px);padding:.375rem .75rem;font-size:1rem;font-weight:400;line-height:1.5;color:#495057;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}.form-control:focus{color:#495057;background-color:#fff;border-color:#80bdff;outline:0;box-shadow:0 0 0 .2rem #007bff40}textarea.form-control{height:auto}.list-inline{padding-left:0;list-style:none}html{overflow-x:hidden}body{margin:0;overflow-x:hidden;word-break:break-word;letter-spacing:.8px;background-color:#f6f8fa}:lang(ja) body{word-break:break-all}body,h1,h2,h3,h4,h5,h6,header.masthead .page-heading .subheading,header.masthead .site-heading .subheading,header.masthead .post-heading .subheading,#mainNav,.btn,code,kbd,pre,samp{font-family:Noto Sans,Noto Sans KR,Noto Sans JP,sans-serif}h3{padding-left:8px;border-left:6px solid #d42872}header.masthead{margin-bottom:0}.logo{height:16px;margin-right:8px}img{width:100%}.container-contents img{height:auto;max-width:100%}pre{padding:16px;border-radius:4px}pre code{border-radius:4px}code{color:#c21868}.container-contents{background-color:#fff;padding-bottom:30px}.container h2{border-bottom:1px solid lightgray;padding-bottom:8px;margin-bottom:8px;margin-top:56px}.container h2.subheading{border:0}.container .heading-date{margin-top:16px;border-bottom:1px solid #fff}.container h3,.container h4,.container h5,.container h6{margin-top:24px}.container p,.container ul{margin:0}.container p,.container li{font-size:13pt;line-height:21pt;font-weight:100}.container p{margin-bottom:16px;line-height:24pt}.container p:first-letter{margin-left:16px}.card-container{margin-bottom:16px}@media(max-width:768px){.card-container h2{text-align:center}}.card-container .card-content-container{position:relative;display:flex;border:1px solid lightgray;border-radius:8px;overflow:hidden;max-width:300px;margin-top:16px;margin-bottom:16px;background-size:cover;background-repeat:no-repeat;background-size:100%}.card-container .card-content-container .overlay{position:absolute;top:0;left:0;height:100%;width:100%;background-color:#212529;opacity:.5}.card-container .card-content-container .card-content{position:relative;width:100%}.card-container .card-content-container .card-content .card-header{height:136px;display:flex;flex-direction:column;justify-content:center}.card-container .card-content-container .card-content .card-header .card-logo{padding-top:32px;text-align:center}.card-container .card-content-container .card-content .card-header .card-logo object{height:40px}.card-container .card-content-container .card-content .card-header .card-title{margin:20px 0;padding:0 8px;overflow:hidden}.card-container .card-content-container .card-content .card-header .card-title h3{padding-left:0;border-left:0;margin:0;text-align:center;color:#fff;letter-spacing:-1px;line-height:inherit;font-size:24px}.card-container .card-content-container .card-content .card-body{background-color:#fff;font-size:16px;padding:16px;height:156px;overflow:hidden;display:flex;flex-direction:column}.card-container .card-content-container .card-content .card-body .card-body-content{font-size:12pt;line-height:18pt;font-weight:100;overflow:hidden}.card-container .card-content-container .card-content .card-body .card-body-content:first-letter{margin-left:8px}.card-container .card-content-container .card-content .card-body .date{color:#d42872;font-size:14px;border-bottom:1px solid lightgray;padding-left:8px;margin-bottom:8px}.card-container .card-content-container .card-content .card-footer{background-color:#fff;border-top:1px solid lightgray;padding:0;display:block}.card-container .card-content-container .card-content .card-footer:hover{text-decoration:none}.card-container .card-content-container .card-content .card-footer div{text-align:right;color:#d42872;font-size:14px;width:100%;display:block;padding:8px 16px}@media only screen and (min-width:768px){.site-heading h1{font-size:72px}}.dropdown-menu{background-color:#ffffffe6;top:calc(100% + 10px);border-top-left-radius:0;border-top-right-radius:0;border-top:0}@media(max-width:992px){.dropdown-menu{background-color:initial;border-radius:0;border:1px solid rgba(0,0,0,.15);border-left:0;border-right:0}}.dropdown-menu .dropdown-item{color:#00000080;font-size:12px;font-weight:800}.dropdown-menu .dropdown-item:hover{color:#000000b3;background-color:initial}@media(min-width:992px){#navbarResponsive{display:none!important}}.navbar-menu-container{display:flex;flex-direction:row;align-items:center}.navbar-menu-container .btn-translate-group{margin:0 8px;position:relative}@media(max-width:992px){.navbar-menu-container .btn-translate-group .dropdown-menu{background-color:#ffffffe6;border:1px solid rgba(0,0,0,.15);top:auto;border-radius:4px}}.floating-label-form-group{border:0;padding-bottom:0}.floating-label-form-group input,.floating-label-form-group textarea{font-size:16px;border:1px solid lightgrey;padding:8px 16px}.form-group .help-block{margin:8px 0}.form-group .help-block ul{list-style:none;padding-left:16px}.form-group.error input,.form-group.error textarea{border:1px solid red}.form-group.error label{color:red}#sendMessageButton{border-radius:8px;padding:8px 32px;font-size:16px}.page-item .page-link{color:#d42872;text-decoration:none;cursor:pointer}.page-item.active .page-link{background-color:#d42872;border-color:#d42872}.post-list-container{border:1px solid lightgray;border-radius:4px;padding:16px;margin-top:40px;display:none}.post-list-container .list-group-item{text-decoration:none;padding:8px 16px}.post-list-container .list-group-item.active{background-color:#d42872;border-color:#d42872}.post-list-container .body{font-size:16px;margin-bottom:8px}.post-list-container .body-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}.post-list-container .body-text:first-letter{margin-left:0}.post-list-container .body .page{display:none}.post-list-container .body .page.active{display:block}.post-list-container .footer{justify-content:center;font-size:16px;display:none}.share-title{text-align:center;font-weight:600;font-size:22px;border-bottom:1px solid lightgray;padding-bottom:4px;margin-bottom:8px}a,a:hover{color:#d42872;text-decoration:underline}#mainNav a{text-decoration:none;color:inherit}.card-footer{text-decoration:none}.navbar-expand-lg .navbar-nav .dropdown-menu{margin-top:0}table{table-layout:fixed;width:100%}table th,table td{border:1px solid #333;padding:8px 16px;font-size:13pt;line-height:21pt}table th{background-color:#e0e0e0}table th:first-child{width:150px}table td{text-align:left;vertical-align:top}.breadcrumb{background-color:initial}.breadcrumb .breadcrumb-item{font-size:12pt}.breadcrumb .breadcrumb-item a,.breadcrumb .breadcrumb-item a:hover{text-decoration:none}.navbar-brand{position:relative;margin-left:40px}.navbar-brand img{width:auto;height:35px;position:absolute;left:-44px;top:0}.navbar-brand .name{color:#212529;position:relative;top:6px;left:6px}.brand-icon{width:200px;display:inherit;margin:auto}.narrow-image{width:auto;display:inherit;margin:auto}a{cursor:pointer}ul li:last-child{margin-bottom:16px}.navbar-nav :last-child{margin-bottom:0}.half_image_container{text-align:center;margin-bottom:16px}.half_image{width:50%}.download_link_container{text-align:center;margin-bottom:16px}.download_link_container a{text-decoration:none}.download_link_container img{width:150px}@media(max-width:768px){.download_link_container img{width:120px}}.download_link_ios{margin-right:5%}.sponsor_container{text-align:center;margin:40px 0}.container p,.container li{font-weight:initial}.left-ads{padding-left:0}.left-ads .sticky-top{width:175px;margin-left:-175px}@media(max-width:1490px){.left-ads .sticky-top{margin-left:0}}.right-ads{padding-right:0}.right-ads .sticky-top{width:175px;margin-left:175px;margin-right:-175px}@media(max-width:1490px){.right-ads .sticky-top{margin-left:0;margin-right:0}}.ads-container{display:flex;justify-content:center}.ads-block{width:336px;height:280px;min-height:280px}.ads-container .ads-center{display:none}@media(min-width:700px){.ads-container .ads-center{display:initial;margin-left:10px}}.ads-container .ads-right{display:none}@media(min-width:1046px){.ads-container .ads-right{display:initial;margin-left:10px}}.in-feed-ads{margin:80px 0;min-height:280px}.container p,.container li{color:#555}.container p{margin:16px 0}.card-container .card-content-container .card-content .card-body .card-body-content{font-weight:initial}#contents_list{background-color:#f1f3f5;padding:16px;border-radius:8px}#contents_list h2{margin:0;font-size:18px}#contents_list li{font-size:14px;line-height:24px}#contents_list a{color:#555}#contents_list ul li:last-child{margin-bottom:0}#contents_list ol{margin-bottom:0}.book-greeting{font-size:13pt;line-height:24pt}.book-image-container{text-align:center;padding:15px 0}.book-image-container img{width:80%}footer{background-color:#343434;color:#fff}footer .text-muted{color:#adb5bd!important}.half_banner{display:inline-block!important;width:calc(50% - 10px);height:280px}.half_banner--right{margin-left:10px}@media(max-width:679px){.half_banner{width:100%}.half_banner--right{display:none!important}a{padding:12px 4px}.breadcrumb-item+.breadcrumb-item:before{line-height:48px}}#search-bar{margin:32px auto;border:1px solid #ccc;border-radius:20px;padding:0 20px}#search-bar #search{width:calc(100% - 30px);border:none;line-height:44px;outline:none;border-style:none}.search-page{padding:40px 0}.search-page__input-wrapper{border:2px solid #ccc;border-radius:28px;padding:0 24px;display:flex;align-items:center;transition:border-color .2s}.search-page__input-wrapper:focus-within{border-color:#d42872}.search-page__input-wrapper i{color:#999;font-size:18px}.search-page__input-wrapper--hero{background:#fffffff2;border-color:transparent;margin-top:24px;max-width:600px;margin-left:auto;margin-right:auto}.search-page__input-wrapper--hero:focus-within{border-color:#d42872}.search-page__input{width:100%;border:none;outline:none;line-height:52px;font-size:18px;padding-left:12px;background:transparent}.search-page__filters{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.search-page__chip{display:inline-block;padding:6px 16px;border:1px solid #ccc;border-radius:20px;background:#fff;color:#555;font-size:14px;cursor:pointer;transition:all .2s}.search-page__chip:focus{outline:none;box-shadow:none}.search-page__chip:hover{border-color:#d42872;color:#d42872}.search-page__chip.active{background-color:#d42872;border-color:#d42872;color:#fff}.search-page__status{color:#757575;font-size:14px;margin-bottom:16px}.search-page__results{display:flex;flex-direction:column;gap:0}.search-page__result-item{display:block;padding:16px;border-bottom:1px solid #eee;text-decoration:none;transition:background-color .15s}.search-page__result-item:hover{background-color:#f9f9f9;text-decoration:none}.search-page__result-title{color:#212529;font-size:18px;font-weight:600;margin-bottom:0}.search-page__result-category{display:inline-block;font-size:12px;font-weight:400;color:#fff;background-color:#888;border-radius:4px;padding:1px 8px;margin-left:8px;vertical-align:middle}.search-page__result-excerpt{color:#555;font-size:14px;line-height:1.6}.search-page__result-excerpt mark{background-color:#d4287226;color:#d42872;padding:0 2px;border-radius:2px}.search-page__no-result{text-align:center;color:#999;padding:40px 0;font-size:16px}.search-page__pagination{margin-top:24px}.in-feed-left-ads{width:calc(100% - 300px)}@media(max-width:576px){.in-feed-left-ads{width:100%}}.app_container{display:flex;justify-content:center;align-items:center;text-decoration:none}.app_container:hover{text-decoration:none}.app_container .app_logo_image{width:60px;margin-right:10px;border-radius:8px}.app_container .app_description{color:#757575;line-height:14px;font-size:14px;letter-spacing:-1px}.app_container .app_title{color:#212121;font-weight:700}blockquote{border-left:4px solid lightgray;padding-left:8px}.callout{padding:12px 16px;margin-top:16px;margin-bottom:16px;border-left:4px solid;border-radius:4px}.callout .callout-title{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:4px}.callout .callout-title .callout-title-icon{display:flex;align-items:center}.callout .callout-title .callout-title-icon svg{width:16px;height:16px;fill:currentColor}.callout .callout-content p:last-child{margin-bottom:0}.callout[data-callout=note]{border-left-color:#0969da;background-color:#0969da14}.callout[data-callout=note] .callout-title{color:#0969da}.callout[data-callout=tip]{border-left-color:#1a7f37;background-color:#1a7f3714}.callout[data-callout=tip] .callout-title{color:#1a7f37}.callout[data-callout=important]{border-left-color:#8250df;background-color:#8250df14}.callout[data-callout=important] .callout-title{color:#8250df}.callout[data-callout=warning]{border-left-color:#9a6700;background-color:#9a670014}.callout[data-callout=warning] .callout-title{color:#9a6700}.callout[data-callout=caution]{border-left-color:#cf222e;background-color:#cf222e14}.callout[data-callout=caution] .callout-title{color:#cf222e}pre.astro-code span[style*="color:#545454"]{color:#888!important}
+.bmc-button[data-astro-cid-d4e4ujom]{line-height:36px!important;height:37px!important;text-decoration:none!important;display:inline-block!important;color:#fff!important;background-color:#bf4a17!important;border-radius:3px!important;border:1px solid transparent!important;padding:0 9px!important;font-size:17px!important;letter-spacing:-.08px!important;margin:10px!important;font-family:Lato,sans-serif!important;box-sizing:border-box!important;transition:.3s all linear!important}.bmc-button[data-astro-cid-d4e4ujom]:hover,.bmc-button[data-astro-cid-d4e4ujom]:active,.bmc-button[data-astro-cid-d4e4ujom]:focus{box-shadow:0 1px 2px 2px #bebebe80!important;text-decoration:none!important;opacity:.85!important;color:#fff!important}
+</style></head><body> <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"> <div class="container"> <a class="navbar-brand" href="/ko/"> <img src="/assets/images/deku.svg" alt="DeKu"> <span class="name">DeKu</span> </a> <div class="navbar-menu-container"> <!-- Desktop nav --> <div class="collapse navbar-collapse"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/latest/">Latest</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/development_process/"> 개발 프로세스 </a><a class="dropdown-item" href="/ko/generative_ai/"> 생성AI </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/astro/"> Astro </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/search/" aria-label="Search"> <i class="fa fa-search" aria-hidden="true"></i> </a> </li> </ul> </div> <!-- Language switcher --> <div class="btn-group-sm btn-translate-group dropdown"> <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="change language button"> <i class="fa fa-language" aria-hidden="true"></i> </button> <div class="dropdown-menu"> <a class="dropdown-item menu-ja" href="#" data-lang="ja"> 日本語 </a><a class="dropdown-item menu-ko" href="#" data-lang="ko"> 한국어 </a><a class="dropdown-item menu-en" href="#" data-lang="en"> English </a> </div> </div> <!-- Hamburger button --> <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menu">
+Menu
+<i class="fa fa-bars"></i> </button> </div> <!-- Mobile nav --> <div class="collapse navbar-collapse" id="navbarResponsive"> <ul class="navbar-nav ml-auto"> <li class="nav-item"> <a class="nav-link" href="/ko/">Home</a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/latest/">Latest</a> </li> <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a> <div class="dropdown-menu"> <a class="dropdown-item" href="/ko/react-native/"> React Native </a><a class="dropdown-item" href="/ko/blaboo/"> BlaBoo </a><a class="dropdown-item" href="/ko/books/"> 책 집필 </a><a class="dropdown-item" href="/ko/clog/"> Clog </a><a class="dropdown-item" href="/ko/django/"> 장고(django) </a><a class="dropdown-item" href="/ko/environment/"> 개발 환경 </a><a class="dropdown-item" href="/ko/essay/"> 에세이 </a><a class="dropdown-item" href="/ko/flutter/"> Flutter </a><a class="dropdown-item" href="/ko/development_process/"> 개발 프로세스 </a><a class="dropdown-item" href="/ko/generative_ai/"> 생성AI </a><a class="dropdown-item" href="/ko/git/"> git </a><a class="dropdown-item" href="/ko/github_actions/"> GitHub Actions </a><a class="dropdown-item" href="/ko/golang/"> Golang </a><a class="dropdown-item" href="/ko/astro/"> Astro </a><a class="dropdown-item" href="/ko/jekyll/"> jekyll blog </a><a class="dropdown-item" href="/ko/kubernetes/"> 쿠버네티스 </a><a class="dropdown-item" href="/ko/kumoncho/"> kumoncho </a><a class="dropdown-item" href="/ko/ildangongbu/"> 일단공부 </a><a class="dropdown-item" href="/ko/laravel/"> Laravel </a><a class="dropdown-item" href="/ko/code_quality/"> Code Quality </a><a class="dropdown-item" href="/ko/react/"> React </a><a class="dropdown-item" href="/ko/ruby/"> Ruby </a><a class="dropdown-item" href="/ko/ruby-on-rails/"> Ruby on Rails </a><a class="dropdown-item" href="/ko/share/"> 공유 </a><a class="dropdown-item" href="/ko/tensorflow/"> TensorFlow </a><a class="dropdown-item" href="/ko/web/"> 웹에 관한 지식 </a> </div> </li> <li class="nav-item"> <a class="nav-link" href="/app/list/ko/" target="_blank" rel="noopener"> Apps </a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/contact/">Contact</a> </li> <li class="nav-item"> <a class="nav-link" href="/ko/search/" aria-label="Search"> <i class="fa fa-search" aria-hidden="true"></i> Search
+</a> </li> </ul> </div> </div> </nav> <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var urlPath = window.location.pathname;
+
+    // Set language switcher URLs
+    if (urlPath.indexOf('/en/') >= 0) {
+      $('.menu-ko').prop('href', urlPath.replace('/en/', '/ko/'));
+      $('.menu-en').prop('href', urlPath);
+      $('.menu-ja').prop('href', urlPath.replace('/en/', '/'));
+    } else if (urlPath.indexOf('/ko/') >= 0) {
+      $('.menu-ko').prop('href', urlPath);
+      $('.menu-en').prop('href', urlPath.replace('/ko/', '/en/'));
+      $('.menu-ja').prop('href', urlPath.replace('/ko/', '/'));
+    } else {
+      $('.menu-ko').prop('href', '/ko' + urlPath);
+      $('.menu-en').prop('href', '/en' + urlPath);
+      $('.menu-ja').prop('href', urlPath);
+    }
+
+    // Dropdown slide animation
+    $('body').on('show.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+    });
+    $('body').on('hide.bs.dropdown', '.dropdown', function () {
+      $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+    });
+  });
+</script>   <header class="masthead" style="background-image: url('/assets/images/category/generative_ai/background.jpg')"> <div class="overlay"></div> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-heading"> <h1>[Claude Code] Skill 품질 관리 플러그인 만들기</h1> <div class="heading-date"> <i class="fa fa-calendar" aria-hidden="true"></i> 2026-07-02 <img style="width: inherit;" src="https://myhits.vercel.app/api/hit/https%3A%2F%2Fdeku.posstree.com%2Fko%2Fgenerative_ai%2Fskill-quality-plugin%2F?color=red&label=hits&size=medium" alt="hit count image" width="80" height="20"> </div> <h2 class="subheading">Claude Code 스킬 파일을 38개 항목으로 평가하는 skill-quality-plugin을 만들면서 정리한 설계 원칙과 구현 과정을 공유합니다. 규칙으로 잡는 결정적 문제, 모델로 판단하는 의미론적 문제, 그리고 서브에이전트 격리 패턴까지 다룹니다.</h2> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" width="27" height="28" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/generative_ai/" itemprop="item"> <span itemprop="name">생성AI</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">[Claude Code] Skill 품질 관리 플러그인 만들기</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto" data-pagefind-body> <span data-pagefind-filter="category" style="display:none;">generative_ai</span>  <h2 id="목차">목차</h2>
+<ul>
+<li><a href="#%EC%99%9C-%EB%A7%8C%EB%93%A4%EC%97%88%EB%82%98-%EC%A1%B0%EC%9A%A9%ED%95%9C-%EC%8B%A4%ED%8C%A8">왜 만들었나: 조용한 실패</a></li>
+<li><a href="#38%EA%B0%9C-%ED%95%AD%EB%AA%A9-%EB%A3%A8%EB%B8%8C%EB%A6%AD">38개 항목 루브릭</a></li>
+<li><a href="#%ED%95%B5%EC%8B%AC-%EC%84%A4%EA%B3%84-%EC%9B%90%EC%B9%99-%EA%B7%9C%EC%B9%99-vs-%EB%AA%A8%EB%8D%B8">핵심 설계 원칙: 규칙 vs 모델</a></li>
+<li><a href="#%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EC%84%9C%EB%B8%8C%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EA%B2%A9%EB%A6%AC">아키텍처: 서브에이전트 격리</a></li>
+<li><a href="#%EA%B2%80%EC%82%AC-%EA%B9%8A%EC%9D%B4-%EC%A1%B0%EC%A0%88">검사 깊이 조절</a></li>
+<li><a href="#%EB%93%B1%EA%B8%89-%EC%8B%9C%EC%8A%A4%ED%85%9C">등급 시스템</a></li>
+<li><a href="#%EC%9E%AC%EB%AF%B8%EC%9E%88%EC%97%88%EB%8D%98-%EB%AC%B8%EC%A0%9C-1-%ED%8C%8C%EA%B4%B4%EC%A0%81-%EB%AA%85%EB%A0%B9-%EA%B0%90%EC%A7%80%EC%9D%98-%EB%AC%B8%EB%A7%A5-%EB%AC%B8%EC%A0%9C">재미있었던 문제 1: 파괴적 명령 감지의 문맥 문제</a></li>
+<li><a href="#%EC%9E%AC%EB%AF%B8%EC%9E%88%EC%97%88%EB%8D%98-%EB%AC%B8%EC%A0%9C-2-report%EC%9D%98-%EC%84%9C%EB%B8%8C%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8-%EC%A4%91%EC%B2%A9-%EC%A0%9C%EC%95%BD">재미있었던 문제 2: report의 서브에이전트 중첩 제약</a></li>
+<li><a href="#%EC%85%80%ED%94%84-%ED%8F%89%EA%B0%80-%EC%9E%90%EA%B8%B0-%EC%9E%90%EC%8B%A0%EC%9D%84-%EC%B1%84%EC%A0%90%ED%95%98%EB%A9%B4">셀프 평가: 자기 자신을 채점하면?</a></li>
+<li><a href="#%EB%A7%88%EC%B9%98%EB%A9%B0">마치며</a></li>
+</ul>
+<h2 id="왜-만들었나-조용한-실패">왜 만들었나: 조용한 실패</h2>
+<p>Claude Code의 스킬(Skill)은 YAML frontmatter가 붙은 Markdown 지시문 파일입니다. 구조가 단순해서 만들기는 쉽지만, 문제는 <strong>잘못 만들어도 아무 에러가 나지 않는다</strong>는 점입니다.</p>
+<ul>
+<li>description이 빠져 있으면? Claude가 그냥 스킬을 호출하지 않습니다.</li>
+<li>트리거 조건이 모호하면? 엉뚱한 상황에서 호출되거나, 필요한 순간에 호출되지 않습니다.</li>
+<li>frontmatter의 YAML이 깨져 있으면? 스킬 자체가 로드되지 않습니다.</li>
+</ul>
+<p>전부 <strong>조용한 실패(silent failure)</strong> 입니다. 스킬을 마켓플레이스에 배포하기 전에 이런 문제를 체계적으로 잡아낼 방법이 없어서, 직접 만들기로 했습니다. 그렇게 나온 것이 <code>/skill-quality</code> 플러그인입니다. 소스 코드는 <a href="https://github.com/dev-yakuza/deku-claude-plugins" rel="nofollow noreferrer" target="_blank">GitHub</a>에 공개되어 있습니다.</p>
+<h2 id="38개-항목-루브릭">38개 항목 루브릭</h2>
+<p><code>/skill-quality</code>는 루브릭(Rubric) 기반으로 스킬을 평가합니다.</p>
+<p>루브릭은 평가 대상을 여러 기준으로 나눠 각 기준마다 등급이나 합격/불합격을 매기는 평가표입니다. 원래 교육 현장에서 과제나 발표를 채점할 때 자주 쓰는 방식인데, “이 코드가 좋은가?”처럼 주관적으로 흐르기 쉬운 판단을 기준별로 쪼개서 객관화할 수 있다는 점에서 소프트웨어 품질 평가에도 그대로 적용할 수 있습니다.</p>
+<p>“좋은 스킬이란 무엇인가”를 체크 가능한 항목으로 쪼게 보았습니다. 최종적으로 7개 차원, 38개 항목이 됐습니다. 각 항목은 <strong>심각도</strong>(BLOCKER · MAJOR · MINOR)와 <strong>검사 방식</strong>(rule · model)으로 분류했습니다.</p>
+<h3 id="v--타당성-validity--2개">V — 타당성 (Validity) · 2개</h3>
+<p>스킬이 존재할 이유가 있는지 검증합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>V1</td><td>MAJOR</td><td>model</td><td>일반 Claude 프롬프트로 얻을 수 없는 조직 고유 지식이나 절차가 본문에 1줄 이상 있는가</td></tr><tr><td>V2</td><td>MAJOR</td><td>model</td><td>기존 내장 스킬(/code-review, /security-review 등)과 크게 겹치지 않는가</td></tr></tbody></table>
+<p>V1이 핵심입니다. “이 스킬 없이 Claude에게 그냥 물어봐도 똑같은 결과를 얻을 수 있다”면 스킬로 만들 이유가 없습니다. 팀 고유의 규칙, 내부 도구 이름, 사내 관례 등이 최소 1줄 이상 있어야 합니다.</p>
+<h3 id="st--구조-structure--8개">ST — 구조 (Structure) · 8개</h3>
+<p>frontmatter와 파일 자체의 구조적 유효성을 검사합니다. BLOCKER 3개가 모두 이 섹션에 있습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>ST1</td><td><strong>BLOCKER</strong></td><td>rule</td><td>frontmatter(<code>---</code> 블록)가 유효한 YAML로 파싱되는가</td></tr><tr><td>ST2</td><td><strong>BLOCKER</strong></td><td>rule</td><td><code>description:</code> 키가 존재하고 값이 비어 있지 않은가</td></tr><tr><td>ST3</td><td>MAJOR</td><td>rule</td><td>description 전체 길이가 1,536자 이하인가</td></tr><tr><td>ST4</td><td>MAJOR</td><td>rule</td><td><code>name</code> 값이 <code>^[a-z][a-z0-9-]*$</code> 형식인가 (소문자·숫자·하이픈만)</td></tr><tr><td>ST5</td><td><strong>BLOCKER</strong></td><td>rule</td><td>파일이 UTF-8로 오류 없이 읽히는가</td></tr><tr><td>ST6</td><td>MINOR</td><td>rule</td><td><code>argument-hint</code>가 있다면 <code>&#x3C;</code>, <code>[</code>, <code>(</code> 중 하나 이상을 포함하는가</td></tr><tr><td>ST7</td><td>MAJOR</td><td>rule</td><td>frontmatter에 중복 키가 없는가</td></tr><tr><td>ST8</td><td>MAJOR</td><td>rule</td><td>본문(frontmatter 이후) 줄 수가 500줄 이하인가</td></tr></tbody></table>
+<p>ST2에는 단락 규칙이 있습니다. <code>description</code>이 아예 없으면 ST2만 BLOCKER로 기록하고 나머지 37개 항목은 전부 SKIP 처리합니다. frontmatter 자체가 없는 파일에서 의미 없는 연쇄 실패가 쏟아지는 것을 막기 위해서입니다.</p>
+<h3 id="f--프론트매터-의미론-frontmatter-semantics--5개">F — 프론트매터 의미론 (Frontmatter Semantics) · 5개</h3>
+<p>frontmatter 각 필드의 값이 의미적으로 올바른지 검사합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>F1</td><td><strong>BLOCKER</strong></td><td>rule</td><td><code>name:</code> 키가 존재하는가 (값 무관, 없으면 스킬을 이름으로 호출할 수 없음)</td></tr><tr><td>F2</td><td>MAJOR</td><td>rule</td><td><code>disable-model-invocation: true</code> 설정 시 description에 트리거 문구(“Use when”, “call this when” 등)가 없는가</td></tr><tr><td>F3</td><td>MAJOR</td><td>model</td><td><code>context: fork</code> 설정 시 본문에 구체적인 작업 지시가 1개 이상 있는가</td></tr><tr><td>F4</td><td>MAJOR</td><td>rule</td><td><code>effort:</code> 값이 <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code> 중 하나인가</td></tr><tr><td>F5</td><td>MINOR</td><td>rule</td><td><code>tools:</code> 값이 YAML 시퀀스 또는 쉼표 구분 문자열 형식인가</td></tr></tbody></table>
+<p>F2는 모순 검사입니다. “모델 호출을 끄겠다”고 설정해 놓고 description에 “이럴 때 호출하세요”라고 써 있으면, Claude가 스킬을 호출해야 하는지 말아야 하는지 판단할 수 없습니다.</p>
+<h3 id="t--트리거-trigger--6개">T — 트리거 (Trigger) · 6개</h3>
+<p>Claude가 스킬을 언제, 어떻게 호출할지 판단하는 데 필요한 정보가 충분한지 검사합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>T1</td><td>MAJOR</td><td>model</td><td>description에 이 스킬이 <strong>무엇을</strong> 하는지(WHAT) 명확히 서술되어 있는가</td></tr><tr><td>T2</td><td>MAJOR</td><td>model</td><td>description에 <strong>언제</strong> 호출하는지(WHEN)가 명확히 서술되어 있는가</td></tr><tr><td>T3</td><td>MAJOR</td><td>rule</td><td>description이 1인칭(“I ”, “We “)이나 2인칭(“You “)으로 시작하지 않는가</td></tr><tr><td>T4</td><td>MAJOR</td><td>model</td><td>트리거 조건이 다른 스킬과 충분히 구별되는가</td></tr><tr><td>T5</td><td>MINOR</td><td>model</td><td>WHAT과 WHEN이 description 첫 200자 안에 모두 있는가</td></tr><tr><td>T6</td><td>MINOR</td><td>rule</td><td>description이 50자 이상인가</td></tr></tbody></table>
+<p>T1·T2·T4가 트리거 품질의 핵심입니다. “도움이 필요할 때 사용하세요”는 T2를 형식적으로 통과하더라도 T4에서 실패합니다. 다른 스킬과 구별이 안 되기 때문입니다. T3는 작성 관례입니다 — description은 3인칭 동사로 시작해야 합니다(“Generates…”, “Evaluates…” 형태).</p>
+<h3 id="c--콘텐츠-content--6개">C — 콘텐츠 (Content) · 6개</h3>
+<p>본문이 실제로 유용한 내용을 담고 있는지 검사합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>C1</td><td>MAJOR</td><td>model</td><td>공개 문서에서 얻을 수 없는 조직 고유 사실·규칙·절차가 1개 이상 있는가</td></tr><tr><td>C2</td><td>MAJOR</td><td>model</td><td>입력→출력, 전→후, 명령→결과 형태의 실제 예시가 1개 이상 있는가</td></tr><tr><td>C3</td><td>MINOR</td><td>rule</td><td>”as of”, “currently”, “현재”, 연도(2024 등) 같은 시한부 표현이 없는가</td></tr><tr><td>C4</td><td>MINOR</td><td>model</td><td>같은 개념을 가리키는 용어가 본문 전체에서 일관되게 쓰이는가</td></tr><tr><td>C5</td><td>MINOR</td><td>model</td><td>작업 위험도에 비례하는 지시 강도를 갖추고 있는가 (파일 삭제·배포 등 고위험 작업일수록 더 엄격하게)</td></tr><tr><td>C6</td><td>MINOR</td><td>model</td><td>실패 모드, 제약사항, “하지 말 것” 조항이 1개 이상 명시되어 있는가</td></tr></tbody></table>
+<p>C1과 C2는 콘텐츠 섹션의 두 MAJOR입니다. C1은 V1과 연결되어 있어서, 조직 고유 지식이 없으면 V1과 C1이 함께 실패하는 경우가 많습니다. C3는 미래에 틀려버릴 내용을 방지합니다. “2024년 기준으로 지원합니다”라는 문장은 1년 뒤 독자를 오도합니다.</p>
+<h3 id="r--리소스-resources--8개">R — 리소스 (Resources) · 8개</h3>
+<p>외부 파일 참조와 코드 블록의 건전성을 검사합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>R1</td><td>MINOR</td><td>rule</td><td>본문이 200줄 초과인데 <code>references/</code> 디렉토리가 없으면 분리 권장</td></tr><tr><td>R2</td><td>MINOR</td><td>rule</td><td>30줄 초과 bash/python 블록이 있는데 <code>scripts/</code> 디렉토리가 없으면 분리 권장</td></tr><tr><td>R3</td><td>MAJOR</td><td>rule</td><td>본문에 절대 경로(<code>/Users/</code>, <code>/home/</code>, <code>C:\</code> 등)가 없는가</td></tr><tr><td>R4</td><td>MAJOR</td><td>rule</td><td>본문의 <code>&#x3C;&#x3C;SKILL_DIR>>/path</code> 참조가 실제 존재하는 파일을 가리키는가</td></tr><tr><td>R5</td><td>MAJOR</td><td>rule</td><td>본문의 bash/python 코드 블록이 문법 오류 없이 파싱되는가</td></tr><tr><td>R6</td><td>MINOR</td><td>model</td><td>본문의 셸 명령 시퀀스가 종료 동작이나 오류 처리(<code>|| exit 1</code>, <code>set -e</code> 등)를 명시하는가</td></tr><tr><td>R7</td><td>MINOR</td><td>rule</td><td>SKILL.md 전체 줄 수(frontmatter 포함)가 200줄 초과면 분리 권장</td></tr><tr><td>R8</td><td>MINOR</td><td>rule</td><td><code>references/</code> 디렉토리가 있다면 내부 파일이 1단계 이상 중첩되지 않는가</td></tr></tbody></table>
+<p>R3는 이식성 문제입니다. 절대 경로는 특정 머신에서만 동작합니다. R4는 존재하지 않는 파일을 가리키는 죽은 링크를 잡습니다. R5는 본문에 포함된 예시 코드가 실제로 문법적으로 올바른지 확인합니다.</p>
+<h3 id="sf--안전성-safety--2개">SF — 안전성 (Safety) · 2개</h3>
+<p>배포하면 안 되는 보안·안전 문제를 검사합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>SF1</td><td><strong>BLOCKER</strong></td><td>rule</td><td>본문에 실제 시크릿(API 키, 비밀번호 등)이 없는가</td></tr><tr><td>SF2</td><td>MAJOR</td><td>rule+model</td><td>본문에 보호 장치 없는 파괴적 명령이 없는가 (<code>rm -rf</code>, <code>DROP TABLE</code>, <code>git push --force</code> 등)</td></tr></tbody></table>
+<p>SF1은 BLOCKER입니다. API 키가 포함된 스킬을 마켓플레이스에 배포하면 즉시 유출됩니다. <code>&#x3C;your-api-key></code> 같은 플레이스홀더나 <code>example</code>, <code>dummy</code> 같은 명백한 예시 값은 제외됩니다. SF2가 rule+model 2단계인 이유는 다음 섹션에서 설명합니다.</p>
+<h3 id="x1--교차-스킬-충돌-cross-skill-collision--1개">X1 — 교차 스킬 충돌 (Cross-skill Collision) · 1개</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>심각도</th><th>방식</th><th>내용</th></tr></thead><tbody><tr><td>X1</td><td>MAJOR</td><td>model</td><td>같은 디렉토리 내 두 스킬의 description이 너무 유사해 Claude가 어느 쪽을 호출할지 구별하지 못하는가</td></tr></tbody></table>
+<p><code>/skill-quality report</code> 명령에서만 실행됩니다. 여러 스킬을 한 번에 점검할 때 충돌 쌍을 찾아냅니다.</p>
+<h2 id="핵심-설계-원칙-규칙-vs-모델">핵심 설계 원칙: 규칙 vs 모델</h2>
+<p>38개 항목을 정의하고 나니 자연스럽게 한 가지 원칙이 도출됐습니다.</p>
+<blockquote><p><strong>결정적 문제는 규칙으로, 의미 문제는 모델로.</strong></p></blockquote>
+<p>“YAML이 파싱되는가”, “name이 <code>^[a-z][a-z0-9-]*$</code>에 매칭되는가”, “시크릿 패턴이 있는가” 같은 검사는 정답이 하나입니다. 이런 검사를 LLM에게 시키는 것은 낭비이고, 무엇보다 <strong>비결정적</strong>이 됩니다. 그래서 결정적 검사는 Haiku 모델이 실행하는 <code>rule_checks</code> 아톰에 몰아넣었습니다. Haiku는 스크립트 실행기 역할만 하므로 빠르고 저렴합니다.</p>
+<p>반면 “이 description은 Claude가 트리거하기에 충분히 구체적인가”, “본문에 공개 문서에서 얻을 수 없는 조직 고유 지식이 있는가” 같은 질문은 규칙으로 표현할 수 없습니다. 이런 의미론적 판단은 Sonnet/Opus가 실행하는 <code>model_checks</code> 아톰이 담당합니다.</p>
+<p>이 분리 덕분에 38개 항목 각각에 <code>type: rule</code> 또는 <code>type: model</code>이 명시되어 있고, 어떤 판단이 재현 가능하고 어떤 판단이 모델 의존적인지 명확해졌습니다.</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="아키텍처-서브에이전트-격리">아키텍처: 서브에이전트 격리</h2>
+<p>파일 구조는 다음과 같습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>skill-quality-plugin/</span></span>
+<span class="line"><span>├── .claude-plugin/</span></span>
+<span class="line"><span>│   └── plugin.json</span></span>
+<span class="line"><span>├── skills/</span></span>
+<span class="line"><span>│   └── skill-quality/</span></span>
+<span class="line"><span>│       ├── SKILL.md              # 라우터 + 공통 정의</span></span>
+<span class="line"><span>│       └── commands/</span></span>
+<span class="line"><span>│           ├── check.md          # 단일 스킬 평가 (오케스트레이터)</span></span>
+<span class="line"><span>│           ├── report.md         # 디렉토리 일괄 평가</span></span>
+<span class="line"><span>│           ├── rubric.md         # 38개 항목 표시</span></span>
+<span class="line"><span>│           ├── help.md</span></span>
+<span class="line"><span>│           └── atoms/</span></span>
+<span class="line"><span>│               ├── rubric-spec.md    # 항목 정의 (단일 소스)</span></span>
+<span class="line"><span>│               ├── rule_checks.md    # 결정적 검사 (Haiku)</span></span>
+<span class="line"><span>│               └── model_checks.md   # 의미 검사 (Sonnet/Opus)</span></span>
+<span class="line"><span>└── fixtures/</span></span>
+<span class="line"><span>    ├── example-s-grade/</span></span>
+<span class="line"><span>    ├── example-b-grade/</span></span>
+<span class="line"><span>    └── example-f-grade/</span></span></code></pre>
+<p>가장 신경 쓴 부분은 <strong>메인 세션의 컨텍스트를 오염시키지 않는 것</strong>입니다. 38개 항목을 검사하면 중간 산출물이 상당히 많이 나오는데, 이것이 전부 메인 컨텍스트에 쌓이면 이후 작업 품질이 떨어집니다.</p>
+<p>그래서 check 커맨드는 오케스트레이터로만 동작합니다. rule_checks → model_checks 순서로 서브에이전트를 띄우고, 각 아톰은 상세 결과를 <code>/tmp/skill-quality-rule.json</code>, <code>/tmp/skill-quality-model.json</code>에 기록한 뒤 마지막 줄에 한 줄짜리 요약만 출력합니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>>>> RESULT &#x3C;&#x3C;&#x3C;</span></span>
+<span class="line"><span>OK FAIL: BLOCKER st1,sf1; MAJOR st4; MINOR st6</span></span></code></pre>
+<p>메인 세션은 이 터미널 라인과 JSON 파일만 읽습니다. 평가 대상인 SKILL.md 자체를 메인 세션이 읽는 일은 없습니다.</p>
+<h2 id="검사-깊이-조절">검사 깊이 조절</h2>
+<p>모든 상황에서 Opus까지 돌릴 필요는 없습니다. 상황에 따라 검사 깊이를 선택할 수 있도록 세 단계 옵션을 제공합니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>플래그</th><th>rule checks</th><th>model checks</th><th>용도</th></tr></thead><tbody><tr><td><code>--rules-only</code> / <code>--depth=shallow</code></td><td>✓</td><td>생략</td><td>pre-commit 훅 (빠름)</td></tr><tr><td>(기본)</td><td>✓</td><td>Sonnet</td><td>일상적 점검</td></tr><tr><td><code>--depth=deep</code></td><td>✓</td><td>Opus</td><td>배포 전 최종 게이트</td></tr></tbody></table>
+<p>커밋 전에는 shallow로 구조 문제만 빠르게 잡고, 마켓플레이스 배포 직전에만 deep으로 의미론적 품질까지 점검하는 식입니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">/skill-quality</span><span style="color:#C3E88D"> check</span><span style="color:#C3E88D"> ./my-skill</span><span style="color:#C3E88D"> --rules-only</span><span style="color:#545454;font-style:italic">   # 빠른 검사</span></span>
+<span class="line"><span style="color:#FFCB6B">/skill-quality</span><span style="color:#C3E88D"> check</span><span style="color:#C3E88D"> ./my-skill</span><span style="color:#C3E88D"> --depth=deep</span><span style="color:#545454;font-style:italic">    # 최종 게이트</span></span>
+<span class="line"><span style="color:#FFCB6B">/skill-quality</span><span style="color:#C3E88D"> report</span><span style="color:#C3E88D"> ./skills</span><span style="color:#545454;font-style:italic">                  # 디렉토리 일괄 평가</span></span></code></pre>
+<h2 id="등급-시스템">등급 시스템</h2>
+<p>결과는 BLOCKER/MAJOR 개수로 등급이 결정됩니다. MINOR는 등급에 영향을 주지 않고 “Suggestions”로만 표시됩니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>BLOCKER ≥ 1        → F</span></span>
+<span class="line"><span>MAJOR 0            → S</span></span>
+<span class="line"><span>MAJOR 1–2          → A</span></span>
+<span class="line"><span>MAJOR 3–5          → B</span></span>
+<span class="line"><span>MAJOR 6–9          → C</span></span>
+<span class="line"><span>MAJOR 10+          → D</span></span></code></pre>
+<p>MINOR를 등급에서 뺀 것은 의도적입니다. 사소한 제안 때문에 등급이 깎이면 사람들이 루브릭 자체를 신뢰하지 않게 되기 때문입니다.</p>
+<div class="in-feed-ads ads-container">
+  <div class="ads-block ads-left">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div class="ads-block ads-center">
+    <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+<h2 id="재미있었던-문제-1-파괴적-명령-감지의-문맥-문제">재미있었던 문제 1: 파괴적 명령 감지의 문맥 문제</h2>
+<p>안전성 항목 중 하나로 “본문에 보호 장치 없는 파괴적 명령이 없는가”를 검사하는 항목이 있습니다. <code>rm -rf</code>, <code>DROP TABLE</code>, <code>git push --force</code> 같은 패턴을 정규식으로 잡는 것 자체는 쉽습니다. 문제는 <strong>문맥</strong>입니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#EEFFFF">절대 </span><span style="color:#89DDFF">`</span><span style="color:#C3E88D">rm -rf /</span><span style="color:#89DDFF">`</span><span style="color:#EEFFFF">를 실행하지 마세요. ← 경고 문서 (PASS여야 함)</span></span>
+<span class="line"><span style="color:#EEFFFF">정리 단계: rm -rf ./build 를 실행 ← 실제 실행 지시 (FAIL이어야 함)</span></span></code></pre>
+<p>정규식만으로는 둘을 구분할 수 없습니다. 그래서 이 항목만 <code>rule+model</code> 2단계 확인으로 설계했습니다. 1단계에서 rule이 패턴에 매칭된 라인 번호를 기록해 두면, 2단계에서 모델이 <strong>해당 라인만</strong> 꺼내 보고 경고/문서 문맥인지 실제 실행 지시인지 판정합니다. 모델의 판정이 규칙의 플래그를 최종적으로 대체합니다.</p>
+<p>정규식의 재현성과 모델의 문맥 이해를 결합한, 이 플러그인에서 가장 마음에 드는 부분입니다.</p>
+<h2 id="재미있었던-문제-2-report의-서브에이전트-중첩-제약">재미있었던 문제 2: report의 서브에이전트 중첩 제약</h2>
+<p>report 커맨드는 디렉토리 안의 모든 스킬을 일괄 평가합니다. 처음에는 “스킬마다 check.md를 서브에이전트로 실행하면 되겠지”라고 생각했는데, 여기서 막혔습니다. check.md는 자기 자신이 서브에이전트를 띄우는 구조인데, <strong>서브에이전트가 또 서브에이전트를 띄우는 것은 런타임이 차단</strong>합니다.</p>
+<p>해결책은 <code>claude --print</code>(비대화형 CLI 호출)를 활용하는 것이었습니다. 스킬당 하나의 서브에이전트(병렬 최대 4개)를 띄우되, 각 서브에이전트는 sub-agent를 스폰하는 대신 Bash로 <code>claude --print "..."</code> 명령을 실행합니다. 이 명령으로 시작된 프로세스는 <strong>완전히 새로운 독립 세션</strong>이므로, 자체적으로 rule_checks와 model_checks를 서브에이전트로 띄울 수 있습니다. 중첩 제약을 우회하는 것이 아니라, 런타임 외부의 독립 프로세스를 통해 동일한 품질을 얻는 방식입니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>report (메인 세션)</span></span>
+<span class="line"><span>  └─ 서브에이전트 × 4 (병렬, Task 하니스)</span></span>
+<span class="line"><span>       └─ claude --print "..." (독립 프로세스, 새 세션)</span></span>
+<span class="line"><span>            ├─ rule_checks 서브에이전트 (haiku)</span></span>
+<span class="line"><span>            └─ model_checks 서브에이전트 (sonnet/opus)</span></span></code></pre>
+<p>결과적으로 report도 check와 동일한 38개 항목 전체를 평가합니다. Claude Code 플러그인 환경에서는 <code>claude</code> CLI가 기본 설치되어 있으므로, 이 방식이 자연스럽게 적용됩니다.</p>
+<h2 id="셀프-평가-자기-자신을-채점하면">셀프 평가: 자기 자신을 채점하면?</h2>
+<p>품질 평가 도구라면 당연히 자기 자신부터 통과해야 합니다. 플러그인의 SKILL.md에 대해 <code>--depth=deep</code>으로 셀프 평가를 돌렸습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/skill-quality check: .../skill-quality/SKILL.md</span></span>
+<span class="line"><span>══════════════════════════════════════════════════</span></span>
+<span class="line"><span>Grade: A  (rubric v1.0, depth=deep)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>MAJOR (1)</span></span>
+<span class="line"><span>  [C2] No worked example — body shows output format patterns</span></span>
+<span class="line"><span>       but no end-to-end command → result scenario</span></span>
+<span class="line"><span>       Fix: Add a ## Example section with sample invocation and output</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>══════════════════════════════════════════════════</span></span>
+<span class="line"><span>BLOCKER: 0  MAJOR: 1  MINOR: 0  SKIP: 9</span></span></code></pre>
+<p>처음 결과는 <strong>Grade A</strong>였습니다. <code>--depth=deep</code>의 opus 모델이 C2(worked example 없음)를 잡아낸 것입니다. <code>--rules-only</code>나 기본 depth로는 통과했던 항목입니다.</p>
+<p>SKILL.md에 <code>/skill-quality check ./...</code> 명령과 그 출력을 보여주는 <code>### Example</code> 섹션을 추가하고 다시 평가했습니다.</p>
+<pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/skill-quality check: .../skill-quality/SKILL.md</span></span>
+<span class="line"><span>══════════════════════════════════════════════════</span></span>
+<span class="line"><span>Grade: S  (rubric v1.0, depth=deep)</span></span>
+<span class="line"><span>══════════════════════════════════════════════════</span></span>
+<span class="line"><span>BLOCKER: 0  MAJOR: 0  MINOR: 0  SKIP: 9</span></span></code></pre>
+<p><code>--depth=deep</code>이 의미 있는 이유가 바로 이것입니다. 규칙 검사만으로는 “예시가 충분히 구체적인가”를 판단할 수 없고, 모델이 직접 읽어봐야 알 수 있습니다. 도구를 만드는 과정 자체가 좋은 스킬 작성 연습이 된 셈입니다.</p>
+<h2 id="마치며">마치며</h2>
+<p>이번 플러그인을 만들면서 배운 것을 정리하면 다음과 같습니다.</p>
+<ul>
+<li><strong>품질 기준은 쪼개야 실행 가능해진다.</strong> “좋은 스킬”이라는 막연한 개념을 38개의 pass/fail 항목으로 분해하니, 비로소 자동화할 수 있었습니다.</li>
+<li><strong>결정적 문제는 규칙으로, 의미 문제는 모델로.</strong> LLM에게 정규식 매칭을 시키지 말고, 정규식에게 문맥 판단을 시키지 마세요. 각각 잘하는 것이 다릅니다.</li>
+<li><strong>컨텍스트 격리는 설계 초기부터.</strong> 서브에이전트가 임시 파일에 쓰고 한 줄 요약만 반환하는 패턴은, 긴 파이프라인에서 메인 세션을 깨끗하게 유지하는 가장 확실한 방법이었습니다.</li>
+<li><strong>자기 자신에게 도구를 적용해 보라.</strong> 셀프 평가에서 나온 지적이 루브릭의 허점을 가장 많이 드러냈습니다.</li>
+</ul>
+<p>스킬을 만들어 배포할 계획이 있다면, 배포 전에 한 번쯤 이런 루브릭으로 점검해 보는 것을 추천합니다. 조용한 실패는 사용자에게 발견되기 전에 잡는 것이 가장 쌉니다.</p>
+<p>플러그인 소스 코드와 38개 루브릭 스펙 전체는 <a href="https://github.com/dev-yakuza/deku-claude-plugins" rel="nofollow noreferrer" target="_blank">GitHub</a>에서 확인할 수 있습니다.</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> </div> </div> <div class="sponsor_container" data-astro-cid-d4e4ujom> <a href="https://github.com/sponsors/dev-yakuza" target="_blank" rel="noopener" style="background-color:#e6ebf1;background-image:linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);color:#24292e;text-decoration:none;border:1px solid rgba(27,31,35,.2);padding:6px 10px;user-select:none;border-radius:.25em;white-space:nowrap;vertical-align:middle;font-size:17px;font-family:'Lato',sans-serif !important;margin:10px;display:inline-block;" data-astro-cid-d4e4ujom> <svg style="color:#ea4aaa;vertical-align:text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true" data-astro-cid-d4e4ujom> <path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z" data-astro-cid-d4e4ujom></path> </svg>
+Github Sponsor
+</a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" width="27" height="28" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  <p> <code class="language-plaintext highlighter-rouge"> 제 블로그가 도움이 되셨나요? 하단의 댓글을 달아주시면 저에게 큰 힘이 됩니다! </code> </p>  <h2>앱 홍보</h2> <div class="book-greeting"> 지금 보고 계신 블로그를 작성하는 <code class="highlighter-rouge">Deku</code>가 개발한 앱을 한번 사용해보세요.<br /><code class="highlighter-rouge">Deku</code>가 개발한 앱은 Flutter로 개발되었습니다.<br /><br />관심있으신 분들은 앱을 다운로드하여 사용해 주시면 정말 감사하겠습니다. <br><br> <div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/blaboo/ko/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/blaboo.png" alt="어린이용 단어 공부 앱, 블라부" width="60" height="60"> <div> <div class="app_description">어린이용 단어 공부 앱</div> <div class="app_title">블라부</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/clog/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/clog.png" alt="세상의 모든 정보를 모아보다, 씨로그" width="60" height="60"> <div> <div class="app_description">세상의 모든 정보를 모아보다</div> <div class="app_title">씨로그</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="https://ildangongbu.posstree.com/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/ildangongbu.png" alt="JLPT 일본어 단어앱, 일단 공부" width="60" height="60"> <div> <div class="app_description">JLPT 일본어 단어앱</div> <div class="app_title">일단 공부</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/toeicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/toeicwords.png" alt="토익 영어 단어앱, 토익 단어앱" width="60" height="60"> <div> <div class="app_description">토익 영어 단어앱</div> <div class="app_title">토익 단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/secondaryenglish/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/secondaryenglish.png" alt="중고등 영어 단어앱, 중고등 영단어앱" width="60" height="60"> <div> <div class="app_description">중고등 영어 단어앱</div> <div class="app_title">중고등 영단어앱</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/hskwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/hskwords.png" alt="HSK 중국어 단어앱, 중국어 단어앱" width="60" height="60"> <div> <div class="app_description">HSK 중국어 단어앱</div> <div class="app_title">중국어 단어앱</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/germanwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/germanwords.png" alt="독일어 단어앱, 독일어 단어장" width="60" height="60"> <div> <div class="app_description">독일어 단어앱</div> <div class="app_title">독일어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/russianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/russianwords.png" alt="러시아어 단어앱, 러시아어 단어장" width="60" height="60"> <div> <div class="app_description">러시아어 단어앱</div> <div class="app_title">러시아어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/arabicwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/arabicwords.png" alt="아랍어 단어앱, 아랍어 단어장" width="60" height="60"> <div> <div class="app_description">아랍어 단어앱</div> <div class="app_title">아랍어 단어장</div> </div> </a> </div> </div><div class="row" style="display: flex;"> <div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/indonesianwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/indonesianwords.png" alt="인도네시아 단어앱, 인도네시아 단어장" width="60" height="60"> <div> <div class="app_description">인도네시아 단어앱</div> <div class="app_title">인도네시아 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/frenchwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/frenchwords.png" alt="프랑스어 단어앱, 프랑스어 단어장" width="60" height="60"> <div> <div class="app_description">프랑스어 단어앱</div> <div class="app_title">프랑스어 단어장</div> </div> </a> </div><div class="col-lg-4 col-md-4 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center;"> <a class="app_container" href="/app/spanishwords/" target="_blank"> <img class="app_logo_image" src="/assets/images/logo/spanishwords.png" alt="스페인어 단어앱, 스페인어 단어장" width="60" height="60"> <div> <div class="app_description">스페인어 단어앱</div> <div class="app_title">스페인어 단어장</div> </div> </a> </div> </div> </div> <h2>책 홍보</h2> <div class="book-greeting">
+블로그를 운영하면서 좋은 기회가 생겨 책을 출판하게 되었습니다.
+<br><br>
+아래 링크를 통해 제가 쓴 책을 구매하실 수 있습니다.<br>
+많은 분들에게 도움이 되면 좋겠네요.<br><br> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/bMMos6" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b95772cbabc4ca68f13398b6d001d523@2x.jpg" alt="스무디 한 잔 마시며 끝내는 React Native, 비제이퍼블릭" width="140" height="197" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/bMMos6" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/82895471" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001934238" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=216744127" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://coupa.ng/b2q2jo" target="_blank" referrerpolicy="unsafe-url"> <img src="https://static.coupangcdn.com/image/affiliate/banner/b1adb4aa04d9020b64437a41d0eb5d56@2x.jpg" alt="스무디 한 잔 마시며 끝내는 리액트 + TDD, 비제이퍼블릭" width="140" height="197" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://coupa.ng/b2qM3D" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/102280451" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000001842185" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=273805547" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> </div> <div class="row" style="display: flex; justify-content: center;"> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"> <div> <a href="https://link.coupang.com/a/blh8s3" target="_blank" referrerpolicy="unsafe-url"> <img src="https://img1c.coupangcdn.com/image/affiliate/banner/7cba8cb0601eebaf88a17a0c3cf65a63@2x.jpg" alt="현장에서 바로 써먹는 리액트 with 타입스크립트, 심통" width="140" height="197" style="width: 140px;"> </a> </div> <div> <ul> <li>쿠팡: <a target="_blank" rel="noopener" href="https://link.coupang.com/a/blh8s3" referrerpolicy="unsafe-url" style="display: inline-block;">구매하기</a></li> <li>yes24: <a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/119695609" style="display: inline-block;">구매하기</a></li> <li>교보문고: <a target="_blank" rel="noopener" href="https://product.kyobobook.co.kr/detail/S000202707764" style="display: inline-block;">구매하기</a></li> <li>알라딘: <a target="_blank" rel="noopener" href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=319109984" style="display: inline-block;">구매하기</a></li> </ul> </div> </div> <div class="col-lg-6 col-md-6 col-sm-auto col-auto" style="margin-bottom: 40px; display: flex; align-items: center; justify-content: center;"></div> </div> </div>    </article> <div class="col-lg-2 col-md-1 d-none d-lg-block right-ads"> <!-- blog-right --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9858937018" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1936214968" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1507571483" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="9369594845" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-bottom-end --> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <div class="post-list-container" style="display: none;"> <div class="header"> <div class="header-title">Posts</div> <div id="search-bar"> <label for="search" style="width: 0; height: 0; overflow: hidden; float: left;">Search</label> <i class="fa fa-search" aria-hidden="true"></i> <input id="search" type="text" placeholder="Search..."> </div> </div> <div class="body"> <div class="list-group"></div> </div> <div class="footer"> <ul class="pagination"> <li class="page-item page-item--previous"> <div class="page-link" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </div> </li> <li class="page-item page-item--next"> <div class="page-link" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </div> </li> </ul> </div> </div> <script>(function(){const postsDataJson = "[{\"title\":\"[Claude Code] Skill 품질 관리 플러그인 만들기\",\"description\":\"Claude Code 스킬 파일을 38개 항목으로 평가하는 skill-quality-plugin을 만들면서 정리한 설계 원칙과 구현 과정을 공유합니다. 규칙으로 잡는 결정적 문제, 모델로 판단하는 의미론적 문제, 그리고 서브에이전트 격리 패턴까지 다룹니다.\",\"url\":\"/ko/generative_ai/skill-quality-plugin/\",\"date\":\"2026-07-02\",\"category\":\"generative_ai\"},{\"title\":\"[Claude Code] 한 PC에서 여러 계정 사용하기 (디렉터리별 자동 전환)\",\"description\":\"하나의 PC에서 회사용·개인용 Claude Code 계정을 분리해서 사용하는 방법을 알아봅니다. CLAUDE_CONFIG_DIR로 설정을 분리하고, macOS Keychain 공유 문제를 CLAUDE_CODE_OAUTH_TOKEN으로 해결한 뒤, 작업 디렉터리에 따라 계정이 자동으로 전환되도록 .zshrc를 구성합니다.\",\"url\":\"/ko/generative_ai/claude-code-multi-account/\",\"date\":\"2026-06-18\",\"category\":\"generative_ai\"},{\"title\":\"[Claude Code] 커밋과 PR의 Co-Authored-By 표기 숨기기 (attribution 설정)\",\"description\":\"Claude Code가 자동으로 추가하는 Co-Authored-By trailer와 PR의 Generated with Claude Code 문구를 숨기는 방법을 알아봅니다. deprecated된 includeCoAuthoredBy 대신 attribution 설정을 사용하는 방법을 정리합니다.\",\"url\":\"/ko/generative_ai/claude-code-attribution/\",\"date\":\"2026-06-06\",\"category\":\"generative_ai\"},{\"title\":\"[SDD Plugin] 적용한 엔지니어링 — AI 엔지니어링 4가지 패러다임으로 분석\",\"description\":\"Claude Code용 SDD(Spec-Driven Development) Plugin에 적용된 AI 엔지니어링 기법을 Prompt, Context, Agentic, Harness 4가지 패러다임으로 분석합니다. 각 패러다임이 플러그인에서 어떻게 구현되었는지 실제 코드와 함께 살펴봅니다.\",\"url\":\"/ko/generative_ai/sdd-plugin-engineering/\",\"date\":\"2026-04-08\",\"category\":\"generative_ai\"},{\"title\":\"[SDD Plugin] 개발 과정 — 프로토타입에서 완성까지\",\"description\":\"Claude Code용 SDD(Spec-Driven Development) Plugin을 만들면서 거쳤던 4개의 Phase — 기반 구축, 다국어 지원, Issue 템플릿 개선, resume 명령어 추가까지의 개발 과정과 시행착오를 공유합니다.\",\"url\":\"/ko/generative_ai/sdd-plugin-development/\",\"date\":\"2026-04-07\",\"category\":\"generative_ai\"},{\"title\":\"[SDD Plugin] SDD Plugin의 전체 구조와 사용법\",\"description\":\"SDD(Spec-Driven Development) Plugin은 Claude Code용 플러그인으로, GitHub Issue 기반의 4단계 프로세스(분석→설계→구현→테스트)를 통해 AI와 체계적으로 협업할 수 있도록 도와줍니다. 명령어, GitHub 연동, 사용법을 소개합니다.\",\"url\":\"/ko/generative_ai/sdd-plugin-overview/\",\"date\":\"2026-04-06\",\"category\":\"generative_ai\"},{\"title\":\"[SDD Plugin] AI 코딩의 함정과 해결 방향\",\"description\":\"Claude Code 같은 AI 코딩 도구를 실무에서 사용하면서 겪은 문제들(분석 없는 코딩, 설계 없는 구현, 대화 유실)과, 이를 해결하기 위해 SDD(Spec-Driven Development) Plugin을 만들게 된 배경을 정리합니다.\",\"url\":\"/ko/generative_ai/sdd-plugin-why/\",\"date\":\"2026-04-05\",\"category\":\"generative_ai\"},{\"title\":\"[생성AI] AI 엔지니어링 4가지 패러다임 — Prompt, Context, Agentic, Harness\",\"description\":\"AI 엔지니어링을 구성하는 4가지 패러다임(Prompt, Context, Agentic, Harness Engineering)의 정의, 기법, 실무 예시, 그리고 각 패러다임 간의 계층 관계를 정리합니다.\",\"url\":\"/ko/generative_ai/ai-engineering-paradigms/\",\"date\":\"2026-03-31\",\"category\":\"generative_ai\"},{\"title\":\"[Claude Code] terminal-notifier로 작업 완료 알림 받기\",\"description\":\"Claude Code의 Hooks 기능과 terminal-notifier를 활용하여 작업 완료 시 macOS 데스크톱 알림을 받는 방법을 알아봅니다. Stop Hook과 Notification Hook 설정까지 정리합니다.\",\"url\":\"/ko/generative_ai/claude-code-settings/\",\"date\":\"2026-03-20\",\"category\":\"generative_ai\"},{\"title\":\"[Claude Code] Homebrew로 설치한 Claude Code 업데이트 방법\",\"description\":\"Homebrew(brew)로 설치한 Claude Code는 자동 업데이트가 되지 않습니다. 수동 업데이트, 자동 업데이트 설정, 네이티브 설치로의 전환 방법을 알아봅니다.\",\"url\":\"/ko/generative_ai/claude-code-update/\",\"date\":\"2026-03-19\",\"category\":\"generative_ai\"},{\"title\":\"[Claude Code] 기초 지식과 기본 사용법\",\"description\":\"Claude Code의 설치부터 토큰, 모델, 모드, 활용 팁까지 기본적인 사용법에 대해 알아봅시다.\",\"url\":\"/ko/generative_ai/claude-code/\",\"date\":\"2026-02-15\",\"category\":\"generative_ai\"}]";
+const searchPageUrl = "/ko/search/";
+const searchCategory = "generative_ai";
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var posts = JSON.parse(postsDataJson);
+            var currentPage = 1;
+            var totalPages = 1;
+
+            function renderPagination() {
+              var paginationContainer = document.querySelector('.post-list-container .footer .pagination');
+              paginationContainer.querySelectorAll('.page-item--link').forEach(function(el) { el.remove(); });
+
+              if (totalPages <= 1) return;
+
+              var nextBtn = paginationContainer.querySelector('.page-item--next');
+              var pages = [];
+              pages.push(1);
+              for (var p = currentPage - 2; p <= currentPage + 2; p++) {
+                if (p > 1 && p < totalPages) pages.push(p);
+              }
+              pages.push(totalPages);
+
+              var prev = 0;
+              for (var i = 0; i < pages.length; i++) {
+                if (pages[i] - prev > 1) {
+                  var dots = document.createElement('li');
+                  dots.className = 'page-item page-item--link disabled';
+                  dots.innerHTML = '<div class="page-link">\u2026</div>';
+                  paginationContainer.insertBefore(dots, nextBtn);
+                }
+                var li = document.createElement('li');
+                li.className = 'page-item page-item--link' + (pages[i] === currentPage ? ' active' : '');
+                li.innerHTML = '<div class="page-link" data-page="' + pages[i] + '">' + pages[i] + '</div>';
+                paginationContainer.insertBefore(li, nextBtn);
+                prev = pages[i];
+              }
+            }
+
+            function makePostList(data) {
+              var container = document.querySelector('.post-list-container .body .list-group');
+              container.querySelectorAll('.page').forEach(function(el) { el.remove(); });
+
+              data.forEach(function(post, index) {
+                var pageNum = Math.floor(index / 8) + 1;
+                var page = container.querySelector('.page-' + pageNum);
+
+                var active = post.url.indexOf(location.pathname) >= 0 ? 'active' : '';
+
+                var item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'list-group-item list-group-item-action flex-column align-items-start ' + active;
+                item.innerHTML = '<div class="d-flex w-100 justify-content-between"><div class="mb-1">' + post.title + '</div></div><div class="body-text">' + post.description + '</div>';
+
+                if (page) {
+                  if (active) page.classList.add('active');
+                  page.appendChild(item);
+                } else {
+                  var newPage = document.createElement('div');
+                  newPage.className = 'page page-' + pageNum + ' ' + active;
+                  newPage.appendChild(item);
+                  container.appendChild(newPage);
+                }
+
+                if (active === 'active') {
+                  currentPage = pageNum;
+                }
+              });
+
+              totalPages = Math.ceil(data.length / 8) || 1;
+              if (totalPages > 1) {
+                document.querySelector('.post-list-container .footer').style.display = 'flex';
+              }
+              renderPagination();
+            }
+
+            if (posts.length > 0) {
+              document.querySelector('.post-list-container').style.display = 'block';
+              makePostList(posts);
+            }
+
+            document.addEventListener('click', function(e) {
+              var link = e.target.closest('.page-link');
+              if (!link) return;
+              if (link.closest('.disabled')) return;
+
+              var pageContainer = document.querySelector('.post-list-container .body .list-group');
+
+              if (link.closest('.page-item--previous')) {
+                if (currentPage > 1) currentPage--;
+              } else if (link.closest('.page-item--next')) {
+                if (currentPage < totalPages) currentPage++;
+              } else {
+                currentPage = parseInt(link.getAttribute('data-page')) || 1;
+              }
+
+              pageContainer.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+              var targetPage = pageContainer.querySelector('.page-' + currentPage);
+              if (targetPage) targetPage.classList.add('active');
+
+              renderPagination();
+            });
+
+            // Redirect search to dedicated search page
+            var searchInput = document.getElementById('search');
+            if (searchInput) {
+              searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  var query = this.value.trim();
+                  var params = [];
+                  if (query) params.push('q=' + encodeURIComponent(query));
+                  if (searchCategory) params.push('category=' + encodeURIComponent(searchCategory));
+                  window.location.href = searchPageUrl + (params.length ? '?' + params.join('&') : '');
+                }
+              });
+            }
+          });
+        })();</script> </div> <div class="col-lg-8 col-md-10 mx-auto"> <hr> <div class="comments-section" style="margin-top: 40px;"><script src="https://utteranc.es/client.js" repo="dev-yakuza/dev-yakuza.github.io" issue-term="title" label="comment" theme="github-light" crossorigin="anonymous" async></script></div> </div> </div> </div>  <hr> <div class="share-title">SHARE</div> <div class="text-center" style="margin-bottom: 40px;"> <!-- Twitter Share --> <a href="https://twitter.com/intent/tweet?text=%5BClaude%20Code%5D%20Skill%20%ED%92%88%EC%A7%88%20%EA%B4%80%EB%A6%AC%20%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8%20%EB%A7%8C%EB%93%A4%EA%B8%B0&url=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fgenerative_ai%2Fskill-quality-plugin%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #55acee;"></i> <i class="fa fa-twitter fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Twitter</span> </a> <!-- Facebook Share --> <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdeku.posstree.com%2Fko%2Fgenerative_ai%2Fskill-quality-plugin%2F" target="_blank" rel="noopener" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #3b5998;"></i> <i class="fa fa-facebook fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">Facebook</span> </a> <!-- RSS --> <a href="/ko/rss.xml" style="text-decoration: none;"> <span class="fa-stack fa-lg"> <i class="fa fa-circle fa-stack-2x" style="color: #ee802f;"></i> <i class="fa fa-rss fa-stack-1x fa-inverse"></i> </span> <span class="sr-only">RSS</span> </a> </div> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <p class="copyright text-muted text-center" style="padding: 30px 0;">
+Copyright &copy; dev.yakuza@gmail.com 2026 </p> </div> </div> </div> </footer> <script src="/assets/vendor/jquery/jquery.min.js"></script> <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <script src="/assets/vendor/startbootstrap-clean-blog/js/clean-blog.min.js"></script> <script src="/assets/scripts.js"></script> <script>
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          var path = window.location.pathname;
+          var searchPath = '/search/';
+          if (path.indexOf('/ko/') >= 0) searchPath = '/ko/search/';
+          else if (path.indexOf('/en/') >= 0) searchPath = '/en/search/';
+          window.location.href = searchPath;
+        }
+      });
+    </script> </body> </html>
