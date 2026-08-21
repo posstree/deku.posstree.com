@@ -65,7 +65,7 @@ Github Sponsor
 <p><picture><source srcset="/assets/images/category/blaboo/update-review/app_concept.avif" type="image/avif"><source srcset="/assets/images/category/blaboo/update-review/app_concept.webp" type="image/webp"><img src="/assets/images/category/blaboo/update-review/app_concept.jpg" alt="유아/어린이용 단어 공부 앱 BlaBoo 개발기" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>앱 개발에 관한 자세한 내용은 이전 블로그를 참고해 주세요.</p>
 <ul>
-<li><a href="/react-native/development-journal/">BlaBoo 앱 개발기(RN, React Native)</a></li>
+<li><a href="/ko/blaboo/development-journal/">BlaBoo 앱 개발기(RN, React Native)</a></li>
 </ul>
 <h2 id="앱-관리">앱 관리</h2>
 <p>사실 처음 BlaBoo 앱을 기획할 때는 앱이 정말로 간단해서 딱히 관리하지 않아도 될 거라고 생각하였습니다. 한번 만들고 배포하면 필요한 사람들이 다운받고 지우고 할거라는 생각으로 개발했습니다.</p>
@@ -93,7 +93,7 @@ Github Sponsor
 <p>이렇게 업데이트를 진행하다가 베트남어를 추가할 때 문제가 발생하였습니다. 구글 번역기를 사용하여 단어를 번역한 후 테스트하는 과정에서 베트남어를 제대로 발음하지 못하는 것을 확인하였습니다. 문제의 원인을 파악한 결과, 사용하는 라이브러리에서 베트남어를 지원하지 않았습니다.</p>
 <p>BlaBoo는 TTS(Text To Speech) 기능으로 아래에 라이브러리를 사용하고 있습니다.</p>
 <ul>
-<li>react-native-tts 소개: <a href="/react-native/react-native-tts/">react-native-tts</a></li>
+<li>react-native-tts 소개: <a href="/ko/react-native/react-native-tts/">react-native-tts</a></li>
 </ul>
 <p>이 라이브러리는 지원하는 언어-국가가 정해져있습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#89DDFF">{</span><span style="color:#FFCB6B">language</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">ar-SA</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#FFCB6B"> id</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">com.apple.ttsbundle.Maged-compact</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#FFCB6B"> quality</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 300</span><span style="color:#89DDFF">,</span><span style="color:#FFCB6B"> name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Maged</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">}</span></span>
@@ -153,7 +153,7 @@ Github Sponsor
 <p>앱을 공개한 후, 별다른 문제가 없어보였습니다. 저는 아이폰 유저다보니 안드로이드에 대해서 크게 신경쓰지 못했습니다. 그런데 친구중 한명이 안드로이드에서 버튼이 눌리지 않는다고 피드백을 주었습니다. 아마 이 친구가 이 버그를 찾지 않았으면 영원히 쓰레기 앱으로 안드로이드 마켓에 남아 있을거 같습니다.</p>
 <p>BlaBoo에서는 일러스트가 등작할 때 바운스인(bounceIn) 애니메이션을 <code>react-native-animatable</code>이라는 라이브러리를 사용하여 구현하고 있습니다.</p>
 <ul>
-<li>react-native-animatable 사용 방법: <a href="/react-native/react-native-animatable/">react-native-animatable</a></li>
+<li>react-native-animatable 사용 방법: <a href="/ko/react-native/react-native-animatable/">react-native-animatable</a></li>
 </ul>
 <p>BlaBoo 앱에서는 하나의 뷰위에 이미지 리스트를 <code>map</code>을 사용하여 보여주고 있고, 페이지 전환시 이 이미지 리스트를 갱신함으로써 새로운 이미지들을 보여주고 있습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#89DDFF">{</span><span style="color:#EEFFFF">pageData</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">things</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">map</span><span style="color:#F07178">(</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">lineData</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> Array</span><span style="color:#89DDFF">&#x3C;</span><span style="color:#FFCB6B">IThing</span><span style="color:#89DDFF">>,</span><span style="color:#EEFFFF;font-style:italic"> lineIndex</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> number</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span></span>
@@ -203,11 +203,11 @@ Github Sponsor
 <p>간단해 보일 수 있지만, 여러 실패를 통한 절차를 나름 정리해서 사용하고 있습니다. 여러분도 혹시 <code>react-native-tts</code>를 사용하고 다국어를 지원하는 앱을 기획/개발할 예정이시라면 라이브러리가 제공하는 언어를 확인하시길 권장합니다.</p>
 <p>지금까지 첫 배포후 업데이트 한 내용은 아래와 같습니다.</p>
 <ol>
-<li>Splash 스크린을 강제로 1초간 유지한 후 앱 실행(사용한 라이브러리: <a href="/react-native/react-native-splash-screen/">react-native-splash-screen</a>)</li>
+<li>Splash 스크린을 강제로 1초간 유지한 후 앱 실행(사용한 라이브러리: <a href="/ko/react-native/react-native-splash-screen/">react-native-splash-screen</a>)</li>
 <li>앱 리뷰에 숫자를 더 추가해달라고 하는 요청이 있어 숫자 내용 추가</li>
 <li>앱의 첫 화면에서 <code>start</code> 버튼을 못 찾는 테스터가 있어 <code>start</code> 버튼에 애니메이션을 추가하여 쉽게 찾을 수 있도록 설정</li>
 <li>중국어, 이탈리아어, 힌디어, 네덜란드어, 태국어, 독일어 추가</li>
-<li>앱 스토어 리뷰를 작성할 수 있도록 유도(사용한 라이브러리: <a href="/react-native/react-native-rate/">react-native-rate</a>)</li>
+<li>앱 스토어 리뷰를 작성할 수 있도록 유도(사용한 라이브러리: <a href="/ko/react-native/react-native-rate/">react-native-rate</a>)</li>
 <li>태플릿 지원</li>
 <li>버그 수정</li>
 </ol>

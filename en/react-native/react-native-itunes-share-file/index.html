@@ -62,7 +62,7 @@ Github Sponsor
 <h2 id="prepare-device">Prepare Device</h2>
 <p>we need to install the app on the device for testing. if you don’t know how to install RN(React Native) app on iOS device, see the blog post below.</p>
 <ul>
-<li><a href="/react-native/ios-test-on-device/">iOS device test</a></li>
+<li><a href="/en/react-native/ios-test-on-device/">iOS device test</a></li>
 </ul>
 <h2 id="modify-infoplist">Modify info.plist</h2>
 <p>we don’t need to modify the source code for this feature. we just need to modify <code>info.plist</code> to implement iTunes file sharing feature.</p>
@@ -90,7 +90,7 @@ Github Sponsor
 <h2 id="how-to-use">How To Use</h2>
 <p>you can implement iTunes file sharing feature to modify <code>info.plist</code>. also you can use the file uploaded via iTunes by using <code>react-native-fs</code>.</p>
 <ul>
-<li><a href="/react-native/react-native-fs/">How to use filesystem</a></li>
+<li><a href="/en/react-native/react-native-fs/">How to use filesystem</a></li>
 </ul>
 <p>you can access the file uploaded via iTunes by using <code>DocumentDirectoryPath</code> of <code>react-native-fs</code>.</p>
 <h2 id="simulator">Simulator</h2>
@@ -101,7 +101,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">xcrun</span><span style="color:#C3E88D"> simctl</span><span style="color:#C3E88D"> list</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> egrep</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">(Booted)</span><span style="color:#89DDFF">'</span></span></code></pre>
 <p>and then, implement <code>react-native-device-info</code> library to get the app <code>unique id</code>.</p>
 <ul>
-<li><a href="/react-native/react-native-device-info/">react-native-device-info</a></li>
+<li><a href="/en/react-native/react-native-device-info/">react-native-device-info</a></li>
 </ul>
 <p>after getting the simulator id and app unique id, you can copy the file to <code>/Users/[user name]/Library/Developer/CoreSimulator/Devices/[simulator id]/data/Container/Data/Application/[app id]/Documents/</code> folder. it’s same action that you upload the file via iTunes.</p>
 <h2 id="completed">Completed</h2>

@@ -46,32 +46,32 @@ Github Sponsor
 <h2 id="prepare-django-project">Prepare django Project</h2>
 <p>you can see how to prepare django project on the previous blog post series. if you want more details about how to make django project, see the links below.</p>
 <ul>
-<li><a href="/django/installation/">django installation</a></li>
-<li><a href="/django/start/">Start django Project</a></li>
-<li><a href="/django/models/">Use Models in django</a></li>
-<li><a href="/django/admin/">django Administrator Page</a></li>
-<li><a href="/django/routing/">django Routing</a></li>
-<li><a href="/django/orm/">django ORM</a></li>
-<li><a href="/django/view/">django View</a></li>
-<li><a href="/django/form/">django Form</a></li>
-<li><a href="/django/heroku/">Upload django project to Heroku</a></li>
+<li><a href="/en/django/installation/">django installation</a></li>
+<li><a href="/en/django/start/">Start django Project</a></li>
+<li><a href="/en/django/models/">Use Models in django</a></li>
+<li><a href="/en/django/admin/">django Administrator Page</a></li>
+<li><a href="/en/django/routing/">django Routing</a></li>
+<li><a href="/en/django/orm/">django ORM</a></li>
+<li><a href="/en/django/view/">django View</a></li>
+<li><a href="/en/django/form/">django Form</a></li>
+<li><a href="/en/django/heroku/">Upload django project to Heroku</a></li>
 </ul>
 <p>in this blog post, we won’t see how to install and configure django project. just we’ll see simply to prepare the project to be able to talk about converting.</p>
 <p>execute the command below to create django project.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">django-admin</span><span style="color:#C3E88D"> startproject</span><span style="color:#C3E88D"> django_jwt</span></span></code></pre>
 <p>connect database and migrate the tables to see the blog below.</p>
 <ul>
-<li><a href="/django/start/">Start django Project</a></li>
+<li><a href="/en/django/start/">Start django Project</a></li>
 </ul>
 <p>after connecting the database, execute the command below to create an administrator(<code>superuser</code>).</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> createsuperuser</span></span></code></pre>
 <p>create <code>Blog</code> django App and <code>Post</code> Model by referring the blog post below.</p>
 <ul>
-<li><a href="/django/models/">Use Models in django</a></li>
+<li><a href="/en/django/models/">Use Models in django</a></li>
 </ul>
 <p>and then add test data by referring the blog post below.</p>
 <ul>
-<li><a href="/django/data-seed/">Insert master data to django project</a></li>
+<li><a href="/en/django/data-seed/">Insert master data to django project</a></li>
 </ul>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -86,7 +86,7 @@ Github Sponsor
 <h2 id="create-url">Create URL</h2>
 <p>now, we need to create URL for getting the data. you can see details about how to create URL at the blog post below.</p>
 <ul>
-<li><a href="/django/routing/">django Routing</a></li>
+<li><a href="/en/django/routing/">django Routing</a></li>
 </ul>
 <p>open and modify <code>django_response_model_to_json/urls.py</code> for new URL.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> django</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">contrib </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> admin</span></span>
@@ -107,7 +107,7 @@ Github Sponsor
 <h2 id="make-view">Make View</h2>
 <p>let’s make django View to convert Model data(QuerySet) to JSON type. if you want to know details about how to create django View, see the link below.</p>
 <ul>
-<li><a href="/django/view/">django View</a></li>
+<li><a href="/en/django/view/">django View</a></li>
 </ul>
 <p>open and modify <code>blog/views.py</code> to make the View like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> django</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">shortcuts </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> render</span></span>

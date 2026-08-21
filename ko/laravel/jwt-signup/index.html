@@ -40,7 +40,7 @@ Github Sponsor
 </a> <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/j0cXhWiza" rel="noopener noreferrer nofollow" data-astro-cid-d4e4ujom> <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee" width="27" height="28" style="width:27px !important;margin-bottom:1px !important;border:none !important;vertical-align:middle !important;" data-astro-cid-d4e4ujom> <span style="margin-left:5px" data-astro-cid-d4e4ujom>Buy me a coffee</span> </a> </div>  </div> </div> </div> </div> </header> <!-- blog-top --><div class="ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3850742490" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1496496025" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> <div class="ads-block ads-right"> <ins class="adsbygoogle" style="display: block;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="3797155229" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div> </div> <!-- blog-top-end --> <div class="container container-contents"> <div class="row"> <div class="col-lg-8 col-md-10 mx-auto"> <nav aria-label="breadcrumb"> <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"> <li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/" itemprop="item"> <span itemprop="name">Home</span> </a> <meta itemprop="position" content="1"> </li><li class="breadcrumb-item " itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"> <a href="/ko/laravel/" itemprop="item"> <span itemprop="name">Laravel</span> </a> <meta itemprop="position" content="2"> </li><li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page"> <span itemprop="name">jwt:회원가입</span> <meta itemprop="position" content="3"> </li> </ol> </nav> </div> </div> <div class="row"> <div class="col-lg-2 col-md-1 d-none d-lg-block left-ads"> <!-- blog-left --> <ins class="adsbygoogle sticky-top" style="display:block; padding-top: 80px; margin-bottom: 80px;" data-ad-client="ca-pub-7987914246691031" data-ad-slot="1333703444" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> <!-- blog-left-end --> </div> <article class="col-lg-8 col-md-10 mx-auto" data-pagefind-body> <span data-pagefind-filter="category" style="display:none;">laravel</span>  <h2 id="개요">개요</h2>
 <p>토큰 기반 인증 시스템인 jwt(Json Web Token)을 사용하여 회원가입 기능을 구현하려고 합니다. 이 블로그에서는 jwt 토큰 시스템을 <a href="https://github.com/tymondesigns/jwt-auth" rel="nofollow noreferrer" target="_blank">tymon/jwt-auth</a> 미들웨어(Middleware)로 사용하여 라라벨(Laravel)에 적용하였습니다. 라라벨(Laravel) 프로젝트에 jwt 미들웨어(Middleware)인 <code>tymon/jwt-auth</code>을 설치하고 설정하는 방법에 대해서는 이전 블로그를 참고해 주세요.</p>
 <ul>
-<li><a href="/laravel/jwt/">jwt 설치 및 설정</a></li>
+<li><a href="/ko/laravel/jwt/">jwt 설치 및 설정</a></li>
 </ul>
 <h2 id="저장소repository">저장소(Repository)</h2>
 <p>우리는 jwt 인증 시스템을 구현한 저장소(Repository)를 만들었습니다. 아래에 링크를 클릭해서 저장소(Repository)를 확인해 보세요.</p>
@@ -50,12 +50,12 @@ Github Sponsor
 <h2 id="개발-환경-구성">개발 환경 구성</h2>
 <p>여기서 설명할 내용은 라라독(Laradock)과 앤서블(Ansible)을 이용하여 만든 라라벨(Laravel) 개발 환경에서 작업합니다. 라라독(Laradock)과 앤서블(Ansible)을 이용한 라라벨(Laravel) 개발 환경에 관해서는 아래에 블로그를 참고하세요.</p>
 <ul>
-<li><a href="/environment/ansible-laravel/">앤서블&#x26;라라벨</a></li>
+<li><a href="/ko/environment/ansible-laravel/">앤서블&#x26;라라벨</a></li>
 </ul>
 <h2 id="데이터베이스-연결">데이터베이스 연결</h2>
 <p>지금부터 구현할 회원가입 기능은 회원의 정보를 기록할 데이터베이스(Database)가 필요합니다. 라라벨(Laravel)과 데이터베이스를 연결하는 방법에 대해서는 아래에 블로그를 참고하세요.</p>
 <ul>
-<li><a href="/environment/ansible-laravel/">앤서블&#x26;라라벨</a></li>
+<li><a href="/ko/environment/ansible-laravel/">앤서블&#x26;라라벨</a></li>
 </ul>
 <h2 id="테이블-생성">테이블 생성</h2>
 <p>라라벨(Laravel)은 기본적으로 사용자에 관한 마이그레이션(Migration - DB 테이블을 생성하기 위한 파일)과 모델(Model)를 제공합니다. 따라서 아래에 명령어를 사용하여 라라벨(Laravel)이 제공하는 기본 사용자 테이블을 사용할 수 있습니다.</p>

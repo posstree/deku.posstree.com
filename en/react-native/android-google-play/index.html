@@ -57,18 +57,18 @@ Github Sponsor
 </ol>
 </div>
 <h2 id="outline">Outline</h2>
-<p>we want to register RN(React Native) Android App to Android App store(Google Play). we need to enroll Android Developer(Google Play Developer) to register Android App to Android App store(Google Play). if you didn’t enroll Android Developer(Google Play Developer), see our previous blog to enroll Android Developer(Google Play Developer).(<a href="/react-native/android-enroll-google-play-developer/">enroll Android developer</a>)</p>
+<p>we want to register RN(React Native) Android App to Android App store(Google Play). we need to enroll Android Developer(Google Play Developer) to register Android App to Android App store(Google Play). if you didn’t enroll Android Developer(Google Play Developer), see our previous blog to enroll Android Developer(Google Play Developer).(<a href="/en/react-native/android-enroll-google-play-developer/">enroll Android developer</a>)</p>
 <p>this blog post is a series. it’s better to see below together.</p>
 <ul>
-<li><a href="/react-native/android-test-on-device/">Android device test</a></li>
-<li><a href="/react-native/android-running-on-device/">Android build and test</a></li>
-<li><a href="/react-native/android-enroll-google-play-developer/">enroll Android developer</a></li>
-<li><a href="/react-native/fastlane/">Deploy automatically applications via Fastlane</a></li>
+<li><a href="/en/react-native/android-test-on-device/">Android device test</a></li>
+<li><a href="/en/react-native/android-running-on-device/">Android build and test</a></li>
+<li><a href="/en/react-native/android-enroll-google-play-developer/">enroll Android developer</a></li>
+<li><a href="/en/react-native/fastlane/">Deploy automatically applications via Fastlane</a></li>
 </ul>
 <h2 id="prepare">Prepare</h2>
 <p>we need RN(React Native) Android App build to register Android App store(Google Play). if you don’t know how to register Android Signing Key and how to build, see our previous blog.</p>
 <ul>
-<li><a href="/react-native/android-running-on-device/">Android build and test</a></li>
+<li><a href="/en/react-native/android-running-on-device/">Android build and test</a></li>
 </ul>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -81,7 +81,7 @@ Github Sponsor
   </div>
 </div>
 <h2 id="reduce-build-file-size">Reduce Build File size</h2>
-<p>in previous blog(<a href="/react-native/android-running-on-device/">Android build and test</a>), Android build we generated is not minimum file size. we need to reduce RN(React Native) Android build file size to upload Android App store(Google Play).</p>
+<p>in previous blog(<a href="/en/react-native/android-running-on-device/">Android build and test</a>), Android build we generated is not minimum file size. we need to reduce RN(React Native) Android build file size to upload Android App store(Google Play).</p>
 <p>open <code>android/app/build.gradle</code> in RN(React Native) project folder and modify like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#82AAFF">...</span></span>
 <span class="line"><span style="color:#FFCB6B">defaultConfig</span><span style="color:#C3E88D"> {</span></span>

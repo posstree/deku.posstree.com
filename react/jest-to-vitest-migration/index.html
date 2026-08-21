@@ -197,7 +197,7 @@ Github Sponsor
 <li><strong><code>transform</code>設定削除</strong>: <code>ts-jest-mock-import-meta</code>が不要になり、transform設定全体をシンプルにしました。</li>
 </ul>
 <p>このようにJestのテスト範囲を狭めることで、ViewテストがJestで実行されず、2つのランナー間の衝突を防止できます。</p>
-<p>Vite + React + TypeScriptプロジェクトでJestを設定してテストコードを作成する方法について詳しく知りたい方は、<a href="/ja/react/vite/react-typescript/test/">[Vite] TypeScriptベースのReactプロジェクトにテスト環境を構築する</a>を参考にしてください。</p>
+<p>Vite + React + TypeScriptプロジェクトでJestを設定してテストコードを作成する方法について詳しく知りたい方は、<a href="/react/vite/react-typescript/test/">[Vite] TypeScriptベースのReactプロジェクトにテスト環境を構築する</a>を参考にしてください。</p>
 <h2 id="既存viewテストの整理">既存Viewテストの整理</h2>
 <p>Vitest導入とともに、既存のJestベースのViewテストを整理しました。</p>
 <div class="in-feed-ads ads-container">
@@ -306,8 +306,8 @@ Github Sponsor
 
 <table><thead><tr><th>項目</th><th>内容</th></tr></thead><tbody><tr><td>導入戦略</td><td>ViewテストはVitest、ロジックテストはJestで分離</td></tr><tr><td>Vitest環境</td><td><code>vitest</code> + <code>happy-dom</code> + <code>@vitest/ui</code></td></tr><tr><td>Jest設定変更</td><td><code>testMatch</code>と<code>testPathIgnorePatterns</code>でViewテスト除外</td></tr><tr><td>既存テスト整理</td><td>スナップショットテストと手動Mock削除（-10,134行）</td></tr><tr><td>不要な依存関係の削除</td><td><code>dotenv</code>、<code>ts-jest-mock-import-meta</code>削除</td></tr><tr><td>CI連携</td><td>GitHub Actionsに<code>Test view</code>ステップ追加、shard並列実行対応</td></tr></tbody></table>
 <p>新しいツールを導入する際の核心は <strong>「一度に全てを変えない」</strong> ということです。テスト対象に応じてランナーを分離すれば、既存のテスト資産を維持しながら新しいツールのメリットを享受できます。将来的にロジックテストもVitestにマイグレーションすれば、Jestへの依存を完全に排除できます。</p>
-<p>モノレポ環境でのテスト方針策定プロセスとツール選定についてはこちらのブログ<a href="/ja/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a>を、Vitestを活用したVRT（Visual Regression Testing）構築についてはこちらのブログ<a href="/ja/react/vitest-vrt/">[React] VitestでコンポーネントVRT＋アクセシビリティテスト環境構築</a>も参考にしてみてください。</p>
-<p>また、Vitestテストカバレッジ測定環境の構築については<a href="/ja/react/vitest-coverage/">[React] Vitestテストカバレッジを導入する</a>を参考にしてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+<p>モノレポ環境でのテスト方針策定プロセスとツール選定についてはこちらのブログ<a href="/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a>を、Vitestを活用したVRT（Visual Regression Testing）構築についてはこちらのブログ<a href="/react/vitest-vrt/">[React] VitestでコンポーネントVRT＋アクセシビリティテスト環境構築</a>も参考にしてみてください。</p>
+<p>また、Vitestテストカバレッジ測定環境の構築については<a href="/react/vitest-coverage/">[React] Vitestテストカバレッジを導入する</a>を参考にしてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

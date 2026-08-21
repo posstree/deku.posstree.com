@@ -76,7 +76,7 @@ Github Sponsor
 </div>
 <h2 id="概要">概要</h2>
 <p>共通コンポーネントのテスト方針を検討する中で、Vitestを使用したVRT（Visual Regression Testing）とアクセシビリティテスト環境を構築しました。</p>
-<p>この記事は、共通コンポーネントのテスト方針策定プロセスで最終的に選択されたVitestベースのテスト環境の構築過程をまとめたものです。全体的なテスト方針とツール選定プロセスについては <a href="/ja/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a> を参考にしてください。</p>
+<p>この記事は、共通コンポーネントのテスト方針策定プロセスで最終的に選択されたVitestベースのテスト環境の構築過程をまとめたものです。全体的なテスト方針とツール選定プロセスについては <a href="/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a> を参考にしてください。</p>
 <h2 id="なぜvitestなのか">なぜVitestなのか</h2>
 <p>テスト方針の検討でJest、Storybook、Vitestの3つを比較した結果、Vitestを選択しました。</p>
 <ul>
@@ -84,7 +84,7 @@ Github Sponsor
 <li><strong>プロダクトコードと同じ技術スタック</strong>: Viteベースなのでプロダクトのビルド環境と同じモジュール解決、CSS処理を使用します。</li>
 <li><strong>実際のブラウザでテスト</strong>: Browser Modeを通じてPlaywrightブラウザでコンポーネントをレンダリングするため、jsdomベースのテストより実際の環境に近いです。</li>
 </ul>
-<p>他のツールとの比較に興味がある場合は、<a href="/ja/react/jest-vrt/">[React] Jest + PuppeteerでVRT環境構築</a> と <a href="/ja/react/storybook-vrt/">[React] Storybook Test RunnerでVRT + アクセシビリティテスト構築</a> も参考にしてください。</p>
+<p>他のツールとの比較に興味がある場合は、<a href="/react/jest-vrt/">[React] Jest + PuppeteerでVRT環境構築</a> と <a href="/react/storybook-vrt/">[React] Storybook Test RunnerでVRT + アクセシビリティテスト構築</a> も参考にしてください。</p>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
     <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins>
@@ -783,8 +783,8 @@ Github Sponsor
 
 <table><thead><tr><th>項目</th><th>内容</th></tr></thead><tbody><tr><td>レンダリング/VRT</td><td>Vitest Browser Mode + <code>toMatchScreenshot</code></td></tr><tr><td>イベントテスト</td><td><code>@testing-library/user-event</code>でインタラクションシミュレーション</td></tr><tr><td>アクセシビリティ</td><td><code>axe-core</code>でWCAG違反事項検査</td></tr><tr><td>一貫したレンダリング</td><td>Docker + Notoフォントで環境差異を解消</td></tr><tr><td>テスト分離</td><td><code>*.vitest.tsx</code>ファイルコンベンションで既存Jestテストと分離</td></tr><tr><td>スクリーンショット管理</td><td>コンポーネントディレクトリの<code>__screenshots__/</code>に保存、クリーンアップスクリプト提供</td></tr><tr><td>CI連携</td><td>GitHub Actionsで<code>vrt</code>ラベルによる条件付き実行</td></tr></tbody></table>
 <p>Vitestベースのアプローチの利点は、プロダクトコードと同じViteビルドパイプラインを使用するため、CSS Modules、SCSS等の処理が自然であり、<code>toMatchScreenshot</code> APIが簡潔でテストコードの可読性が高い点です。</p>
-<p>チーム内でテスト方針を検討するプロセスと他のツールとの比較については<a href="/ja/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a>を、既存のJestプロジェクトにVitestを段階的に導入する方法については<a href="/ja/react/jest-to-vitest-migration/">[React] JestプロジェクトにVitestを導入する - Viewテスト分離戦略</a>も参考にしてみてください。</p>
-<p>また、Vitestテストカバレッジ測定環境の構築については<a href="/ja/react/vitest-coverage/">[React] Vitestテストカバレッジを導入する</a>を参考にしてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+<p>チーム内でテスト方針を検討するプロセスと他のツールとの比較については<a href="/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a>を、既存のJestプロジェクトにVitestを段階的に導入する方法については<a href="/react/jest-to-vitest-migration/">[React] JestプロジェクトにVitestを導入する - Viewテスト分離戦略</a>も参考にしてみてください。</p>
+<p>また、Vitestテストカバレッジ測定環境の構築については<a href="/react/vitest-coverage/">[React] Vitestテストカバレッジを導入する</a>を参考にしてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

@@ -82,7 +82,7 @@ Github Sponsor
 <p>After investigating, we discovered a subtle but critical difference between <code>overflow-wrap: break-word</code> and <code>overflow-wrap: anywhere</code>. In this post, we share our analysis of the root cause, the solution, and how we automated detection and fix recommendations using a Stylelint custom plugin.</p>
 <p>For Stylelint configuration details, please refer to the following post.</p>
 <ul>
-<li><a href="/code_quality/stylelint/v15/">[Code Quality] Stylelint V15</a></li>
+<li><a href="/en/code_quality/stylelint/v15/">[Code Quality] Stylelint V15</a></li>
 </ul>
 <h2 id="what-is-overflow-wrap">What is overflow-wrap?</h2>
 <p><code>overflow-wrap</code> is a <strong>safety net</strong> that forces line breaks in long strings that would otherwise overflow their container. It does nothing under normal circumstances and only activates <strong>when overflow occurs</strong>.</p>
@@ -309,7 +309,7 @@ Github Sponsor
 <p>It’s difficult for developers to remember these rules every time. So we created a Stylelint custom plugin to automatically detect violations and provide error messages with the correct alternative combination.</p>
 <p>For Stylelint configuration details, please refer to the following post.</p>
 <ul>
-<li><a href="/code_quality/stylelint/v15/">Stylelint</a></li>
+<li><a href="/en/code_quality/stylelint/v15/">Stylelint</a></li>
 </ul>
 <h3 id="detection-rules">Detection Rules</h3>
 

@@ -65,7 +65,7 @@ Github Sponsor
 <p><picture><source srcset="/assets/images/category/blaboo/development-journal/app_concept.avif" type="image/avif"><source srcset="/assets/images/category/blaboo/development-journal/app_concept.webp" type="image/webp"><img src="/assets/images/category/blaboo/development-journal/app_concept.jpg" alt="BlaBoo for baby/children word study app - development journal" width="1280" height="622" loading="lazy" decoding="async"></picture></p>
 <p>if you want to know more details about developing of BlaBoo, see my previous blog post.</p>
 <ul>
-<li><a href="/react-native/development-journal/">BlaBoo App Development Journal(RN, React Native)</a></li>
+<li><a href="/en/blaboo/development-journal/">BlaBoo App Development Journal(RN, React Native)</a></li>
 </ul>
 <h2 id="manage-the-app">Manage The App</h2>
 <p>when I planned BlaBoo app, I thought this app is very simple so I won’t need to manage this app. just, I thought people who need this app will download and delete it.</p>
@@ -93,7 +93,7 @@ Github Sponsor
 <p>there was a problem with adding Vietnamese during this update. after translating the words, I’ve recognized the app couldn’t pronounce Vietnamese during the test. I found the cause of the problem. the cause of the problem is  that the library doesn’t support Vietnamese.</p>
 <p>BlaBoo uses the library below for TTS(Text To Speech) feature.</p>
 <ul>
-<li><a href="/react-native/react-native-tts/">react-native-tts</a></li>
+<li><a href="/en/react-native/react-native-tts/">react-native-tts</a></li>
 </ul>
 <p>this library has the language-country lists to support it.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#89DDFF">{</span><span style="color:#FFCB6B">language</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">ar-SA</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#FFCB6B"> id</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">com.apple.ttsbundle.Maged-compact</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">,</span><span style="color:#FFCB6B"> quality</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 300</span><span style="color:#89DDFF">,</span><span style="color:#FFCB6B"> name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> "</span><span style="color:#C3E88D">Maged</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">}</span></span>
@@ -153,7 +153,7 @@ Github Sponsor
 <p>after releasing the app, it looked like no problems. I am an iPhone user, so I couldn’t test the app on Android enough. one day, one of my friends said some illustrations were not able to be touched. if he didn’t mention it, my app will be as a trash app forever in Android app market.</p>
 <p>I used the bounceIn animation when the illustrations show up in BlaBoo. I used <code>react-native-animatable</code> library to implement it.</p>
 <ul>
-<li>how to use react-native-animatable: <a href="/react-native/react-native-animatable/">react-native-animatable</a></li>
+<li>how to use react-native-animatable: <a href="/en/react-native/react-native-animatable/">react-native-animatable</a></li>
 </ul>
 <p>I use an image list and <code>map</code> to display the illustrations on one view. when page is changed, I just switch the image list to show new images.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#89DDFF">{</span><span style="color:#EEFFFF">pageData</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">things</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">map</span><span style="color:#F07178">(</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">lineData</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> Array</span><span style="color:#89DDFF">&#x3C;</span><span style="color:#FFCB6B">IThing</span><span style="color:#89DDFF">>,</span><span style="color:#EEFFFF;font-style:italic"> lineIndex</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> number</span><span style="color:#89DDFF">)</span><span style="color:#C792EA"> =></span></span>
@@ -203,11 +203,11 @@ Github Sponsor
 <p>it looks very simple, but it is from my several fails. if you’ll plan or develop the app to use <code>react-native-tts</code> for multi-language feature,  I recommend you to check the language is supported by the library.</p>
 <p>the list below is what I updated after first release.</p>
 <ol>
-<li>keep Splash screen for one second(use <a href="/react-native/react-native-splash-screen/">react-native-splash-screen</a> library)</li>
+<li>keep Splash screen for one second(use <a href="/en/react-native/react-native-splash-screen/">react-native-splash-screen</a> library)</li>
 <li>user commented to want more numbers in the app review, so I added more numbers</li>
 <li>a tester couldn’t find <code>start</code> button on the first screen, so I added the animation to it for finding easily.</li>
 <li>Added Chinese, Italian, Hindi, Dutch, Thai and German</li>
-<li>added the feature to induce users to give the app reviews(the library: <a href="/react-native/react-native-rate/">react-native-rate</a>)</li>
+<li>added the feature to induce users to give the app reviews(the library: <a href="/en/react-native/react-native-rate/">react-native-rate</a>)</li>
 <li>supported the tablet.</li>
 <li>fix some bug</li>
 </ol>

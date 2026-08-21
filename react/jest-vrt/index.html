@@ -59,7 +59,7 @@ Github Sponsor
 <h2 id="概要">概要</h2>
 <p>コンポーネントライブラリを修正する際、意図しない視覚的変更が発生しないか確認することは非常に重要です。ユニットテストだけではレンダリング結果の視覚的な差異を検証するのは困難です。</p>
 <p>この記事では、<strong>Jest + Puppeteer + jest-image-snapshot</strong>を使用してReactコンポーネントのVRT(Visual Regression Testing)環境を構築する方法を紹介します。</p>
-<p>この記事は、共通コンポーネントのテスト方針を決めるプロセスでJest VRTを検証した内容をまとめたものです。全体的なテスト方針と最終的なツール選定については <a href="/ja/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a> を参考にしてください。</p>
+<p>この記事は、共通コンポーネントのテスト方針を決めるプロセスでJest VRTを検証した内容をまとめたものです。全体的なテスト方針と最終的なツール選定については <a href="/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a> を参考にしてください。</p>
 <h2 id="全体構成">全体構成</h2>
 <p><strong>Jest + Puppeteer + jest-image-snapshot</strong>を使用したVRTの動作フローは以下の通りです。</p>
 <ol>
@@ -526,8 +526,8 @@ Github Sponsor
 <p>この構成により、テストコード自体は<code>expectToMatchVRTSnapshot(component, id)</code>の1行で記述でき、新しいコンポーネントにVRTを追加するコストを最小化できます。</p>
 <p>Jestを活用したテスト環境構成についてさらに知りたい方は、以下の記事も参考にしてください。</p>
 <ul>
-<li><a href="/ja/react/create-react-app/react-testing-library/">[React] create-react-appでreact-testing-libraryでテストする</a></li>
-<li><a href="/ja/react/vite/react-typescript/test/">[Vite] TypeScriptベースのReactプロジェクトにテスト環境を構成する</a></li>
+<li><a href="/react/create-react-app/react-testing-library/">[React] create-react-appでreact-testing-libraryでテストする</a></li>
+<li><a href="/react/vite/react-typescript/test/">[Vite] TypeScriptベースのReactプロジェクトにテスト環境を構成する</a></li>
 </ul>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>

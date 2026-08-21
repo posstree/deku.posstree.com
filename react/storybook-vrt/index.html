@@ -64,7 +64,7 @@ Github Sponsor
 </div>
 <h2 id="概要">概要</h2>
 <p>共通コンポーネントのテスト方針を検討する中で、StorybookのTest Runnerを活用したVRT（Visual Regression Testing）とアクセシビリティテスト環境を構築してみました。</p>
-<p>この記事は共通コンポーネントのテスト方針を決めるプロセスでStorybook基盤のテストを検証した内容をまとめたものです。全体のテスト方針と最終的なツール選定については <a href="/ja/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a> を参考にしてください。</p>
+<p>この記事は共通コンポーネントのテスト方針を決めるプロセスでStorybook基盤のテストを検証した内容をまとめたものです。全体のテスト方針と最終的なツール選定については <a href="/react/react-component-testing-strategy/">[React] モノレポ環境での共通コンポーネントテスト方針</a> を参考にしてください。</p>
 <p>Storybook Test Runnerは、Storybookに登録されたStoryを実際のブラウザ（Playwright）でレンダリングし、<code>postVisit</code>フックでスクリーンショットキャプチャやアクセシビリティ検査を行うことができます。</p>
 <h2 id="全体構造">全体構造</h2>
 <p>Storybook Test Runner基盤のVRTの動作フローは以下の通りです。</p>
@@ -526,7 +526,7 @@ Github Sponsor
 
 <table><thead><tr><th>項目</th><th>内容</th></tr></thead><tbody><tr><td>レンダリング/VRT</td><td>Storybook Test Runner + <code>jest-image-snapshot</code></td></tr><tr><td>イベントテスト</td><td>Storybook <code>play</code>関数でインタラクションシミュレーション</td></tr><tr><td>アクセシビリティテスト</td><td><code>axe-playwright</code>でWCAG違反検査</td></tr><tr><td>テスト分離</td><td><code>*.test.stories.tsx</code>ファイルコンベンションでテストStory分離</td></tr><tr><td>スナップショット管理</td><td><code>__image_snapshots__/</code>に基準画像保存、<code>UPDATE_SNAPSHOTS</code>で更新</td></tr></tbody></table>
 <p>Storybookを活用した方式は、別途のレンダリングユーティリティなしにStoryをそのままテストに活用できるという利点があります。ただし、プロダクトの単体テスト（Jest/Vitest）と作成方法が異なるため、チーム内で2つのテストパターンを管理する必要があり、Storyファイルが膨大になる可能性がある点は考慮が必要です。</p>
-<p>Jest + Puppeteerを活用したVRT構築方法が気になる方は <a href="/ja/react/jest-vrt/">[React] Jest + PuppeteerでVRT構築</a> を参考にしてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
+<p>Jest + Puppeteerを活用したVRT構築方法が気になる方は <a href="/react/jest-vrt/">[React] Jest + PuppeteerでVRT構築</a> を参考にしてください。</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});

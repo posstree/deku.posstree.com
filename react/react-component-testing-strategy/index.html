@@ -99,7 +99,7 @@ Github Sponsor
 <h2 id="テスト方法">テスト方法</h2>
 <p>コンポーネントテストはJest、StorybookのInteractionテスト、Vitestで作成できます。まずそれぞれの方法を見て、チームに最適な方法を選択することにしました。</p>
 <h3 id="jest">Jest</h3>
-<p>Jest + Puppeteerを使用したVRT環境構築の詳細については <a href="/ja/react/jest-vrt/">[React] Jest + PuppeteerでVRT構築</a> を参考にしてください。</p>
+<p>Jest + Puppeteerを使用したVRT環境構築の詳細については <a href="/react/jest-vrt/">[React] Jest + PuppeteerでVRT構築</a> を参考にしてください。</p>
 <h4 id="1-propsを変更しながらviewを確認">1. Propsを変更しながらViewを確認</h4>
 <p>スナップショットテストを活用して、Props変更に伴うViewを検証します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#82AAFF">it</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">should match snapshot for primary variant</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#C792EA"> async</span><span style="color:#89DDFF"> ()</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
@@ -167,7 +167,7 @@ Github Sponsor
   </div>
 </div>
 <h3 id="storybook">Storybook</h3>
-<p>Storybook Test Runnerを使用したVRT + アクセシビリティテスト環境構築の詳細については <a href="/ja/react/storybook-vrt/">[React] Storybook Test RunnerでVRT + アクセシビリティテスト構築</a> を参考にしてください。</p>
+<p>Storybook Test Runnerを使用したVRT + アクセシビリティテスト環境構築の詳細については <a href="/react/storybook-vrt/">[React] Storybook Test RunnerでVRT + アクセシビリティテスト構築</a> を参考にしてください。</p>
 <h4 id="1-propsを変更しながらviewを確認storybook-snapshot">1. Propsを変更しながらViewを確認（Storybook Snapshot）</h4>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#89DDFF;font-style:italic">export</span><span style="color:#C792EA"> const</span><span style="color:#EEFFFF"> RenderingTopTreeNodes</span><span style="color:#89DDFF">:</span><span style="color:#FFCB6B"> Story</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> {</span></span>
 <span class="line"><span style="color:#F07178">  name</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">Rendering: ツリーノード表示</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span></span>
@@ -248,7 +248,7 @@ Github Sponsor
   </div>
 </div>
 <h3 id="vitest">Vitest</h3>
-<p>Vitestを使用したVRT + アクセシビリティテスト環境構築の詳細については <a href="/ja/react/vitest-vrt/">[React] VitestでコンポーネントVRT + アクセシビリティテスト環境構築</a> を参考にしてください。</p>
+<p>Vitestを使用したVRT + アクセシビリティテスト環境構築の詳細については <a href="/react/vitest-vrt/">[React] VitestでコンポーネントVRT + アクセシビリティテスト環境構築</a> を参考にしてください。</p>
 <h4 id="1-propsを変更しながらviewを確認-1">1. Propsを変更しながらViewを確認</h4>
 <p>Vitestは基本的にVRT（Visual Regression Testing）をサポートしています。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#82AAFF">it</span><span style="color:#EEFFFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">renders with text content</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#C792EA"> async</span><span style="color:#89DDFF"> ()</span><span style="color:#C792EA"> =></span><span style="color:#89DDFF"> {</span></span>
@@ -314,7 +314,7 @@ Github Sponsor
 <h2 id="まとめ">まとめ</h2>
 <p>モノレポ環境でReact共通コンポーネントのテスト方針を決めるプロセスを共有しました。Props/StateによるViewテスト、イベントテスト、アクセシビリティテストをJest、Storybook、Vitestで比較し、最終的にVitestを選択した理由を共有しました。</p>
 <p>今後はVitestで作成されたテストコードを通じて、他のチームも共通コンポーネントを簡単かつ安全に修正できるようになることを期待しています。また、テストコードを作成する基準が明確になり、一貫したテストコードが作成されるようになります。</p>
-<p>既存のJestプロジェクトにVitestを段階的に導入する具体的な方法は<a href="/ja/react/jest-to-vitest-migration/">[React] JestプロジェクトにVitestを導入する - Viewテスト分離戦略</a>を、Vitest VRT＋アクセシビリティテスト環境の構築については<a href="/ja/react/vitest-vrt/">[React] VitestでコンポーネントVRT＋アクセシビリティテスト環境構築</a>を、Vitestテストカバレッジ測定環境の構築については<a href="/ja/react/vitest-coverage/">[React] Vitestテストカバレッジを導入する</a>を参考にしてください。</p>
+<p>既存のJestプロジェクトにVitestを段階的に導入する具体的な方法は<a href="/react/jest-to-vitest-migration/">[React] JestプロジェクトにVitestを導入する - Viewテスト分離戦略</a>を、Vitest VRT＋アクセシビリティテスト環境の構築については<a href="/react/vitest-vrt/">[React] VitestでコンポーネントVRT＋アクセシビリティテスト環境構築</a>を、Vitestテストカバレッジ測定環境の構築については<a href="/react/vitest-coverage/">[React] Vitestテストカバレッジを導入する</a>を参考にしてください。</p>
 <p>このようにテスト方針を決めると、生成AIを活用してテストコードも簡単に作成できます。皆さんもチームに合ったテスト方針を決めて、生成AIを活用してテストコードを簡単かつ迅速に作成してみてください！</p>  <div class="in-feed-ads ads-container"> <div class="ads-block ads-left"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="2718813593"></ins> <script>
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script> </div> <div class="ads-block ads-center"> <ins class="adsbygoogle" style="display: block; text-align: center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-7987914246691031" data-ad-slot="6492035359"></ins> <script>

@@ -75,7 +75,7 @@ Github Sponsor
 </div>
 <h2 id="はじめに">はじめに</h2>
 <p>チームプロジェクトで「自分のPCでは動くんだけど？」という言葉を聞いたことはありませんか？この問題の最も一般的な原因の一つが、<strong>Node.jsバージョンの不一致</strong>です。</p>
-<p>開発者ごとにローカルにインストールされたNode.jsバージョンが異なると、依存関係のインストール結果が変わったり、ビルドが失敗したり、ランタイムで微妙なバグが発生したりする可能性があります。特に<a href="/ja/environment/monorepo/tools/">モノレポ</a>環境では複数のアプリが同じNode.jsランタイムを共有するため、バージョンの統一がさらに重要になります。</p>
+<p>開発者ごとにローカルにインストールされたNode.jsバージョンが異なると、依存関係のインストール結果が変わったり、ビルドが失敗したり、ランタイムで微妙なバグが発生したりする可能性があります。特に<a href="/environment/monorepo/tools/">モノレポ</a>環境では複数のアプリが同じNode.jsランタイムを共有するため、バージョンの統一がさらに重要になります。</p>
 <p>この記事では、<code>.nvmrc</code>、<code>package.json</code>の<code>engines</code>フィールド、そして<strong>Yarn Berryカスタムプラグイン</strong>を組み合わせて、ローカル開発環境とCI環境の両方でNode.jsバージョンを強制する方法を紹介します。</p>
 <h2 id="なぜnodejsバージョンを固定すべきなのか">なぜNode.jsバージョンを固定すべきなのか？</h2>
 <h3 id="1-セキュリティ脆弱性への対応">1. セキュリティ脆弱性への対応</h3>
@@ -99,7 +99,7 @@ Github Sponsor
 <h3 id="レイヤー1nvmrc--バージョンの単一の信頼できる情報源single-source-of-truth">レイヤー1：<code>.nvmrc</code> — バージョンの単一の信頼できる情報源（Single Source of Truth）</h3>
 <p><code>.nvmrc</code>ファイルはプロジェクトルートに配置され、そのプロジェクトで使用するNode.jsバージョンを明示します。</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>24.13.0</span></span></code></pre>
-<p>開発者は<a href="/ja/environment/nvm/"><code>nvm use</code></a>コマンドでこのバージョンに切り替えることができます：</p>
+<p>開発者は<a href="/environment/nvm/"><code>nvm use</code></a>コマンドでこのバージョンに切り替えることができます：</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">$</span><span style="color:#C3E88D"> nvm</span><span style="color:#C3E88D"> use</span></span>
 <span class="line"><span style="color:#FFCB6B">Found</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">/path/to/project/.nvmrc</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D"> with</span><span style="color:#C3E88D"> version</span><span style="color:#89DDFF"> &#x3C;</span><span style="color:#C3E88D">24.13.</span><span style="color:#89DDFF">0></span></span>
 <span class="line"><span style="color:#FFCB6B">Now</span><span style="color:#C3E88D"> using</span><span style="color:#C3E88D"> node</span><span style="color:#C3E88D"> v24.13.0</span><span style="color:#EEFFFF"> (npm </span><span style="color:#C3E88D">v10.x.x</span><span style="color:#EEFFFF">)</span></span></code></pre>
@@ -187,7 +187,7 @@ Github Sponsor
 <div class="callout" data-callout="note" data-collapsible="false"><div class="callout-title"><div class="callout-title-icon" aria-hidden="true"><svg viewBox="0 0 16 16" version="1.1" width="1em" height="1em"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg></div><div class="callout-title-text">Note</div></div><div class="callout-content"><p><code>package.json</code>の<code>engineStrict</code>フィールドはnpm v3から<strong>非推奨（deprecated）</strong>になっています。代わりに<code>.npmrc</code>ファイルで<code>engine-strict=true</code>を設定するのが正しい方法です。</p></div></div>
 <p>しかし、<strong>Yarn Berry（v2以上）では<code>engines</code>フィールドをデフォルトでは検証しません。</strong><code>.npmrc</code>の設定もYarn Berryには適用されません。これがまさに次のレイヤーが必要な理由です。</p>
 <h3 id="レイヤー3yarn-berryカスタムプラグイン--本当の強制">レイヤー3：Yarn Berryカスタムプラグイン — 本当の強制</h3>
-<p><a href="/ja/environment/monorepo/yarn_workspaces/">Yarn Berry</a>はプラグインシステムを提供しており、<code>validateProject</code>フックを通じて<code>yarn install</code>などのコマンド実行前にカスタム検証ロジックを挿入できます。</p>
+<p><a href="/environment/monorepo/yarn_workspaces/">Yarn Berry</a>はプラグインシステムを提供しており、<code>validateProject</code>フックを通じて<code>yarn install</code>などのコマンド実行前にカスタム検証ロジックを挿入できます。</p>
 <h4 id="プラグインコード">プラグインコード</h4>
 <p><code>.yarn/plugins/plugin-check-node.js</code>:</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#89DDFF">module.exports</span><span style="color:#89DDFF"> =</span><span style="color:#89DDFF"> {</span></span>
@@ -297,7 +297,7 @@ Github Sponsor
 <span class="line"><span style="color:#F07178">      shell</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> bash</span></span>
 <span class="line"><span style="color:#F07178">      run</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> yarn install --frozen-lockfile</span></span></code></pre>
 <p>これにより、Node.jsバージョンを更新する際に<code>.nvmrc</code>ファイル一つだけ修正すれば、ローカルとCI環境の両方に自動的に反映されます。</p>
-<p>GitHub Actionsでのワークフロー設計についてさらに知りたい方は、<a href="/ja/github_actions/improve-test-performance/">Jest実行Actionのパフォーマンス改善</a>や<a href="/ja/github_actions/validate-changed-files-by-branch/">モノレポでブランチ別ファイル変更範囲を制限するGitHub Actionsワークフロー</a>も参考にしてみてください。</p>
+<p>GitHub Actionsでのワークフロー設計についてさらに知りたい方は、<a href="/github_actions/improve-test-performance/">Jest実行Actionのパフォーマンス改善</a>や<a href="/github_actions/validate-changed-files-by-branch/">モノレポでブランチ別ファイル変更範囲を制限するGitHub Actionsワークフロー</a>も参考にしてみてください。</p>
 <h2 id="バージョン更新プロセス">バージョン更新プロセス</h2>
 <p>Node.jsバージョンを更新する必要がある場合（例：セキュリティパッチ）、以下のファイルを修正する必要があります。</p>
 

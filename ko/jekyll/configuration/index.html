@@ -93,7 +93,7 @@ Github Sponsor
 <h3 id="page-변수">page 변수</h3>
 <p>전역 변수 <code>page</code>가 가지고 있는 변수들로써 page 상단에 <code>yml</code> 형식으로 설정한 내용이 포함되어 있습니다.</p>
 <ul>
-<li>page.title: 해당 페이지에 제목을 나타냅니다. 우리는 <code>&#x3C;head></code> 태그안에 <code>&#x3C;title></code>태그에서 사용하고 있으며, 포스트 상단에 제목과 <a href="/jekyll/">category 페이지</a>에서 post의 리스트를 표시할때도 사용하고 있습니다.</li>
+<li>page.title: 해당 페이지에 제목을 나타냅니다. 우리는 <code>&#x3C;head></code> 태그안에 <code>&#x3C;title></code>태그에서 사용하고 있으며, 포스트 상단에 제목과 <a href="/ko/jekyll/">category 페이지</a>에서 post의 리스트를 표시할때도 사용하고 있습니다.</li>
 <li>page.url: 해당 페이지의 url입니다. <code>sitemap.xml</code> 등 페이지의 링크가 필요한 곳에서 사용하고 있습니다.</li>
 <li>page.date: 포스트에 할당된 날짜입니다.</li>
 <li>page.categories: 해당 포스트가 속한 카테고리 목록입니다.</li>
@@ -160,7 +160,7 @@ Github Sponsor
 <h4 id="기본-설정">기본 설정</h4>
 <ul>
 <li>title: 사이트의 타이틀을 작성합니다. 기본적으로 <code>head</code>에서 사용되지만 우리는 페이지의 <code>title</code>을 사용함으로 이 설정 변수는 사용하고 있지 않습니다.</li>
-<li>email: 사이트에 이메일을 설정합니다. 우리는 이 설정값으로 <a href="/jekyll/disqus/">문의하기</a> 페이지에서 메일 발송 기능에 사용하고 있습니다. 메일 발송 기능에 관해서는 <a href="/jekyll/send_mail/">메일 발송</a>을 참고하세요.</li>
+<li>email: 사이트에 이메일을 설정합니다. 우리는 이 설정값으로 <a href="/ko/jekyll/disqus/">문의하기</a> 페이지에서 메일 발송 기능에 사용하고 있습니다. 메일 발송 기능에 관해서는 <a href="/ko/jekyll/send-email/">메일 발송</a>을 참고하세요.</li>
 <li>description: <code>title</code>과 마찬가지로 페이지 <code>head</code>에 표시될 내용을 작성합니다. 하지만 우리는 페이지의 <code>description</code>을 사용하여 표기함으로 사용하지 않고 있습니다.</li>
 <li>url: 해당 사이트의 URL입니다. 해당 사이트에 실제 URL(<code>https://dev-yakuza.github.io</code>)을 할당해서 사용합니다. <code>bundle exec jekyll serve</code>를 사용하여 로컬에서 테스트를 하는 경우, jekyll은 해당 URL을 무시하고 <code>http://localhost:4000</code>을 할당합니다. 사이트를 실제 서버에 배포시 <code>bundle exec jekyll build</code>로 빌드할 때, 이 URL이 사용되여 빌드됩니다.</li>
 <li>author: 사이트의 작성자입니다. <code>head</code>의 <code>author</code> 메타 태그에 사용됩니다.</li>
@@ -170,7 +170,7 @@ Github Sponsor
 <p>플러그인용 설정에 대한 설명은 해당 블로그 포스트에서 자세히 설명하겠습니다.</p>
 <h5 id="pagination-플러그인-설정">Pagination 플러그인 설정</h5>
 <ul>
-<li><a href="/jekyll/pagination-plugin/">Pagination 플러그인</a>을 참고하세요.</li>
+<li><a href="/ko/jekyll/pagination-plugin/">Pagination 플러그인</a>을 참고하세요.</li>
 </ul>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">permalink</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> /:year/:month/</span></span>
 <span class="line"><span style="color:#F07178">pagination</span><span style="color:#89DDFF">:</span></span>
@@ -184,7 +184,7 @@ Github Sponsor
 <span class="line"><span style="color:#F07178">    after</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 2</span></span></code></pre>
 <h5 id="다국어-플러그인-설정">다국어 플러그인 설정</h5>
 <ul>
-<li><a href="/jekyll/multi-languages-plugin/">다국어 플러그인</a>을 참고하세요.</li>
+<li><a href="/ko/jekyll/multi-languages-plugin/">다국어 플러그인</a>을 참고하세요.</li>
 </ul>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">languages</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">en</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">]</span></span>
 <span class="line"><span style="color:#F07178">default_lang</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">'</span></span>
@@ -212,9 +212,9 @@ Github Sponsor
 <h4 id="플러그인-설정">플러그인 설정</h4>
 <p>플러그인 또는 사이트를 관리하기 위해 우리가 사용하는 설정들입니다. 자세한 내용은 해당 블로그를 확인하세요.</p>
 <ul>
-<li>paginate_path: <a href="/jekyll/pagination-plugin/">Pagination 플러그인</a>에 필요한 설정. Pagination의 URL을 결정한다.</li>
-<li>lang: <a href="/jekyll/multi-languages-plugin/">다국어 플러그인</a>에서 사용하는 설정. 현재 포스트에 언어가 무엇인지 나타낸다.</li>
-<li>comments: <a href="/jekyll/disqus/">Disqus 댓글</a> 서비스를 사용하기 위한 설정이다.</li>
+<li>paginate_path: <a href="/ko/jekyll/pagination-plugin/">Pagination 플러그인</a>에 필요한 설정. Pagination의 URL을 결정한다.</li>
+<li>lang: <a href="/ko/jekyll/multi-languages-plugin/">다국어 플러그인</a>에서 사용하는 설정. 현재 포스트에 언어가 무엇인지 나타낸다.</li>
+<li>comments: <a href="/ko/jekyll/disqus/">Disqus 댓글</a> 서비스를 사용하기 위한 설정이다.</li>
 <li>description: 포스트 상단에 제목과 함께 표시될 문장을 표시하기 위한 설정이다. 헤더의 description에서도 활용되고 있다.</li>
 <li>image: 포스트 대표 이미지이다. 포스트 상단에 배경으로 사용되며, 헤더에 og:image로써도 사용된다.</li>
 </ul>

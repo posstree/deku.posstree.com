@@ -41,15 +41,15 @@ Github Sponsor
 <p>I try to develop a web service by python django. for the web service, we need to make web pages and connect urls to each webpage(Routing). in this blog, we’ll try to use django url management feature to manage the web service routing.</p>
 <p>this blog is a series. if you want to check other blog posts of the series, see the links below.</p>
 <ul>
-<li><a href="/django/installation/">django installation</a></li>
-<li><a href="/django/start/">Start django Project</a></li>
-<li><a href="/django/models/">Use Models in django</a></li>
-<li><a href="/django/admin/">django Administrator Page</a></li>
+<li><a href="/en/django/installation/">django installation</a></li>
+<li><a href="/en/django/start/">Start django Project</a></li>
+<li><a href="/en/django/models/">Use Models in django</a></li>
+<li><a href="/en/django/admin/">django Administrator Page</a></li>
 <li>django Routing</li>
-<li><a href="/django/orm/">django ORM</a></li>
-<li><a href="/django/view/">django View</a></li>
-<li><a href="/django/form/">django Form</a></li>
-<li><a href="/django/heroku/">Upload django project to Heroku</a></li>
+<li><a href="/en/django/orm/">django ORM</a></li>
+<li><a href="/en/django/view/">django View</a></li>
+<li><a href="/en/django/form/">django Form</a></li>
+<li><a href="/en/django/heroku/">Upload django project to Heroku</a></li>
 </ul>
 <p>also, this blog series source code is opened on Github. you can see full source code via the link below.</p>
 <ul>
@@ -64,7 +64,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">urlpatterns </span><span style="color:#89DDFF">=</span><span style="color:#89DDFF"> [</span></span>
 <span class="line"><span style="color:#82AAFF">    path</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">admin/</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#82AAFF"> admin</span><span style="color:#89DDFF">.</span><span style="color:#F07178">site</span><span style="color:#89DDFF">.</span><span style="color:#F07178">urls</span><span style="color:#89DDFF">),</span></span>
 <span class="line"><span style="color:#89DDFF">]</span></span></code></pre>
-<p>when you open the file, you can see the contents like above. in previous blog post(<a href="/django/admin/">django Administrator Page</a>), we’ve opened <code>http://127.0.0.1:8000/admin</code> URL to connect the administrator page. we’ve not configured any settings but we could see the administrator page, because the django administrator routing has been configured basically. we’ll add a new application routing file we created in here to manage each application routing.</p>
+<p>when you open the file, you can see the contents like above. in previous blog post(<a href="/en/django/admin/">django Administrator Page</a>), we’ve opened <code>http://127.0.0.1:8000/admin</code> URL to connect the administrator page. we’ve not configured any settings but we could see the administrator page, because the django administrator routing has been configured basically. we’ll add a new application routing file we created in here to manage each application routing.</p>
 <h2 id="create-views">Create Views</h2>
 <p>we need to create Views to connect an URL by the application Routing. open <code>blog/views.py</code> and modify it like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> django</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">shortcuts </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> render</span></span>

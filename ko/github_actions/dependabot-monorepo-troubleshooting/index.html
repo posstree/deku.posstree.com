@@ -71,8 +71,8 @@ Github Sponsor
 </div>
 <p>이전 포스트에서는 Dependabot PR을 효율적으로 처리하기 위한 SOP와 자동화 방법에 대해서 알아보았습니다.</p>
 <ul>
-<li><a href="/github_actions/dependabot-sop/">Dependabot PR 처리를 위한 SOP(Standard Operating Procedure)</a></li>
-<li><a href="/github_actions/dependabot-sop-automation/">Dependabot PR 처리를 위한 자동화</a></li>
+<li><a href="/ko/github_actions/dependabot-sop/">Dependabot PR 처리를 위한 SOP(Standard Operating Procedure)</a></li>
+<li><a href="/ko/github_actions/dependabot-sop-automation/">Dependabot PR 처리를 위한 자동화</a></li>
 </ul>
 <p>이번 포스트에서는 Yarn Workspaces 기반의 모노레포에서 Dependabot을 운용하면서 발생한 문제와 해결 방법에 대해서 알아보겠습니다.</p>
 <h2 id="배경">배경</h2>
@@ -195,7 +195,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Looks like this PR has been edited by someone other than Dependabot.</span></span>
 <span class="line"><span>That means Dependabot can't rebase it - sorry!</span></span></code></pre>
 <h3 id="원인-1">원인</h3>
-<p>모노레포에서는 Dependabot이 각 앱의 <code>package.json</code>만 갱신하고 루트 <code>yarn.lock</code>은 갱신하지 못합니다. 이를 보완하기 위해 <a href="/github_actions/dependabot-sop-automation/">이전 포스트</a>에서 소개한 GitHub Actions 워크플로우에서 <code>yarn install</code>을 실행하고 <code>yarn.lock</code> 변경분을 커밋하고 있었습니다.</p>
+<p>모노레포에서는 Dependabot이 각 앱의 <code>package.json</code>만 갱신하고 루트 <code>yarn.lock</code>은 갱신하지 못합니다. 이를 보완하기 위해 <a href="/ko/github_actions/dependabot-sop-automation/">이전 포스트</a>에서 소개한 GitHub Actions 워크플로우에서 <code>yarn install</code>을 실행하고 <code>yarn.lock</code> 변경분을 커밋하고 있었습니다.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#545454;font-style:italic"># dependabot_actions.yml</span></span>
 <span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Commit updated lockfile</span></span>
 <span class="line"><span style="color:#F07178">  run</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
@@ -204,7 +204,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">    git add yarn.lock</span></span>
 <span class="line"><span style="color:#C3E88D">    git diff --staged --quiet || git commit -m "chore: update yarn.lock"</span></span>
 <span class="line"><span style="color:#C3E88D">    git push</span></span></code></pre>
-<blockquote><p>이 워크플로우에서 <code>GITHUB_TOKEN</code>으로 push하면 CI 워크플로우가 재실행되지 않는 별도의 문제도 있습니다. 이에 대해서는 <a href="/github_actions/github-actions-workflow-retrigger/">GitHub Actions에서 워크플로우가 재트리거되지 않는 문제 해결</a>에서 자세히 다루고 있습니다.</p></blockquote>
+<blockquote><p>이 워크플로우에서 <code>GITHUB_TOKEN</code>으로 push하면 CI 워크플로우가 재실행되지 않는 별도의 문제도 있습니다. 이에 대해서는 <a href="/ko/github_actions/github-actions-workflow-retrigger/">GitHub Actions에서 워크플로우가 재트리거되지 않는 문제 해결</a>에서 자세히 다루고 있습니다.</p></blockquote>
 <p>이로 인해 Dependabot 브랜치의 커밋 히스토리는 다음과 같이 됩니다.</p>
 
 

@@ -61,8 +61,8 @@ Github Sponsor
 </div>
 <p>In the previous posts, we learned about SOPs and automation methods for efficiently handling Dependabot PRs.</p>
 <ul>
-<li><a href="/github_actions/dependabot-sop/">SOP(Standard Operating Procedure) for Handling Dependabot PRs</a></li>
-<li><a href="/github_actions/dependabot-sop-automation/">Automation for Handling Dependabot PRs</a></li>
+<li><a href="/en/github_actions/dependabot-sop/">SOP(Standard Operating Procedure) for Handling Dependabot PRs</a></li>
+<li><a href="/en/github_actions/dependabot-sop-automation/">Automation for Handling Dependabot PRs</a></li>
 </ul>
 <p>In this post, we will look at the problems encountered while operating Dependabot in a Yarn Workspaces-based monorepo and how to solve them.</p>
 <h2 id="background">Background</h2>
@@ -185,7 +185,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Looks like this PR has been edited by someone other than Dependabot.</span></span>
 <span class="line"><span>That means Dependabot can't rebase it - sorry!</span></span></code></pre>
 <h3 id="cause-1">Cause</h3>
-<p>In a monorepo, Dependabot only updates each app’s <code>package.json</code> but cannot update the root <code>yarn.lock</code>. To compensate, the GitHub Actions workflow introduced in the <a href="/github_actions/dependabot-sop-automation/">previous post</a> ran <code>yarn install</code> and committed the <code>yarn.lock</code> changes.</p>
+<p>In a monorepo, Dependabot only updates each app’s <code>package.json</code> but cannot update the root <code>yarn.lock</code>. To compensate, the GitHub Actions workflow introduced in the <a href="/en/github_actions/dependabot-sop-automation/">previous post</a> ran <code>yarn install</code> and committed the <code>yarn.lock</code> changes.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#545454;font-style:italic"># dependabot_actions.yml</span></span>
 <span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> Commit updated lockfile</span></span>
 <span class="line"><span style="color:#F07178">  run</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF;font-style:italic"> |</span></span>
@@ -194,7 +194,7 @@ Github Sponsor
 <span class="line"><span style="color:#C3E88D">    git add yarn.lock</span></span>
 <span class="line"><span style="color:#C3E88D">    git diff --staged --quiet || git commit -m "chore: update yarn.lock"</span></span>
 <span class="line"><span style="color:#C3E88D">    git push</span></span></code></pre>
-<blockquote><p>There is also a separate issue where pushing with <code>GITHUB_TOKEN</code> doesn’t re-trigger CI workflows. This is covered in detail in <a href="/github_actions/github-actions-workflow-retrigger/">Why GitHub Actions Workflows Don’t Re-trigger</a>.</p></blockquote>
+<blockquote><p>There is also a separate issue where pushing with <code>GITHUB_TOKEN</code> doesn’t re-trigger CI workflows. This is covered in detail in <a href="/en/github_actions/github-actions-workflow-retrigger/">Why GitHub Actions Workflows Don’t Re-trigger</a>.</p></blockquote>
 <p>This results in the following commit history on the Dependabot branch:</p>
 
 

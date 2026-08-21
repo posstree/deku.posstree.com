@@ -55,12 +55,12 @@ Github Sponsor
 <p>iOS는 개발한 앱을 배포하기 전에 자신의 테스터 또는 테스트 버전의 공개 URL을 사용하여 테스트할 수 있는 <code>TestFlight</code> 시스템을 가지고 있습니다. 여기에서는 <code>TestFlight</code>를 이용하여 개발한 앱을 테스트하는 방법에 대해 알아보겠습니다.</p>
 <p>이 블로그는 연재물입니다. 아래에 블로그도 함께 확인해보세요.</p>
 <ul>
-<li><a href="/react-native/ios-test-on-device/">iOS 디바이스 테스트</a></li>
-<li><a href="/react-native/ios-running-on-device/">iOS 빌드 및 테스트</a></li>
-<li><a href="/react-native/ios-enroll-developer-program/">iOS 개발자 등록</a></li>
-<li><a href="/react-native/ios-certification/">iOS 인증서(Certification)</a></li>
-<li><a href="/react-native/ios-app-store/">iOS App store 등록</a></li>
-<li><a href="/react-native/fastlane/">Fastlane을 통한 앱 자동 배포</a></li>
+<li><a href="/ko/react-native/ios-test-on-device/">iOS 디바이스 테스트</a></li>
+<li><a href="/ko/react-native/ios-running-on-device/">iOS 빌드 및 테스트</a></li>
+<li><a href="/ko/react-native/ios-enroll-developer-program/">iOS 개발자 등록</a></li>
+<li><a href="/ko/react-native/ios-certification/">iOS 인증서(Certification)</a></li>
+<li><a href="/ko/react-native/ios-app-store/">iOS App store 등록</a></li>
+<li><a href="/ko/react-native/fastlane/">Fastlane을 통한 앱 자동 배포</a></li>
 </ul>
 <p>애플 개발자 프로그램(Apple Developer Program) 등록이나 인증서(Certification) 설정에 관해서는 위에 블로그 내용을 참고하시기 바랍니다.</p>
 <h2 id="배포용-앱-생성">배포용 앱 생성</h2>
@@ -69,7 +69,7 @@ Github Sponsor
 <li>앱 스토어 커넥트(App Store Connect): <a href="https://appstoreconnect.apple.com/" rel="nofollow noreferrer" target="_blank">https://appstoreconnect.apple.com/</a></li>
 </ul>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/app-store-connect.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/app-store-connect.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/app-store-connect.jpg" alt="App Store Connect" width="1280" height="582" loading="lazy" decoding="async"></picture></p>
-<p>애플 개발자 프로그램(Apple Developer Program)에 등록한 개발자 아이디로 로그인합니다. 애플 개발자 프로그램(Apple Developer Program)에 등록하지 않은 분은 <a href="/react-native/ios-enroll-developer-program/">iOS 개발자 등록</a> 블로그를 참고하여 등록하시기 바랍니다.</p>
+<p>애플 개발자 프로그램(Apple Developer Program)에 등록한 개발자 아이디로 로그인합니다. 애플 개발자 프로그램(Apple Developer Program)에 등록하지 않은 분은 <a href="/ko/react-native/ios-enroll-developer-program/">iOS 개발자 등록</a> 블로그를 참고하여 등록하시기 바랍니다.</p>
 <p>로그인을 하고 나면 아래와 같은 화면을 볼 수 있습니다. <code>나의 앱</code>을 선택하여 앱 관리 페이지로 이동합니다.</p>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/ko-app-store-connect-main.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/ko-app-store-connect-main.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/ko-app-store-connect-main.jpg" alt="앱 스토어 커넥트 메인" width="1280" height="581" loading="lazy" decoding="async"></picture></p>
 <p>왼쪽 위에 <code>+</code> 버튼을 누르고 <code>신규 앱</code> 메뉴를 선택합니다.</p>
@@ -77,7 +77,7 @@ Github Sponsor
 <p>앱 등록 화면이 나옵니다. 자신의 앱 정보를 입력합니다. 잘 모르는 부분이 있으면 항목 타이틀 옆 <code>?</code>를 눌러 확인합니다. 이름과 기본 언어는 나중에 변경이 가능합니다.</p>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/ko-new-app.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/ko-new-app.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/ko-new-app.jpg" alt="앱 생성" width="1280" height="535" loading="lazy" decoding="async"></picture></p>
 <ul>
-<li>번들 ID: 앱을 개발할 때 사용한 <code>bundle ID</code>입니다. 어디에 있는지 잘 모르시는 분은 이전 블로그인 <a href="/react-native/ios-test-on-device/">iOS 디바이스 테스트</a>에서 확인해 주세요.</li>
+<li>번들 ID: 앱을 개발할 때 사용한 <code>bundle ID</code>입니다. 어디에 있는지 잘 모르시는 분은 이전 블로그인 <a href="/ko/react-native/ios-test-on-device/">iOS 디바이스 테스트</a>에서 확인해 주세요.</li>
 <li>SKU: App Store에 표시되지 않는 앱의 고유한 ID입니다. 보통 URL 형식으로 작성합니다.(ex> io.github.dev-yakuza.blaboo)</li>
 </ul>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/ko-app-menu.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/ko-app-menu.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/ko-app-menu.jpg" alt="앱 메뉴" width="1280" height="161" loading="lazy" decoding="async"></picture></p>
@@ -97,7 +97,7 @@ Github Sponsor
 <p>개발된 앱을 빌드하여 앱스토어 커넥트(App Store Connect)에 업로드하는 방법을 알아보겠습니다. 이미 빌드한 파일이 있으신 분은 이 부분을 건너뛰셔도 좋습니다.</p>
 <p>RN(react native) 프로젝트 폴더에 <code>ios/프로젝트명.xcodeproj</code> 파일을 실행시킵니다.</p>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/build-for-production.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/build-for-production.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/build-for-production.jpg" alt="build for production" width="774" height="342" loading="lazy" decoding="async"></picture></p>
-<p>xcode가 실행되면 상단 메뉴에서 <code>Product</code> > <code>Archive</code>를 선택합니다. 애플 개발자 프로그램(Apple Developer Program)에 등록하지 않은 분이나 인증서를 연결하지 않으신 분은 이전 블로그를 확인해 주세요.(<a href="/react-native/ios-enroll-developer-program/">iOS 개발자 등록</a>, <a href="/react-native/ios-certification/">iOS 인증서(Certification)</a>)</p>
+<p>xcode가 실행되면 상단 메뉴에서 <code>Product</code> > <code>Archive</code>를 선택합니다. 애플 개발자 프로그램(Apple Developer Program)에 등록하지 않은 분이나 인증서를 연결하지 않으신 분은 이전 블로그를 확인해 주세요.(<a href="/ko/react-native/ios-enroll-developer-program/">iOS 개발자 등록</a>, <a href="/ko/react-native/ios-certification/">iOS 인증서(Certification)</a>)</p>
 <p>빌드가 무사히 끝나면 아래와 같은 화면을 볼 수 있습니다.</p>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/distribute-app.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/distribute-app.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/distribute-app.jpg" alt="build for production" width="993" height="458" loading="lazy" decoding="async"></picture></p>
 <h2 id="앱-업로드">앱 업로드</h2>
@@ -111,7 +111,7 @@ Github Sponsor
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/upload-export.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/upload-export.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/upload-export.jpg" alt="upload or export" width="993" height="486" loading="lazy" decoding="async"></picture></p>
 <p>최종 목적지로 앱 스토어 커넥트(App Store Connect)에 업로드할지 ipa파일로 내보낼지(export) 선택하는 화면이 나옵니다. 우리는 앱 스토어 커넥트(App Store Connect)에 업로드할 예정임으로 <code>Upload</code>를 선택합니다.</p>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/options.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/options.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/options.jpg" alt="options" width="993" height="486" loading="lazy" decoding="async"></picture></p>
-<p>옵션 선택 화면이 나옵니다. 옵션이 모두 선택된 상태에서 <code>Next</code>를 선택합니다. 다음 화면에서 생성한 인증서와 프로비저닝 프로파일(Provisioning Profile)을 선택합니다. 인증서, 프로비저닝 프로파일(Provisioning Profile) 생성은 이전 블로그인 <a href="/react-native/ios-certification/">iOS 인증서(Certification)</a>를 확인해 주세요.</p>
+<p>옵션 선택 화면이 나옵니다. 옵션이 모두 선택된 상태에서 <code>Next</code>를 선택합니다. 다음 화면에서 생성한 인증서와 프로비저닝 프로파일(Provisioning Profile)을 선택합니다. 인증서, 프로비저닝 프로파일(Provisioning Profile) 생성은 이전 블로그인 <a href="/ko/react-native/ios-certification/">iOS 인증서(Certification)</a>를 확인해 주세요.</p>
 <p>배포 준비가 끝나면 아래와 같은 화면을 볼 수 있습니다. <code>Upload</code> 버튼을 눌러 준비된 파일을 앱 스토어 커넥트(App Store Connect)에 업로드합니다.</p>
 <p><picture><source srcset="/assets/images/category/react-native/ios-testflight/upload.avif" type="image/avif"><source srcset="/assets/images/category/react-native/ios-testflight/upload.webp" type="image/webp"><img src="/assets/images/category/react-native/ios-testflight/upload.jpg" alt="upload" width="993" height="486" loading="lazy" decoding="async"></picture></p>
 <p>무사히 앱을 앱스토어 커넥트(App Store Connect)에 업로드하였습니다. 업로드한 파일을 사용할 준비가 되면 애플에서 메일이 옵니다. 업로드에서 메일 도착까지 조금 시간이 걸립니다.</p>

@@ -93,7 +93,7 @@ We introduce about <code>site</code> global variables we mainly use.</p>
 <h3 id="page-variable">page variable</h3>
 <p>Here are <code>page</code>’s global variables which are on the top of the page with <code>yml</code> format.</p>
 <ul>
-<li>page.title: this is a page title. we use it on <code>&#x3C;title></code> tag in <code>&#x3C;head></code> tag, title on the top of the post and display post list on <a href="/jekyll/">category page</a>.</li>
+<li>page.title: this is a page title. we use it on <code>&#x3C;title></code> tag in <code>&#x3C;head></code> tag, title on the top of the post and display post list on <a href="/en/jekyll/">category page</a>.</li>
 <li>page.url: this is the page url. we use it for everywhere that required the link like <code>sitemap.xml</code>.</li>
 <li>page.date: the date assigned to the post.</li>
 <li>page.categories: the category list that is belonged the post.</li>
@@ -160,7 +160,7 @@ We introduce about <code>site</code> global variables we mainly use.</p>
 <h4 id="default-settings">Default settings</h4>
 <ul>
 <li>title: this is the title of the site. basically, this is used on <code>&#x3C;title></code> tag in <code>&#x3C;head></code> tag, but we don’t use it because we use <code>title</code> variable on <code>page</code> options.</li>
-<li>email: this is a option for setting email. We use it for sending email to us on <a href="/jekyll/disqus/">Contact</a>. If you want to know how to send email on jekyll, please ses <a href="/jekyll/send_mail/">Send email</a>.</li>
+<li>email: this is a option for setting email. We use it for sending email to us on <a href="/en/jekyll/disqus/">Contact</a>. If you want to know how to send email on jekyll, please ses <a href="/en/jekyll/send-email/">Send email</a>.</li>
 <li>description: just like <code>title</code>, this will be on the page <code>head</code> tag. However, we use page <code>description</code> instead of this option.</li>
 <li>url: this is a site URL. this is used by configuring real site url(<code>https://dev-yakuza.github.io</code>). If you test the jekyll site by executing <code>bundle exec jekyll serve</code> command, jekyll ignore this url and automatically set <code>http://localhost:4000</code>. When you execute <code>bundle exec jekyll build</code> command for deploying the site, jekyll use this url.</li>
 <li>author: the author of the site. use it on <code>author</code> meta tag in <code>head</code> tag.</li>
@@ -170,7 +170,7 @@ We introduce about <code>site</code> global variables we mainly use.</p>
 <p>see each plugin posts about each plugin option details.</p>
 <h5 id="pagination-plugin-configuration">Pagination plugin configuration</h5>
 <ul>
-<li>see <a href="/jekyll/pagination-plugin/">Pagination plugin</a></li>
+<li>see <a href="/en/jekyll/pagination-plugin/">Pagination plugin</a></li>
 </ul>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">permalink</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> /:year/:month/</span></span>
 <span class="line"><span style="color:#F07178">pagination</span><span style="color:#89DDFF">:</span></span>
@@ -184,7 +184,7 @@ We introduce about <code>site</code> global variables we mainly use.</p>
 <span class="line"><span style="color:#F07178">    after</span><span style="color:#89DDFF">:</span><span style="color:#F78C6C"> 2</span></span></code></pre>
 <h5 id="multi-languages-plugin-configuration">Multi-languages plugin configuration</h5>
 <ul>
-<li>see <a href="/jekyll/multi-languages-plugin/">Multi-languages plugin</a>.</li>
+<li>see <a href="/en/jekyll/multi-languages-plugin/">Multi-languages plugin</a>.</li>
 </ul>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#F07178">languages</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> [</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">ko</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">en</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">]</span></span>
 <span class="line"><span style="color:#F07178">default_lang</span><span style="color:#89DDFF">:</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">ja</span><span style="color:#89DDFF">'</span></span>
@@ -212,9 +212,9 @@ We introduce about <code>site</code> global variables we mainly use.</p>
 <h4 id="plugin-setting-options-in-page-settings">Plugin setting options in Page settings</h4>
 <p>We use these for plugins or managing the site. More details are on each blog posts.</p>
 <ul>
-<li>paginate_path: <a href="/jekyll/pagination-plugin/">Pagination plugin</a> option. Determine Pagination URL.</li>
-<li>lang: <a href="/jekyll/multi-languages-plugin/">Multi-languages plugin</a> options. this is what current page language is.</li>
-<li>comments: the option for using <a href="/jekyll/disqus/">Disqus comment</a> service.</li>
+<li>paginate_path: <a href="/en/jekyll/pagination-plugin/">Pagination plugin</a> option. Determine Pagination URL.</li>
+<li>lang: <a href="/en/jekyll/multi-languages-plugin/">Multi-languages plugin</a> options. this is what current page language is.</li>
+<li>comments: the option for using <a href="/en/jekyll/disqus/">Disqus comment</a> service.</li>
 <li>description: show description with title on the top of the page and <code>head</code>’s description.</li>
 <li>image: post hero image. it’s a background image on the top and <code>og:image</code> in <code>head</code>.</li>
 </ul>

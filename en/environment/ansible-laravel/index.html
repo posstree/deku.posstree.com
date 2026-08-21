@@ -41,11 +41,11 @@ Github Sponsor
 <p>at previous blog, we installed Laradock by Ansible. to develop Laravel, we will install and create Laravel project.</p>
 <p>this blog is the series of below list. we recommend to read below list for understanding.</p>
 <ul>
-<li><a href="/environment/vagrant-install-and-usage/">vagrant installation and usage</a></li>
-<li><a href="/environment/install-ansible/">Ansible installation</a></li>
-<li><a href="/environment/ansible-playbook/">Ansible Playbook</a></li>
-<li><a href="/environment/ansible-docker/">Ansible&#x26;Docker</a></li>
-<li><a href="/environment/ansible-laradock/">Ansible&#x26;Laradock</a></li>
+<li><a href="/en/environment/vagrant-install-and-usage/">vagrant installation and usage</a></li>
+<li><a href="/en/environment/install-ansible/">Ansible installation</a></li>
+<li><a href="/en/environment/ansible-playbook/">Ansible Playbook</a></li>
+<li><a href="/en/environment/ansible-docker/">Ansible&#x26;Docker</a></li>
+<li><a href="/en/environment/ansible-laradock/">Ansible&#x26;Laradock</a></li>
 </ul>
 <h2 id="configure-php-and-composer">configure php and composer</h2>
 <p>if you installed php and composer in local machine(host system), it’s better to skip this section. to create Laravel project, we’ll install php and composer on virtual machine(guest system).</p>
@@ -196,7 +196,7 @@ Github Sponsor
 <span class="line"><span style="color:#82AAFF">cd</span><span style="color:#C3E88D"> /vagrant</span></span>
 <span class="line"><span style="color:#FFCB6B">composer</span><span style="color:#C3E88D"> create-project</span><span style="color:#C3E88D"> laravel/laravel</span><span style="color:#C3E88D"> app</span></span></code></pre>
 <h2 id="configure-laravel-project">configure Laravel project</h2>
-<p>at previous blog post(<a href="/environment/ansible-laradock/">Ansible&#x26;Laradock</a>), we’ve made Laradock installation <code>role</code> like below.</p>
+<p>at previous blog post(<a href="/en/environment/ansible-laradock/">Ansible&#x26;Laradock</a>), we’ve made Laradock installation <code>role</code> like below.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="yml"><code><span class="line"><span style="color:#FFCB6B">...</span></span>
 <span class="line"><span style="color:#89DDFF">-</span><span style="color:#F07178"> name</span><span style="color:#89DDFF">:</span><span style="color:#C3E88D"> change project folder</span></span>
 <span class="line"><span style="color:#F07178">  replace</span><span style="color:#89DDFF">:</span></span>
@@ -269,7 +269,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">php</span><span style="color:#C3E88D"> artisan</span><span style="color:#C3E88D"> migrate:rollback</span></span></code></pre>
 <h2 id="completed">completed</h2>
 <p>we’ve made Laravel development environment using vagrant, Ansible and Laradock. also, we’ve seen a little bit how to use Ansible and Docker through creating development environment. if we use Ansible and Docker very well, maybe we can be <code>DevOps</code>.</p>
-<p>we will continue to add contents related to building development environment, Docker and Ansible to this <a href="/environment/">dev environment</a> category. also, we will add contents about Laravel development to <a href="/laravel/">Laravel</a>, so please see it.</p>
+<p>we will continue to add contents related to building development environment, Docker and Ansible to this <a href="/en/environment/">dev environment</a> category. also, we will add contents about Laravel development to <a href="/en/laravel/">Laravel</a>, so please see it.</p>
 <p>you can see Laravel development environment created until now at below repository.</p>
 <ul>
 <li><a href="https://github.com/dev-yakuza/laravel-devtool" rel="nofollow noreferrer" target="_blank">https://github.com/dev-yakuza/laravel-devtool</a></li>

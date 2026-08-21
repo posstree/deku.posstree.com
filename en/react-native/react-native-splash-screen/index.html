@@ -66,7 +66,7 @@ Github Sponsor
 <h2 id="outline">Outline</h2>
 <p>basically, RN(React Native) supports Splash screen. I’ve introduced how to use <code>react-native-make</code> tool to make Splash image in variety of sizes. you can see it to click the link below.</p>
 <ul>
-<li><a href="/react-native/react-native-make/">App icon &#x26; Splash image in React Native</a></li>
+<li><a href="/en/react-native/react-native-make/">App icon &#x26; Splash image in React Native</a></li>
 </ul>
 <p>however, when RN(React Native) is executed, Splash screen quickly ends. in normal app UX, Splash screen shows up and get information via API in background. after getting information, Splash screen ends and show the screen with information. but it’s difficult to implement it with Splash screen which RN(React Native) supports basically.</p>
 <p>in this blog, we’ll introduce how to use <code>react-native-splash-screen</code> library to end Splash screen when you want.</p>
@@ -153,7 +153,7 @@ I use the Git to the version control. below is for using the Git.</li>
 <span class="line"><span style="color:#C792EA">    android</span><span style="color:#89DDFF">:</span><span style="color:#C792EA">layout_height</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">match_parent</span><span style="color:#89DDFF">"</span></span>
 <span class="line"><span style="color:#C792EA">    android</span><span style="color:#89DDFF">:</span><span style="color:#C792EA">background</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">@drawable/launch_screen</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">></span></span>
 <span class="line"><span style="color:#89DDFF">&#x3C;/</span><span style="color:#F07178">LinearLayout</span><span style="color:#89DDFF">></span></span></code></pre>
-<p>if you used <code>generator-rn-toolbox</code>(<a href="/react-native/splash-image/">Splash Image</a>) to generate the Splash images, Splash images were generated named <code>launch_screen.png</code> in <code>darwable-*</code>.</p>
+<p>if you used <code>generator-rn-toolbox</code>(<a href="/en/react-native/splash-image/">Splash Image</a>) to generate the Splash images, Splash images were generated named <code>launch_screen.png</code> in <code>darwable-*</code>.</p>
 <p>therefore, you can use above source code but if you have another name splash image file, you should modify <code>launch_screen</code> part to your file name in <code>android:background="@drawable/launch_screen"</code>.</p>
 <h3 id="ios">iOS</h3>
 <p>open and modify <code>AppDelegate.m</code> file to use <code>react-native-splash-screen</code> o iOS.</p>

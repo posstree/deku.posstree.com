@@ -41,15 +41,15 @@ Github Sponsor
 <p>I try to use python django for server-side developing. in this blog post, I’ll introduce how to use the administrator page that django basically provides. django administrator page looks like <code>phpmyadmin</code> which means we can see and manage the database information on the page.</p>
 <p>this blog is a series. if you want to check other blog posts of the series, see the links below.</p>
 <ul>
-<li><a href="/django/installation/">django installation</a></li>
-<li><a href="/django/start/">Start django Project</a></li>
-<li><a href="/django/models/">Use Models in django</a></li>
+<li><a href="/en/django/installation/">django installation</a></li>
+<li><a href="/en/django/start/">Start django Project</a></li>
+<li><a href="/en/django/models/">Use Models in django</a></li>
 <li>django Administrator Page</li>
-<li><a href="/django/routing/">django Routing</a></li>
-<li><a href="/django/orm/">django ORM</a></li>
-<li><a href="/django/view/">django View</a></li>
-<li><a href="/django/form/">django Form</a></li>
-<li><a href="/django/heroku/">Upload django project to Heroku</a></li>
+<li><a href="/en/django/routing/">django Routing</a></li>
+<li><a href="/en/django/orm/">django ORM</a></li>
+<li><a href="/en/django/view/">django View</a></li>
+<li><a href="/en/django/form/">django Form</a></li>
+<li><a href="/en/django/heroku/">Upload django project to Heroku</a></li>
 </ul>
 <p>also, this blog series source code is opened on Github. you can see full source code via the link below.</p>
 <ul>
@@ -96,7 +96,7 @@ Github Sponsor
 <p>and then, insert the user information created above, and login. you can see the screen like below after sign-in</p>
 <p><picture><source srcset="/assets/images/category/django/2019/admin/main.avif" type="image/avif"><source srcset="/assets/images/category/django/2019/admin/main.webp" type="image/webp"><img src="/assets/images/category/django/2019/admin/main.jpg" alt="django administrator page - main page" width="1280" height="465" loading="lazy" decoding="async"></picture></p>
 <h2 id="register-models-to-administrator-page">Register Models To Administrator Page</h2>
-<p>we need to register our Models to manage it on the django administrator page. open <code>blog/admin.py</code> file and modify it like below to register our <code>Post</code> Models. if you want to know how to make django Models, see the previous blog post.(<a href="/django/models/">Use Models in django</a>)</p>
+<p>we need to register our Models to manage it on the django administrator page. open <code>blog/admin.py</code> file and modify it like below to register our <code>Post</code> Models. if you want to know how to make django Models, see the previous blog post.(<a href="/en/django/models/">Use Models in django</a>)</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> django</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">contrib </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> admin</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#89DDFF"> .</span><span style="color:#EEFFFF">models </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> Post</span></span>
 <span class="line"></span>

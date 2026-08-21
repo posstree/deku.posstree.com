@@ -62,7 +62,7 @@ Github Sponsor
 <h2 id="디바이스-준비">디바이스 준비</h2>
 <p>이 기능을 테스트하기 위해서는 앱을 디바이스에서 설치해야합니다. iOS 디바이스에 앱을 설치하는 방법은 아래에 블로그를 참고하시기 바랍니다.</p>
 <ul>
-<li><a href="/react-native/ios-test-on-device/">iOS 디바이스 테스트</a></li>
+<li><a href="/ko/react-native/ios-test-on-device/">iOS 디바이스 테스트</a></li>
 </ul>
 <h2 id="infoplist-수정">info.plist 수정</h2>
 <p>이 기능은 특별히 소스코드를 수정할 필요가 없습니다. <code>info.plist</code>를 수정하기만 하면 간단하게 iTunes 파일 공유 기능을 추가할 수 있습니다.</p>
@@ -90,7 +90,7 @@ Github Sponsor
 <h2 id="파일-활용">파일 활용</h2>
 <p>위와 같이 <code>info.plist</code>를 수정하는 것 만으로, iTunes를 통한 파일을 업로드하는 기능을 구현할 수 있습니다. 또한, <code>react-native-fs</code>를 활용하면 iTunes를 통해 업로드한 파일을 활용할 수 있습니다.</p>
 <ul>
-<li><a href="/react-native/react-native-fs/">파일 시스템 사용</a></li>
+<li><a href="/ko/react-native/react-native-fs/">파일 시스템 사용</a></li>
 </ul>
 <p>iTunes를 통해 업로드한 폴더는 <code>react-native-fs</code>의 <code>DocumentDirectoryPath</code>를 통해 접근할 수 있습니다.</p>
 <h2 id="시뮬레이터">시뮬레이터</h2>
@@ -101,7 +101,7 @@ Github Sponsor
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">xcrun</span><span style="color:#C3E88D"> simctl</span><span style="color:#C3E88D"> list</span><span style="color:#89DDFF"> |</span><span style="color:#FFCB6B"> egrep</span><span style="color:#89DDFF"> '</span><span style="color:#C3E88D">(Booted)</span><span style="color:#89DDFF">'</span></span></code></pre>
 <p>그리고 <code>react-native-device-info</code> 라이브러리를 통해 앱의 <code>unique id</code>를 얻습니다.</p>
 <ul>
-<li><a href="/react-native/react-native-device-info/">react-native-device-info</a></li>
+<li><a href="/ko/react-native/react-native-device-info/">react-native-device-info</a></li>
 </ul>
 <p>이렇게 시뮬레이터의 id, 앱의 unique id를 구했다면, <code>/Users/[user name]/Library/Developer/CoreSimulator/Devices/[simulator id]/data/Container/Data/Application/[app id]/Documents/</code> 폴더에 원하는 파일을 업로드하면 디바이스에 iTunes를 통해 파일을 업로드한 것과 동일하게 동작합니다.</p>
 <h2 id="완료">완료</h2>

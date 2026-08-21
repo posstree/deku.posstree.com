@@ -46,32 +46,32 @@ Github Sponsor
 <h2 id="prepare-django-project">Prepare django Project</h2>
 <p>you can see how to prepare django project on the previous blog post series. if you want more details about how to make django project, see the links below.</p>
 <ul>
-<li><a href="/django/installation/">django installation</a></li>
-<li><a href="/django/start/">Start django Project</a></li>
-<li><a href="/django/models/">Use Models in django</a></li>
-<li><a href="/django/admin/">django Administrator Page</a></li>
-<li><a href="/django/routing/">django Routing</a></li>
-<li><a href="/django/orm/">django ORM</a></li>
-<li><a href="/django/view/">django View</a></li>
-<li><a href="/django/form/">django Form</a></li>
-<li><a href="/django/heroku/">Upload django project to Heroku</a></li>
+<li><a href="/en/django/installation/">django installation</a></li>
+<li><a href="/en/django/start/">Start django Project</a></li>
+<li><a href="/en/django/models/">Use Models in django</a></li>
+<li><a href="/en/django/admin/">django Administrator Page</a></li>
+<li><a href="/en/django/routing/">django Routing</a></li>
+<li><a href="/en/django/orm/">django ORM</a></li>
+<li><a href="/en/django/view/">django View</a></li>
+<li><a href="/en/django/form/">django Form</a></li>
+<li><a href="/en/django/heroku/">Upload django project to Heroku</a></li>
 </ul>
 <p>in this blog post, we won’t see how to install and configure django project. just we’ll see simply to prepare the project to be able to talk about JWT.</p>
 <p>execute the command below to create django project.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">django-admin</span><span style="color:#C3E88D"> startproject</span><span style="color:#C3E88D"> django_jwt</span></span></code></pre>
 <p>connect database and migrate the tables to see the blog below.</p>
 <ul>
-<li><a href="/django/start/">Start django Project</a></li>
+<li><a href="/en/django/start/">Start django Project</a></li>
 </ul>
 <p>after connecting the database, execute the command below to create an administrator(<code>superuser</code>).</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFCB6B">python</span><span style="color:#C3E88D"> manage.py</span><span style="color:#C3E88D"> createsuperuser</span></span></code></pre>
 <p>create <code>Blog</code> django App and <code>Post</code> Model by referring the blog post below.</p>
 <ul>
-<li><a href="/django/models/">Use Models in django</a></li>
+<li><a href="/en/django/models/">Use Models in django</a></li>
 </ul>
 <p>and then add test data by referring the blog post below.</p>
 <ul>
-<li><a href="/django/data-seed/">Insert master data to django project</a></li>
+<li><a href="/en/django/data-seed/">Insert master data to django project</a></li>
 </ul>
 <div class="in-feed-ads ads-container">
   <div class="ads-block ads-left">
@@ -212,7 +212,7 @@ Github Sponsor
 <span class="line"><span style="color:#EEFFFF">    posts </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> Post</span><span style="color:#89DDFF">.</span><span style="color:#F07178">objects</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">filter</span><span style="color:#89DDFF">(</span><span style="color:#EEFFFF;font-style:italic">published_at__isnull</span><span style="color:#89DDFF">=False).</span><span style="color:#82AAFF">order_by</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">-published_at</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">)</span></span>
 <span class="line"><span style="color:#EEFFFF">    post_list </span><span style="color:#89DDFF">=</span><span style="color:#EEFFFF"> serializers</span><span style="color:#89DDFF">.</span><span style="color:#82AAFF">serialize</span><span style="color:#89DDFF">(</span><span style="color:#89DDFF">'</span><span style="color:#C3E88D">json</span><span style="color:#89DDFF">'</span><span style="color:#89DDFF">,</span><span style="color:#82AAFF"> posts</span><span style="color:#89DDFF">)</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">    return</span><span style="color:#82AAFF"> HttpResponse</span><span style="color:#89DDFF">(</span><span style="color:#82AAFF">post_list</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF;font-style:italic"> content_type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">"</span><span style="color:#C3E88D">text/json-comment-filtered</span><span style="color:#89DDFF">"</span><span style="color:#89DDFF">)</span></span></code></pre>
-<p>I’ve introduced this part already at the previous blog post(<a href="/django/response-model-to-json/">Convert django Models to JSON for response</a>). to convert and response Model data(QuerySet) to JSON. let’s see new lines.</p>
+<p>I’ve introduced this part already at the previous blog post(<a href="/en/django/response-model-to-json/">Convert django Models to JSON for response</a>). to convert and response Model data(QuerySet) to JSON. let’s see new lines.</p>
 <pre class="astro-code material-theme-darker" style="background-color:#212121;color:#EEFFFF; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#EEFFFF">...</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> rest_framework</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">decorators </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> api_view</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> permission_classes</span><span style="color:#89DDFF">,</span><span style="color:#EEFFFF"> authentication_classes</span></span>
 <span class="line"><span style="color:#89DDFF;font-style:italic">from</span><span style="color:#EEFFFF"> rest_framework</span><span style="color:#89DDFF">.</span><span style="color:#EEFFFF">permissions </span><span style="color:#89DDFF;font-style:italic">import</span><span style="color:#EEFFFF"> IsAuthenticated</span></span>
